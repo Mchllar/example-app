@@ -5,7 +5,7 @@
                 <h2 class="text-2xl font-bold uppercase mb-1">
                     Register
                 </h2>
-                <p class="mb-4">Create an account to see latest discounts</p>
+                
             </header>
 
             <form method="POST"action="/users">
@@ -38,14 +38,14 @@
                     @enderror
                 </div>
 
-                <div class="mb-6">
+                <!--<div class="mb-6">
                     <label for="role" class="inline-block text-lg mb-2">Role</label>
                     <select name="role" class="border border-gray-200 rounded p-2 w-full">
                         <option value="user">Customer</option>
                         <option value="merchant">Merchant</option>
                         <option value="admin">Admin</option>
                     </select>
-                </div>
+                </div>-->
                 
 
                 <div class="mb-6">

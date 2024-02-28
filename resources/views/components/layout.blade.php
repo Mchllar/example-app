@@ -20,7 +20,7 @@
                 theme: {
                     extend: {
                         colors: {
-                            laravel: "green",
+                            laravel: "blue",
                         },
                     },
                 },
