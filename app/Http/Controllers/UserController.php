@@ -44,6 +44,20 @@ class UserController extends Controller
        return view("auth.emailsent");
     }
 
+    public function showLandingPage() {
+        $role = auth()->user()->role;
+    
+        switch ($role) {
+            case 'staff':
+                return view('staff.landing');
+            case 'supervisor':
+                return view('supervisor.landing');
+            default:
+                return view('student.landing');
+        }
+    }
+    
+
     
     //Registration Process
      //Log Out
@@ -51,9 +65,7 @@ class UserController extends Controller
      {
          // Check if the user is authenticated
          if (auth()->check()) {
-             // Clear the Ethereum address from the user's database record
              $user = $request->user();
-             $user->ethereum_address = null;
              $user->save();
          }
      
@@ -62,7 +74,7 @@ class UserController extends Controller
          $request->session()->invalidate();
          $request->session()->regenerateToken();
      
-         return redirect('/')->with('message', 'You have been logged out and wallet disconnected!');
+         return redirect('/')->with('message', 'You have been logged out successfully!');
      }
  
      //Register Users
@@ -71,7 +83,7 @@ class UserController extends Controller
              'name' => ['required', 'min:3'],
              'email' => ['required', 'email', Rule::unique('users', 'email')],
              'password' => ['required', 'min:6'],
-             'role' => ['required', Rule::in(['user', 'merchant', 'admin'])],
+             'role' => ['required', Rule::in(['student', 'supervisor', 'staff'])],
          ]);
      
          //get profile image

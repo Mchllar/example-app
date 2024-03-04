@@ -20,13 +20,14 @@ return new class extends Migration
             $table->string('profile')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('user');
+            $table->string('role')->default('student');
             $table->string('otp_code')->nullable();
             $table->timestamp('otp_created_at')->nullable();
             $table->string('reset_token')->nullable();
             $table->timestamp('reset_token_expiry')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 

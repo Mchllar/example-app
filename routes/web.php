@@ -22,9 +22,10 @@ use Illuminate\Support\Facades\Facade;
 });*/
 
 // Landing Page Route
-Route::get('/', function () {
-    return view('landing');
-})->name('landing')->middleware('auth'); // This ensures only authenticated users can access the landing page
+//Route::get('/', function () {    return view('landing');})->name('landing')->middleware('auth');
+// Landing Page Route
+Route::get('/', [UserController::class, 'showLandingPage'])->name('landing')->middleware('auth');
+
 
 //ALL USER AUTH ROUTES
 //Showing the register form
