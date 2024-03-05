@@ -68,6 +68,10 @@ class UserController extends Controller
     public function thesisSubmission(){
         return view('student.thesis_submission');
     }
+
+    public function noticeSubmission(){
+        return view ('student.notice'); 
+    }
     
     //Registration Process
      //Log Out

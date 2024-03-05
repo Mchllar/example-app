@@ -63,3 +63,6 @@ Route::match(['get', 'post'], '/thesisCorrection', [UserController::class, 'thes
 
 //Thesis Submission
 Route::match(['get', 'post'], '/thesisSubmission', [UserController::class, 'thesisSubmission']);
+
+//Notice of Intention to Submit Thesis
+Route::match(['get', 'post'], '/noticeSubmission', [UserController::class, 'noticeSubmission']);
