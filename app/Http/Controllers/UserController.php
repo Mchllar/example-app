@@ -57,7 +57,17 @@ class UserController extends Controller
         }
     }
     
+    public function conferenceReview(){
+        return view('student.conference_review');
+    }
 
+    public function thesisCorrection(){
+        return view('student.thesis_correction');
+    }
+
+    public function thesisSubmission(){
+        return view('student.thesis_submission');
+    }
     
     //Registration Process
      //Log Out
