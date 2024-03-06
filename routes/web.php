@@ -58,9 +58,6 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 //Conference Review Criteria
 Route::match(['get', 'post'], '/conferenceReview', [UserController::class, 'conferenceReview']);
 
-//Thesis Correction Form
-Route::match(['get', 'post'], '/thesisCorrection', [UserController::class, 'thesisCorrection']);
-
 //Thesis Submission
 Route::match(['get', 'post'], '/thesisSubmission', [UserController::class, 'thesisSubmission']);
 
