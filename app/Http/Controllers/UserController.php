@@ -136,10 +136,28 @@ switch ($formFields['role']) {
             $formFields['profile'] = $request->file('profile')->store('profiles', 'public');
         }
     
+<<<<<<< HEAD
         // Hash Password
         $formFields['password'] = bcrypt($formFields['password']);
 
         $formFields['role'] = $request->input('role');
+=======
+    public function conferenceReview(){
+        return view('student.conference_review');
+    }
+
+    public function thesisCorrection(){
+        return view('student.thesis_correction');
+    }
+
+    public function thesisSubmission(){
+        return view('student.thesis_submission');
+    }
+
+    public function noticeSubmission(){
+        return view ('student.notice'); 
+    }
+>>>>>>> 2a8a8ab385e5d55a75b9137f1a07c6de61325a7f
     
         // Generate OTP
         $otp = rand(100000, 999999);
