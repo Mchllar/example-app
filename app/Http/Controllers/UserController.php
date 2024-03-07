@@ -61,10 +61,13 @@ class UserController extends Controller
         return view('student.conference_review');
     }
 
+<<<<<<< HEAD
     public function thesisCorrection(){
         return view('student.thesis_correction');
     }
 
+=======
+>>>>>>> 64f974c854e3cdde9e4e69e486b4a8eef9932090
     public function thesisSubmission(){
         return view('student.thesis_submission');
     }
@@ -110,6 +113,7 @@ class UserController extends Controller
         'role' => ['required', Rule::in(['student', 'supervisor', 'staff'])],
     ]);
 
+<<<<<<< HEAD
     // Upload profile image
     if ($request->hasFile('profile')) {
         $formFields['profile'] = $request->file('profile')->store('profiles', 'public');
@@ -136,6 +140,73 @@ class UserController extends Controller
     return redirect('/verify-registration-otp');
     }
 
+=======
+        // Handle different roles
+switch ($formFields['role']) {
+    case 'student':
+        // Validate and store student-specific fields
+        $studentFields = $request->validate([
+            'student_number' => 'required',
+            'phone_number' => 'required',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required',
+            'nationality' => 'required',
+            'religion' => 'required',
+            'school' => 'required',
+            'programme' => 'required',
+            'intake' => 'required',
+            'previous_school' => 'required',
+            'status' => 'required',
+        ]);
+
+        // Merge student-specific fields into the main form fields
+        $formFields = array_merge($formFields, $studentFields);
+        break;
+    case 'supervisor':
+        // Validate and store supervisor-specific fields
+        $supervisorFields = $request->validate([
+            'curriculum_vitae' => 'required',
+            'contract' => 'required',
+        ]);
+
+        // Merge supervisor-specific fields into the main form fields
+        $formFields = array_merge($formFields, $supervisorFields);
+        break;
+    case 'staff':
+        // No specific fields for staff, so no validation needed
+        break;
+}
+
+
+        //get profile image
+        if ($request->hasFile('profile')) {
+            $formFields['profile'] = $request->file('profile')->store('profiles', 'public');
+        }
+    
+
+        // Hash Password
+        $formFields['password'] = bcrypt($formFields['password']);
+
+        $formFields['role'] = $request->input('role');
+    
+        // Generate OTP
+        $otp = rand(100000, 999999);
+    
+        // Store user details and OTP in session for OTP verification
+        session([
+            'user_details' => $formFields, 
+            'otp_code' => $otp, 
+            'email' => $formFields['email'], 
+            'otp_created_at' => now()
+        ]);
+    
+        // Send OTP to user's email
+        Mail::to($formFields['email'])->send(new SendOtpMail($otp));
+    
+        // Redirect to OTP verification page
+        return redirect('/verify-registration-otp');
+    }
+>>>>>>> 64f974c854e3cdde9e4e69e486b4a8eef9932090
 
     // Verify registration OTP
     public function verifyRegistrationOtp(Request $request)

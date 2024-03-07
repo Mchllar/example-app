@@ -16,10 +16,10 @@
     <li><a href="">Submit Progress Report</a></li>
     <li><a href="">Submit Journal Publication</a></li>
     <li><a href="">Submit Conference Publication</a></li>
-    <li><a href="">Submit Thesis/Dissertation</a></li>
+    <li><a href="/thesisSubmission">Submit Thesis/Dissertation</a></li>
     <li><a href="">Request for Academic Leave</a></li>
-    <li><a href="">Request for Conference Approval</a></li>
-    <li><a href="">Submit Notice Of Intent</a></li>
+    <li><a href="/conferenceReview">Request for Conference Approval</a></li>
+    <li><a href="/noticeSubmission">Submit Notice Of Intent</a></li>
 </ul>
 
             </div>
