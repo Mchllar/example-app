@@ -1,23 +1,22 @@
 <x-layout>
-    @include('partials._hero')
-    @include('partials._search')
-    
-<body>
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Welcome, Supervisor!</h1>
-                <p>This is the dashboard for supervisor users.</p>
-                <!-- Include any supervisor-specific content or functionality -->
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Approve Thesis</a></li>
-                    <li><a href="">Update Progress Report</a></li>
-                    <li><a href="">View Students</a></li>
-                </ul>
-                
-            </div>
-        </section>
-    </main>
-</body>
+    <section class="hero bg-gray-100 py-20">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold mb-4">Welcome, Supervisor!</h1>
+            <p class="text-lg text-gray-700 mb-8">This is the dashboard for supervisor users.</p>
+            <ul class="flex flex-wrap justify-center">
+                <li class="mx-4 my-2">
+                    <a href="#" class="font-bold hover:underline">Home</a>
+                </li>
+                <li class="mx-4 my-2">
+                    <a href="#" class="font-bold hover:underline">Approve Thesis</a>
+                </li>
+                <li class="mx-4 my-2">
+                    <a href="#" class="font-bold hover:underline">Update Progress Report</a>
+                </li>
+                <li class="mx-4 my-2">
+                    <a href="#" class="font-bold hover:underline">View Students</a>
+                </li>
+            </ul>
+        </div>
+    </section>
 </x-layout>

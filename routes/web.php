@@ -67,3 +67,8 @@ Route::match(['get', 'post'], '/noticeSubmission', [UserController::class, 'noti
 
 // Assign Supervisor
 Route::get('/assign-supervisors', [SupervisorController::class, 'assignSupervisors'])->name('assign-supervisors');
+
+
+// Change Supervisor
+Route::get('/change-supervisor-request-form', [SupervisorController::class, 'showChangeSupervisorRequestForm'])->name('change-supervisor-request-form');
+Route::post('/change-supervisor-request', [SupervisorController::class, 'submitChangeSupervisorRequest'])->name('change-supervisor-request');
