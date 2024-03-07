@@ -37,29 +37,7 @@
                 @auth
                 <li>
                    <span class="font-bold"> {{auth()->user()->name}}</span>
-                </li>
-                @if(auth()->user()->role == "merchant" | auth()->user()->role == "admin" )
-                <li>
-                    <a href="/listings/manage " class="hover:text-laravel"
-                        ><i class="fa-solid fa-gear"></i>
-                        Manage Listings</a>
-                </li>
-                @endif
-                @if(auth()->user()->role == "admin" )
-                <li>
-                    <a href="/admin/list " class="hover:text-laravel"
-                        ><i class="fa-solid fa-person"></i>
-                        Manage Users</a>
-                </li>
-                @endif
-                @if(auth()->user()->role == "user" )
-                <li>
-                    <a href="/wallet " class="hover:text-laravel">
-                        <i class="fa-solid fa-wallet"></i>
-                        Your Wallet</a>
-                </li>
-                @endif
-               
+                </li>               
                 <li>
                     <form class="inline" method="POST" action="/logout">
                       @csrf

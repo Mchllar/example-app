@@ -57,6 +57,22 @@ class UserController extends Controller
         return view("auth.emailsent");
     }
 
+    public function conferenceReview(){
+        return view('student.conference_review');
+    }
+
+    public function thesisCorrection(){
+        return view('student.thesis_correction');
+    }
+
+    public function thesisSubmission(){
+        return view('student.thesis_submission');
+    }
+
+    public function noticeSubmission(){
+        return view ('student.notice'); 
+    }
+
     // Show landing page based on user role
     public function showLandingPage()
     {
@@ -85,97 +101,41 @@ class UserController extends Controller
     // Register users
     public function store(Request $request)
     {
-        // Validate registration form fields
-        $formFields = $request->validate([
-            'name' => ['required', 'min:3'],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:6'],
-            'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
-            'role' => ['required', Rule::in(['student', 'supervisor', 'staff'])],
-        ]);
+    // Validate registration form fields
+    $formFields = $request->validate([
+        'name' => ['required', 'min:3'],
+        'email' => ['required', 'email', Rule::unique('users', 'email')],
+        'password' => ['required', 'min:6'],
+        'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
+        'role' => ['required', Rule::in(['student', 'supervisor', 'staff'])],
+    ]);
 
-        // Handle different roles
-switch ($formFields['role']) {
-    case 'student':
-        // Validate and store student-specific fields
-        $studentFields = $request->validate([
-            'student_number' => 'required',
-            'phone_number' => 'required',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required',
-            'nationality' => 'required',
-            'religion' => 'required',
-            'school' => 'required',
-            'programme' => 'required',
-            'intake' => 'required',
-            'previous_school' => 'required',
-            'status' => 'required',
-        ]);
-
-        // Merge student-specific fields into the main form fields
-        $formFields = array_merge($formFields, $studentFields);
-        break;
-    case 'supervisor':
-        // Validate and store supervisor-specific fields
-        $supervisorFields = $request->validate([
-            'curriculum_vitae' => 'required',
-            'contract' => 'required',
-        ]);
-
-        // Merge supervisor-specific fields into the main form fields
-        $formFields = array_merge($formFields, $supervisorFields);
-        break;
-    case 'staff':
-        // No specific fields for staff, so no validation needed
-        break;
-}
-
-
-        //get profile image
-        if ($request->hasFile('profile')) {
-            $formFields['profile'] = $request->file('profile')->store('profiles', 'public');
-        }
-    
-<<<<<<< HEAD
-        // Hash Password
-        $formFields['password'] = bcrypt($formFields['password']);
-
-        $formFields['role'] = $request->input('role');
-=======
-    public function conferenceReview(){
-        return view('student.conference_review');
+    // Upload profile image
+    if ($request->hasFile('profile')) {
+        $formFields['profile'] = $request->file('profile')->store('profiles', 'public');
     }
 
-    public function thesisCorrection(){
-        return view('student.thesis_correction');
+    // Hash Password
+    $formFields['password'] = bcrypt($formFields['password']);
+
+    // Generate OTP
+    $otp = rand(100000, 999999);
+
+    // Store user details and OTP in session for OTP verification
+    session([
+        'user_details' => $formFields, 
+        'otp_code' => $otp, 
+        'email' => $formFields['email'], 
+        'otp_created_at' => now()
+    ]);
+
+    // Send OTP to user's email
+    Mail::to($formFields['email'])->send(new SendOtpMail($otp));
+
+    // Redirect to OTP verification page
+    return redirect('/verify-registration-otp');
     }
 
-    public function thesisSubmission(){
-        return view('student.thesis_submission');
-    }
-
-    public function noticeSubmission(){
-        return view ('student.notice'); 
-    }
->>>>>>> 2a8a8ab385e5d55a75b9137f1a07c6de61325a7f
-    
-        // Generate OTP
-        $otp = rand(100000, 999999);
-    
-        // Store user details and OTP in session for OTP verification
-        session([
-            'user_details' => $formFields, 
-            'otp_code' => $otp, 
-            'email' => $formFields['email'], 
-            'otp_created_at' => now()
-        ]);
-    
-        // Send OTP to user's email
-        Mail::to($formFields['email'])->send(new SendOtpMail($otp));
-    
-        // Redirect to OTP verification page
-        return redirect('/verify-registration-otp');
-    }
 
     // Verify registration OTP
     public function verifyRegistrationOtp(Request $request)

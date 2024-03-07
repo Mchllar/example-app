@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Facade;
+use App\Http\Controllers\SupervisorController;
 
 
 /*
@@ -66,3 +67,6 @@ Route::match(['get', 'post'], '/thesisSubmission', [UserController::class, 'thes
 
 //Notice of Intention to Submit Thesis
 Route::match(['get', 'post'], '/noticeSubmission', [UserController::class, 'noticeSubmission']);
+
+// Assign Supervisor
+Route::get('/assign-supervisors', [SupervisorController::class, 'assignSupervisors'])->name('assign-supervisors');
