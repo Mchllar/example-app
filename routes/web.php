@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Facade;
 use App\Http\Controllers\SupervisorController;
+use App\Http\Controllers\ProgressReportController;
 
 
 /*
@@ -72,3 +73,8 @@ Route::get('/assign-supervisors', [SupervisorController::class, 'assignSuperviso
 // Change Supervisor
 Route::get('/change-supervisor-request-form', [SupervisorController::class, 'showChangeSupervisorRequestForm'])->name('change-supervisor-request-form');
 Route::post('/change-supervisor-request', [SupervisorController::class, 'submitChangeSupervisorRequest'])->name('change-supervisor-request');
+
+// Progress Report Routes
+Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index');
+Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create');
+Route::post('/progress_reports', [ProgressReportController::class, 'store'])->name('progress_reports.store');

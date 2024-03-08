@@ -1,0 +1,217 @@
+<x-layout>
+    <style>
+        /* CSS to style table headings */
+        th {
+            font-weight: semibold;
+            background-color: #e5e7eb; /* Grey background */
+            border: 2px solid black; /* Visible borders */
+        }
+
+        /* CSS to change link color to red when hovered over */
+        a:hover {
+            color: red;
+        }
+    </style>
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- SECTION A: GENERAL INFORMATION -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-4">SECTION A: GENERAL INFORMATION</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="surname">Surname</label>
+                    <input type="text" id="surname" name="surname" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="other_names">Other Names</label>
+                    <input type="text" id="other_names" name="other_names" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="student_number">Student Number</label>
+                    <input type="text" id="student_number" name="student_number" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="tel">Tel</label>
+                    <input type="text" id="tel" name="tel" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="programme">Programme</label>
+                    <input type="text" id="programme" name="programme" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="school_institute">School/Institute</label>
+                    <input type="text" id="school_institute" name="school_institute" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="mode_of_study">Mode of Study</label>
+                    <select id="mode_of_study" name="mode_of_study" class="form-select">
+                        <option value="full-time">Full-time</option>
+                        <option value="part-time">Part-time</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="date_of_registration">Date of Registration</label>
+                    <input type="date" id="date_of_registration" name="date_of_registration" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="expected_submission_date">Expected Submission Date</label>
+                    <input type="date" id="expected_submission_date" name="expected_submission_date" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="reporting_period">Reporting Period</label>
+                    <input type="text" id="reporting_period" name="reporting_period" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="principal_supervisor">Principal Supervisor</label>
+                    <input type="text" id="principal_supervisor" name="principal_supervisor" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+                <div>
+                    <label for="lead_supervisor">Lead Supervisor</label>
+                    <input type="text" id="lead_supervisor" name="lead_supervisor" class="border border-gray-200 rounded p-2 w-full">
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION B: STUDENT REPORT ON PROGRESS -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-4">SECTION B: STUDENT REPORT ON PROGRESS</h2>
+            <div>
+                <label for="goals_set">a) Goals Set for Reporting Period</label>
+                <textarea id="goals_set" name="goals_set" class="form-textarea"></textarea>
+            </div>
+            <div class="mt-4">
+                <label for="progress_report">b) Comment on Progress</label>
+                <textarea id="progress_report" name="progress_report" class="form-textarea"></textarea>
+            </div>
+            <div class="mt-4">
+                <label for="problems_issues">c) Problems or Issues</label>
+                <textarea id="problems_issues" name="problems_issues" class="form-textarea"></textarea>
+            </div>
+            <div class="mt-4">
+                <label for="agreed_goals">d) Agreed Goals for Next Six Months</label>
+                <textarea id="agreed_goals" name="agreed_goals" class="form-textarea"></textarea>
+            </div>
+            <div class="mt-4">
+                <label for="progress_rating">e) Progress Rating</label>
+                <select id="progress_rating" name="progress_rating" class="form-select">
+                    <option value="significantly_more">Significantly More Than Planned</option>
+                    <option value="less_than">Less Than Planned</option>
+                    <option value="a_little_more">A Little More Than Planned</option>
+                    <option value="a_lot_less">A Lot Less Than Planned</option>
+                    <option value="about_what_was_planned">About What Was Planned</option>
+                    <option value="no_progress">No Progress Has Been Made</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- SECTION C: SUPERVISOR COMMENTS ON PROGRESS -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-4">SECTION C: SUPERVISOR COMMENTS ON PROGRESS</h2>
+            <p>(To be completed by the Supervisors in consultation with the Student)</p>
+            <ol>
+                <li>(a) Is this student working at a rate, which will allow them to complete his or her thesis by the planned completion date?</li>
+                <li>(b) Please rate the student’s progress in the last six months in relation to their goals and work plan</li>
+                <ul>
+                    <li>☐ Significantly more than planned</li>
+                    <li>☐ Less than planned</li>
+                    <li>☐ A little more than planned</li>
+                    <li>☐ A lot less than planned</li>
+                    <li>☐ About what was planned</li>
+                    <li>☐ No progress has been made</li>
+                </ul>
+                <li>(c) How much of the thesis has been written (in percentage terms)? How much longer do you estimate it will take to complete?</li>
+                <li>(d) If there are problems, please indicate what steps are being taken to address them.</li>
+                <li>(e) Do you have any concerns about this student or his or her work?</li>
+                <li>(f) If the candidate is in their last six months of candidature, please indicate whether the thesis shows evidence that the candidate has developed each of the generic attributes of a good thesis.</li>
+                <p>These are listed below. Rate each on a scale of 1 – 5, where 1 = unsatisfactory and 5 = very good.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Evidence that it forms a distinct contribution to the knowledge of the subject</td>
+                            <td>☐</td>
+                            <td>☐</td>
+                            <td>☐</td>
+                            <td>☐</td>
+                            <td>☐</td>
+                        </tr>
+                        <!-- Add other rows as needed -->
+                    </tbody>
+                </table>
+                <li>(g) Please comment briefly on the aspects of the thesis you consider inadequate.</li>
+                <textarea rows="5" class="form-textarea"></textarea>
+            </ol>
+            <div class="mt-4">
+                <label for="student_signature">Student Signature</label>
+                <input type="text" id="student_signature" name="student_signature" class="border border-gray-200 rounded p-2 w-full">
+                <label for="student_date">Date:</label>
+                <input type="date" id="student_date" name="student_date" class="border border-gray-200 rounded p-2 w-full">
+            </div>
+            <div class="mt-4">
+                <label for="principal_signature">Signature (Principal Supervisor)</label>
+                <input type="text" id="principal_signature" name="principal_signature" class="border border-gray-200 rounded p-2 w-full">
+                <label for="principal_date">Date:</label>
+                <input type="date" id="principal_date" name="principal_date" class="border border-gray-200 rounded p-2 w-full">
+            </div>
+            <div class="mt-4">
+                <label for="lead_signature">Signature (Lead Supervisor)</label>
+                <input type="text" id="lead_signature" name="lead_signature" class="border border-gray-200 rounded p-2 w-full">
+                <label for="lead_date">Date:</label>
+                <input type="date" id="lead_date" name="lead_date" class="border border-gray-200 rounded p-2 w-full">
+            </div>
+            <p>Please forward to the Office of Graduate Studies</p>
+        </div>
+
+        <!-- SECTION D: OFFICE OF GRADUATE STUDIES -->
+        <div>
+            <h2 class="text-lg font-semibold mb-4">SECTION D: OFFICE OF GRADUATE STUDIES</h2>
+            <p>(To be completed by the Director of Graduate Studies)</p>
+            <p>Student progress</p>
+            <p>Please read carefully the previous sections that have been completed by the student and supervisors. If you agree that satisfactory progress has been made during the period covered by the report, and that the future plans are appropriate and that no special action is needed, please sign below. If progress is not satisfactory, complete the relevant section below.</p>
+            <p>Progress: Has progress been satisfactory in the context of the student completing their studies successfully and on time?</p>
+            <ul>
+                <li>☐ Yes</li>
+                <li>☐ No</li>
+            </ul>
+            <p>Unsatisfactory progress and action</p>
+            <p>If any aspect of student performance is unsatisfactory, please identify what is wrong Recommendations on student progression Progress recommended as below (tick as appropriate, giving details in box above)</p>
+            <ul>
+                <li>☐ Continued registration</li>
+                <li>☐ Continued registration with conditions attached</li>
+                <li>☐ Suspend registration</li>
+                <li>☐ Change status from full-time and part-time registration</li>
+                <li>☐ Terminate registration</li>
+                <li>☐ Student to write-up and submit MPhil thesis</li>
+                <li>☐ Refer to Board of Graduate Studies for further deliberation</li>
+                <li>☐ Any other recommendation</li>
+            </ul>
+            <textarea rows="5" class="form-textarea"></textarea>
+            <div class="mt-4">
+                <label for="director_name">Director of Graduate Studies (Name)</label>
+                <input type="text" id="director_name" name="director_name" class="border border-gray-200 rounded p-2 w-full">
+                <label for="director_signature">Signature</label>
+                <input type="text" id="director_signature" name="director_signature" class="border border-gray-200 rounded p-2 w-full">
+                <label for="director_date">Date:</label>
+                <input type="date" id="director_date" name="director_date" class="border border-gray-200 rounded p-2 w-full">
+            </div>
+            <p>Please forward to the School/Institute of the Candidate</p>
+            <p>The School/Institute should prepare a report to OGS within a month of receiving this progress report. Their report should include actions to be taken in response to any of the issues identified in this report.</p>
+        </div>
+    </div>
+</x-layout>
