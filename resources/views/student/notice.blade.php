@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intention Notice Form</title>
+<x-layout>
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,11 +66,18 @@
             padding: 20px;
             border-radius: 10px;
             background-color: #f2f2f2; /* Gray background color */
+
+              
+        }
+
+        label span {
+        color: blue; 
         }
 
     </style>
 </head>
 <body>
+    
 <img src="{{ asset('images/sgs_logo_dark.png') }}" alt="White logo" style="display: block; margin: 20px auto 0; width: 20%;">
 
 <h2 style="text-align: center; font-size: 20px; ">NOTICE OF INTENTION TO SUBMIT THESIS</h2>
@@ -84,33 +86,8 @@
 
 <form action="/submit" method="post">
     <table>
-        <tr>
-            <th>Student Name</th>
-            <td><input type="text" name="student_name"></td>
-        </tr>
-        <tr>
-            <th>Student Number</th>
-            <td><input type="text" name="student_number"></td>
-        </tr>
-        <tr>
-            <th>Faculty/School/Institute</th>
-            <td><input type="text" name="faculty"></td>
-        </tr>
-        <tr>
-            <th>Title of Degree</th>
-            <td><input type="text" name="degree_title"></td>
-        </tr>
-        <tr>
             <th>Title of Thesis</th>
             <td><input type="text" name="thesis_title"></td>
-        </tr>
-        <tr>
-            <th>Email Address</th>
-            <td><input type="email" name="email"></td>
-        </tr>
-        <tr>
-            <th>Phone no.</th>
-            <td><input type="tel" name="phone"></td>
         </tr>
         <tr>
             <th>Date intended to submit thesis</th>
@@ -162,17 +139,47 @@
         </tr>
     </table>
 
-    <h3>Section B</h3>
-    <h3 style= "text-align: justify;">DECLARATION <br></h3>
-    <p>
+<h3>Section B</h3>
+<h3 style="text-align: justify;">DECLARATION <br></h3>
+<p>
     The work to be submitted has not previously been accepted in substance for any degree 
     and is not concurrently submitted in candidature for any degree. This thesis is the result 
     of my own independent work/investigation, except where otherwise stated. Other 
     sources are acknowledged by explicit references.
-    </p>
+</p>
 
-    <input type="submit" value="Submit">
+<!-- Add a checkbox for the user to affirm the declaration -->
+<label for="declaration_checkbox">
+    <input type="checkbox" id="declaration_checkbox" name="declaration_checkbox" required>
+    <span style="color: blue;">I affirm the declaration above.</span>
+</label>
+
+<span id="error_message" style="color: red; display: none;">Please affirm the declaration.</span>
+<span id="success_message" style="color: green; display: none;">Form submitted successfully!</span>
+
+<input type="submit" value="Submit" onclick="validateForm()">
+
+
+<script>
+function validateForm() {
+    var checkbox = document.getElementById("declaration_checkbox");
+    var errorMessage = document.getElementById("error_message");
+    var successMessage = document.getElementById("success_message");
+    
+    if (!checkbox.checked) {
+        errorMessage.style.display = "inline"; // Show error message
+        setTimeout(function(){ errorMessage.style.display = "none"; }, 3000); // Hide error message after 3 seconds
+        return false; // Prevent form submission
+    }
+    
+    successMessage.style.display = "inline"; // Show success message
+    setTimeout(function(){ successMessage.style.display = "none"; }, 3000); // Hide success message after 3 seconds
+    return true; // Allow form submission
+}
+</script>
+
+
 </form>
 </div>
 </body>
-</html>
+</x-layout>
