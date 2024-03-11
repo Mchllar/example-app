@@ -65,8 +65,16 @@
         <h2>First Submission</h2>
         <form action="/thesisSubmission" method="post" enctype="multipart/form-data">
             @csrf
+            <label for="thesis_document">Thesis/Dissertation Document:</label>
+            <h4> Submission Instructions:</h4>
+            <ol>
+                <li>1. The thesis should meet the guidelines. i.e Technical requirements, Front matter etc.</li>
+                <li>2. The thesis should be approved by your supervisor.</li>
+                <li>3. Upload PDF documents <strong style="color: red;">ONLY</strong>.</li>
+        </br>
+            </ol>
             <div>
-                <label for="thesis_document">Thesis/Dissertation Document:</label>
+                
                 <input type="file" id="thesis_document" name="thesis_document" accept=".pdf">
             </div>
            

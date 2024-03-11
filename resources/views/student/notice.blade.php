@@ -1,5 +1,6 @@
 <x-layout>
-<style>
+<head>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -50,7 +51,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: blue;
         }
 
         p {
@@ -66,19 +67,32 @@
             padding: 20px;
             border-radius: 10px;
             background-color: #f2f2f2; /* Gray background color */
-
-              
         }
 
         label span {
         color: blue; 
         }
 
+        .upload-button {
+        display: inline-block;
+        padding: 8px 10px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 2px;
+        transition: background-color 0.3s;
+        }
+
+        .upload-button:hover {
+            background-color: blue
+        }
+
+
     </style>
 </head>
 <body>
     
-<img src="{{ asset('images/sgs_logo_dark.png') }}" alt="White logo" style="display: block; margin: 20px auto 0; width: 20%;">
+<!--<img src="{{ asset('images/sgs_logo_dark.png') }}" alt="White logo" style="display: block; margin: 20px auto 0; width: 20%;"> -->
 
 <h2 style="text-align: center; font-size: 20px; ">NOTICE OF INTENTION TO SUBMIT THESIS</h2>
 <div class="form-container">
@@ -86,56 +100,13 @@
 
 <form action="/submit" method="post">
     <table>
+        <tr>
             <th>Title of Thesis</th>
             <td><input type="text" name="thesis_title"></td>
         </tr>
         <tr>
             <th>Date intended to submit thesis</th>
             <td><input type="date" name="intended_submit_date"></td>
-        </tr>
-    </table>
-
-    <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
-
-      <table>
-        <tr>
-            <th>Date</th>
-            <th>Journal</th>
-            <th>Title of Paper</th>
-            <th>Status of Paper</th>
-        </tr>
-        <tr>
-            <td><input type="date" name="date"></td>
-            <td><input type="text" name="journal"></td>
-            <td><input type="text" name="title"></td>
-            <td>
-                <select name="status">
-                    <option value="under review">Under Review</option>
-                    <option value="accepted">Accepted</option>
-                    <option value="published">Published</option>
-                </select>
-            </td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Conference Title & Website</th>
-            <th>Title of Paper Presentation</th>
-            <th>Status of Paper</th>
-        </tr>
-        <tr>
-            <td><input type="date" name="date"></td>
-            <td><input type="text" name="conference"></td>
-            <td><input type="text" name="title"></td>
-            <td>
-                <select name="status">
-                    <option value="under review">Under Review</option>
-                    <option value="accepted">Accepted</option>
-                    <option value="published">Published</option>
-                </select>
-            </td>
         </tr>
     </table>
 
@@ -178,8 +149,15 @@ function validateForm() {
 }
 </script>
 
-
 </form>
+
+
+<p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
+</br>
+<!-- Display from the database -->
+<p>Total Journals: <a href="/journalSubmission" class="upload-button">Upload Journal</a></p>
+</br>
+<p>Total Conferences: <a href="/conferenceSubmission" class="upload-button">Upload Conference Paper</a></p>
 </div>
 </body>
 </x-layout>

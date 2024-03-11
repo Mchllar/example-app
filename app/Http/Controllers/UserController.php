@@ -62,8 +62,12 @@ class UserController extends Controller
     }
 
 
-    public function thesisCorrection(){
-        return view('student.thesis_correction');
+    public function conferenceSubmission(){
+        return view('student.conference_submission');
+    }
+
+    public function journalSubmission(){
+        return view('student.journal_submission');
     }
 
 

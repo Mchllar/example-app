@@ -41,7 +41,7 @@
                 <li>
                     <form class="inline" method="POST" action="/logout">
                       @csrf
-                      <button type="submit">
+                      <button type="logout">
                         <i class="fa-solid fa-door-closed"></i> Logout
                       </button>
                     </form>
@@ -64,10 +64,32 @@
         <main>
         {{$slot}}
         </main>
-        <footer
-            class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-red h-20 mt-24 opacity-100 md:justify-center">
-            <p class="ml-2">Copyright &copy; 2023, All Rights reserved</p>
+        <footer id="footer" class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-16 p-4 md:justify-center transition-opacity duration-500 opacity-100">
+            <p class="ml-2">&copy; 2023, All Rights Reserved</p>
         </footer>
+
+        <script>
+            let lastScrollTop = 0;
+            const footer = document.getElementById('footer');
+
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                if (scrollTop > lastScrollTop) {
+                    // Scrolling down, hide the footer
+                    footer.classList.remove('opacity-100');
+                    footer.classList.add('opacity-0');
+                } else {
+                    // Scrolling up, show the footer
+                    footer.classList.remove('opacity-0');
+                    footer.classList.add('opacity-100');
+                }
+
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+            });
+        </script>
+
+
         <x-flash-message></x-flash-message>
     </body>
 </html>
