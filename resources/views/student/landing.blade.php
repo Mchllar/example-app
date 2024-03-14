@@ -14,22 +14,22 @@
                     <a href="{{ route('progress_reports.index')}}" class="font-bold hover:underline">Submit Progress Report</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="/journalSubmission" class="font-bold hover:underline">Submit Journal Publication</a>
+                    <a href="{{ route('journalSubmission')}}" class="font-bold hover:underline">Submit Journal Publication</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="/conferenceSubmission" class="font-bold hover:underline">Submit Conference Publication</a>
+                    <a href="{{ route('conferenceSubmission')}}" class="font-bold hover:underline">Submit Conference Publication</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="/thesisSubmission" class="font-bold hover:underline">Submit Thesis/Dissertation</a>
+                    <a href="{{ route('index')}}" class="font-bold hover:underline">Submit Thesis/Dissertation</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="#" class="font-bold hover:underline">Request for Academic Leave</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="/conferenceReview" class="font-bold hover:underline">Request for Conference Approval</a>
+                    <a href="{{ route('conferenceReview')}}" class="font-bold hover:underline">Request for Conference Approval</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="/noticeSubmission" class="font-bold hover:underline">Submit Notice Of Intent</a>
+                    <a href="{{ route('noticeSubmission')}}" class="font-bold hover:underline">Submit Notice Of Intent</a>
                 </li>
             </ul>
         </div>

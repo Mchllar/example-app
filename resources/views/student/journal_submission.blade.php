@@ -1,4 +1,9 @@
-<x-layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publication Submission</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,7 +54,7 @@
         form {
             width: 100%;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 40px auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -68,7 +73,7 @@
         }
 
         input[type="submit"] {
-            width: 100%;
+            width: 30%;
             padding: 10px;
             background-color: #4CAF50;
             color: white;
@@ -80,13 +85,15 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+
         p {
             text-align: justify;
             font-size: 16px;
             line-height: 1.5;
         }
     </style>
-
+</head>
+<body>
     <div class="container">
         <!-- Sidebar navigation -->
         <div class="sidebar">
@@ -96,7 +103,7 @@
                 <li><a href="{{ route('progress_reports.index')}}" class="font-bold">Submit Progress Report</a></li>
                 <li><a href="/journalSubmission" class="font-bold">Submit Journal Publication</a></li>
                 <li><a href="conferenceSubmission" class="font-bold">Submit Conference Publication</a></li>
-                <li><a href="/thesisSubmission" class="font-bold">Submit Thesis/Dissertation</a></li>
+                <li><a href="/submission" class="font-bold">Submit Thesis/Dissertation</a></li>
                 <li><a href="#" class="font-bold">Request for Academic Leave</a></li>
                 <li><a href="/conferenceReview" class="font-bold">Request for Conference Approval</a></li>
                 <li><a href="/noticeSubmission" class="font-bold">Submit Notice Of Intent</a></li>
@@ -104,31 +111,37 @@
         </div>
         <!-- Main content -->
         <div class="main-content">
-        <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
+            <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
 
-            <form action="/submit" method="post">
-            <table>
-        <tr>
-            <th>Date</th>
-            <th>Journal</th>
-            <th>Title of Paper</th>
-            <th>Status of Paper</th>
-        </tr>
-        <tr>
-            <td><input type="date" name="date"></td>
-            <td><input type="text" name="journal"></td>
-            <td><input type="text" name="title"></td>
-            <td>
-                <select name="status">
-                    <option value="under review">Under Review</option>
-                    <option value="accepted">Accepted</option>
-                    <option value="published">Published</option>
-                </select>
-            </td>
-        </tr>
-    </table>
+            <form action="{{ route('journal.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+
+                <table>
+                    <tr>
+                        <th>Journal Title</th>
+                        <th>Title of Paper</th>
+                        <th>Status of Paper</th>
+                    </tr>
+                    <tr>
+                        
+                        <td><input type="text" name="journal_title" id="journal_title"  ></td>
+                        <td><input type="text" name="title_of_paper" id="title_of_paper" ></td>
+                        <td>
+                            <select name="status" id="status" >
+                                <option value="under review">Under Review</option>
+                                <option value="accepted">Accepted</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                </table>
+                <br>
+                <h3> Upload the actual paper or the acceptance. </h3><br>
+                <input type="file" name="file_upload"> <br><br>
                 <input type="submit" value="Submit">
             </form>
         </div>
     </div>
-</x-layout>
+</body>
+</html>

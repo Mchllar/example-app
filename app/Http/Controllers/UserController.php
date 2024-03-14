@@ -57,28 +57,6 @@ class UserController extends Controller
         return view("auth.emailsent");
     }
 
-    public function conferenceReview(){
-        return view('student.conference_review');
-    }
-
-
-    public function conferenceSubmission(){
-        return view('student.conference_submission');
-    }
-
-    public function journalSubmission(){
-        return view('student.journal_submission');
-    }
-
-
-    public function thesisSubmission(){
-        return view('student.thesis_submission');
-    }
-
-    public function noticeSubmission(){
-        return view ('student.notice'); 
-    }
-
     // Show landing page based on user role
     public function showLandingPage()
     {

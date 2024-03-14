@@ -98,15 +98,16 @@
 <div class="form-container">
     <h3 style="text-align: center; ">Section A:</h3>
 
-<form action="/submit" method="post">
+<form action="{{ route('notice.store') }}" method="post">
+    @csrf
     <table>
         <tr>
             <th>Title of Thesis</th>
-            <td><input type="text" name="thesis_title"></td>
+            <td><input type="text" name="thesis_title" id="thesis_title"></td>
         </tr>
         <tr>
             <th>Date intended to submit thesis</th>
-            <td><input type="date" name="intended_submit_date"></td>
+            <td><input type="date" name="proposed_date" id="proposed_date"></td>
         </tr>
     </table>
 
@@ -155,9 +156,10 @@ function validateForm() {
 <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
 </br>
 <!-- Display from the database -->
-<p>Total Journals: <a href="/journalSubmission" class="upload-button">Upload Journal</a></p>
+<!-- Table for journals publications & Conference publications... Student ID-->
+<p>List of your Journal Articles: <a href="/journalSubmission" class="upload-button">Add a Journal Article</a></p>
 </br>
-<p>Total Conferences: <a href="/conferenceSubmission" class="upload-button">Upload Conference Paper</a></p>
+<p>List of your Conference Articles: <a href="/conferenceSubmission" class="upload-button">Add a Conference Paper</a></p>
 </div>
 </body>
 </x-layout>

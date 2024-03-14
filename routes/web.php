@@ -6,6 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Facade;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\ProgressReportController;
+use App\Http\Controllers\ConferenceController;
+use App\Http\Controllers\JournalSubmissionController;
+use App\Http\Controllers\ThesisSubmissionController;
+use App\Http\Controllers\ThesisIndexController;
+use App\Http\Controllers\IntentionSubmissionController;
+use App\Http\Controllers\ConferenceReviewController;
+
+
+
 
 
 /*
@@ -49,28 +58,41 @@ Route::get('/verify-registration-otp', [UserController::class, 'regOTP']);
 Route::post('/verify-registration-otp', [UserController::class, 'verifyRegistrationOtp']);
 Route::get('/verify-login-otp', [UserController::class, 'logOTP']);
 Route::post('/verify-login-otp', [UserController::class, 'verifyLoginOtp']);
+
 //Resend OTP
 Route::get('/resend-otp', [UserController::class, 'resendOtp'])->name('resend-otp'); 
 Route::get('/resend-registration-otp', [UserController::class, 'resendRegOtp'])->name('resendRegOtp');
-
 
 // Log User Out
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //Conference Review Criteria
-Route::match(['get', 'post'], '/conferenceReview', [UserController::class, 'conferenceReview']);
+Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceReview'])->name('conferenceReview');
 
-//Thesis Submission
-Route::match(['get', 'post'], '/thesisSubmission', [UserController::class, 'thesisSubmission']);
+
 
 //Notice of Intention to Submit Thesis
-Route::match(['get', 'post'], '/noticeSubmission', [UserController::class, 'noticeSubmission']);
+Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('noticeSubmission');
+Route::get('/notice/create', [IntentionSubmissionController::class, 'create'])->name('notice.create');
+Route::post('/noticeSubmit', [IntentionSubmissionController::class, 'store'])->name('notice.store');
+
+
+// Conference Submission
+Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
+Route::get('/conference/create', [ConferenceController::class, 'create'])->name('conference.create');
+Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('conference.store');
+
 
 //Journal Submission
-Route::match(['get', 'post'], '/conferenceSubmission', [UserController::class, 'conferenceSubmission']);
+Route::get('/journalSubmission', [JournalSubmissionController::class, 'journalSubmission'])->name('journalSubmission');
+Route::get('/journal/create', [JournalSubmissionController::class, 'create'])->name('journal.create');
+Route::post('/submit', [JournalSubmissionController::class, 'store'])->name('journal.store');
 
-//Journal Submission
-Route::match(['get', 'post'], '/journalSubmission', [UserController::class, 'journalSubmission']);
+
+//Thesis Index Page
+Route::get('/index', [ThesisIndexController::class, 'index'])->name('index');
+//Thesis Submission
+Route::get('/submission', [ThesisIndexController:: class, 'submitThesis'])->name( 'submission' );
 
 // Assign Supervisor
 Route::get('/assign-supervisors', [SupervisorController::class, 'assignSupervisors'])->name('assign-supervisors');
