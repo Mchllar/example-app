@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Staff;
+use App\Models\Gender;
+use App\Models\Religion;
+use App\Models\Student;
+use App\Models\Country;
 use App\Mail\SendOtpMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -24,7 +30,11 @@ class UserController extends Controller
     // Show registration form
     public function register()
     {
-        return view("auth.register");
+        $countries = Country::all();
+        $genders = Gender::all();
+        $religions = Religion::all();
+    
+        return view("auth.register", compact('countries', 'genders', 'religions'));
     }
 
     // Show 2FA verification form for registration
@@ -85,76 +95,66 @@ class UserController extends Controller
     // Register users
     public function store(Request $request)
     {
-        // Validate registration form fields
-        $formFields = $request->validate([
-            'name' => ['required', 'min:3'],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:6'],
-            'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max file size as needed
-            'role' => ['required', Rule::in(['student', 'supervisor', 'staff'])],
+        // Validate incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'role' => 'required|in:1,2,3', // Assuming role values correspond to student, supervisor, staff
+            'date_of_birth' => 'nullable|date',
+            'gender' => 'nullable|exists:gender,id',
+            'nationality' => 'nullable|exists:country,id',
+            'religion' => 'nullable|exists:religion,id',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Handle different roles
-        switch ($formFields['role']) {
-            case 'student':
-                // Validate and store student-specific fields
-                $studentFields = $request->validate([
-                    'student_number' => 'required',
-                    'phone_number' => 'required',
-                    'date_of_birth' => 'required|date',
-                    'gender' => 'required',
-                    'nationality' => 'required',
-                    'religion' => 'required',
-                    'school' => 'required',
-                    'programme' => 'required',
-                    'intake' => 'required',
-                    'previous_school' => 'required',
-                    'status' => 'required',
-                ]);
-
-                // Merge student-specific fields into the main form fields
-                $formFields = array_merge($formFields, $studentFields);
-                break;
-            case 'supervisor':
-                // Validate and store supervisor-specific fields
-                $supervisorFields = $request->validate([
-                    'curriculum_vitae' => 'required',
-                    'contract' => 'required',
-                ]);
-
-                // Merge supervisor-specific fields into the main form fields
-                $formFields = array_merge($formFields, $supervisorFields);
-                break;
-            case 'staff':
-                // No specific fields for staff, so no validation needed
-                break;
-        }
-
-        // Upload profile image
+        // Handle profile picture upload
         if ($request->hasFile('profile')) {
-            $formFields['profile'] = $request->file('profile')->store('profiles', 'public');
+            $profilePath = $request->file('profile')->store('profiles', 'public');
+        } else {
+            // Handle if profile picture is not provided
+            $profilePath = null;
         }
 
-        // Hash Password
-        $formFields['password'] = bcrypt($formFields['password']);
+        // Create the user
+        $user = new User();
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->profile = $profilePath;
+        $user->role_id = $validatedData['role'];
+        $user->date_of_birth = $validatedData['date_of_birth'];
+        $user->gender_id = $validatedData['gender'];
+        $user->country_id = $validatedData['nationality'];
+        $user->religion_id = $validatedData['religion'];
+        $user->password = Hash::make($validatedData['password']);
+        $user->save();
 
-        // Generate OTP
+        // Create role-specific record (Student, Staff)
+        if ($validatedData['role'] == 1) {
+            // Student-specific fields
+            $student = new Student();
+            $student->student_number = $request->input('student_number');
+            $student->program_id = $request->input('programme');
+            $student->user_id = $user->id;
+            $student->save();
+        } elseif ($validatedData['role'] == 2) {
+            // Supervisor-specific fields
+            $staff = new Staff();
+            $staff->curriculum_vitae = $request->file('curriculum_vitae')->store('cv', 'public');
+            $staff->school_id = $request->input('school');
+            $staff->user_id = $user->id;
+            $staff->save();
+        }
+
+        // Generate and send OTP
         $otp = rand(100000, 999999);
-
-        // Store user details and OTP in session for OTP verification
-        session([
-            'user_details' => $formFields, 
-            'otp_code' => $otp, 
-            'email' => $formFields['email'], 
-            'otp_created_at' => now()
-        ]);
-
-        // Send OTP to user's email
-        Mail::to($formFields['email'])->send(new SendOtpMail($otp));
-
+        session(['email' => $user->email, 'otp_code' => $otp]);
+        Mail::to($user->email)->send(new SendOtpMail($otp));
+    
         // Redirect to OTP verification page
         return redirect('/verify-registration-otp');
     }
+
 
     // Verify registration OTP
     public function verifyRegistrationOtp(Request $request)

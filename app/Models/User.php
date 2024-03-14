@@ -16,26 +16,24 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    use HasFactory, Notifiable;
+
     protected $fillable = [
         'name',
         'email',
         'password',
-        'profile',
-        'role',
+        'profile', 
+        'role_id', 
+        'phone_number', 
+        'date_of_birth', 
+        'country_id', 
+        'religion_id', 
+        'gender_id', 
+        'status',
         'otp_code',
-        'student_number', // For Student role
-        'phone_number', // For Student role
-        'date_of_birth', // For Student role
-        'gender', // For Student role
-        'nationality', // For Student role
-        'religion', // For Student role
-        'school', // For Student role
-        'programme', // For Student role
-        'intake', // For Student role
-        'previous_school', // For Student role
-        'status', // For Student role
-        'curriculum_vitae', // For Supervisor role
-        'contract', // For Supervisor role
+        'otp_created_at',
+        'reset_token',
+        'reset_token_expiry',
     ];
 
     /**
@@ -58,7 +56,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'otp_code' => 'string',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    public function staff()
+    {
+        return $this->hasOne(Staff::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function religion()
+    {
+        return $this->belongsTo(Religion::class);
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
 }
-
-
-//'profile',
