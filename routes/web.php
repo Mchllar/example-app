@@ -66,6 +66,12 @@ Route::match(['get', 'post'], '/thesisSubmission', [UserController::class, 'thes
 //Notice of Intention to Submit Thesis
 Route::match(['get', 'post'], '/noticeSubmission', [UserController::class, 'noticeSubmission']);
 
+//Journal Submission
+Route::match(['get', 'post'], '/conferenceSubmission', [UserController::class, 'conferenceSubmission']);
+
+//Journal Submission
+Route::match(['get', 'post'], '/journalSubmission', [UserController::class, 'journalSubmission']);
+
 // Assign Supervisor
 Route::get('/assign-supervisors', [SupervisorController::class, 'assignSupervisors'])->name('assign-supervisors');
 

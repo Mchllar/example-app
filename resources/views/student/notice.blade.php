@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-layout>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intention Notice Form</title>
-<style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -55,7 +51,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: blue;
         }
 
         p {
@@ -73,10 +69,30 @@
             background-color: #f2f2f2; /* Gray background color */
         }
 
+        label span {
+        color: blue; 
+        }
+
+        .upload-button {
+        display: inline-block;
+        padding: 8px 10px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 2px;
+        transition: background-color 0.3s;
+        }
+
+        .upload-button:hover {
+            background-color: blue
+        }
+
+
     </style>
 </head>
 <body>
-<img src="{{ asset('images/sgs_logo_dark.png') }}" alt="White logo" style="display: block; margin: 20px auto 0; width: 20%;">
+    
+<!--<img src="{{ asset('images/sgs_logo_dark.png') }}" alt="White logo" style="display: block; margin: 20px auto 0; width: 20%;"> -->
 
 <h2 style="text-align: center; font-size: 20px; ">NOTICE OF INTENTION TO SUBMIT THESIS</h2>
 <div class="form-container">
@@ -85,32 +101,8 @@
 <form action="/submit" method="post">
     <table>
         <tr>
-            <th>Student Name</th>
-            <td><input type="text" name="student_name"></td>
-        </tr>
-        <tr>
-            <th>Student Number</th>
-            <td><input type="text" name="student_number"></td>
-        </tr>
-        <tr>
-            <th>Faculty/School/Institute</th>
-            <td><input type="text" name="faculty"></td>
-        </tr>
-        <tr>
-            <th>Title of Degree</th>
-            <td><input type="text" name="degree_title"></td>
-        </tr>
-        <tr>
             <th>Title of Thesis</th>
             <td><input type="text" name="thesis_title"></td>
-        </tr>
-        <tr>
-            <th>Email Address</th>
-            <td><input type="email" name="email"></td>
-        </tr>
-        <tr>
-            <th>Phone no.</th>
-            <td><input type="tel" name="phone"></td>
         </tr>
         <tr>
             <th>Date intended to submit thesis</th>
@@ -118,61 +110,54 @@
         </tr>
     </table>
 
-    <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
-
-      <table>
-        <tr>
-            <th>Date</th>
-            <th>Journal</th>
-            <th>Title of Paper</th>
-            <th>Status of Paper</th>
-        </tr>
-        <tr>
-            <td><input type="date" name="date"></td>
-            <td><input type="text" name="journal"></td>
-            <td><input type="text" name="title"></td>
-            <td>
-                <select name="status">
-                    <option value="under review">Under Review</option>
-                    <option value="accepted">Accepted</option>
-                    <option value="published">Published</option>
-                </select>
-            </td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Conference Title & Website</th>
-            <th>Title of Paper Presentation</th>
-            <th>Status of Paper</th>
-        </tr>
-        <tr>
-            <td><input type="date" name="date"></td>
-            <td><input type="text" name="conference"></td>
-            <td><input type="text" name="title"></td>
-            <td>
-                <select name="status">
-                    <option value="under review">Under Review</option>
-                    <option value="accepted">Accepted</option>
-                    <option value="published">Published</option>
-                </select>
-            </td>
-        </tr>
-    </table>
-
-    <h3>Section B</h3>
-    <h3 style= "text-align: justify;">DECLARATION <br></h3>
-    <p>
+<h3>Section B</h3>
+<h3 style="text-align: justify;">DECLARATION <br></h3>
+<p>
     The work to be submitted has not previously been accepted in substance for any degree 
     and is not concurrently submitted in candidature for any degree. This thesis is the result 
     of my own independent work/investigation, except where otherwise stated. Other 
     sources are acknowledged by explicit references.
-    </p>
+</p>
 
-    <input type="submit" value="Submit">
+<!-- Add a checkbox for the user to affirm the declaration -->
+<label for="declaration_checkbox">
+    <input type="checkbox" id="declaration_checkbox" name="declaration_checkbox" required>
+    <span style="color: blue;">I affirm the declaration above.</span>
+</label>
+
+<span id="error_message" style="color: red; display: none;">Please affirm the declaration.</span>
+<span id="success_message" style="color: green; display: none;">Form submitted successfully!</span>
+
+<input type="submit" value="Submit" onclick="validateForm()">
+
+
+<script>
+function validateForm() {
+    var checkbox = document.getElementById("declaration_checkbox");
+    var errorMessage = document.getElementById("error_message");
+    var successMessage = document.getElementById("success_message");
+    
+    if (!checkbox.checked) {
+        errorMessage.style.display = "inline"; // Show error message
+        setTimeout(function(){ errorMessage.style.display = "none"; }, 3000); // Hide error message after 3 seconds
+        return false; // Prevent form submission
+    }
+    
+    successMessage.style.display = "inline"; // Show success message
+    setTimeout(function(){ successMessage.style.display = "none"; }, 3000); // Hide success message after 3 seconds
+    return true; // Allow form submission
+}
+</script>
+
 </form>
+
+
+<p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
+</br>
+<!-- Display from the database -->
+<p>Total Journals: <a href="/journalSubmission" class="upload-button">Upload Journal</a></p>
+</br>
+<p>Total Conferences: <a href="/conferenceSubmission" class="upload-button">Upload Conference Paper</a></p>
 </div>
 </body>
-</html>
+</x-layout>
