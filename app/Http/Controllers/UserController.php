@@ -92,15 +92,21 @@ class UserController extends Controller
     // Show landing page based on user role
     public function showLandingPage()
     {
-        $role = auth()->user()->role;
+        $user = auth()->user();
     
-        switch ($role) {
-            case 'staff':
-                return view('staff.landing');
-            case 'supervisor':
-                return view('supervisor.landing');
-            default:
-                return view('student.landing');
+        if ($user) {
+            switch ($user->role_id) {
+                case 1: // Student
+                    return view('student.landing');
+                case 2: // Supervisor
+                    return view('supervisor.landing');
+                case 3: // Staff
+                    return view('staff.landing');
+                default:
+                    abort(403, 'Unauthorized action.');
+            }
+        } else {
+            abort(403, 'Unauthorized action.');
         }
     }
 
