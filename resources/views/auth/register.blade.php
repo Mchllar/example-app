@@ -75,6 +75,13 @@
                     </select>
                 </div>
                 
+                <!--<div class="mb-6">
+                    <label for="phone" class="inline-block text-lg mb-2">Phone Number</label>
+                    <input type="text" class="border border-gray-200 rounded p-2 w-full" name="phone"/>
+                    @error('phone')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>-->
 
                 <div id="studentFields" class="mb-6 hidden">
                     <!-- Student-specific fields -->
@@ -84,11 +91,11 @@
                     </div>
                     <div class="mb-6">
                         <label for="programme" class="inline-block text-lg mb-2">Programme</label>
-                        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="programme"/>
-                    </div>
-                    <div class="mb-6">
-                        <label for="intake" class="inline-block text-lg mb-2">Intake</label>
-                        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="intake"/>
+                        <select name="programme" class="border border-gray-200 rounded p-2 w-full">
+                            @foreach($programs as $program)
+                                <option value="{{ $program->id }}">{{ $program->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -96,8 +103,13 @@
                     <!-- Supervisor-specific fields -->
                     <div class="mb-6">
                         <label for="school" class="inline-block text-lg mb-2">School</label>
-                        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="school"/>
+                        <select name="school" class="border border-gray-200 rounded p-2 w-full">
+                            @foreach($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
+                    
                     <div class="mb-6">
                         <label for="curriculum_vitae" class="inline-block text-lg mb-2">Curriculum Vitae</label>
                         <input type="file" class="border border-gray-200 rounded p-2 w-full" name="curriculum_vitae"/>
@@ -121,7 +133,7 @@
                 </div>
 
                 <div class="mb-6">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         Sign Up
                     </button>
                 </div>

@@ -14,6 +14,8 @@ class Program extends Model
         'school_id'
     ];
 
+    protected $table = 'programs';
+
     public function students()
     {
         return $this->hasMany(Student::class);

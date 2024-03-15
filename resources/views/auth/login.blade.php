@@ -30,7 +30,7 @@
         </div>
   
         <div class="mb-6">
-          <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
+          <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
             Sign In
           </button>
         </div>

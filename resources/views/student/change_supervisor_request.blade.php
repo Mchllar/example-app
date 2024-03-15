@@ -15,9 +15,9 @@
                 <!-- Student Number -->
                 <div class="mb-4">
                     <label for="student_number" class="block text-gray-700 text-sm font-bold mb-2">Student No</label>
-                    <input id="student_number" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="student_number" value="{{ Auth::user()->student_number }}" readonly>
+                    <input id="student_number" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="student_number" required>
                 </div>
-
+                
                 <!-- School/Institute -->
                 <div class="mb-4">
                     <label for="school" class="block text-gray-700 text-sm font-bold mb-2">School/Institute enrolled in</label>
@@ -123,7 +123,7 @@
 
                 <!-- Submit Button -->
                 <div class="flex items-center justify-between">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
                 </div>
             </form>
         </div>

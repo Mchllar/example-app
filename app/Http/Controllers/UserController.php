@@ -7,7 +7,9 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Staff;
 use App\Models\Gender;
+use App\Models\Program;
 use App\Models\Religion;
+use App\Models\School;
 use App\Models\Student;
 use App\Models\Country;
 use App\Mail\SendOtpMail;
@@ -33,8 +35,10 @@ class UserController extends Controller
         $countries = Country::all();
         $genders = Gender::all();
         $religions = Religion::all();
+        $programs = Program::all();
+        $schools = School::all();
     
-        return view("auth.register", compact('countries', 'genders', 'religions'));
+        return view("auth.register", compact('countries', 'genders', 'religions','programs','schools'));
     }
 
     // Show 2FA verification form for registration
@@ -72,12 +76,8 @@ class UserController extends Controller
     }
 
 
-    public function conferenceSubmission(){
-        return view('student.conference_submission');
-    }
-
-    public function journalSubmission(){
-        return view('student.journal_submission');
+    public function thesisCorrection(){
+        return view('student.thesis_correction');
     }
 
 
@@ -124,6 +124,7 @@ class UserController extends Controller
             'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'role' => 'required|in:1,2,3', // Assuming role values correspond to student, supervisor, staff
             'date_of_birth' => 'nullable|date',
+            'phone_number' => 'nullable',
             'gender' => 'nullable|exists:gender,id',
             'nationality' => 'nullable|exists:country,id',
             'religion' => 'nullable|exists:religion,id',

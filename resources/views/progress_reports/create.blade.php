@@ -76,6 +76,11 @@
                     <label for="lead_supervisor">Lead Supervisor</label>
                     <input type="text" id="lead_supervisor" name="lead_supervisor" class="border border-gray-200 rounded p-2 w-full">
                 </div>
+                <div class="mb-6">
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        Next Page
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -108,6 +113,11 @@
                     <option value="about_what_was_planned">About What Was Planned</option>
                     <option value="no_progress">No Progress Has Been Made</option>
                 </select>
+            </div>
+            <div class="mb-6">
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    Complete Report
+                </button>
             </div>
         </div>
 
@@ -163,24 +173,23 @@
         <textarea rows="5" id="inadequate_aspects_comment" name="inadequate_aspects_comment" class="border border-gray-200 rounded p-2 w-full" placeholder="Enter comments on inadequate aspects of the thesis"></textarea>
     </ol>
     <div class="mt-4">
-        <label for="student_signature">Student Signature</label>
-        <input type="text" id="student_signature" name="student_signature" class="border border-gray-200 rounded p-2 w-full">
         <label for="student_date">Date:</label>
         <input type="date" id="student_date" name="student_date" class="border border-gray-200 rounded p-2 w-full">
     </div>
     <div class="mt-4">
-        <label for="principal_signature">Signature (Principal Supervisor)</label>
-        <input type="text" id="principal_signature" name="principal_signature" class="border border-gray-200 rounded p-2 w-full">
         <label for="principal_date">Date:</label>
         <input type="date" id="principal_date" name="principal_date" class="border border-gray-200 rounded p-2 w-full">
     </div>
     <div class="mt-4">
-        <label for="lead_signature">Signature (Lead Supervisor)</label>
-        <input type="text" id="lead_signature" name="lead_signature" class="border border-gray-200 rounded p-2 w-full">
         <label for="lead_date">Date:</label>
         <input type="date" id="lead_date" name="lead_date" class="border border-gray-200 rounded p-2 w-full">
     </div>
     <p>Please forward to the Office of Graduate Studies</p>
+    <div class="mb-6">
+        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          Approve and Forward
+        </button>
+      </div>
 </div>
 
 <!-- SECTION D: OFFICE OF GRADUATE STUDIES -->
@@ -210,8 +219,6 @@
     <div class="mt-4">
         <label for="director_name">Director of Graduate Studies (Name)</label>
         <input type="text" id="director_name" name="director_name" class="border border-gray-200 rounded p-2 w-full">
-        <label for="director_signature">Signature</label>
-        <input type="text" id="director_signature" name="director_signature" class="border border-gray-200 rounded p-2 w-full">
         <label for="director_date">Date:</label>
         <input type="date" id="director_date" name="director_date" class="border border-gray-200 rounded p-2 w-full">
     </div>
@@ -219,4 +226,9 @@
     <p>The School/Institute should prepare a report to OGS within a month of receiving this progress report. Their report should include actions to be taken in response to any of the issues identified in this report.</p>
 </div>
     </div>
+    <div class="mb-6">
+        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          Approve and Forward
+        </button>
+      </div>
 </x-layout>

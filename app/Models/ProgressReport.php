@@ -10,6 +10,8 @@ class ProgressReport extends Model
     use HasFactory;
 
     protected $fillable = [
+        'student_id',
+        'staff_id',
         'user_id',
         'reporting_period',
         'goals_set',
@@ -17,10 +19,32 @@ class ProgressReport extends Model
         'problems_issues',
         'agreed_goals',
         'progress_rating',
-        'seminars_presentations',
-        'supervisor_comments',
-        'director_comments',
+        'completion_rate',
+        'thesis_completion_percentage',
+        'completion_estimation',
+        'problems_addressed',
+        'concerns_about_student',
+        'inadequate_aspects_comment',
+        'progress_satisfactory',
+        'registration_recommendation',
+        'unsatisfactory_progress_comments',
+        'student_date',
+        'principal_date',
+        'lead_date',
+        'director_name',
+        'director_date',
     ];
+
+    // Define relationships
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class);
+    }
 
     public function user()
     {

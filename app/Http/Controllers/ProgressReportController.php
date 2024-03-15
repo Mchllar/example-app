@@ -24,21 +24,38 @@ class ProgressReportController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request data
         $validatedData = $request->validate([
-            'reporting_period' => 'required',
-            'goals_set' => 'required',
-            'progress_report' => 'required',
-            'problems_issues' => 'required',
-            'agreed_goals' => 'required',
-            'progress_rating' => 'required',
-            'seminars_presentations' => 'required',
-            'supervisor_comments' => 'required',
-            'director_comments' => 'required',
+            // Define your validation rules here
+            'student_id' => 'required|exists:students,id',
+            'user_id' =>'required|exists:users,id',
+            'staff_id' => 'required|exists:staff,id',
+            'reporting_period' => 'required|date',
+            'goals_set' => 'required|string',
+            'progress_report' => 'required|string',
+            'problems_issues' => 'required|string',
+            'agreed_goals' => 'required|string',
+            'progress_rating' => 'required|integer',
+            'completion_rate' => 'nullable|integer',
+            'thesis_completion_percentage' => 'nullable|integer|min:0|max:100',
+            'completion_estimation' => 'nullable|string',
+            'problems_addressed' => 'required|string',
+            'concerns_about_student' => 'required|string',
+            'inadequate_aspects_comment' => 'required|string',
+            'progress_satisfactory' => 'required|boolean',
+            'registration_recommendation' => 'nullable|string',
+            'unsatisfactory_progress_comments' => 'nullable|string',
+            'student_date' => 'required|date',
+            'principal_date' => 'required|date',
+            'lead_date' => 'required|date',
+            'director_name' => 'required|string',
+            'director_date' => 'required|date',
         ]);
 
+        // Assuming you have the authenticated user's ID
+        $validatedData['user_id'] = auth()->user()->id;
+
         // Create a new progress report
-        $progressReport = ProgressReport::create($validatedData);
+        ProgressReport::create($validatedData);
 
         // Redirect to the progress report index page with a success message
         return redirect()->route('progress_reports.index')->with('success', 'Progress report created successfully!');
