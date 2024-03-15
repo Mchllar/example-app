@@ -49,7 +49,7 @@
         form {
             width: 100%;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 40px auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -68,7 +68,7 @@
         }
 
         input[type="submit"] {
-            width: 100%;
+            width: 30%;
             padding: 10px;
             background-color: #4CAF50;
             color: white;
@@ -96,7 +96,7 @@
                 <li><a href="{{ route('progress_reports.index')}}" class="font-bold">Submit Progress Report</a></li>
                 <li><a href="/journalSubmission" class="font-bold">Submit Journal Publication</a></li>
                 <li><a href="conferenceSubmission" class="font-bold">Submit Conference Publication</a></li>
-                <li><a href="/thesisSubmission" class="font-bold">Submit Thesis/Dissertation</a></li>
+                <li><a href="/submission" class="font-bold">Submit Thesis/Dissertation</a></li>
                 <li><a href="#" class="font-bold">Request for Academic Leave</a></li>
                 <li><a href="/conferenceReview" class="font-bold">Request for Conference Approval</a></li>
                 <li><a href="/noticeSubmission" class="font-bold">Submit Notice Of Intent</a></li>
@@ -106,20 +106,20 @@
         <div class="main-content">
         <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
 
-            <form action="/submit" method="post">
+            <form action="{{ route('conference.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <table>
                     <tr>
-                        <th>Date</th>
+                    
                         <th>Conference Title & Website</th>
                         <th>Title of Paper Presentation</th>
                         <th>Status of Paper</th>
                     </tr>
                     <tr>
-                        <td><input type="date" name="date"></td>
-                        <td><input type="text" name="conference"></td>
-                        <td><input type="text" name="title"></td>
+                        <td><input type="text" name="conference_title" id="conference_title"></td>
+                        <td><input type="text" name="title_of_paper" id="title_of_paper"></td>
                         <td>
-                            <select name="status">
+                            <select name="status" id="status">
                                 <option value="under review">Under Review</option>
                                 <option value="accepted">Accepted</option>
                                 <option value="published">Published</option>
@@ -127,6 +127,9 @@
                         </td>
                     </tr>
                 </table>
+                </br>
+                <h3> Upload the actual paper or the acceptance. </h3></br>
+                <input type="file" name="file_upload"> </br></br>
                 <input type="submit" value="Submit">
             </form>
         </div>

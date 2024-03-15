@@ -71,6 +71,7 @@ class UserController extends Controller
         return view("auth.emailsent");
     }
 
+
     public function conferenceReview(){
         return view('student.conference_review');
     }
