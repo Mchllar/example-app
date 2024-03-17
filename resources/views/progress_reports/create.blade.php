@@ -225,10 +225,10 @@
     <p>Please forward to the School/Institute of the Candidate</p>
     <p>The School/Institute should prepare a report to OGS within a month of receiving this progress report. Their report should include actions to be taken in response to any of the issues identified in this report.</p>
 </div>
+<div class="mb-6">
+    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+      Approve and Forward
+    </button>
+  </div>
     </div>
-    <div class="mb-6">
-        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-          Approve and Forward
-        </button>
-      </div>
 </x-layout>

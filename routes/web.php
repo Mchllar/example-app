@@ -12,6 +12,7 @@ use App\Http\Controllers\ThesisSubmissionController;
 use App\Http\Controllers\ThesisIndexController;
 use App\Http\Controllers\IntentionSubmissionController;
 use App\Http\Controllers\ConferenceReviewController;
+use App\Http\Controllers\AcademicLeaveRequestController;
 
 
 
@@ -106,3 +107,7 @@ Route::post('/change-supervisor-request', [SupervisorController::class, 'submitC
 Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index');
 Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create');
 Route::post('/progress_reports', [ProgressReportController::class, 'store'])->name('progress_reports.store');
+
+//Academic Request
+Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'create'])->name('academic_leave.create');
+Route::post('/academic_leave/store', [AcademicLeaveRequestController::class, 'store'])->name('academic_leave.store');
