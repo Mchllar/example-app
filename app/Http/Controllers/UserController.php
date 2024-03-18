@@ -335,6 +335,6 @@ class UserController extends Controller
             return redirect('/verify-registration-otp')->with('message', 'A new OTP has been sent to your email.');
         } else {
             return redirect('/verify-registration-otp')->with('error', 'Error resending OTP. Please try again.');
-        }
-    }
+}
+}
 }

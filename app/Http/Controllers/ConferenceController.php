@@ -44,4 +44,14 @@ class ConferenceController extends Controller
                 // Redirect back with a success message
                 return redirect()->back()->with('success', 'Conference Publication submitted successfully.');
     }
+
+        //Retrieving Records
+        public function records()
+        {
+            $studentId = Auth::user()->student_id;
+
+            $conference = Conference::where('student_id', $studentId)->get();
+            
+           return view('notice', compact('conference'));
+        }
 }

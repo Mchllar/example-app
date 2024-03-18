@@ -75,14 +75,14 @@
             </ol>
             <h5>(Upload PDF documents ONLY.)</h5>
 
-        <form action="/conferenceReview" method="post" enctype="multipart/form-data">
+        <form action="{{ route('review.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div>
-                <input type="file" id="review_document" name="review_document" accept=".pdf">
+                <input type="file" id="file_upload" name="file_upload" accept=".pdf">
             </div>
             <div>
-                <label for="comments">Comments:</label><br>
+                <label for="comments">Comments: (Provide the written evidence here especially on the eight (8) mandatory requirements)</label><br>
                 <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
             </div>
             <button type="submit">Submit</button>
