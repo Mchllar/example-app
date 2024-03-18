@@ -14,9 +14,6 @@ use App\Http\Controllers\IntentionSubmissionController;
 use App\Http\Controllers\ConferenceReviewController;
 
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,6 +65,8 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //Conference Review Criteria
 Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceReview'])->name('conferenceReview');
+Route::get('/review/create', [ConferenceReviewController::class, 'create'])->name('review.create');
+Route::post('/reviewSubmit', [ConferenceReviewController::class, 'store'])->name('review.store');
 
 
 
@@ -75,12 +74,15 @@ Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceR
 Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('noticeSubmission');
 Route::get('/notice/create', [IntentionSubmissionController::class, 'create'])->name('notice.create');
 Route::post('/noticeSubmit', [IntentionSubmissionController::class, 'store'])->name('notice.store');
+Route::get('/journalRecords', [JournalSubmissionController::class, 'records'])->name('journal.records')->middleware('auth');
 
 
 // Conference Submission
 Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
 Route::get('/conference/create', [ConferenceController::class, 'create'])->name('conference.create');
 Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('conference.store');
+Route::get('/conferenceRecords', [ConferenceController::class, 'records'])->name('conference.records')->middleware('auth');
+
 
 
 //Journal Submission

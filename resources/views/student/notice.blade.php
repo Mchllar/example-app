@@ -157,9 +157,68 @@ function validateForm() {
 </br>
 <!-- Display from the database -->
 <!-- Table for journals publications & Conference publications... Student ID-->
-<p>List of your Journal Articles: <a href="/journalSubmission" class="upload-button">Add a Journal Article</a></p>
+@if (isset($journals) && ($journals->isEmpty()))
+<p>List of your Journal Articles: </p>
+<table>
+    <thead>
+        <tr>
+            <th>Journal Title</th>
+            <th>Title of Paper</th>
+            <th>Status</th>
+            <th>File</th>
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($journals as $journal)
+        <tr>
+            <td>{{ $journal->journal_title }}</td>
+            <td>{{ $journal->title_of_paper }}</td>
+            <td>{{ $journal->status }}</td>
+            <td>{{ $journal->file_upload }}</td>
+            <!-- Add more columns as needed -->
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+@else
+    <p> You currently have no Journal Articles</p>
+@endif
+
+<a href="/journalSubmission" class="upload-button">Add a Journal Article</a>
 </br>
-<p>List of your Conference Articles: <a href="/conferenceSubmission" class="upload-button">Add a Conference Paper</a></p>
+
+@if (isset($conference) && ($conference->isEmpty()))
+<p>List of your Conference Articles:</p>
+
+<table>
+    <thead>
+                    
+        <th>Conference Title & Website</th>
+        <th>Title of Paper Presentation</th>
+        <th>Status of Paper</th>
+        <th>File</th>
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($conference as $conference)
+        <tr>
+            <td>{{ $conference->conference_title }}</td>
+            <td>{{ $conference->title_of_paper }}</td>
+            <td>{{ $conference->status }}</td>
+            <td>{{ $conference->file_upload }}</td>
+            <!-- Add more columns as needed -->
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+@else
+<p> You currently have no Conference Articles</p>   
+@endif
+<a href="/conferenceSubmission" class="upload-button">Add a Conference Paper</a>
 </div>
 </body>
 </x-layout>

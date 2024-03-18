@@ -216,7 +216,7 @@ class UserController extends Controller
                     // Clear the session data
                     $request->session()->forget(['email', 'otp_code', 'otp_created_at', 'user_details']);
 
-                    return redirect('/')->with('message', 'Registration successful!');
+                 return redirect('/')->with('message', 'Registration successful!');
                 }
             } else {
                 // Invalid OTP
@@ -335,6 +335,6 @@ class UserController extends Controller
             return redirect('/verify-registration-otp')->with('message', 'A new OTP has been sent to your email.');
         } else {
             return redirect('/verify-registration-otp')->with('error', 'Error resending OTP. Please try again.');
-        }
-    }
+}
+}
 }

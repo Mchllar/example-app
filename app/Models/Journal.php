@@ -12,12 +12,13 @@ class Journal extends Model
         'title_of_paper',
         'status',
         'file_upload',
-        //'approved_by_director_graduate_studies',
-       // 'approved_by_principal_supervisor',
+        'student_number',
     ];
 
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class);
     }
+
+    
 }
