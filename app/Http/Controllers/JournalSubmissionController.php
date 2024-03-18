@@ -59,15 +59,9 @@ class JournalSubmissionController extends Controller
         // Retrieving Records
         public function records()
         {
-            // Get the authenticated student's student_number
-            $studentNumber = Auth::user()->student->student_number;
-        
-            // Retrieve the corresponding student id based on student_number
-            $studentId = DB::table('students')->where('student_number', $studentNumber)->value('id');
+            // Get the authenticated student's journals
+            $journals = Auth::user()->student->journals;
             
-            // Retrieve journals submitted by the current student
-            $journals = Journal::where('student_id', $studentId)->get();
-            
-            return view('notice', compact('journals'));
+            return view('student.journal_submission', compact('journals'));
         }
 }

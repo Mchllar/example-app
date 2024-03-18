@@ -75,14 +75,14 @@ Route::post('/reviewSubmit', [ConferenceReviewController::class, 'store'])->name
 Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('noticeSubmission');
 Route::get('/notice/create', [IntentionSubmissionController::class, 'create'])->name('notice.create');
 Route::post('/noticeSubmit', [IntentionSubmissionController::class, 'store'])->name('notice.store');
-Route::get('/journalRecords', [JournalSubmissionController::class, 'records'])->name('journal.records')->middleware('auth');
+Route::get('/records', [JournalSubmissionController::class, 'records'])->name('journal.records')->middleware('auth');
 
 
 // Conference Submission
 Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
 Route::get('/conference/create', [ConferenceController::class, 'create'])->name('conference.create');
 Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('conference.store');
-Route::get('/conferenceRecords', [ConferenceController::class, 'records'])->name('conference.records')->middleware('auth');
+//Route::get('/conferenceRecords', [ConferenceController::class, 'records'])->name('conference.records')->middleware('auth');
 
 
 
