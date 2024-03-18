@@ -216,7 +216,7 @@ class UserController extends Controller
                     // Clear the session data
                     $request->session()->forget(['email', 'otp_code', 'otp_created_at', 'user_details']);
 
-                 return redirect('/')->with('message', 'Registration successful!');
+                 return redirect('/')->with('message')->with('Registration successful!');
                 }
             } else {
                 // Invalid OTP

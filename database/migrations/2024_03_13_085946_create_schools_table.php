@@ -21,14 +21,14 @@ return new class extends Migration
         });
         // Populate schools data
         $schoolsData = [
-            [ 'School of Business' ],
-            [ 'School of Finance and Applied Economics' ],
-            [ 'School of Humanities and Social Sciences' ],
-            [ 'School of Law' ],
-            [ 'School of Management and Commerce' ],
-            [ 'School of Mathematics, Actuarial Science, and Finance' ],
-            [ 'School of Computing and Informatics' ],
-            [ 'School of Graduate Studies' ]
+            ['name' =>'School of Business' ],
+            ['name' =>'School of Finance and Applied Economics' ],
+            ['name' =>'School of Humanities and Social Sciences' ],
+            ['name' =>'School of Law' ],
+            ['name' =>'School of Management and Commerce' ],
+            ['name' =>'School of Mathematics, Actuarial Science, and Finance' ],
+            ['name' =>'School of Computing and Informatics' ],
+            ['name' =>'School of Graduate Studies' ]
         ];
 
         DB::table('schools')->insert($schoolsData);

@@ -21,8 +21,8 @@ return new class extends Migration
         });
 
         $genderData = [
-            [ 'Male' ],
-            [ 'Female' ]
+            ['name'=>'Male'],
+            ['name'=>'Female']
         ];
 
         DB::table('gender')->insert($genderData);

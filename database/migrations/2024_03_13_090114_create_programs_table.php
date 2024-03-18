@@ -23,23 +23,21 @@ return new class extends Migration
         });
         
         $programsData = [
-            [`Master of Business Administration [MBA]`]
-            [`Master of Science in Development Finance`]
-            [`Master of Science in Entrepreneurship`]
-            [`Master of Science in Finance`]
-            [`Master of Science in Information Technology`]
-            [`Master of Science in Mobile Telecommunication and Innovation`]
-            [`Master of Science in Statistics`]
-            [`Master of Science in Telecommunication Management and Innovation`]
-            [`Master of Science in Data Science`]
-            [`Master of Science in Mathematical Finance`]
-            [`Master of Commerce [M.Com]`]
-            [`Master of Public Policy and Management`]
-            [`Master of Science in Health Informatics`]
-            [`Master of Science in Public Health`]
-            [`Master of Science in Strathmore Institute of Mathematical Sciences`]
-            [`Master of Science in Applied Philosophy and Ethics`]
-            // ... and so on, continue with all your data
+            ['name' =>'Master of Business Administration [MBA]', 'school_id' => 0],
+            ['name' =>'Master of Commerce [M.Com]', 'school_id' => 4],
+            ['name' =>'Master of Science in Entrepreneurship', 'school_id' => 0],
+            ['name' =>'Master of Science in Finance', 'school_id' => 1],
+            ['name' =>'Master of Science in Public Health', 'school_id' => 2],
+            ['name' =>'Master of Science in Telecommunication Management and Innovation', 'school_id' => 6],
+            ['name' =>'Master of Science in Statistics', 'school_id' => 5],
+            ['name' =>'Master of Science in Development Finance', 'school_id' => 1],
+            ['name' =>'Master of Public Policy and Management', 'school_id' => 3],
+            ['name' =>'Master of Science in Health Informatics', 'school_id' => 2],
+            ['name' =>'Master of Science in Mobile Telecommunication and Innovation', 'school_id' => 6],
+            ['name' =>'Master of Science in Applied Philosophy and Ethics', 'school_id' => 2],
+            ['name' =>'Master of Science in Strathmore Institute of Mathematical Sciences', 'school_id' => 5],
+            ['name' =>'Master of Science in Mathematical Finance', 'school_id' => 5],
+            ['name' =>'Master of Science in Data Science', 'school_id' => 6],
         ];
 
         DB::table('programs')->insert($programsData);

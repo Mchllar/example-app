@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('student_number');
+            $table->int('student_number');
             $table->enum('academic_status', ['Active', 'Academic Leave', 'Suspended']);
             $table->unsignedBigInteger('program_id');
             $table->foreign('program_id')->references('id')->on('programs');

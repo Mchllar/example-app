@@ -22,13 +22,13 @@ return new class extends Migration
 
         // Populate religion data
         $religionData = [
-            [ 'Catholic' ],
-            [ 'Protestant' ],
-            [ 'Seventh Day Adventist' ],
-            [ 'Jehovah Witness' ],
-            [ 'Islam' ],
-            [ 'Hinduism' ],
-            [ 'Traditionalist' ]
+            ['name' => 'Catholic'],
+            ['name' => 'Protestant'],
+            ['name' => 'Seventh Day Adventist'],
+            ['name' => 'Jehovah Witness'],
+            ['name' => 'Islam'],
+            ['name' => 'Hinduism'],
+            ['name' => 'Traditionalist']
         ];
 
         DB::table('religion')->insert($religionData);
