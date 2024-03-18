@@ -137,7 +137,7 @@ class UserController extends Controller
             'religion' => 'nullable|exists:religion,id',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
+    
         // Handle profile picture upload
         if ($request->hasFile('profile')) {
             $profilePath = $request->file('profile')->store('profiles', 'public');
@@ -145,45 +145,47 @@ class UserController extends Controller
             // Handle if profile picture is not provided
             $profilePath = null;
         }
-
-        // Create the user
-        $user = new User();
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->profile = $profilePath;
-        $user->role_id = $validatedData['role'];
-        $user->date_of_birth = $validatedData['date_of_birth'];
-        $user->gender_id = $validatedData['gender'];
-        $user->country_id = $validatedData['nationality'];
-        $user->religion_id = $validatedData['religion'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->save();
-
+    
+        // Gather user details
+        $userDetails = [
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'profile' => $profilePath,
+            'role_id' => $validatedData['role'],
+            'date_of_birth' => $validatedData['date_of_birth'],
+            'gender_id' => $validatedData['gender'],
+            'country_id' => $validatedData['nationality'],
+            'religion_id' => $validatedData['religion'],
+            'password' => Hash::make($validatedData['password']),
+        ];
+    
+        // Set user details in the session
+        session(['user_details' => $userDetails]);
+    
         // Create role-specific record (Student, Staff)
         if ($validatedData['role'] == 1) {
             // Student-specific fields
             $student = new Student();
             $student->student_number = $request->input('student_number');
             $student->program_id = $request->input('programme');
-            $student->user_id = $user->id;
             $student->save();
         } elseif ($validatedData['role'] == 2) {
             // Supervisor-specific fields
             $staff = new Staff();
             $staff->curriculum_vitae = $request->file('curriculum_vitae')->store('cv', 'public');
             $staff->school_id = $request->input('school');
-            $staff->user_id = $user->id;
             $staff->save();
         }
-
+    
         // Generate and send OTP
         $otp = rand(100000, 999999);
-        session(['email' => $user->email, 'otp_code' => $otp]);
-        Mail::to($user->email)->send(new SendOtpMail($otp));
+        session(['email' => $userDetails['email'], 'otp_code' => $otp]);
+        Mail::to($userDetails['email'])->send(new SendOtpMail($otp));
     
         // Redirect to OTP verification page
         return redirect('/verify-registration-otp');
     }
+
 
 
     // Verify registration OTP
@@ -192,39 +194,39 @@ class UserController extends Controller
         $request->validate([
             'otp' => 'required|numeric',
         ]);
-
+    
         $email = session('email');
         $otp_code = session('otp_code');
+        $userDetails = session('user_details');
         $otp_created_at = session('otp_created_at');
-
-        if ($email && $otp_code && $otp_created_at) {
-            if ($request->otp == $otp_code) {
-                // OTP is valid, complete the registration process
-                if (Carbon::parse($otp_created_at)->addMinutes(2)->isPast()) {
-                    return redirect('/verify-registration-otp')->with('error', 'OTP has expired. Please resend.');
-                } else {
-                    // Create User
-                    $user = User::create($request->session()->get('user_details'));
-
-                    // Clear the OTP code
-                    $user->otp_code = null;
-                    $user->save();
-
-                    // Log the user in
-                    auth()->login($user);
-
-                    // Clear the session data
-                    $request->session()->forget(['email', 'otp_code', 'otp_created_at', 'user_details']);
-
-                 return redirect('/')->with('message')->with('Registration successful!');
-                }
-            } else {
-                // Invalid OTP
-                return redirect('/verify-registration-otp')->with('error', 'Invalid OTP.');
+    
+        if ($userDetails && $request->otp == $otp_code) {
+            // OTP is valid, complete the registration process
+            if (Carbon::parse($otp_created_at)->addMinutes(2)->isPast()) {
+                return redirect('/verify-registration-otp')->with('error', 'OTP has expired. Please resend.');
             }
+    
+            else{
+    
+                 // Create User
+            $user = User::create($userDetails);
+    
+            // Clear the OTP code
+            $user->otp_code = null;
+            $user->save();
+    
+            // Log the user in
+            auth()->login($user);
+    
+            // Clear the user details and OTP code from the session
+            $request->session()->forget(['email', 'otp_code', 'user_details']);
+    
+            return redirect('/')->with('message', 'Registration successful!');
+            }
+           
         } else {
-            // Session data missing
-            return redirect('/verify-registration-otp')->with('error', 'Session data missing.');
+            // OTP is invalid, redirect back with an error message
+            return redirect('/verify-registration-otp')->with('error', 'Invalid OTP.');
         }
     }
 
