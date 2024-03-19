@@ -19,8 +19,6 @@ class CreateProgressReportsTable extends Migration
             $table->foreign('student_id')->references('id')->on('students');
             $table->unsignedBigInteger('staff_id');
             $table->foreign('staff_id')->references('id')->on('staff');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->date('reporting_period');
             $table->text('goals_set');
             $table->text('progress_report');
