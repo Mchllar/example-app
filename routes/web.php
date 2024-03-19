@@ -13,7 +13,9 @@ use App\Http\Controllers\ThesisIndexController;
 use App\Http\Controllers\IntentionSubmissionController;
 use App\Http\Controllers\ConferenceReviewController;
 use App\Http\Controllers\AcademicLeaveRequestController;
-use App\Http\Controllers\JournalRecordsController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -115,3 +117,7 @@ Route::post('/progress_reports', [ProgressReportController::class, 'store'])->na
 //Academic Request
 Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'create'])->name('academic_leave.create');
 Route::post('/academic_leave/store', [AcademicLeaveRequestController::class, 'store'])->name('academic_leave.store');
+
+// Define routes for SupervisorAllocationController
+Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])->name('allocation');
+Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');

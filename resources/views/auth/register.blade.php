@@ -75,13 +75,14 @@
                     </select>
                 </div>
                 
-                <!--<div class="mb-6">
+                <div class="mb-6">
                     <label for="phone" class="inline-block text-lg mb-2">Phone Number</label>
-                    <input type="text" class="border border-gray-200 rounded p-2 w-full" name="phone"/>
-                    @error('phone')
+                    <input type="text" class="border border-gray-200 rounded p-2 w-full" name="phone_number"/> <!-- Update name attribute -->
+                    @error('phone_number') <!-- Update error key -->
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
-                </div>-->
+                </div>
+                
 
                 <div id="studentFields" class="mb-6 hidden">
                     <!-- Student-specific fields -->

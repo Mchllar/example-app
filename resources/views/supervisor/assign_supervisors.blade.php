@@ -16,7 +16,7 @@
                 <tr class="border border-gray-300">
                     <td class="border border-gray-300 p-2">{{ $student->name }}</td>
                     <td class="border border-gray-300 p-2">
-                        <img src="{{ asset($student->profile) }}" alt="{{ $student->name }}'s profile" class="w-16 h-16 object-cover rounded-full">
+                        <img src="{{ asset($student->profile) }}" alt="{{ $student->user_id->name }}'s profile" class="w-16 h-16 object-cover rounded-full">
                     </td>
                     <td class="border border-gray-300 p-2">{{ $student->programme }}</td>
                     <td class="border border-gray-300 p-2">

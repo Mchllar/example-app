@@ -12,7 +12,6 @@ class ProgressReport extends Model
     protected $fillable = [
         'student_id',
         'staff_id',
-        'user_id',
         'reporting_period',
         'goals_set',
         'progress_report',
