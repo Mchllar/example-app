@@ -18,20 +18,8 @@
             <h2 class="text-lg font-semibold mb-4">SECTION A: GENERAL INFORMATION</h2>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label for="surname">Surname</label>
-                    <input type="text" id="surname" name="surname" class="border border-gray-200 rounded p-2 w-full">
-                </div>
-                <div>
-                    <label for="other_names">Other Names</label>
-                    <input type="text" id="other_names" name="other_names" class="border border-gray-200 rounded p-2 w-full">
-                </div>
-                <div>
-                    <label for="student_number">Student Number</label>
-                    <input type="text" id="student_number" name="student_number" class="border border-gray-200 rounded p-2 w-full">
-                </div>
-                <div>
-                    <label for="address">Address</label>
-                    <input type="text" id="address" name="address" class="border border-gray-200 rounded p-2 w-full">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" class="border border-gray-200 rounded p-2 w-full">
                 </div>
                 <div>
                     <label for="email">Email</label>
@@ -55,18 +43,6 @@
                         <option value="full-time">Full-time</option>
                         <option value="part-time">Part-time</option>
                     </select>
-                </div>
-                <div>
-                    <label for="date_of_registration">Date of Registration</label>
-                    <input type="date" id="date_of_registration" name="date_of_registration" class="border border-gray-200 rounded p-2 w-full">
-                </div>
-                <div>
-                    <label for="expected_submission_date">Expected Submission Date</label>
-                    <input type="date" id="expected_submission_date" name="expected_submission_date" class="border border-gray-200 rounded p-2 w-full">
-                </div>
-                <div>
-                    <label for="reporting_period">Reporting Period</label>
-                    <input type="text" id="reporting_period" name="reporting_period" class="border border-gray-200 rounded p-2 w-full">
                 </div>
                 <div>
                     <label for="principal_supervisor">Principal Supervisor</label>
@@ -104,7 +80,7 @@
                 <textarea id="agreed_goals" name="agreed_goals" class="border border-gray-200 rounded p-2 w-full"></textarea>
             </div>
             <div class="mt-4">
-                <label for="progress_rating">e) Progress Rating</label>
+                <label for="progress_rating">e) Progress Rating</label><br>
                 <select id="progress_rating" name="progress_rating" class="form-select">
                     <option value="significantly_more">Significantly More Than Planned</option>
                     <option value="less_than">Less Than Planned</option>
@@ -172,18 +148,6 @@
         <li>(g) Please comment briefly on the aspects of the thesis you consider inadequate.</li>
         <textarea rows="5" id="inadequate_aspects_comment" name="inadequate_aspects_comment" class="border border-gray-200 rounded p-2 w-full" placeholder="Enter comments on inadequate aspects of the thesis"></textarea>
     </ol>
-    <div class="mt-4">
-        <label for="student_date">Date:</label>
-        <input type="date" id="student_date" name="student_date" class="border border-gray-200 rounded p-2 w-full">
-    </div>
-    <div class="mt-4">
-        <label for="principal_date">Date:</label>
-        <input type="date" id="principal_date" name="principal_date" class="border border-gray-200 rounded p-2 w-full">
-    </div>
-    <div class="mt-4">
-        <label for="lead_date">Date:</label>
-        <input type="date" id="lead_date" name="lead_date" class="border border-gray-200 rounded p-2 w-full">
-    </div>
     <p>Please forward to the Office of Graduate Studies</p>
     <div class="mb-6">
         <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
@@ -203,8 +167,8 @@
         <li><label><input type="radio" name="progress_satisfactory" value="yes">Yes</label></li>
         <li><label><input type="radio" name="progress_satisfactory" value="no">No</label></li>
     </ul>
-    <p>Unsatisfactory progress and action</p>
-    <p>If any aspect of student performance is unsatisfactory, please identify what is wrong Recommendations on student progression Progress recommended as below (tick as appropriate, giving details in box above)</p>
+    <p>Unsatisfactory progress and action</p><br>
+    <p>If any aspect of student performance is unsatisfactory, please identify what is wrong. Recommendations on student progression (tick as appropriate, giving details in box above)</p>
     <ul>
         <li><label><input type="checkbox" name="registration_recommendation" value="continued">Continued registration</label></li>
         <li><label><input type="checkbox" name="registration_recommendation" value="conditions_attached">Continued registration with conditions attached</label></li>

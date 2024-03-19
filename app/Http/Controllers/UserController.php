@@ -129,53 +129,55 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'role' => 'required|in:1,2,3', // Assuming role values correspond to student, supervisor, staff
+            'role' => 'required|in:1,2,3',
             'date_of_birth' => 'nullable|date',
-            'phone_number' => 'nullable',
+            'phone_number' => 'nullable|string|max:20',
             'gender' => 'nullable|exists:gender,id',
             'nationality' => 'nullable|exists:country,id',
             'religion' => 'nullable|exists:religion,id',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
+    
         // Handle profile picture upload
+        $profilePath = null;
         if ($request->hasFile('profile')) {
             $profilePath = $request->file('profile')->store('profiles', 'public');
-        } else {
-            // Handle if profile picture is not provided
-            $profilePath = null;
         }
-
-        // Create the user
-        $user = new User();
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->profile = $profilePath;
-        $user->role_id = $validatedData['role'];
-        $user->date_of_birth = $validatedData['date_of_birth'];
-        $user->gender_id = $validatedData['gender'];
-        $user->country_id = $validatedData['nationality'];
-        $user->religion_id = $validatedData['religion'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->save();
-
+    
+        // Create User
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'profile' => $profilePath,
+            'role_id' => $validatedData['role'],
+            'date_of_birth' => $validatedData['date_of_birth'],
+            'phone_number' => $validatedData['phone_number'],
+            'gender_id' => $validatedData['gender'],
+            'country_id' => $validatedData['nationality'],
+            'religion_id' => $validatedData['religion'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+    
+        // Store user details in the session
+        session(['user_details' => $user->toArray()]);
+    
         // Create role-specific record (Student, Staff)
         if ($validatedData['role'] == 1) {
             // Student-specific fields
             $student = new Student();
+            $student->user_id = $user->id; // Associate the student with the user
             $student->student_number = $request->input('student_number');
             $student->program_id = $request->input('programme');
-            $student->user_id = $user->id;
             $student->save();
         } elseif ($validatedData['role'] == 2) {
             // Supervisor-specific fields
             $staff = new Staff();
+            $staff->user_id = $user->id; 
             $staff->curriculum_vitae = $request->file('curriculum_vitae')->store('cv', 'public');
             $staff->school_id = $request->input('school');
-            $staff->user_id = $user->id;
             $staff->save();
         }
-
+    
         // Generate and send OTP
         $otp = rand(100000, 999999);
         session(['email' => $user->email, 'otp_code' => $otp]);
@@ -184,6 +186,7 @@ class UserController extends Controller
         // Redirect to OTP verification page
         return redirect('/verify-registration-otp');
     }
+    
 
 
     // Verify registration OTP
