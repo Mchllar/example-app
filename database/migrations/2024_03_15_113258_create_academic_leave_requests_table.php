@@ -20,15 +20,11 @@ Schema::create('academic_leave_requests', function (Blueprint $table) {
     $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
     $table->unsignedBigInteger('staff_id')->nullable();
     $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
-    $table->unsignedBigInteger('user_id');
-    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
     $table->string('address');
-    $table->date('leave_date');
-    $table->string('leave_month');
-    $table->string('leave_year');
+    $table->date('leave_start_date');
     $table->text('reason_for_leave');
     $table->date('return_date');
-    $table->date('ogs_date')->nullable();
+    $table->date('ogs_approval_date')->nullable();
     $table->timestamps();
 });
 ;

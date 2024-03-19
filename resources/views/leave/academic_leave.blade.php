@@ -16,10 +16,6 @@
                     <input type="text" id="student_number" name="student_number" value="{{ old('student_number', auth()->user()->student->student_number ?? '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 </div>
                 <div class="mb-4">
-                    <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Address</label>
-                    <input type="text" id="address" name="address" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                </div>
-                <div class="mb-4">
                     <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
                     <input type="email" id="email" name="email" value="{{ old('email', auth()->user()->email) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 </div>
@@ -33,8 +29,6 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2">To proceed on Academic Leave from:</label>
                     <div class="flex">
                         <input type="date" id="leave_date" name="leave_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                        <input type="text" id="leave_month" name="leave_month" class="shadow appearance-none border rounded ml-4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Month" required>
-                        <input type="text" id="leave_year" name="leave_year" class="shadow appearance-none border rounded ml-4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Year" required>
                     </div>
                 </div>
 
@@ -42,31 +36,31 @@
                     <label for="reason_for_leave" class="block text-gray-700 text-sm font-bold mb-2">Reason for taking Academic Leave</label>
                     
                     <div class="mb-2">
-                        <input type="checkbox" id="work_constraints" name="reason[]" value="Work Constraints">
+                        <input type="radio" id="work_constraints" name="reason" value="Work Constraints">
                         <label for="work_constraints" class="ml-2">Work Constraints</label>
                     </div>
-                
+                    
                     <div class="mb-2">
-                        <input type="checkbox" id="health_issues" name="reason[]" value="Health Issues">
+                        <input type="radio" id="health_issues" name="reason" value="Health Issues">
                         <label for="health_issues" class="ml-2">Health Issues</label>
                     </div>
-                
+                    
                     <div class="mb-2">
-                        <input type="checkbox" id="family_emergency" name="reason[]" value="Family Emergency">
+                        <input type="radio" id="family_emergency" name="reason" value="Family Emergency">
                         <label for="family_emergency" class="ml-2">Family Emergency</label>
                     </div>
-                
+                    
                     <div class="mb-2">
-                        <input type="checkbox" id="personal_development" name="reason[]" value="Personal Development">
+                        <input type="radio" id="personal_development" name="reason" value="Personal Development">
                         <label for="personal_development" class="ml-2">Personal Development</label>
                     </div>
                     <!-- Add more reasons as needed -->
                     <div class="mb-4">
                         <label for="other" class="block text-gray-700 text-sm font-bold mb-2">Other Reasons</label>
-                        <input type="text" id="other" name="other" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        <input type="text" id="other" name="other" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
-                
                 </div>
+                
                 
 
                 <!-- Expected Date of Return -->
@@ -75,25 +69,7 @@
                     <div class="flex">
                         <input type="date" id="return_date" name="return_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                     </div>
-                </div>
-
-                <!-- Signatures and Dates -->
-                <div class="grid grid-cols-3 gap-4">
-                    <div>
-                        <label for="student_date" class="block text-gray-700 text-sm font-bold mb-2">Date:</label>
-                        <input type="date" id="student_date" name="student_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <!-- Add fields for supervisor and dean -->
-                </div>
-
-                <!-- Office Signatures and Dates -->
-                <div class="grid grid-cols-3 gap-4 mt-4">
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Received: Office of Graduate Studies</label>
-                        <input type="date" id="ogs_date" name="ogs_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <!-- Add more signature and date fields -->
-                </div>
+                </div>         
 
                 <!-- Submit Button -->
                 <div class="flex items-center justify-between mt-8">
