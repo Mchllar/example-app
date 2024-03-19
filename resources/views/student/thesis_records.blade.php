@@ -47,7 +47,7 @@
     </tbody>
 </table>
     <p>Currently, You have no Thesis Submissions</p>    
-    <a href="{{ route('submission') }}" class="btn btn-primary">Submit Thesis</a>
+    <a href="{{ route('thesis.submission') }}" class="btn btn-primary">Submit Thesis</a>
 
 
 

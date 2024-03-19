@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Thesis extends Model
 {
       protected $fillable = [
-        'student_id', // Assuming you have a student_id to associate with the submission
+        'user_id', // Assuming you have a student_id to associate with the submission
         'thesis_document', // File path or URL to the thesis document
         'Upload_date',
         'submission_type', // Submission type: pre_defense or post_defense
