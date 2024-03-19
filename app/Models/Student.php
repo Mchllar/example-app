@@ -28,8 +28,14 @@ class Student extends Model
         return $this->belongsTo(Program::class);
     }
 
+<<<<<<< HEAD
     public function supervisorAllocation()
     {
         return $this->hasOne(SupervisorAllocation::class);
+=======
+    public function journal()
+    {
+        return $this->hasMany(Journal::class);
+>>>>>>> a2be6464302874da1a65c94213281d6bb41beaa7
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers; 
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Journal;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class JournalSubmissionController extends Controller
 {
@@ -13,7 +14,7 @@ class JournalSubmissionController extends Controller
     {
         return view('student.journal_submission');
     }
-
+    
     public function store(Request $request)
     {
         // Form Validation
@@ -33,9 +34,15 @@ class JournalSubmissionController extends Controller
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('public/files', $fileName);
 
+            // Get the authenticated student's student_number
+            $studentNumber = Auth::user()->student->student_number;
+
+            // Retrieve the corresponding student id based on student_number
+            $studentId = DB::table('students')->where('student_number', $studentNumber)->value('id');
+
             // Create New Journal Entry
             $journal = new Journal();
-            $journal->student_number = Auth::user()->student_number;
+            $journal->student_number = $studentId; // Use student_id as foreign key reference
             $journal->journal_title = $request->journal_title;
             $journal->title_of_paper = $request->title_of_paper;
             $journal->status = $request->status;
@@ -49,15 +56,12 @@ class JournalSubmissionController extends Controller
         }
     }
 
-    // Retrieving Records
-    public function records()
-    {
-        // Get the authenticated student's student_number
-        $studentNumber = Auth::user()->student_number;
-    
-        // Retrieve journals submitted by the current student
-        $journals = Journal::where('student_number', $studentNumber)->get();
-        
-        return view('notice', compact('journals'));
-    }
+        // Retrieving Records
+        public function records()
+        {
+            // Get the authenticated student's journals
+            $journals = Auth::user()->student->journals;
+            
+            return view('student.journal_submission', compact('journals'));
+        }
 }

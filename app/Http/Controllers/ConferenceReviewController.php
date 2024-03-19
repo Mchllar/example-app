@@ -24,17 +24,23 @@ class ConferenceReviewController extends Controller
         $file = $request->file('file_upload');
         $fileName = time() . '_' . $file->getClientOriginalName();
         $file->storeAs('public/files', $fileName);
-        } else {
-            return redirect()->back()->with('error', 'File upload failed.'); // Handle file upload failure
-        }
+        
+
+        // Get the authenticated student's student_number
+        $studentNumber = Auth::user()->student->student_number;
+
+        // Retrieve the corresponding student id based on student_number
+        $studentId = DB::table('students')->where('student_number', $studentNumber)->value('id');
 
         // Create New Review Entry
-        Review::create([
-            'file_upload' => $fileName, // Store the file path in the database
-            'comments' => $request->comments,
-        ]);
-
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Conference Review submitted successfully.');
+        $review= new Review();
+        $review->file_upload = $fileName; // Use student_id as foreign key reference
+        $review->comments = $request->comments; 
+        $review->student_number = $studentId;       
+        
+        return redirect()->back()->with('success', 'Conference Publication submitted successfully.');
+        } else {
+        return redirect()->back()->with('error', 'File upload failed.'); // Handle file upload failure
+        }
     }
 }
