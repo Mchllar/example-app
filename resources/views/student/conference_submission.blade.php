@@ -12,12 +12,13 @@
             justify-content: space-between;
         }
 
-        /* Sidebar navigation */
+          /* Sidebar navigation */
         .sidebar {
             flex: 1;
             background-color: #f0f0f0;
             padding: 20px;
             border-right: 1px solid #ccc;
+            display: none; /* Initially hide the sidebar */
         }
 
         .sidebar ul {
@@ -33,10 +34,16 @@
         .sidebar a {
             text-decoration: none;
             color: #333;
+            display: block;
+            transition: color 0.3s ease;
         }
 
         .sidebar a:hover {
             color: #555;
+        }
+
+        .active {
+            color: #007bff; /* Active link color */
         }
 
         /* Main content */
@@ -94,8 +101,8 @@
                 <li><a href="/" class="font-bold">Home</a></li>
                 <li><a href="{{ route('change-supervisor-request-form') }}" class="font-bold">Request Change of Supervisor</a></li>
                 <li><a href="{{ route('progress_reports.index')}}" class="font-bold">Submit Progress Report</a></li>
-                <li><a href="/journalSubmission" class="font-bold">Submit Journal Publication</a></li>
-                <li><a href="conferenceSubmission" class="font-bold">Submit Conference Publication</a></li>
+                <li><a href="{{ route('journal.retrieve')}}" class="font-bold">Submit Journal Publication</a></li>
+                <li><a href="{{ route('conference.retrieve')}}" class="font-bold">Submit Conference Publication</a></li>
                 <li><a href="/submission" class="font-bold">Submit Thesis/Dissertation</a></li>
                 <li><a href="#" class="font-bold">Request for Academic Leave</a></li>
                 <li><a href="/conferenceReview" class="font-bold">Request for Conference Approval</a></li>

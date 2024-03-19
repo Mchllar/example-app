@@ -10,10 +10,19 @@ class Notice extends Model
     protected $fillable = [
         'thesis_title',
         'proposed_date',
+        'user_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function journals(){
+        return $this->hasMany(Journal::class);
+    }
+
+    public function conferences(){
+        return $this->belongsTo(Conference::class);
     }
 }

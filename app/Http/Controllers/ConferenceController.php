@@ -33,14 +33,11 @@ class ConferenceController extends Controller
                 $file->storeAs('public/files', $fileName);
                 
                 // Get the authenticated student's student_number
-                $studentNumber = Auth::user()->student->student_number;
+                $user_id = Auth::user()->student->user_id;
 
-                // Retrieve the corresponding student id based on student_number
-                $studentId = DB::table('students')->where('student_number', $studentNumber)->value('id');
-    
                 // Create New Conference Entry
                 $conference = new Conference();
-                $conference->student_number = $studentId; // Use student_id as foreign key reference
+                $conference->user_id = $user_id; // Use student_id as foreign key reference
                 $conference->conference_title = $request->conference_title;
                 $conference->title_of_paper = $request->title_of_paper;
                 $conference->status = $request->status;
@@ -53,13 +50,19 @@ class ConferenceController extends Controller
                 return redirect()->back()->with('error', 'File upload failed.'); // Handle file upload failure
             }
         }
+     
+      
+
         // Retrieving Records
-        public function records()
+        public function index()
         {
-            // Get the authenticated student's conferences
-            $conference = Auth::user()->student->conference;
-             
-            return view('student.notice', compact('conference'));
+            // Retrieve the currently authenticated user
+            $user = auth()->user();
+
+            // Retrieve conferences submitted by the authenticated user
+            $conferences = Conference::where('user_id', auth()->id())->get();
+            
+            return view('student.conference_records', compact('conferences'));
         }
 
     }

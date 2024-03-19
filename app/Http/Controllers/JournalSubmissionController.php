@@ -35,14 +35,11 @@ class JournalSubmissionController extends Controller
             $file->storeAs('public/files', $fileName);
 
             // Get the authenticated student's student_number
-            $studentNumber = Auth::user()->student->student_number;
-
-            // Retrieve the corresponding student id based on student_number
-            $studentId = DB::table('students')->where('student_number', $studentNumber)->value('id');
+            $user_id = Auth::user()->student->user_id;
 
             // Create New Journal Entry
             $journal = new Journal();
-            $journal->student_number = $studentId; // Use student_id as foreign key reference
+            $journal->user_id = $user_id; // Use student_id as foreign key reference
             $journal->journal_title = $request->journal_title;
             $journal->title_of_paper = $request->title_of_paper;
             $journal->status = $request->status;
@@ -55,13 +52,15 @@ class JournalSubmissionController extends Controller
             return redirect()->back()->with('error', 'File upload failed.'); // Handle file upload failure
         }
     }
-
         // Retrieving Records
-        public function records()
+        public function index()
         {
-            // Get the authenticated student's journals
-            $journals = Auth::user()->student->journals;
+            // Retrieve the currently authenticated user
+            $user = auth()->user();
+           
+            // Retrieve journals submitted by the authenticated user
+            $journals = Journal::where('user_id', auth()->id())->get();
             
-            return view('student.journal_submission', compact('journals'));
+            return view('student.journal_records', compact('journals'));
         }
 }

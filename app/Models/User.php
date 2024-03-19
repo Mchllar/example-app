@@ -87,4 +87,28 @@ class User extends Authenticatable
         return $this->belongsTo(Gender::class);
     }
 
+    public function journals()
+    {
+        return $this->hasMany(Journal::class);
+    }
+
+    public function conferences()
+    {
+        return $this->belongsTo(Conference::class);
+    }
+
+    public function intention()
+    {
+
+        return $this->hasMany(Notice::class);
+    }
+
+    public function review()
+    {
+
+        return $this->belongsTo(Review::class);
+    }
+
+
+
 }

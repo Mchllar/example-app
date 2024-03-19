@@ -13,8 +13,8 @@ return new class extends Migration
             $table->id();
             $table->string('file_upload');
             $table->string('comments');
-            $table->unsignedBigInteger('student_number');
-            $table->foreign('student_number')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

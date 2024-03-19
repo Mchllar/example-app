@@ -12,12 +12,15 @@ class Journal extends Model
         'title_of_paper',
         'status',
         'file_upload',
-        'student_number',
+        'user_id',
     ];
 
     public function student()
     {
         return $this->belongsTo(Student::class);
+    }
+    public function notice(){
+        return $this->hasMany(Notice::class);
     }
 
     

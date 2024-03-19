@@ -39,4 +39,9 @@ class Student extends Model
         return $this->hasMany(Journal::class);
 
     }
+
+    public function conference()
+    {
+        return $this->belongsTo(Conference::class);
+    }
 }
