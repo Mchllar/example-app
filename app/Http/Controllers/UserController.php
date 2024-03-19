@@ -122,114 +122,118 @@ class UserController extends Controller
     }
 
     // Register users
-    public function store(Request $request)
-    {
-        // Validate incoming request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'role' => 'required|in:1,2,3',
-            'date_of_birth' => 'nullable|date',
-            'phone_number' => 'nullable|string|max:20',
-            'gender' => 'nullable|exists:gender,id',
-            'nationality' => 'nullable|exists:country,id',
-            'religion' => 'nullable|exists:religion,id',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-    
-        // Handle profile picture upload
-        $profilePath = null;
-        if ($request->hasFile('profile')) {
-            $profilePath = $request->file('profile')->store('profiles', 'public');
-        }
-    
-        // Create User
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'profile' => $profilePath,
-            'role_id' => $validatedData['role'],
-            'date_of_birth' => $validatedData['date_of_birth'],
-            'phone_number' => $validatedData['phone_number'],
-            'gender_id' => $validatedData['gender'],
-            'country_id' => $validatedData['nationality'],
-            'religion_id' => $validatedData['religion'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
-    
-        // Store user details in the session
-        session(['user_details' => $user->toArray()]);
-    
-        // Create role-specific record (Student, Staff)
-        if ($validatedData['role'] == 1) {
-            // Student-specific fields
-            $student = new Student();
-            $student->user_id = $user->id; // Associate the student with the user
-            $student->student_number = $request->input('student_number');
-            $student->program_id = $request->input('programme');
-            $student->save();
-        } elseif ($validatedData['role'] == 2) {
-            // Supervisor-specific fields
-            $staff = new Staff();
-            $staff->user_id = $user->id; 
-            $staff->curriculum_vitae = $request->file('curriculum_vitae')->store('cv', 'public');
-            $staff->school_id = $request->input('school');
-            $staff->save();
-        }
-    
-        // Generate and send OTP
-        $otp = rand(100000, 999999);
-        session(['email' => $user->email, 'otp_code' => $otp]);
-        Mail::to($user->email)->send(new SendOtpMail($otp));
-    
-        // Redirect to OTP verification page
-        return redirect('/verify-registration-otp');
+public function store(Request $request)
+{
+    // Validate incoming request data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'role' => 'required|in:1,2,3',
+        'date_of_birth' => 'nullable|date',
+        'phone_number' => 'nullable|string|max:20',
+        'gender' => 'nullable|exists:gender,id',
+        'nationality' => 'nullable|exists:country,id',
+        'religion' => 'nullable|exists:religion,id',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
+
+    // Handle profile picture upload
+    $profilePath = null;
+    if ($request->hasFile('profile')) {
+        $profilePath = $request->file('profile')->store('profiles', 'public');
     }
+
+    // Store user details and role-specific data in session
+    $userData = [
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'profile' => $profilePath,
+        'role_id' => $validatedData['role'],
+        'date_of_birth' => $validatedData['date_of_birth'] ? date('Y-m-d', strtotime($validatedData['date_of_birth'])) : null,
+        'phone_number' => $validatedData['phone_number'],
+        'gender_id' => $validatedData['gender'],
+        'country_id' => $validatedData['nationality'],
+        'religion_id' => $validatedData['religion'],
+        'password' => Hash::make($validatedData['password']), // Ensure password is hashed
+    ];
+
+    // Store user details in the session
+    session(['user_details' => $userData]);
+
+    // Create role-specific record (Student, Staff)
+    if ($validatedData['role'] == 1) {
+        // Student-specific fields
+        $studentData = [
+            'student_number' => $request->input('student_number'),
+            'program_id' => $request->input('programme'),
+        ];
+
+        // Store student details in the session
+        session(['student_details' => $studentData]);
+    } elseif ($validatedData['role'] == 2) {
+        // Supervisor-specific fields
+        $staffData = [
+            'curriculum_vitae' => $request->file('curriculum_vitae')->store('cv', 'public'),
+            'school_id' => $request->input('school'),
+        ];
+
+        // Store staff details in the session
+        session(['staff_details' => $staffData]);
+    }
+
+    // Generate and send OTP
+    $otp = rand(100000, 999999);
+    session(['email' => $userData['email'], 'otp_code' => $otp]);
+    Mail::to($userData['email'])->send(new SendOtpMail($otp));
+
+    // Redirect to OTP verification page
+    return redirect('/verify-registration-otp');
+}
+
     
 
 
     // Verify registration OTP
-    public function verifyRegistrationOtp(Request $request)
-    {
-        $request->validate([
-            'otp' => 'required|numeric',
-        ]);
-    
-        $email = session('email');
-        $otp_code = session('otp_code');
-        $userDetails = session('user_details');
-        $otp_created_at = session('otp_created_at');
-    
-        if ($userDetails && $request->otp == $otp_code) {
-            // OTP is valid, complete the registration process
-            if (Carbon::parse($otp_created_at)->addMinutes(2)->isPast()) {
-                return redirect('/verify-registration-otp')->with('error', 'OTP has expired. Please resend.');
-            }
-    
-            else{
-    
-                 // Create User
-            $user = User::create($userDetails);
-    
-            // Clear the OTP code
-            $user->otp_code = null;
-            $user->save();
-    
-            // Log the user in
-            auth()->login($user);
-    
-            // Clear the user details and OTP code from the session
-            $request->session()->forget(['email', 'otp_code', 'user_details']);
-    
-            return redirect('/')->with('message', 'Registration successful!');
-            }
-           
-        } else {
-            // OTP is invalid, redirect back with an error message
-            return redirect('/verify-registration-otp')->with('error', 'Invalid OTP.');
-        }
+public function verifyRegistrationOtp(Request $request)
+{
+    $request->validate([
+        'otp' => 'required|numeric',
+    ]);
+
+    $otp_code = session('otp_code');
+    $userDetails = session('user_details');
+    $role = $userDetails['role_id']; // Retrieve the role from the session
+
+    if ($userDetails && $request->otp == $otp_code) {
+        // OTP is valid, complete the registration process
+
+        // Retrieve role-specific details from the session
+        $studentDetails = session('student_details');
+        $staffDetails = session('staff_details');
+
+        // Additional processing based on the role...
+        
+        // Create User
+        $user = User::create($userDetails);
+
+        // Clear the OTP code
+        $user->otp_code = null;
+        $user->save();
+
+        // Log the user in
+        auth()->login($user);
+
+        // Clear the user details and OTP code from the session
+        $request->session()->forget(['otp_code', 'user_details', 'student_details', 'staff_details']);
+
+        return redirect('/')->with('message', 'Registration successful!');
+    } else {
+        // OTP is invalid, redirect back with an error message
+        return redirect('/verify-registration-otp')->with('error', 'Invalid OTP.');
     }
+}
+
 
     // Authenticate user
     public function authenticate(Request $request)

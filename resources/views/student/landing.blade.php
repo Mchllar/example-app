@@ -23,7 +23,7 @@
                     <a href="{{ route('index')}}" class="font-bold hover:underline">Submit Thesis/Dissertation</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">Request for Academic Leave</a>
+                    <a href="{{ route('academic_leave.create') }}" class="font-bold hover:underline">Request for Academic Leave</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="{{ route('conferenceReview')}}" class="font-bold hover:underline">Request for Conference Approval</a>
