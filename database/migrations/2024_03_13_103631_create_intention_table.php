@@ -12,8 +12,8 @@ class CreateIntentionTable extends Migration
             $table->id();
             $table->string('thesis_title');
             $table->date('proposed_date');
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
 
             //$table->boolean('approved_by_director_graduate_studies')->default(false);
             //$table->boolean('approved_by_principal_supervisor')->default(false);

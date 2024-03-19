@@ -26,8 +26,10 @@
                 },
             };
         </script>
+     
         <title>Strathmore University | SGS</title>
     </head>
+    
     <body class="mb-48">
         <nav class="flex justify-between items-center mb-4">
             <a href="/"
@@ -62,6 +64,7 @@
             </ul>
         </nav>
         <main>
+    
         {{$slot}}
         </main>
         <footer id="footer" class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-16 p-4 md:justify-center transition-opacity duration-500 opacity-100">

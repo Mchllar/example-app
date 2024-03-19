@@ -10,8 +10,8 @@ class CreateJournalTable extends Migration
     {
         Schema::create('journals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_number');
-            $table->foreign('student_number')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('journal_title');
             $table->string('title_of_paper');
             $table->string('status');

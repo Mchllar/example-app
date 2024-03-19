@@ -13,7 +13,7 @@ use App\Http\Controllers\ThesisIndexController;
 use App\Http\Controllers\IntentionSubmissionController;
 use App\Http\Controllers\ConferenceReviewController;
 use App\Http\Controllers\AcademicLeaveRequestController;
-
+use App\Http\Controllers\JournalRecordsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,19 +78,21 @@ Route::post('/noticeSubmit', [IntentionSubmissionController::class, 'store'])->n
 Route::get('/records', [JournalSubmissionController::class, 'records'])->name('journal.records')->middleware('auth');
 
 
+
 // Conference Submission
 Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
 Route::get('/conference/create', [ConferenceController::class, 'create'])->name('conference.create');
 Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('conference.store');
 //Route::get('/conferenceRecords', [ConferenceController::class, 'records'])->name('conference.records')->middleware('auth');
+Route::get('/conferenceData', [ConferenceController::class, 'index'])->name('conference.retrieve');
 
 
 
 //Journal Submission
 Route::get('/journalSubmission', [JournalSubmissionController::class, 'journalSubmission'])->name('journalSubmission');
 Route::get('/journal/create', [JournalSubmissionController::class, 'create'])->name('journal.create');
-Route::post('/submit', [JournalSubmissionController::class, 'store'])->name('journal.store');
-
+Route::post('/journalSubmit', [JournalSubmissionController::class, 'store'])->name('journal.store');
+Route::get('/journalData', [JournalSubmissionController::class, 'index'])->name('journal.retrieve')->middleware('auth');
 
 //Thesis Index Page
 Route::get('/index', [ThesisIndexController::class, 'index'])->name('index');

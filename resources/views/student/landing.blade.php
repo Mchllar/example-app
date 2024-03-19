@@ -14,10 +14,10 @@
                     <a href="{{ route('progress_reports.index')}}" class="font-bold hover:underline">Submit Progress Report</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="{{ route('journalSubmission')}}" class="font-bold hover:underline">Submit Journal Publication</a>
+                    <a href="{{ route('journal.retrieve')}}" class="font-bold hover:underline">Submit Journal Publication</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="{{ route('conferenceSubmission')}}" class="font-bold hover:underline">Submit Conference Publication</a>
+                    <a href="{{ route('conference.retrieve')}}" class="font-bold hover:underline">Submit Conference Publication</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="{{ route('index')}}" class="font-bold hover:underline">Submit Thesis/Dissertation</a>

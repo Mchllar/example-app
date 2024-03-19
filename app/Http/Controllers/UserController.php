@@ -139,15 +139,13 @@ class UserController extends Controller
         ]);
     
         // Handle profile picture upload
+        $profilePath = null;
         if ($request->hasFile('profile')) {
             $profilePath = $request->file('profile')->store('profiles', 'public');
-        } else {
-            // Handle if profile picture is not provided
-            $profilePath = null;
         }
     
-        // Gather user details
-        $userDetails = [
+        // Create User
+        $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'profile' => $profilePath,
@@ -157,15 +155,16 @@ class UserController extends Controller
             'country_id' => $validatedData['nationality'],
             'religion_id' => $validatedData['religion'],
             'password' => Hash::make($validatedData['password']),
-        ];
+        ]);
     
-        // Set user details in the session
-        session(['user_details' => $userDetails]);
+        // Store user details in the session
+        session(['user_details' => $user->toArray()]);
     
         // Create role-specific record (Student, Staff)
         if ($validatedData['role'] == 1) {
             // Student-specific fields
             $student = new Student();
+            $student->user_id = $user->id; // Associate the student with the user
             $student->student_number = $request->input('student_number');
             $student->program_id = $request->input('programme');
             $student->save();
@@ -179,8 +178,8 @@ class UserController extends Controller
     
         // Generate and send OTP
         $otp = rand(100000, 999999);
-        session(['email' => $userDetails['email'], 'otp_code' => $otp]);
-        Mail::to($userDetails['email'])->send(new SendOtpMail($otp));
+        session(['email' => $user->email, 'otp_code' => $otp]);
+        Mail::to($user->email)->send(new SendOtpMail($otp));
     
         // Redirect to OTP verification page
         return redirect('/verify-registration-otp');

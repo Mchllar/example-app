@@ -11,12 +11,12 @@ class Review extends Model
     protected $fillable = [
         'file_upload',
         'comments',
-        'student_number',
+        'user_id',
     ];
 
-    public function student()
+    public function review()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(User::class);
     }
 
 }
