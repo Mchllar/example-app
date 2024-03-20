@@ -174,14 +174,14 @@ public function store(Request $request)
         Student::create($studentData);
     } elseif ($validatedData['role'] == 2) {
         // Supervisor-specific fields
-        $staffData = [
+        $supervisorData = [
             'curriculum_vitae' => $request->file('curriculum_vitae')->store('cv', 'public'),
             'school_id' => $request->input('school'),
             'user_id' => $user->id, // Associate with the created user
         ];
 
         // Create staff
-        Staff::create($staffData);
+        Staff::create($supervisorData);
     }
 
     // Generate and send OTP
@@ -205,7 +205,7 @@ public function store(Request $request)
     
         $otp_code = session('otp_code');
         $userDetails = session('user_details');
-        $role = $userDetails['role_id']; // Retrieve the role from the session
+        $role = $userDetails['role_id'] ?? null;  // Retrieve the role from the session
     
         if ($userDetails && $request->otp == $otp_code) {
             // OTP is valid, complete the registration process

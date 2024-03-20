@@ -12,8 +12,12 @@ class Staff extends Model
     protected $fillable = [
         'curriculum_vitae', 
         'school_id',
+        'user_id',
     ];
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function school()
     {
         return $this->belongsTo(School::class);
