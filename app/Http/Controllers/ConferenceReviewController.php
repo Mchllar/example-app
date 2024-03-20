@@ -30,7 +30,7 @@ class ConferenceReviewController extends Controller
         $file->storeAs('public/files', $fileName);
         
         // Get the authenticated user_id
-        $user_id = Auth::user()->student->user_id;
+        $user_id = Auth::user()->id;
 
         // Create New Review Entry
         $review = new Review();

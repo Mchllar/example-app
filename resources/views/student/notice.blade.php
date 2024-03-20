@@ -155,7 +155,7 @@ function validateForm() {
 </br>
    
 @if (isset($journals) && !$journals->isEmpty())
-        <p>List of your Journal Articles: </p>
+        <p style='text-align: center; text-decoration: underline;'>List of your Journal Articles </p>
         <table>
             <thead>
                 <tr>
@@ -186,7 +186,7 @@ function validateForm() {
 </br>
 
 @if (isset($conferences) && !$conferences->isEmpty())
-    <p>List of your Conference Articles:</p>
+    <p style='text-align: center; text-decoration: underline;'>List of your Conference Articles</p>
         <table>
             <thead> 
                 <tr>          

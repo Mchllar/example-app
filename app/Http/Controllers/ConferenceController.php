@@ -33,7 +33,7 @@ class ConferenceController extends Controller
                 $file->storeAs('public/files', $fileName);
                 
                 // Get the authenticated student's student_number
-                $user_id = Auth::user()->student->user_id;
+                $user_id = Auth::user()->id;
 
                 // Create New Conference Entry
                 $conference = new Conference();
