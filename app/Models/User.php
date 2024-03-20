@@ -109,6 +109,11 @@ class User extends Authenticatable
         return $this->belongsTo(Review::class);
     }
 
+    public function thesis()
+    {
+        return $this->belongTo(Thesis::class);
+    }
+
 
 
 }

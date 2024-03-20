@@ -67,14 +67,14 @@ Route::get('/resend-registration-otp', [UserController::class, 'resendRegOtp'])-
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //Conference Review Criteria
-Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceReview'])->name('conferenceReview');
+Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceReview'])->name('conference.review');
 Route::get('/review/create', [ConferenceReviewController::class, 'create'])->name('review.create');
 Route::post('/reviewSubmit', [ConferenceReviewController::class, 'store'])->name('review.store');
 
 
 
 //Notice of Intention to Submit Thesis
-Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('noticeSubmission');
+Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('notice.submission');
 Route::get('/notice/create', [IntentionSubmissionController::class, 'create'])->name('notice.create');
 Route::post('/noticeSubmit', [IntentionSubmissionController::class, 'store'])->name('notice.store');
 
@@ -83,16 +83,16 @@ Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSub
 Route::get('/conference/create', [ConferenceController::class, 'create'])->name('conference.create');
 Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('conference.store');
 //Route::get('/conferenceRecords', [ConferenceController::class, 'records'])->name('conference.records')->middleware('auth');
-Route::get('/conferenceData', [ConferenceController::class, 'index'])->name('conference.retrieve');
+Route::get('/conference.index', [ConferenceController::class, 'index'])->name('conference.index');
 
 //Journal Submission
 Route::get('/journalSubmission', [JournalSubmissionController::class, 'journalSubmission'])->name('journalSubmission');
 Route::get('/journal/create', [JournalSubmissionController::class, 'create'])->name('journal.create');
 Route::post('/journalSubmit', [JournalSubmissionController::class, 'store'])->name('journal.store');
-Route::get('/journalData', [JournalSubmissionController::class, 'index'])->name('journal.retrieve')->middleware('auth');
+Route::get('/journal.index', [JournalSubmissionController::class, 'index'])->name('journal.index')->middleware('auth');
 
 //Thesis
-Route::get('/index', [ThesisController::class, 'index'])->name('thesis.index');
+Route::get('/thesis.index', [ThesisController::class, 'index'])->name('thesis.index');
 Route::get('/thesisSubmission', [ThesisController:: class, 'thesisSubmission'])->name('thesis.submission');
 Route::get('/thesis/create', [ConferenceController::class, 'create'])->name('thesis.create');
 Route::post('/thesisSubmit', [ConferenceController::class, 'store'])->name('thesis.store');

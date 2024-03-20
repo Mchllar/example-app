@@ -23,7 +23,7 @@ class IntentionSubmissionController extends Controller
         ]);
 
         // Get the authenticated student's student_number
-        $user_id = Auth::user()->student->user_id;
+        $user_id = Auth::user()->id;
         
         // Create New Notice Entry
         Notice::create([
