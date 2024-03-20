@@ -4,18 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProgressReport;
+use App\Models\ReportingPeriod;
 
 class ProgressReportController extends Controller
 {
     public function index()
-    {
-        // Fetch all progress reports
-        $progressReports = ProgressReport::all();
+{
+    $reportingPeriods = ReportingPeriod::where('status', 'Active')->get();
 
-        // Return view with progress reports
-        return view('progress_reports.index', compact('progressReports'));
-    }
-
+    return view('progress_reports.index', compact('reportingPeriods'));
+}
     public function create()
     {
         // Return view for creating a new progress report
@@ -24,37 +22,29 @@ class ProgressReportController extends Controller
 
     public function store(Request $request)
     {
+        // Validate the incoming request data
         $validatedData = $request->validate([
             // Define your validation rules here
             'student_id' => 'required|exists:students,id',
-            'user_id' =>'required|exists:users,id',
             'staff_id' => 'required|exists:staff,id',
-            'reporting_period' => 'required|date',
+            'reporting_periods_id' => 'required|exists:reporting_periods,id',
             'goals_set' => 'required|string',
             'progress_report' => 'required|string',
             'problems_issues' => 'required|string',
             'agreed_goals' => 'required|string',
-            'progress_rating' => 'required|integer',
-            'completion_rate' => 'nullable|integer',
+            'students_progress_rating' => 'required|integer',
+            'students_completion_rate' => 'nullable|integer',
             'thesis_completion_percentage' => 'nullable|integer|min:0|max:100',
             'completion_estimation' => 'nullable|string',
             'problems_addressed' => 'required|string',
             'concerns_about_student' => 'required|string',
             'inadequate_aspects_comment' => 'required|string',
-            'progress_satisfactory' => 'required|boolean',
-            'registration_recommendation' => 'nullable|string',
-            'unsatisfactory_progress_comments' => 'nullable|string',
-            'student_date' => 'required|date',
-            'principal_date' => 'required|date',
-            'lead_date' => 'required|date',
-            'director_name' => 'required|string',
-            'director_date' => 'required|date',
+            'dir_progress_satisfaction' => 'required|boolean',
+            'dir_registration_recommendation' => 'nullable|string',
+            'dir_unsatisfactory_progress_comments' => 'nullable|string',
         ]);
 
-        // Assuming you have the authenticated user's ID
-        $validatedData['user_id'] = auth()->user()->id;
-
-        // Create a new progress report
+        // Create a new progress report with the validated data
         ProgressReport::create($validatedData);
 
         // Redirect to the progress report index page with a success message

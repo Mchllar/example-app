@@ -12,6 +12,7 @@ use App\Http\Controllers\ThesisController;
 use App\Http\Controllers\IntentionSubmissionController;
 use App\Http\Controllers\ConferenceReviewController;
 use App\Http\Controllers\AcademicLeaveRequestController;
+use App\Http\Controllers\SupervisorAllocationController;
 
 
 

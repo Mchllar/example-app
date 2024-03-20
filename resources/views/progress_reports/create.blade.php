@@ -19,19 +19,19 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" class="border border-gray-200 rounded p-2 w-full">
+                    <input type="text" id="name" name="name" class="border border-gray-200 rounded p-2 w-full" value="{{ old('name', auth()->user()->name) }}">
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="border border-gray-200 rounded p-2 w-full">
+                    <input type="email" id="email" name="email" class="border border-gray-200 rounded p-2 w-full" value="{{ old('email', auth()->user()->email) }}">
                 </div>
                 <div>
                     <label for="tel">Tel</label>
-                    <input type="text" id="tel" name="tel" class="border border-gray-200 rounded p-2 w-full">
+                    <input type="text" id="tel" name="tel" class="border border-gray-200 rounded p-2 w-full" value="{{ old('email', auth()->user()->phone_number) }}">
                 </div>
                 <div>
                     <label for="programme">Programme</label>
-                    <input type="text" id="programme" name="programme" class="border border-gray-200 rounded p-2 w-full">
+                    <input type="text" id="programme" name="programme" class="border border-gray-200 rounded p-2 w-full" value="{{ old('programme', auth()->user()->student->program ?? '') }}">
                 </div>
                 <div>
                     <label for="school_institute">School/Institute</label>
@@ -163,8 +163,8 @@
     <p style="font-weight: bold; color: red;">*Please read carefully the previous sections that have been completed by the student and supervisors. If you agree that satisfactory progress has been made during the period covered by the report, and that the future plans are appropriate and that no special action is needed, please complete below. If progress is not satisfactory, complete the relevant section below.</p><br>
     <p>a.)Progress: Has progress been satisfactory in the context of the student completing their studies successfully and on time?</p>
     <ul>
-        <li><label><input type="radio" name="progress_satisfactory" value="yes">Yes</label></li>
-        <li><label><input type="radio" name="progress_satisfactory" value="no">No</label></li>
+        <li><label><input type="radio" name="progress_satisfaction" value="yes">Yes</label></li>
+        <li><label><input type="radio" name="progress_satisfaction" value="no">No</label></li>
     </ul><br>
     <p>b.)Unsatisfactory progress and action</p><br>
     <p>If any aspect of student performance is unsatisfactory, please identify what is wrong. Recommendations on student progression (select one option)</p><br>

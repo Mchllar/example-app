@@ -158,28 +158,30 @@ public function store(Request $request)
         'password' => Hash::make($validatedData['password']), // Ensure password is hashed
     ];
 
-    // Store user details in the session
-    session(['user_details' => $userData]);
+    // Create user
+    $user = User::create($userData);
 
-    // Create role-specific record (Student, Staff)
+    // Create role-specific record
     if ($validatedData['role'] == 1) {
         // Student-specific fields
         $studentData = [
             'student_number' => $request->input('student_number'),
             'program_id' => $request->input('programme'),
+            'user_id' => $user->id, // Associate with the created user
         ];
 
-        // Store student details in the session
-        session(['student_details' => $studentData]);
+        // Create student
+        Student::create($studentData);
     } elseif ($validatedData['role'] == 2) {
         // Supervisor-specific fields
         $staffData = [
             'curriculum_vitae' => $request->file('curriculum_vitae')->store('cv', 'public'),
             'school_id' => $request->input('school'),
+            'user_id' => $user->id, // Associate with the created user
         ];
 
-        // Store staff details in the session
-        session(['staff_details' => $staffData]);
+        // Create staff
+        Staff::create($staffData);
     }
 
     // Generate and send OTP
@@ -194,45 +196,53 @@ public function store(Request $request)
     
 
 
-    // Verify registration OTP
-public function verifyRegistrationOtp(Request $request)
-{
-    $request->validate([
-        'otp' => 'required|numeric',
-    ]);
-
-    $otp_code = session('otp_code');
-    $userDetails = session('user_details');
-    $role = $userDetails['role_id']; // Retrieve the role from the session
-
-    if ($userDetails && $request->otp == $otp_code) {
-        // OTP is valid, complete the registration process
-
-        // Retrieve role-specific details from the session
-        $studentDetails = session('student_details');
-        $staffDetails = session('staff_details');
-
-        // Additional processing based on the role...
-        
-        // Create User
-        $user = User::create($userDetails);
-
-        // Clear the OTP code
-        $user->otp_code = null;
-        $user->save();
-
-        // Log the user in
-        auth()->login($user);
-
-        // Clear the user details and OTP code from the session
-        $request->session()->forget(['otp_code', 'user_details', 'student_details', 'staff_details']);
-
-        return redirect('/')->with('message', 'Registration successful!');
-    } else {
-        // OTP is invalid, redirect back with an error message
-        return redirect('/verify-registration-otp')->with('error', 'Invalid OTP.');
+    //Verify Registration OTP
+    public function verifyRegistrationOtp(Request $request)
+    {
+        $request->validate([
+            'otp' => 'required|numeric',
+        ]);
+    
+        $otp_code = session('otp_code');
+        $userDetails = session('user_details');
+        $role = $userDetails['role_id']; // Retrieve the role from the session
+    
+        if ($userDetails && $request->otp == $otp_code) {
+            // OTP is valid, complete the registration process
+    
+            // Retrieve role-specific details from the session
+            $studentDetails = session('student_details');
+            $staffDetails = session('staff_details');
+    
+            // Create User
+            $user = User::create($userDetails);
+    
+            // Clear the OTP code
+            $user->otp_code = null;
+            $user->save();
+    
+            // Create role-specific record if applicable
+            if ($role == 1 && $studentDetails) {
+                $studentDetails['user_id'] = $user->id;
+                Student::create($studentDetails);
+            } elseif ($role == 2 && $staffDetails) {
+                $staffDetails['user_id'] = $user->id;
+                Staff::create($staffDetails);
+            }
+    
+            // Log the user in
+            auth()->login($user);
+    
+            // Clear the user details and OTP code from the session
+            $request->session()->forget(['otp_code', 'user_details', 'student_details', 'staff_details']);
+    
+            return redirect('/')->with('message', 'Registration successful!');
+        } else {
+            // OTP is invalid, redirect back with an error message
+            return redirect('/verify-registration-otp')->with('error', 'Invalid OTP.');
+        }
     }
-}
+    
 
 
     // Authenticate user
