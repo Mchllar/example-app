@@ -14,7 +14,7 @@
                                 <option value="{{ $staff->id }}">{{ $staff->name }}</option>
                             @endforeach
                         </select>
-
+                    
                         @error('staff_id')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
@@ -61,8 +61,8 @@
                         <select id="student_id" class="form-select border border-gray-300 @error('student_id') border-red-500 @enderror" name="student_id" required>
                             <option value="">-- Select Student --</option>
                             @foreach($students as $student)
-                                <option value="{{ $student->id }}">{{ $student->name }}</option>
-                            @endforeach
+                            <option value="{{ $student->id }}">{{ optional($student->user)->name }}</option>
+                        @endforeach                        
                         </select>
 
                         @error('student_id')
