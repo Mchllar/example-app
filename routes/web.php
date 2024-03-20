@@ -8,8 +8,7 @@ use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\ProgressReportController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\JournalSubmissionController;
-use App\Http\Controllers\ThesisSubmissionController;
-use App\Http\Controllers\ThesisIndexController;
+use App\Http\Controllers\ThesisController;
 use App\Http\Controllers\IntentionSubmissionController;
 use App\Http\Controllers\ConferenceReviewController;
 use App\Http\Controllers\AcademicLeaveRequestController;
@@ -78,9 +77,6 @@ Route::post('/reviewSubmit', [ConferenceReviewController::class, 'store'])->name
 Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('noticeSubmission');
 Route::get('/notice/create', [IntentionSubmissionController::class, 'create'])->name('notice.create');
 Route::post('/noticeSubmit', [IntentionSubmissionController::class, 'store'])->name('notice.store');
-Route::get('/records', [JournalSubmissionController::class, 'records'])->name('journal.records')->middleware('auth');
-
-
 
 // Conference Submission
 Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
@@ -89,18 +85,17 @@ Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('
 //Route::get('/conferenceRecords', [ConferenceController::class, 'records'])->name('conference.records')->middleware('auth');
 Route::get('/conferenceData', [ConferenceController::class, 'index'])->name('conference.retrieve');
 
-
-
 //Journal Submission
 Route::get('/journalSubmission', [JournalSubmissionController::class, 'journalSubmission'])->name('journalSubmission');
 Route::get('/journal/create', [JournalSubmissionController::class, 'create'])->name('journal.create');
 Route::post('/journalSubmit', [JournalSubmissionController::class, 'store'])->name('journal.store');
 Route::get('/journalData', [JournalSubmissionController::class, 'index'])->name('journal.retrieve')->middleware('auth');
 
-//Thesis Index Page
-Route::get('/index', [ThesisIndexController::class, 'index'])->name('index');
-//Thesis Submission
-Route::get('/submission', [ThesisIndexController:: class, 'submitThesis'])->name( 'submission' );
+//Thesis
+Route::get('/index', [ThesisController::class, 'index'])->name('thesis.index');
+Route::get('/thesisSubmission', [ThesisController:: class, 'thesisSubmission'])->name('thesis.submission');
+Route::get('/thesis/create', [ConferenceController::class, 'create'])->name('thesis.create');
+Route::post('/thesisSubmit', [ConferenceController::class, 'store'])->name('thesis.store');
 
 // Assign Supervisor
 Route::get('/assign-supervisors', [SupervisorController::class, 'assignSupervisors'])->name('assign-supervisors');

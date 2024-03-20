@@ -11,7 +11,9 @@ class CreateThesisSubmissionsTable extends Migration
     {
         Schema::create('thesis_submissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->string('thesis_document'); // File path or URL to the thesis document
             $table->date('Upload_date');
             $table->string('submission_type'); // Submission type: pre_defense or post_defense

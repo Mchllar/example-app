@@ -80,7 +80,7 @@
         <!-- Submission approvals table Submission ID, Supervisor ID, Submission type, Approval date-->
         <!-- Check if all supervisors appear in the submission table-->
         <h2> Thesis/Dissertation Submission</h2>
-        <form action="/thesisSubmission" method="post" enctype="multipart/form-data" id="submissionForm">
+        <form action="{{route('thesis.store')}}" method="post" enctype="multipart/form-data" id="submissionForm">
     @csrf
     <div>
         <label for="selectOption" style="display: inline-block;">Which submission type are you making?:</label>
@@ -109,16 +109,20 @@
 </form>
 
 <script>
-    // Wrap the script in a window.onload event to ensure it runs after the page is fully loaded
     window.onload = function () {
-        // Initially gray out all divs
         var divsToGrayOut = document.querySelectorAll('.grayedOut');
+
+        // Ensure that all relevant divs are initially grayed out
         divsToGrayOut.forEach(function(div) {
             div.classList.add('grayedOut');
         });
 
+        // Remove grayedOut class from option 1 related elements during initialization
+        document.getElementById('thesisDocumentDiv').classList.remove('grayedOut');
+
         document.getElementById('selectOption').addEventListener('change', function() {
             var option = this.value;
+
             // Reset all divs to grayed out
             divsToGrayOut.forEach(function(div) {
                 div.classList.add('grayedOut');
@@ -127,7 +131,6 @@
             // Remove grayed out class based on selected option
             if (option === 'option1') {
                 document.getElementById('thesisDocumentDiv').classList.remove('grayedOut');
-                
             } else if (option === 'option2') {
                 document.getElementById('thesisDocumentDiv').classList.remove('grayedOut');
                 document.getElementById('correctionSummaryDiv').classList.remove('grayedOut');
@@ -142,10 +145,5 @@
         opacity: 0.5; /* Adjust opacity to gray out */
     }
 </style>
-
-
-
-
-   
-    </body>
+</body>
 </x-layout>
