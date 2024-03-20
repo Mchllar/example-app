@@ -114,6 +114,8 @@ class User extends Authenticatable
         return $this->belongTo(Thesis::class);
     }
 
+  
+
 
 
 }
