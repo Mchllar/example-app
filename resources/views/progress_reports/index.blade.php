@@ -16,30 +16,14 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($reportingPeriods as $period)
                 <tr>
                     <td class="px-4 py-2 border border-gray-200">
-                        <a href="{{ route('progress_reports.create', ['period' => 'jan-june-current-year']) }}">Progress Report Jan-Jun Current Year</a>
+                        <a href="{{ route('progress_reports.create', ['period_id' => $period->id]) }}">Progress Report {{ $period->name }}</a>
                     </td>
-                    <td class="px-4 py-2 border border-gray-200">Jan - Jun Current Year</td>
+                    <td class="px-4 py-2 border border-gray-200">{{ $period->name }}</td>
                 </tr>
-                <tr>
-                    <td class="px-4 py-2 border border-gray-200">
-                        <a href="{{ route('progress_reports.create', ['period' => 'july-dec-current-year']) }}">Progress Report July-Dec Current Year</a>
-                    </td>
-                    <td class="px-4 py-2 border border-gray-200">July - Dec Current Year</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border border-gray-200">
-                        <a href="{{ route('progress_reports.create', ['period' => 'jan-june-next-year']) }}">Progress Report Jan-Jun Next Year</a>
-                    </td>
-                    <td class="px-4 py-2 border border-gray-200">Jan - Jun Next Year</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border border-gray-200">
-                        <a href="{{ route('progress_reports.create', ['period' => 'july-dec-next-year']) }}">Progress Report July-Dec Next Year</a>
-                    </td>
-                    <td class="px-4 py-2 border border-gray-200">July - Dec Next Year</td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

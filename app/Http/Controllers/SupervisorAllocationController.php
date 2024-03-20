@@ -2,46 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\SupervisorAllocation;
+use App\Models\User;
+use App\Models\Student;
+use App\Models\Staff;
 
 class SupervisorAllocationController extends Controller
 {
     public function allocation()
     {
-        // Retrieve all supervisor allocations with related data
-        $allocations = SupervisorAllocation::with(['student', 'supervisor'])->get();
-        // Retrieve all students with related data
-        $students = Student::with(['user.country', 'user.religion', 'user.gender', 'program', 'supervisorAllocation'])->get();
-        
-        $supervisors = User::where('role_id', 2)->get(); // Assuming 'supervisor' role has id 2
-
-        return view('supervisorallocations.supervisorallocation', compact('allocations', 'students', 'supervisors'));
+        $supervisors = User::where('role_id', 2)->get();
+        $staffMembers = Staff::all();
+        $students = Student::all();
+        return view('supervisorallocations.supervisorallocation', ['staffMembers' => $staffMembers], compact('supervisors', 'students'));
     }
 
     public function store(Request $request)
     {
-        // Validate request data
-        $request->validate([
+        $validatedData = $request->validate([
+            'staff_id' => 'required|exists:staff,id',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            'notes' => 'nullable|string',
+            'contract' => 'nullable|string',
             'student_id' => 'required|exists:students,id',
-            'supervisor_id' => 'required|exists:users,id',
-            'start_date' => 'required|date',
-            // Add more validation rules as needed
+            'supervisor_id' => 'required|exists:users,id|where:role_id,2',
         ]);
 
-        // Create new supervisor allocation
-        SupervisorAllocation::create([
-            'student_id' => $request->student_id,
-            'supervisor_id' => $request->supervisor_id,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'notes' => $request->notes,
-            'contract' => $request->contract,
-        ]);
+        SupervisorAllocation::create($validatedData);
 
-        // Redirect back with success message
-        return redirect('/allocation')->with('message', 'Supervisor allocation created successfully.');
+        return redirect()->route('supervisorallocations.supervisorallocation')->with('success', 'Supervisor allocation created successfully!');
     }
 }
