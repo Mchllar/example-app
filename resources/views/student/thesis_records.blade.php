@@ -88,7 +88,7 @@
             <tr>
             @foreach ($thesis as $row)
                 <td>{{ $row['id'] }}</td>
-                <td>{{ $row['thesis'] }}</td>
+                <td>{{ $row['thesis_document'] }}</td>
                 <td>{{ $row['submission_type'] }}</td>
                 <td>{{ $row['created_at'] }}</td>   
             </tr>

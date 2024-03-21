@@ -94,8 +94,8 @@ Route::get('/journal.index', [JournalSubmissionController::class, 'index'])->nam
 //Thesis
 Route::get('/thesis.index', [ThesisController::class, 'index'])->name('thesis.index');
 Route::get('/thesisSubmission', [ThesisController:: class, 'thesisSubmission'])->name('thesis.submission');
-Route::get('/thesis/create', [ConferenceController::class, 'create'])->name('thesis.create');
-Route::post('/thesis/store', [ConferenceController::class, 'store'])->name('thesis.store');
+Route::get('/thesis/create', [ThesisController::class, 'create'])->name('thesis.create');
+Route::post('/thesisSubmit', [ThesisController::class, 'store'])->name('thesis.store');
 
 // Assign Supervisor
 Route::get('/assign-supervisors', [SupervisorController::class, 'assignSupervisors'])->name('assign-supervisors');

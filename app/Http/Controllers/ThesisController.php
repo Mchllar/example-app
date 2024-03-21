@@ -15,51 +15,66 @@ class ThesisController extends Controller
 
     public function store(Request $request)
     {
-        // Form Validation
         $request->validate([
-            'journal_title' => 'required', 
-            'title_of_paper' => 'required',
             'submission_type' => 'required',
-            'thesis_document' => 'required', 
+            'thesis_document' => 'required|file|mimes:pdf',
+            'correction_form' => 'required|file|mimes:pdf',
+            'correction_summary' => 'required|file|mimes:pdf',
         ]);
     
-        // Ensure the directory exists
-        Storage::makeDirectory('public/files');
-
-        // Handle File Upload
-        if ($request->hasFile('file_upload')) {
-            $file = $request->file('file_upload');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/files', $fileName);
-
-            // Get the authenticated student's student_number
-            $user_id = Auth::user()->student->user_id;
-
-            // Create New Journal Entry
-            $journal = new Journal();
-            $journal->user_id = $user_id; // Use student_id as foreign key reference
-            $journal->journal_title = $request->journal_title;
-            $journal->title_of_paper = $request->title_of_paper;
-            $journal->status = $request->status;
-            $journal->file_upload = $fileName; // Store the file path in the database
-            $journal->save();
-
-            // Redirect back with a success message
-            return redirect()->back()->with('success', 'Journal Publication submitted successfully.');
+        $user_id = Auth::user()->id;
+    
+        // Create a new Thesis instance
+        $thesis = new Thesis();
+        $thesis->user_id = $user_id;
+        $thesis->submission_type = $request->submission_type;
+    
+        // Handle file uploads
+        if ($request->hasFile('thesis_document') && $request->hasFile('correction_form') && $request->hasFile('correction_summary')) {
+            $thesis_document = $request->file('thesis_document');
+            $correction_form = $request->file('correction_form');
+            $correction_summary = $request->file('correction_summary');
+    
+            // Store files
+            $thesis_document_path = 'public/files/' . time() . '_' . $thesis_document->getClientOriginalName();
+            $correction_form_path = 'public/files/' . time() . '_' . $correction_form->getClientOriginalName();
+            $correction_summary_path = 'public/files/' . time() . '_' . $correction_summary->getClientOriginalName();
+    
+            // Move files to storage
+            $thesis_document->storeAs('public/files', $thesis_document_path);
+            $correction_form->storeAs('public/files', $correction_form_path);
+            $correction_summary->storeAs('public/files', $correction_summary_path);
+    
+            // Associate file paths with the Thesis instance
+            $thesis->thesis_document = $thesis_document_path;
+            $thesis->correction_form = $correction_form_path;
+            $thesis->correction_summary = $correction_summary_path;
+    
+            // Save the Thesis instance to the database
+            $thesis->save();
+    
+            return redirect()->back()->with('success', 'Thesis submitted successfully!');
         } else {
-            return redirect()->back()->with('error', 'File upload failed.'); // Handle file upload failure
+            return redirect()->back()->with('error', 'File upload failed. Please make sure all required files are uploaded.');
         }
     }
+    
+
+    
 
     public function index()
     {
-        return view('student.thesis_records');
-        // Retrieve the currently authenticated user
-        //$user = auth()->user();
+        //return view('student.thesis_records');
+        //Retrieve the currently authenticated user
+        $user = auth()->user();
     
-        // Retrieve conferences submitted by the authenticated user
-       // $thesis = Thesis::where('user_id', auth()->id())->get();
+        //Retrieve conferences submitted by the authenticated user
+       $thesis = Thesis::where('user_id', auth()->id())->get();
                 
-       // return view('student.thesis_index', compact('thesis'));
-    }
+       return view('student.thesis_records', compact('thesis'));
+   }
 }
+
+
+
+

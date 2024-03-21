@@ -63,87 +63,54 @@
         </style>
     </head>
     <body>
-        <!-- List of what has been uploaded -->
-        <!-- Home page for thesis submission -->
-        <!-- Preview the uploads -->
-        <!-- Edit to upload a new file -->
-        <!-- Lock editing **-->
-        <!-- Supervisor Clearance default - Not approved for each supervisor -->
-        <!-- Show supervisors' names -->
-        <!-- Yes/no option to notify the supervisor (Send reminder date; show previously sent reminder) -->
-        <!-- View the same table as the supervisor; List all supervisees, replace reminder button with approve submission -->
-        <!--button to this current submission -->
-        <!-- redirection to new page-->
-        <!-- have a submission type drop down-->
-        <!-- Constraints for editing thesis submissions (Lock and unlock(0 or 1) button for each student-->
-        <!-- Thesis Submissions table-->
-        <!-- Submission approvals table Submission ID, Supervisor ID, Submission type, Approval date-->
-        <!-- Check if all supervisors appear in the submission table-->
+               
+        <!-- Preview the uploads 
+
+        Edit to upload a new file 
+
+        Lock editing 
+
+        Supervisor Clearance default - Not approved for each supervisor 
+
+        Show supervisors' names 
+
+        Yes/no option to notify the supervisor (Send reminder date; show previously sent reminder) 
+
+        View the same table as the supervisor; List all supervisees, replace reminder button with approve submission 
+
+        button to this current submission 
+
+        redirection to new page
+        
+        Constraints for editing thesis submissions (Lock and unlock(0 or 1) button for each student
+
+        Submission approvals table Submission ID, Supervisor ID, Submission type, Approval date
+
+        Check if all supervisors appear in the submission table-->
         <h2> Thesis/Dissertation Submission</h2>
-        <form action="{{route('thesis.store')}}" method="post" enctype="multipart/form-data" id="submissionForm">
-    @csrf
-    <div>
-        <label for="selectOption" style="display: inline-block;">Which submission type are you making?:</label>
-        <select id="selectOption" style="display: inline-block;">
-            <option value="option1">Pre Defense</option>
-            <option value="option2">Post Defense</option>
-        </select>
-    </div>
 
-    <div id="thesisDocumentDiv" class="grayedOut">
-        <label for="thesis_document2">Thesis/Dissertation Document:</label>
-        <input type="file" id="thesis_document2" name="thesis_document2" accept=".pdf">
-    </div>
+       <form action="{{ route('thesis.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf 
+            <label for="submission_type">Submission Type:</label>
+            <select name="submission_type" id="submission_type">
+                <option value="pre_defense">Pre-Defense</option>
+                <option value="post_defense">Post-Defense</option>
+            </select>
+            <br>
 
-    <div id="correctionFormDiv" class="grayedOut">
-        <label for="correction_form">Thesis/Dissertation Correction Form:</label>
-        <input type="file" id="correction_form" name="correction_form" accept=".pdf">
-    </div>
+            <label for="thesis_document">Thesis Document:</label>
+            <input type="file" name="thesis_document" id="thesis_document">
+            <br>
 
-    <div id="correctionSummaryDiv" class="grayedOut">
-        <label for="correction_summary">Thesis/Dissertation Correction Summary:</label>
-        <input type="file" id="correction_summary" name="correction_summary" accept=".pdf">
-    </div>
+            <label for="correction_form">Correction Form:</label>
+            <input type="file" name="correction_form" id="correction_form">
+            <br>
 
-    <button type="submit">Submit</button>
-</form>
+            <label for="correction_summary">Correction Summary:</label>
+            <input type="file" name="correction_summary" id="correction_summary">
+            <br>
 
-<script>
-    window.onload = function () {
-        var divsToGrayOut = document.querySelectorAll('.grayedOut');
-
-        // Ensure that all relevant divs are initially grayed out
-        divsToGrayOut.forEach(function(div) {
-            div.classList.add('grayedOut');
-        });
-
-        // Remove grayedOut class from option 1 related elements during initialization
-        document.getElementById('thesisDocumentDiv').classList.remove('grayedOut');
-
-        document.getElementById('selectOption').addEventListener('change', function() {
-            var option = this.value;
-
-            // Reset all divs to grayed out
-            divsToGrayOut.forEach(function(div) {
-                div.classList.add('grayedOut');
-            });
-
-            // Remove grayed out class based on selected option
-            if (option === 'option1') {
-                document.getElementById('thesisDocumentDiv').classList.remove('grayedOut');
-            } else if (option === 'option2') {
-                document.getElementById('thesisDocumentDiv').classList.remove('grayedOut');
-                document.getElementById('correctionSummaryDiv').classList.remove('grayedOut');
-                document.getElementById('correctionFormDiv').classList.remove('grayedOut');
-            }
-        });
-    };
-</script>
-
-<style>
-    .grayedOut {
-        opacity: 0.5; /* Adjust opacity to gray out */
-    }
-</style>
-</body>
+            <button type="submit">Submit</button>
+            </form>
+    </body>
 </x-layout>
