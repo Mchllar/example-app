@@ -114,5 +114,6 @@ Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'cr
 Route::post('/academic_leave/store', [AcademicLeaveRequestController::class, 'store'])->name('academic_leave.store');
 
 // Define routes for SupervisorAllocationController
+Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation');
 Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])->name('allocation');
 Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');

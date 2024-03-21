@@ -2,36 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\SupervisorAllocation;
 use App\Models\User;
 use App\Models\Student;
-use App\Models\Staff;
 
 class SupervisorAllocationController extends Controller
 {
+    public function supervisorAllocation()
+    {
+        $students = Student::with('supervisors')->get();
+        return view('supervisorallocations.index', ['students' => $students]);
+    }
+
     public function allocation()
     {
         $supervisors = User::where('role_id', 2)->get();
-        $staffMembers = Staff::all();
         $students = Student::all();
-        return view('supervisorallocations.supervisorallocation', ['staffMembers' => $staffMembers], compact('supervisors', 'students'));
+        return view("supervisorallocations.supervisorallocation", compact('supervisors', 'students'));
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'staff_id' => 'required|exists:staff,id',
-            'start_date' => 'nullable|date',
+        $validator = Validator::make($request->all(), [
+            'start_date' => 'required|date',
             'end_date' => 'nullable|date',
-            'notes' => 'nullable|string',
-            'contract' => 'nullable|string',
+            'notes' => 'required|string',
+            'contract' => 'required|file',
             'student_id' => 'required|exists:students,id',
-            'supervisor_id' => 'required|exists:users,id|where:role_id,2',
+            'supervisor_id' => 'required|exists:users,id',
         ]);
 
-        SupervisorAllocation::create($validatedData);
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        return redirect()->route('supervisorallocations.supervisorallocation')->with('success', 'Supervisor allocation created successfully!');
+        // Handle file upload
+        if ($request->hasFile('contract')) {
+            $file = $request->file('contract');
+            $path = $file->store('contracts'); // Store the file in the storage/contracts directory
+        } else {
+            return redirect()
+                ->back()
+                ->withErrors(['contract' => 'The contract file is required.'])
+                ->withInput();
+        }
+
+        // Create SupervisorAllocation instance
+        $allocation = new SupervisorAllocation;
+        $allocation->start_date = $request->start_date;
+        $allocation->end_date = $request->end_date;
+        $allocation->notes = $request->notes;
+        $allocation->contract = $path; // File path
+        $allocation->student_id = $request->student_id;
+        $allocation->supervisor_id = $request->supervisor_id;
+        $allocation->save();
+
+        return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
     }
 }

@@ -114,7 +114,10 @@ class User extends Authenticatable
         return $this->belongTo(Thesis::class);
     }
 
-  
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'student_supervisor', 'supervisor_id', 'student_id');
+    }
 
 
 
