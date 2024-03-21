@@ -58,9 +58,6 @@ class ThesisController extends Controller
             return redirect()->back()->with('error', 'File upload failed. Please make sure all required files are uploaded.');
         }
     }
-    
-
-    
 
     public function index()
     {
@@ -73,6 +70,45 @@ class ThesisController extends Controller
                 
        return view('student.thesis_records', compact('thesis'));
    }
+
+   public function update(Request $request, $id)
+   {
+       // Validate the request data
+       $request->validate([
+           'thesis_document' => 'required|file|mimes:pdf',
+       ]);
+   
+       // Retrieve the thesis record to update
+       $thesis = Thesis::findOrFail($id);
+   
+       // Get the user ID
+       $user_id = Auth::user()->id;
+   
+       // Ensure the authenticated user owns the thesis record
+       if ($thesis->user_id != $user_id) {
+           return response()->json(['error' => 'Unauthorized'], 403);
+       }
+   
+       // Handle the file upload
+       if ($request->hasFile('thesis_document')) {
+           // Get the new file
+           $newFile = $request->file('thesis_document');
+           // Generate a unique file name
+           $newFileName = time() . '_' . $newFile->getClientOriginalName();
+           // Store the new file
+           $newFile->storeAs('public/files', $newFileName);
+           // Update the thesis document path
+           $thesis->thesis_document = 'public/files/' . $newFileName;
+           // Save the updated thesis record
+           $thesis->save();
+           // Return a success response
+           return response()->json(['message' => 'Thesis document updated successfully'], 200);
+       } else {
+           // Return an error response if no file is provided
+           return response()->json(['error' => 'No file provided'], 400);
+       }
+   }
+   
 }
 
 
