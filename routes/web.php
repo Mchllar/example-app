@@ -71,8 +71,6 @@ Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceR
 Route::get('/review/create', [ConferenceReviewController::class, 'create'])->name('review.create');
 Route::post('/reviewSubmit', [ConferenceReviewController::class, 'store'])->name('review.store');
 
-
-
 //Notice of Intention to Submit Thesis
 Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('notice.submission');
 Route::get('/notice/create', [IntentionSubmissionController::class, 'create'])->name('notice.create');
@@ -94,8 +92,9 @@ Route::get('/journal.index', [JournalSubmissionController::class, 'index'])->nam
 //Thesis
 Route::get('/thesis.index', [ThesisController::class, 'index'])->name('thesis.index');
 Route::get('/thesisSubmission', [ThesisController:: class, 'thesisSubmission'])->name('thesis.submission');
-Route::get('/thesis/create', [ConferenceController::class, 'create'])->name('thesis.create');
-Route::post('/thesisSubmit', [ConferenceController::class, 'store'])->name('thesis.store');
+Route::get('/thesis/create', [ThesisController::class, 'create'])->name('thesis.create');
+Route::post('/thesisSubmit', [ThesisController::class, 'store'])->name('thesis.store');
+Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update');
 
 // Assign Supervisor
 Route::get('/assign-supervisors', [SupervisorController::class, 'assignSupervisors'])->name('assign-supervisors');

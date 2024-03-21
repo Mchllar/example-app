@@ -58,11 +58,32 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-family: Arial, sans-serif;
         }
 
         .btn:hover {
             background-color: #45a049;
         }
+
+        .file-info {
+             display: flex;flex; /* Use flexbox for layout */
+            align-items: center; /* Center vertically */
+        }
+
+        .edit-file-button {
+            background-color: #007bff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px; /* Add space between file name and button */
+            font-family: Arial, sans-serif; /* Specify font family */
+        }
+
+        .edit-file-button:hover {
+            background-color: #dc3545; /* Red color */
+        }
+
 
     
     </style>
@@ -78,9 +99,11 @@
                 <th>Thesis/Dissertation File</th>
                 <th>Submission Type</th>
                 <th>Upload Date</th>
+                <th>Update On</th>
+               
                 
-            <!-- <th>Edit</th>
-                <th>Supervisor Clearance</th>
+                
+                <!-- <th>Supervisor Clearance</th>
                 <button> Send Reminder</button> -->
             </tr>
         </thead>
@@ -88,9 +111,23 @@
             <tr>
             @foreach ($thesis as $row)
                 <td>{{ $row['id'] }}</td>
-                <td>{{ $row['thesis'] }}</td>
+                <td>
+                    <div class="file-info">
+                        <span>{{ $row['thesis_document'] }}</span>
+                        <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
+                                <span>Edit File</span>
+                            </label>
+                            <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
+                        </form>
+                    </div>
+                </td>
                 <td>{{ $row['submission_type'] }}</td>
-                <td>{{ $row['created_at'] }}</td>   
+                <td>{{ $row['created_at'] }}</td>  
+                <td>{{ $row['updated_at'] }}</td> 
+              
             </tr>
             @endforeach 
         </tbody>
@@ -101,6 +138,44 @@
     @endif
         
     <a href="{{ route('thesis.submission') }}" class="btn btn-primary">Submit Thesis</a>
+
+
+    <script>
+   
+   function uploadNewFile(id) {
+    var form = document.getElementById('uploadForm' + id);
+    var fileInput = form.querySelector('input[type="file"]');
+    var file = fileInput.files[0];
+    
+    var formData = new FormData();
+    formData.append('thesis_document', file);
+
+    fetch(`/thesis/${id}`, {  // Make sure the URL is correct
+        method: 'POST', // Set the method to POST
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        // Handle success response
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+        // Handle error
+    });
+}
+
+
+</script>
+
 </body>
 </html>
 </x-layout>
