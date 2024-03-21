@@ -5,10 +5,10 @@
             <p class="text-lg text-gray-700 mb-8">This is the dashboard for admin users.</p>
             <ul class="flex flex-wrap justify-center">
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">Home</a>
+                    <a href="/" class="font-bold hover:underline">Home</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">List of Students</a>
+                    <a href="{{ route('supervisorAllocation') }}" class="font-bold hover:underline">List of Students</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="#" class="font-bold hover:underline">List of Supervisors</a>

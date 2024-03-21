@@ -7,15 +7,14 @@
                     @csrf
 
                     <div class="mb-4">
-                        <label for="staff_id" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Staff') }}</label>
-                        <select id="staff_id" class="form-select border border-gray-300 @error('staff_id') border-red-500 @enderror" name="staff_id" required>
-                            <option value="">-- Select Staff --</option>
-                            @foreach($staffMembers as $staff)
-                                <option value="{{ $staff->id }}">{{ $staff->name }}</option>
+                        <select id="student_id" class="form-select border border-gray-300 @error('student_id') border-red-500 @enderror" name="student_id" required>
+                            <option value="">-- Select Student --</option>
+                            @foreach($students as $student)
+                                <option value="{{ $student->id }}" @if(old('student_id') == $student->id || $student->id == request()->input('student_id')) selected @endif>{{ optional($student->user)->name }}</option>
                             @endforeach
                         </select>
                     
-                        @error('staff_id')
+                        @error('student_id')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
@@ -56,19 +55,6 @@
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="student_id" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Student') }}</label>
-                        <select id="student_id" class="form-select border border-gray-300 @error('student_id') border-red-500 @enderror" name="student_id" required>
-                            <option value="">-- Select Student --</option>
-                            @foreach($students as $student)
-                            <option value="{{ $student->id }}">{{ optional($student->user)->name }}</option>
-                        @endforeach                        
-                        </select>
-
-                        @error('student_id')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
 
                     <div class="mb-4">
                         <label for="supervisor_id" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Supervisor') }}</label>

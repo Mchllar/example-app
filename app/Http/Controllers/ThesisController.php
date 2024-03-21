@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Thesis;
+use App\Models\Journal;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class ThesisController extends Controller
@@ -16,8 +18,7 @@ class ThesisController extends Controller
     public function store(Request $request)
     {
         // Form Validation
-        $request->validate([
-            'journal_title' => 'required', 
+        $request->validate([ 
             'title_of_paper' => 'required',
             'submission_type' => 'required',
             'thesis_document' => 'required', 
