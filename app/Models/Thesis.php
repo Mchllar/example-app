@@ -8,8 +8,8 @@ class Thesis extends Model
         'user_id', 
         'submission_type', 
         'thesis_document', 
-        'correction_form', 
-        'correction_summary'
+        //'correction_form', 
+       // 'correction_summary',
         //'supervisor1', 
         //'supervisor2', 
         //'supervisor3', 
