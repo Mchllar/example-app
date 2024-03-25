@@ -8,7 +8,7 @@
                     <a href="#" class="font-bold hover:underline">Home</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">Approve Thesis</a>
+                    <a href="{{ route('thesis.index')}}" class="font-bold hover:underline">Approve Thesis</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="#" class="font-bold hover:underline">Update Progress Report</a>

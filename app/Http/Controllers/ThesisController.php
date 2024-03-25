@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Thesis;
+use App\Models\SupervisorAllocation;
 use Illuminate\Support\Facades\Auth;
 
 
 class ThesisController extends Controller
 {
+    // View for submitting thesis
     public function thesisSubmission() {
         return view('student.thesis_submission');
     }
 
+    // Saving thesis to database
     public function store(Request $request)
-{
+    {
     $request->validate([
         'submission_type' => 'required',
         'thesis_document' => 'required|file|mimes:pdf',
@@ -57,21 +60,33 @@ class ThesisController extends Controller
     $thesis->save();
 
     return redirect()->back()->with('success', 'Thesis submitted successfully!');
-}
+    }
 
-
+    // View of the Thesis submission
     public function index()
     {
-        //return view('student.thesis_records');
-        //Retrieve the currently authenticated user
-        $user = auth()->user();
+    // Retrieve the currently authenticated user
+    $user = auth()->user();
     
-        //Retrieve conferences submitted by the authenticated user
-       $thesis = Thesis::where('user_id', auth()->id())->get();
-                
-       return view('student.thesis_records', compact('thesis'));
-   }
+    // Check if the user's role is supervisor
+    if ($user->role_id == 2) {
+        // Retrieve supervisees' theses if the user is a supervisor
+        $superviseeUserIds = SupervisorAllocation::where('supervisor_id', $user->id)
+            ->join('students', 'supervisor_allocations.student_id', '=', 'students.id')
+            ->pluck('students.user_id')
+            ->toArray();
+        
+        $thesis = Thesis::whereIn('user_id', $superviseeUserIds)->get();
+    } else {
+        // Retrieve theses submitted by the authenticated user (student)
+        $thesis = Thesis::where('user_id', $user->id)->get();
+    }
+    
+    return view('student.thesis_records', compact('thesis'));
+    }
 
+ 
+   // Changing the uploaded thesis document
    public function update(Request $request, $id)
    {
        // Validate the request data
@@ -102,13 +117,18 @@ class ThesisController extends Controller
            $thesis->thesis_document = 'public/files/' . $newFileName;
            // Save the updated thesis record
            $thesis->save();
-           // Return a success response
-           return response()->json(['message' => 'Thesis document updated successfully'], 200);
+           // Return a success response with reload flag
+           return response()->json(['message' => 'Thesis document updated successfully', 'reload' => true], 200);
        } else {
            // Return an error response if no file is provided
            return response()->json(['error' => 'No file provided'], 400);
        }
-   }
+    }
+
+
+
+ 
+   
    
 }
 
