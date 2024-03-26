@@ -19,7 +19,7 @@
                 @foreach($reportingPeriods as $period)
                 <tr>
                     <td class="px-4 py-2 border border-gray-200">
-                        <a href="{{ route('progress_reports.create', ['period_id' => $period->id]) }}">Progress Report {{ $period->name }}</a>
+                        <a href="{{ route('progress_reports.sectionA', ['period_id' => $period->id]) }}">Progress Report {{ $period->name }}</a>
                     </td>
                     <td class="px-4 py-2 border border-gray-200">{{ $period->name }}</td>
                 </tr>

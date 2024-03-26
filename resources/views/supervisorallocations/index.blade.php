@@ -8,13 +8,14 @@
                 <table class="table-auto w-full">
                     <thead>
                         <tr>
-                            <th class="px-4 py-2">Name</th>
-                            <th class="px-4 py-2">Start Date</th>
-                            <th class="px-4 py-2">End Date</th>
-                            <th class="px-4 py-2">Notes</th>
-                            <th class="px-4 py-2">Contract</th>
-                            <th class="px-4 py-2">Supervisor</th>
-                            <th class="px-4 py-2">Actions</th>
+                            <th class="grey-cell px-4 py-2">Name</th>
+                            <th class="grey-cell px-4 py-2">Start Date</th>
+                            <th class="grey-cell px-4 py-2">End Date</th>
+                            <th class="grey-cell px-4 py-2">Notes</th>
+                            <th class="grey-cell px-4 py-2">Status</th>
+                            <th class="grey-cell px-4 py-2">Contract</th>
+                            <th class="grey-cell px-4 py-2">Supervisor</th>
+                            <th class="grey-cell px-4 py-2">Assign Supervisor</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,6 +26,7 @@
                                     <td class="border px-4 py-2">{{ $student->supervisorAllocation->start_date }}</td>
                                     <td class="border px-4 py-2">{{ $student->supervisorAllocation->end_date }}</td>
                                     <td class="border px-4 py-2">{{ $student->supervisorAllocation->notes }}</td>
+                                    <td class="border px-4 py-2">{{ $student->supervisorAllocation->status}}</td>
                                     <td class="border px-4 py-2">
                                         @if($student->supervisorAllocation->contract)
                                             <a href="{{ asset($student->supervisorAllocation->contract) }}" target="_blank">View Contract</a>
@@ -48,6 +50,7 @@
                                     <td class="border px-4 py-2">None</td>
                                     <td class="border px-4 py-2">None</td>
                                     <td class="border px-4 py-2">None</td>
+                                    <td class="border px-4 py-2">None</td>
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('allocation', ['student_id' => $student->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Assign New Supervisor</a>
                                     </td>
@@ -60,3 +63,9 @@
         </div>
     </div>
 </x-layout>
+
+<style>
+    .grey-cell {
+        background-color: #f3f4f6; /* Grey color */
+    }
+</style>

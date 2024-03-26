@@ -108,6 +108,14 @@ Route::post('/change-supervisor-request', [SupervisorController::class, 'submitC
 Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index');
 Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create');
 Route::post('/progress_reports', [ProgressReportController::class, 'store'])->name('progress_reports.store');
+Route::get('/progress_reports/sectionA', [ProgressReportController::class, 'sectionA'])->name('progress_reports.sectionA');
+Route::post('/progress_reports/storeSectionA', [ProgressReportController::class, 'storeSectionA'])->name('progress_reports.storeSectionA');
+Route::get('/progress_reports/sectionB', [ProgressReportController::class, 'sectionB'])->name('progress_reports.sectionB');
+Route::post('/progress_reports/storeSectionB', [ProgressReportController::class, 'storeSectionB'])->name('progress_reports.storeSectionB');
+Route::get('/progress_reports/sectionC', [ProgressReportController::class, 'sectionC'])->name('progress_reports.sectionC');
+Route::post('/progress_reports/storeSectionC', [ProgressReportController::class, 'storeSectionC'])->name('progress_reports.storeSectionC');
+Route::get('/progress_reports/final', [ProgressReportController::class, 'final'])->name('progress_reports.finalSubmission');
+Route::post('/progress_reports/finalStore', [ProgressReportController::class, 'finalStore'])->name('progress_reports.finalStore');
 
 //Academic Request
 Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'create'])->name('academic_leave.create');
