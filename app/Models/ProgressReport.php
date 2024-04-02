@@ -10,8 +10,10 @@ class ProgressReport extends Model
 {
     protected $fillable = [
         'student_id',
-        'staff_id',
+        'principal_supervisor_id',
+        'lead_supervisor_id',
         'reporting_periods_id',
+        'mode_of_study',
         'goals_set',
         'progress_report',
         'problems_issues',
@@ -34,9 +36,13 @@ class ProgressReport extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function staff()
+    public function principal_supervisor()
     {
-        return $this->belongsTo(Staff::class);
+        return $this->belongsTo(User::class, 'principal_supervisor_id');
+    }
+    public function lead_supervisor()
+    {
+        return $this->belongsTo(User::class, 'lead_supervisor_id');
     }
 
     public function reportingPeriod()

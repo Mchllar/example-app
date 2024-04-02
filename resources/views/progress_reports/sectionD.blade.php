@@ -24,7 +24,7 @@
     </style>
     <!-- Final Step Form -->
     <!-- This view will contain the form fields for the final step -->
-    <form method="POST" action="{{ route('progress_reports.finalStore') }}" class="form-container max-w-3xl mx-auto px-4 py-8">
+    <form method="POST" action="{{ route('progress_reports.storeSectionD') }}" class="form-container max-w-3xl mx-auto px-4 py-8">
         @csrf
     <div class="form-container max-w-3xl mx-auto px-4 py-8">
         <!-- SECTION D: OFFICE OF GRADUATE STUDIES -->
@@ -32,10 +32,10 @@
     <h2 class="text-lg font-semibold mb-4"><strong class="section-heading">SECTION D: OFFICE OF GRADUATE STUDIES</strong></h2>
     <p style="font-weight: bold; color: black;">Student progress</p><br>
     <p style="font-weight: bold; color: red;">*Please read carefully the previous sections that have been completed by the student and supervisors. If you agree that satisfactory progress has been made during the period covered by the report, and that the future plans are appropriate and that no special action is needed, please complete below. If progress is not satisfactory, complete the relevant section below.</p><br>
-    <p><strong>a.)Progress: Has progress been satisfactory in the context of the student completing their studies successfully and on time?</strong></p>
+    <p><strong>a.) Progress: Has progress been satisfactory in the context of the student completing their studies successfully and on time?</strong></p>
     <ul>
-        <li><label><input type="radio" name="dir_progress_satisfaction" value="yes">Yes</label></li>
-        <li><label><input type="radio" name="dir_progress_satisfaction" value="no">No</label></li>
+        <li><label><input type="radio" name="dir_progress_satisfaction" value="1">Yes</label></li>
+        <li><label><input type="radio" name="dir_progress_satisfaction" value="2">No</label></li>
     </ul><br>
     <p><strong>b.)Unsatisfactory progress and action. If any aspect of student performance is unsatisfactory, please identify what is wrong.</strong></p>
     <ul>

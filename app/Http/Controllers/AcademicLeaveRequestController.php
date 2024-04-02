@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademicLeaveRequest;
 use App\Models\Student;
+use App\Models\Staff;
+use App\Models\LeaveApproval;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AcademicLeaveRequestController extends Controller
 {
@@ -25,24 +29,40 @@ class AcademicLeaveRequestController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'student_id' => 'required|exists:students,id',
             'leave_start_date' => 'required|date',
-            'reason_for_leave' => 'required',
+            'reason_for_leave' => 'required|string',
             'return_date' => 'required|date',
-            // Add more validation rules as needed
+            'address' => 'required|string', // Add validation rule for address
+        ]);
+    
+        //dd($validatedData);
+        // Create a new academic leave request using the validated data
+        AcademicLeaveRequest::create($validatedData);
+    
+        // Redirect back with success message
+        return redirect('/')->with("message", "Request Sent Successfully");
+    }
+    
+
+    public function approve()
+    {
+             return view('leave.approval');
+    }
+
+    public function storeApprove(Request $request)
+    {
+        $validatedData = $request->validate([
+            'staff_id'=>'required|exists:students,id',
+            'ogs_date'=>'required|date',
+            'status' => 'required|string',
         ]);
 
-        $studentId = Auth::user()->student->id ?? null;
 
-        AcademicLeaveRequest::create([
-            'student_id' => $studentId,
-            'staff_id' => null,
-            'leave_start_date' => $request->leave_date,
-            'reason_for_leave' => $request->reason_for_leave,
-            'return_date' => $request->return_date,
-            'ogs_approval_date' => $request->ogs_date,
-        ]);
+            LeaveApproval::create($validatedData);
 
-        return redirect()->back()->with("message", "Request Sent Successfully");
+        return redirect()->route('/')->back()->with("message", "Approved");
     }
 }

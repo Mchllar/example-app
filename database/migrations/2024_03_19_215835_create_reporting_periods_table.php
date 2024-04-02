@@ -28,6 +28,10 @@ return new class extends Migration
             ['name' => 'July-Dec 2021', 'year' => '2021', 'status' => 'Active'],
             ['name' => 'Jan-June 2022', 'year' => '2022', 'status' => 'Active'],
             ['name' => 'July-Dec 2022', 'year' => '2022', 'status' => 'Active'],
+            ['name' => 'Jan-June 2023', 'year' => '2023', 'status' => 'Active'],
+            ['name' => 'July-Dec 2023', 'year' => '2023', 'status' => 'Active'],
+            ['name' => 'Jan-June 2024', 'year' => '2024', 'status' => 'Active'],
+            ['name' => 'July-Dec 2024', 'year' => '2024', 'status' => 'Active'],
             ['name' => 'Jan-June 2020', 'year' => '2020', 'status' => 'Active'],
             ['name' => 'Jan-June 2018', 'year' => '2019', 'status' => 'Inactive']
         ]);
