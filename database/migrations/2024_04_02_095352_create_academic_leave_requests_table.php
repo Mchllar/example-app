@@ -18,13 +18,10 @@ Schema::create('academic_leave_requests', function (Blueprint $table) {
     $table->id();
     $table->unsignedBigInteger('student_id')->nullable();
     $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-    $table->unsignedBigInteger('staff_id')->nullable();
-    $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
     $table->string('address');
     $table->date('leave_start_date');
     $table->text('reason_for_leave');
     $table->date('return_date');
-    $table->date('ogs_approval_date')->nullable();
     $table->timestamps();
 });
 ;

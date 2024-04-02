@@ -8,7 +8,7 @@
                     <a href="/" class="font-bold hover:underline">Home</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="{{ route('change-supervisor-request-form') }}" class="font-bold hover:underline">Request Change of Supervisor</a>
+                    <a href="#" class="font-bold hover:underline">Request Change of Supervisor</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="{{ route('progress_reports.index')}}" class="font-bold hover:underline">Submit Progress Report</a>

@@ -160,6 +160,7 @@ public function store(Request $request)
 
     // Create user
     $user = User::create($userData);
+    session(['user_details' => $userData]);
 
     // Create role-specific record
     if ($validatedData['role'] == 1) {

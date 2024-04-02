@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Create 10 users with associated roles
-        User::factory(10)->create()->each(function ($user) {
+        User::factory(25)->create()->each(function ($user) {
             if ($user->role_id == 1) {
                 Student::factory()->create(['user_id' => $user->id]);
             } elseif ($user->role_id == 2) {

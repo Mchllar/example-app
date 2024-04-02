@@ -32,6 +32,7 @@ class SupervisorAllocationController extends Controller
             'contract' => 'required|file',
             'student_id' => 'required|exists:students,id',
             'supervisor_id' => 'required|exists:users,id',
+            'status' => 'required|string',
         ]);
 
         if ($validator->fails()) {

@@ -13,6 +13,7 @@ class SupervisorAllocation extends Model
         'contract',
         'student_id',
         'supervisor_id',
+        'status',
     ];
 
     public function student()

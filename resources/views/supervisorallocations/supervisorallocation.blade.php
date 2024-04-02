@@ -45,6 +45,17 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div class="mb-4">
+                        <label for="status" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Status') }}</label>
+                        <select id="status" name="status" class="form-select border border-gray-300 @error('status') border-red-500 @enderror" required>
+                            <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                    
+                        @error('status')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
 
                     <div class="mb-4">
                         <label for="contract" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Contract') }}</label>
