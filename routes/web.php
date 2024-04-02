@@ -97,6 +97,7 @@ Route::post('/thesisSubmit', [ThesisController::class, 'store'])->name('thesis.s
 Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update');
 Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
 Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
+Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
 
 
 

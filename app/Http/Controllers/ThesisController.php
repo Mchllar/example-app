@@ -161,8 +161,9 @@ class ThesisController extends Controller
             $emails = $request->input('emails');
             
             // Get student name from authenticated user
-            $user = Auth::user();
-            $studentName = $user->name;
+           // $user = Auth::user();
+           // $studentName = $user->name;
+           $studentName = 'Michelle Guya';
     
             // Initialize reminder message
            /* $reminder = [
@@ -172,7 +173,7 @@ class ThesisController extends Controller
                 'url' => 'http://127.0.0.1:8000/thesis.approval',
             ];*/
           
-    
+   
             // Send reminder emails to each recipient
             foreach ($emails as $email) {
                 Mail::to($email)->send(new ThesisApprovalReminder($studentName));    

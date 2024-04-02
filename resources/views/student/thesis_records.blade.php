@@ -243,10 +243,14 @@
                             }
 
                             // Implement reminder button
-                            if (!empty($supervisorEmails)) {
-                                // Pass the $supervisorEmails array to JavaScript function
-                                echo '<button id="sendReminderBtn" onclick="sendReminder(' . htmlspecialchars(json_encode($supervisorEmails), ENT_QUOTES, 'UTF-8') . ')">Send Reminder</button>';
-                            }
+                        //if (!empty($supervisorEmails)) {
+                            // Pass the $supervisorEmails array to JavaScript function
+                           // echo '<button id="sendReminderBtn" onclick="sendReminder(' . htmlspecialchars(json_encode($supervisorEmails), ENT_QUOTES, 'UTF-8') . ')">Send Reminder</button>';
+                        //}
+                      if (!empty($supervisorEmails)){
+                        echo '<button id="sendReminderBtn">Send Reminder</button>';
+                      }
+                        
 
                        
                         }
@@ -317,23 +321,58 @@
 
     </script>  
 
-    <script>
+   <!-- <script>
     function sendReminder(supervisorEmails) {
 
         // Check if supervisorEmails is an array
         if (Array.isArray(supervisorEmails)) {
             // Display pop-up with supervisor's emails
             var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
+            
+            if (confirmation) {              
+            alert('Reminders sent to:\n\n' + supervisorEmails.join('\n'));
 
-            if (confirmation) {
-                alert('Reminders sent to:\n\n' + supervisorEmails.join('\n'));
             }
         } else {
             // Handle the case where supervisorEmails is not an array
             console.error("supervisorEmails is not an array");
         }
     }
-    </script>
+    </script> -->
+
+
+
+<!-- JavaScript code to send AJAX request -->
+<script>
+document.getElementById('sendReminderBtn').addEventListener('click', function() {
+    var supervisorEmails = <?php echo json_encode($supervisorEmails); ?>;
+    var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Get CSRF token from meta tag
+
+    if (Array.isArray(supervisorEmails)) {
+        var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
+        
+        if (confirmation) {              
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/sendReminder', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('X-CSRF-TOKEN', token); // Set CSRF token in request headers
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        alert(xhr.responseText);
+                    } else {
+                        alert('Error: ' + xhr.status);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify({ emails: supervisorEmails }));
+        }
+    } else {
+        console.error("supervisorEmails is not an array");
+    }
+});
+</script>
+
     </body>
 </html>
 
