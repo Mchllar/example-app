@@ -13,7 +13,6 @@ class Thesis extends Model
         //'supervisor1', 
         //'supervisor2', 
         //'supervisor3', 
-        //'supervisor_verdict', 
         //'Reminder',
        ];
 
@@ -25,6 +24,11 @@ class Thesis extends Model
         public function user()
         {
             return $this->belongsTo(User::class);
+        }
+
+        public function approvals(){
+
+            return $this->belongsTo(ThesisApprovals::class);
         }
         
 }

@@ -95,6 +95,10 @@ Route::get('/thesisSubmission', [ThesisController:: class, 'thesisSubmission'])-
 Route::get('/thesis/create', [ThesisController::class, 'create'])->name('thesis.create');
 Route::post('/thesisSubmit', [ThesisController::class, 'store'])->name('thesis.store');
 Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update');
+Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
+Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
+
+
 
 
 // Progress Report Routes

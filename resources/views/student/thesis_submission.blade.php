@@ -60,14 +60,19 @@
             button[type="submit"]:hover {
                 background-color: #45a049;
             }
+
+            #submission_type, label {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+    }
         </style>
     </head>
     <body>
                
         <!-- Preview the uploads 
 
-        Edit to upload a new file 
-
+        
         Lock editing 
 
         Supervisor Clearance default - Not approved for each supervisor 
@@ -89,28 +94,64 @@
         Check if all supervisors appear in the submission table-->
         <h2> Thesis/Dissertation Submission</h2>
 
-       <form action="{{ route('thesis.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf 
-            <label for="submission_type">Submission Type:</label>
-            <select name="submission_type" id="submission_type">
-                <option value="pre_defense">Pre-Defense</option>
-                <option value="post_defense">Post-Defense</option>
-            </select>
-            <br>
+        <form id="thesisForm" action="{{ route('thesis.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf 
+        <label for="submission_type">Submission Type:</label>
+        <select name="submission_type" id="submission_type">
+            <option value="">Select Submission Type</option>
+            <option value="pre_defense">Pre-Defense</option>
+            <option value="post_defense">Post-Defense</option>
+        </select>
+        <br>
 
-            <label for="thesis_document">Thesis Document:</label>
-            <input type="file" name="thesis_document" id="thesis_document">
-            <br>
+        <div id="fileInputs">
+           
+            <div id="thesis_document_div" style="display: none;">
+                <label for="thesis_document">Thesis Document:</label>
+                <input type="file" name="thesis_document" id="thesis_document">
+                <br>
+            </div>
 
-            <label for="correction_form">Correction Form:</label>
-            <input type="file" name="correction_form" id="correction_form">
-            <br>
+            <div id="correction_form_div" style="display: none;">
+                <label for="correction_form">Correction Form:</label>
+                <input type="file" name="correction_form" id="correction_form">
+                <br>
+            </div>
 
-            <label for="correction_summary">Correction Summary:</label>
-            <input type="file" name="correction_summary" id="correction_summary">
-            <br>
+            <div id="correction_summary_div" style="display: none;">
+                <label for="correction_summary">Correction Summary:</label>
+                <input type="file" name="correction_summary" id="correction_summary">
+                <br>
+            </div>
+        </div>
 
-            <button type="submit">Submit</button>
-            </form>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('submission_type').addEventListener('change', function() {
+            var submissionType = this.value;
+            var fileInputs = document.getElementById('fileInputs');
+            var thesisDocumentDiv = document.getElementById('thesis_document_div');
+            var correctionFormDiv = document.getElementById('correction_form_div');
+            var correctionSummaryDiv = document.getElementById('correction_summary_div');
+
+            // Show/hide file inputs based on submission type
+            if (submissionType === 'pre_defense') {
+                fileInputs.style.display = 'block';
+                thesisDocumentDiv.style.display = 'block'; 
+                correctionFormDiv.style.display = 'none'; 
+                correctionSummaryDiv.style.display = 'none';
+            } else if (submissionType === 'post_defense') {
+                fileInputs.style.display = 'block';
+                thesisDocumentDiv.style.display = 'block'; 
+                correctionFormDiv.style.display = 'block'; 
+                correctionSummaryDiv.style.display = 'block';
+            } else {
+                fileInputs.style.display = 'none'; 
+            }
+        });
+    </script>
+
     </body>
 </x-layout>
