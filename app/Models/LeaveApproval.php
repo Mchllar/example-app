@@ -10,12 +10,8 @@ class LeaveApproval extends Model
     use HasFactory;
 
     protected $fillable = [
-        'staff_id',
-        'ogs_date',
+        'user_id',
+        'ogs_approval_date',
         'status',
     ];
-    public function staff()
-    {
-        return $this->belongsTo(Staff::class);
-    }
 }

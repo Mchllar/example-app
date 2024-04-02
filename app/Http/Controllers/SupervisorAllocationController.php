@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\SupervisorAllocation;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\ChangeSupervisorRequest;
 
 class SupervisorAllocationController extends Controller
 {
@@ -65,4 +66,41 @@ class SupervisorAllocationController extends Controller
 
         return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
     }
+    public function changeSupervisor()
+    {
+        return view('supervisorallocations.changeSupervisor');
+    }
+
+    public function storeChangeSupervisor(Request $request)
+    {
+        $validatedData = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'thesis_title' => 'required|string',
+            'proposed_supervisor_1' => 'nullable|string',
+            'proposed_supervisor_2' => 'nullable|string',
+            'proposed_supervisor_3' => 'nullable|string',
+            'effective_date' => 'required|date',
+            'reason_for_change' => 'required|string',
+        ]);
+
+        // Create a new instance of ChangeSupervisorRequest model
+        $changeSupervisorRequest = new ChangeSupervisorRequest();
+
+        // Populate the model instance with validated data
+        $changeSupervisorRequest->student_id = $validatedData['student_id'];
+        $changeSupervisorRequest->thesis_title = $validatedData['thesis_title'];
+        $changeSupervisorRequest->proposed_supervisor_1 = $validatedData['proposed_supervisor_1'];
+        $changeSupervisorRequest->proposed_supervisor_2 = $validatedData['proposed_supervisor_2'];
+        $changeSupervisorRequest->proposed_supervisor_3 = $validatedData['proposed_supervisor_3'];
+        $changeSupervisorRequest->effective_date = $validatedData['effective_date'];
+        $changeSupervisorRequest->reason_for_change = $validatedData['reason_for_change'];
+
+        // Save the model instance
+        $changeSupervisorRequest->save();
+
+        return redirect('/')->with('message', 'Change Supervisor request submitted successfully.');
+  }
+
+    
+        
 }

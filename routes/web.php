@@ -102,8 +102,6 @@ Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('t
 
 
 
-
-
 // Progress Report Routes
 Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index');
 Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create');
@@ -124,8 +122,11 @@ Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'cr
 Route::post('/academic_leave/store', [AcademicLeaveRequestController::class, 'store'])->name('academic_leave.store');
 Route::get('/academic_leave/approve', [AcademicLeaveRequestController::class, 'approve'])->name('academic_leave.approve');
 Route::post('/academic_leave/storeApprove', [AcademicLeaveRequestController::class, 'storeApprove'])->name('academic_leave.storeApprove');
+Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'viewRequests'])->name('academic_leave.view');
 
 // Define routes for SupervisorAllocationController
 Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation');
 Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])->name('allocation');
 Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');
+Route::get('/changeSupervisor',[SupervisorAllocationController::class, 'changeSupervisor'])->name('changeSupervisor');
+Route::post('/changeSupervisor/store',[SupervisorAllocationController::class, 'storeChangeSupervisor'])->name('changeSupervisor.store');
