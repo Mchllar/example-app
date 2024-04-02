@@ -97,8 +97,6 @@ Route::post('/thesisSubmit', [ThesisController::class, 'store'])->name('thesis.s
 Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update');
 
 
-
-
 // Progress Report Routes
 Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index');
 Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create');
@@ -125,3 +123,5 @@ Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'view
 Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation');
 Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])->name('allocation');
 Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');
+Route::get('/changeSupervisor',[SupervisorAllocationController::class, 'changeSupervisor'])->name('changeSupervisor');
+Route::post('/changeSupervisor/store',[SupervisorAllocationController::class, 'storeChangeSupervisor'])->name('changeSupervisor.store');

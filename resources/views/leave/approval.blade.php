@@ -67,7 +67,8 @@
         </div>
     </div>
 
-    <div class="flex items-center justify-center mt-8">
+    <div class="centered">
+        <div class="form-container max-w-lg mx-auto px-4 py-8 rounded-lg shadow-md">
         <form method="POST" action="{{ route('academic_leave.storeApprove', $academicLeaveRequest->id) }}" class="mr-4">
             @csrf
             <div class="mb-4">
@@ -91,6 +92,7 @@
                </div>
             <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Finish</button>
         </form>
+    </div>
     </div>
 
 </x-layout>

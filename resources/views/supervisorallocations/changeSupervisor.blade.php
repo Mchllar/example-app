@@ -3,8 +3,13 @@
         <h1 class="text-3xl font-bold mb-4 text-center">Change Supervisor Request Form</h1>
 
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <form action="{{ route('change-supervisor-request') }}" method="POST">
+            <form action="{{ route('changeSupervisor.store') }}" method="POST">
                 @csrf
+                <div class="mb-4">
+                    <label for="student_number" class="block text-gray-700 text-sm font-bold mb-2">Student Number</label>
+                    <input type="text" id="student_number" name="student_number" value="{{ old('student_number', auth()->user()->student->student_number ?? '') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <input type="hidden" id="student_id" name="student_id" value="{{ auth()->user()->student->id }}">
+                </div>
 
                 <!-- Title of Thesis -->
                 <div class="mb-4">
@@ -45,20 +50,12 @@
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="reason_for_change" name="reason_for_change" rows="3" required></textarea>
                 </div>
 
-                <!-- Approval by School -->
-                <div class="flex items-center justify-between">
-                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
-                </div><br>
 
-                <!-- Approval by Board -->
-                <div class="flex items-center justify-between">
+                <!-- Submit Button -->
+                <div class="flex items-center justify-center mt-8">
                     <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
-                </div><br>
-
-                <!-- Director Date -->
-                <div class="flex items-center justify-between">
-                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
-                </div><br>
+                </div>
+                
             </form>
         </div>
     </div>
