@@ -119,6 +119,7 @@ Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'cr
 Route::post('/academic_leave/store', [AcademicLeaveRequestController::class, 'store'])->name('academic_leave.store');
 Route::get('/academic_leave/approve', [AcademicLeaveRequestController::class, 'approve'])->name('academic_leave.approve');
 Route::post('/academic_leave/storeApprove', [AcademicLeaveRequestController::class, 'storeApprove'])->name('academic_leave.storeApprove');
+Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'viewRequests'])->name('academic_leave.view');
 
 // Define routes for SupervisorAllocationController
 Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation');

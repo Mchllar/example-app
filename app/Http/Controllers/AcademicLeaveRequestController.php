@@ -46,23 +46,49 @@ class AcademicLeaveRequestController extends Controller
         return redirect('/')->with("message", "Request Sent Successfully");
     }
     
-
-    public function approve()
+    public function viewRequests()
     {
-             return view('leave.approval');
+        // Query to get students along with the count of their academic leave requests
+        $students = DB::table('academic_leave_requests')
+            ->leftJoin('students', 'academic_leave_requests.student_id', '=', 'students.id')
+            ->leftJoin('users', 'students.user_id', '=', 'users.id')
+            ->select('students.id', 'users.name', DB::raw('count(academic_leave_requests.id) as requests_count'))
+            ->groupBy('students.id', 'users.name')
+            ->get();
+    
+        return view('leave.viewRequest', ['students' => $students]);
     }
+    public function approve(Request $request)
+{
+    // Get the student ID from the request
+    $studentId = $request->input('student_id');
+
+    // Fetch the academic leave request for the specified student
+    $academicLeaveRequest = AcademicLeaveRequest::where('student_id', $studentId)->first();
+
+    // Check if the academic leave request exists
+    if (!$academicLeaveRequest) {
+        // Handle the case where the academic leave request does not exist
+        abort(404, 'Academic leave request not found.');
+    }
+
+    // Pass the academic leave request data to the view
+    return view('leave.approval', compact('academicLeaveRequest'));
+}
+
+
 
     public function storeApprove(Request $request)
     {
         $validatedData = $request->validate([
-            'staff_id'=>'required|exists:students,id',
-            'ogs_date'=>'required|date',
+            'user_id'=>'required|exists:users,id',
+            'ogs_approval_date'=>'required|date',
             'status' => 'required|string',
         ]);
 
 
             LeaveApproval::create($validatedData);
 
-        return redirect()->route('/')->back()->with("message", "Approved");
+        return redirect('/')->with("message", "Approved");
     }
 }
