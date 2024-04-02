@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title -->
     <title>Your Page Title</title>
+    <!-- External CSS -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,6 +19,7 @@
             font-size: 25px;
             line-height: 1.5;
         }
+
         .main-content {
             flex: 3;
             padding: 20px;
@@ -29,13 +33,18 @@
 
         .table-container {
             margin: 20px auto; /* Apply margin to the container and center it horizontally */
-            width: 80%; /* Adjust width as needed */
+            width: 100%; /* Adjust width as needed */
             text-align: center; /* Center the content horizontally */
+            overflow-x: auto; /* Allow horizontal scrolling if needed */
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden; /* Hide overflowing content */
+            text-overflow: ellipsis; /* Display ellipsis for overflow text */
         }
 
         th {
@@ -49,15 +58,16 @@
         tr:hover {
             background-color: #ddd;
         }
+
         .btn {
-            width: 30%;
-            padding: 10px;
+            padding: 8px; /* Adjust button padding */
             background-color: #007bff; /* Blue color */
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-family: Arial, sans-serif;
+            width: 100%; /* Set button width to 100% */
         }
 
         .btn:hover {
@@ -94,7 +104,7 @@
         }
 
         .approve-button {
-            background-color: #0000FF; /* Green */
+            background-color: #0000FF; 
             border: none;
             color: white;
             padding: 10px 20px;
@@ -107,75 +117,162 @@
         }
 
         .approve-button:hover {
-            background-color: #4CAF50; /* Darker shade of green on hover */
+            background-color: #4CAF50; 
         }
 
         .clearance-row {
             /* Initially hide clearance row for non-supervisors */
             display: none;
+        }  
+        
+        /* Default button style */
+        #sendReminderBtn {
+            background-color: #4CAF50;
+            border: 1px solid black;
+            color: black;
+            padding: 2px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            width: 100%; /* Set button width to 100% */
         }
 
-     
+        /* Style for hover effect */
+        #sendReminderBtn:hover {
+            background-color: red;
+            color: white;
+        }
+
+        /* Style for active state */
+        #sendReminderBtn:active {
+            background-color: green;
+        }
     </style>
 </head>
 <body>
 <x-layout>
-    @if (isset($thesis) && !$thesis->isEmpty())
-        <p>List of Thesis/Dissertation Documents</p>
-        <div class="table-container">
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Thesis/Dissertation File</th>
-                        <th>Submission Type</th>
-                        <th>Upload Date</th>
-                        <th>Update On</th>
-                        <th>Correction Form</th>
-                        <th>Correction Summary</th>
-                        @if(auth()->user()->role_id == 2) 
-                        <th>Clearance</th>
+@if (isset($thesis) && !$thesis->isEmpty())
+    <p>List of Thesis/Dissertation Documents</p>
+    <div class="table-container">
+    <table class="custom-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Thesis/Dissertation File</th>
+            <th>Submission Type</th>
+            <th>Upload Date</th>
+            <th>Update On</th>
+            <th>Correction Form</th>
+            <th>Correction Summary</th>
+            @if(auth()->user()->role_id == 2) 
+                <th>Clearance</th>
+            @else
+                <th>Supervisor Clearance</th>  
+            @endif
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($thesis as $row)
+            <tr>
+                <td>{{ $row['id'] }}</td>
+                <td>
+                    <div class="file-info">
+                        <span>{{ $row['thesis_document'] }}</span>
+                        @if(auth()->user()->role_id == 1) 
+                            <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
+                                <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
+                                    <span>Edit File</span>
+                                </label>
+                            </form>
                         @endif
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($thesis as $row)
-                        <tr>
-                            <td>{{ $row['id'] }}</td>
-                            <td>
-                                <div class="file-info">
-                                    <span>{{ $row['thesis_document'] }}</span>
-                                    @if(auth()->user()->role_id == 1) 
-                                        <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('PUT')
-                                            <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
-                                            <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
-                                                <span>Edit File</span>
-                                            </label>
-                                        </form>
-                                    @endif
-                                </div>
-                            </td>
-                            <td>{{ $row['submission_type'] }}</td>
-                            <td>{{ $row['created_at'] }}</td>  
-                            <td>{{ $row['updated_at'] }}</td> 
-                            <td class="center-cell">{{ $row['correction_form'] ? $row['correction_form'] : '-' }}</td>
-                            <td class="center-cell">{{ $row['correction_summary'] ? $row['correction_summary'] : '-' }}</td>
-                            <td>
-                                <!-- Approval button will be appended here -->
-                                    @if(auth()->user()->role_id == 2) {{-- Check if user is a supervisor --}}
-                                    <div class="button-container">
-                                        <button class="approve-button">Approve</button>
-                                    </div>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach 
-                </tbody>
-            </table>
-        </div>
-        <button onclick="reloadPage()">Reload Page</button>
+                    </div>
+                </td>
+                <td>{{ $row['submission_type'] }}</td>
+                <td>{{ $row['created_at'] }}</td>  
+                <td>{{ $row['updated_at'] }}</td> 
+                <td class="center-cell">{{ $row['correction_form'] ? $row['correction_form'] : '-' }}</td>
+                <td class="center-cell">{{ $row['correction_summary'] ? $row['correction_summary'] : '-' }}</td>
+                @if(auth()->user()->role_id == 1) {{-- Check if user is a student --}}
+                <td>
+                    <?php
+                        // Retrieve the student record based on the user_id from the theses table
+                        $student = \App\Models\Student::where('user_id', $row->user_id)->first();
+
+                        if($student) {
+                            // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
+                            $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
+
+                            // Initialize an array to store supervisor names and their respective statuses
+                            $supervisorsInfo = [];
+                            $supervisorEmails = [];
+
+                            foreach ($supervisorIds as $supervisorId) {
+                                // Retrieve the supervisor's name
+                                $supervisorName = \App\Models\User::find($supervisorId)->name;
+                                
+                                // Retrieve the supervisor's email
+                                $supervisorEmail = \App\Models\User::find($supervisorId)->email;
+
+                                // Check if the supervisor has approved the document
+                                $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
+                                    ->where('submission_id', $row->id)
+                                    ->first();
+
+                                // Determine the status based on approval existence
+                                $status = $approval ? 'Approved' : 'Not Approved';
+
+                                // Add supervisor's name and status to the array
+                                $supervisorsInfo[] = [
+                                    'name' => $supervisorName,
+                                    'status' => $status
+                                ];
+
+                                // Add supervisor's email to the array if not approved
+                                if ($status != 'Approved') {
+                                    $supervisorEmails[] = $supervisorEmail;
+                                }
+                            }
+
+                            // Display supervisor names and their respective statuses 
+                            foreach ($supervisorsInfo as $supervisorInfo) {
+                                echo $supervisorInfo['name'] . ' (' . $supervisorInfo['status'] . ')<br>';
+                            }
+
+                            // Implement reminder button
+                            if (!empty($supervisorEmails)) {
+                                // Pass the $supervisorEmails array to JavaScript function
+                                echo '<button id="sendReminderBtn" onclick="sendReminder(' . htmlspecialchars(json_encode($supervisorEmails), ENT_QUOTES, 'UTF-8') . ')">Send Reminder</button>';
+                            }
+
+                       
+                        }
+                    ?>
+                </td>
+                @endif
+                    <td>
+                        @if(auth()->user()->role_id == 2) {{-- Check if user is a supervisor --}}
+                            <div id="approvalContainer{{ $row['id'] }}" class="approval-container">
+                                <form id="approvalForm{{ $row['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="submission_id" value="{{ $row['id'] }}">
+                                    <button id="approveButton{{ $row['id'] }}" class="approve-button">Approve</button>
+                                </form>
+                                <!--<span id="approvalText{{ $row['id'] }}" class="approval-text" style="display: none; color: green;">Approved</span>-->
+                            </div>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach 
+        </tbody>
+    </table>
+
+
+    </div>
+
     @else
         <p>No Thesis/Dissertation Submissions</p>   
     @endif
@@ -183,6 +280,8 @@
     @if(auth()->user()->role_id == 1) {{-- Check if user is a student --}}
         <a href="{{ route('thesis.submission') }}" class="btn btn-primary">Submit Thesis</a>
     @endif
+</x-layout>
+
 
     <script>
         function uploadNewFile(id) {
@@ -216,10 +315,25 @@
             });
         }
 
-        function reloadPage() {
-            location.reload();
+    </script>  
+
+    <script>
+    function sendReminder(supervisorEmails) {
+
+        // Check if supervisorEmails is an array
+        if (Array.isArray(supervisorEmails)) {
+            // Display pop-up with supervisor's emails
+            var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
+
+            if (confirmation) {
+                alert('Reminders sent to:\n\n' + supervisorEmails.join('\n'));
+            }
+        } else {
+            // Handle the case where supervisorEmails is not an array
+            console.error("supervisorEmails is not an array");
         }
-    </script>    
+    }
+    </script>
     </body>
 </html>
-</x-layout>
+
