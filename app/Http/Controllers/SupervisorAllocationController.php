@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use App\Models\SupervisorAllocation;
+use App\Models\BoardRequestApproval;
+use App\Models\DirectorRequestApproval;
 use App\Models\User;
 use App\Models\Student;
+use Illuminate\Http\Request;
+use App\Models\SupervisorAllocation;
+use App\Models\SchoolRequestApproval;
 use App\Models\ChangeSupervisorRequest;
+use Illuminate\Support\Facades\Validator;
 
 class SupervisorAllocationController extends Controller
 {
@@ -101,6 +104,60 @@ class SupervisorAllocationController extends Controller
         return redirect('/')->with('message', 'Change Supervisor request submitted successfully.');
   }
 
-    
+  public function reviewChangeSupervisorRequests()
+  {
+      $changeRequests = ChangeSupervisorRequest::with('student')->get();
+      $groupedRequests = $changeRequests->groupBy('student_id');
+  
+      return view('supervisorallocations.reviewChangeSupervisorRequests', ['groupedRequests' => $groupedRequests]);
+  }
+  
+  public function viewStudentForm($studentId)
+  {
+      $student = Student::findOrFail($studentId);
+      $form = ChangeSupervisorRequest::where('student_id', $studentId)->first();
+  
+      return view('supervisorallocations.viewStudentForm', ['student' => $student, 'form' => $form]);
+  }
+
+  public function storeSchoolApproval(Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'student_id' => 'nullable|exists:students,id',
+            'status' => 'nullable|in:approved,denied',
+        ]);
+        //dd($validatedData);
+
+        SchoolRequestApproval::create($validatedData);
+
+        return redirect('/')->with('message', 'School leave request approved!');
+    }
+
+    public function storeBoardApproval(Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'student_id' => 'required|exists:students,id',
+            'status' => 'required|in:approved,denied',
+        ]);
+
+        BoardRequestApproval::create($validatedData);
+
+        return redirect('/')->with('message', 'School leave request approved!');
+    }
+
+    public function storeDirectorApproval(Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'student_id' => 'required|exists:students,id',
+            'status' => 'required|in:approved,denied',
+        ]);
+
+        DirectorRequestApproval::create($validatedData);
+
+        return redirect()->route('supervisorAllocation')->with('message', 'School leave request approved!');
+    }
         
 }
