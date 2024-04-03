@@ -100,6 +100,10 @@ Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->nam
 Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
 Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
 
+
+//Supervisees
+Route::get('/view.supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee');
+
 // Progress Report Routes
 Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index');
 Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create');

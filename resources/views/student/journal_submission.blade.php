@@ -99,7 +99,7 @@
         <div class="sidebar">
             <ul>
                 <li><a href="/" class="font-bold">Home</a></li>
-                <li><a href="{{ route('change-supervisor-request-form') }}" class="font-bold">Request Change of Supervisor</a></li>
+                <li><a href="{{ route('changeSupervisor') }}" class="font-bold">Request Change of Supervisor</a></li>
                 <li><a href="{{ route('progress_reports.index')}}" class="font-bold">Submit Progress Report</a></li>
                 <li><a href="{{ route('journal.index')}}" class="font-bold">Journal Publications</a></li>
                 <li><a href="{{ route('conference.index')}}" class="font-bold">Conference Publications</a></li>

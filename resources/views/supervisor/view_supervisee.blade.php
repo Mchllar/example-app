@@ -76,17 +76,23 @@
                         <td>{{ $allocation->student->program->name }}</td>
                         <td>{{ $allocation->student->academic_status }}</td>
                         <td>
-    @if ($allocation->student->user_id) {{-- Check if student has a user_id --}}
-        @if ($theses->contains('user_id', $allocation->student->user_id)) {{-- Check if student has submitted a thesis --}}
-            Submitted
-        @else
-            Not Submitted
-        @endif
-    @else
-        Not Submitted
-    @endif
-</td>
-
+                            @if ($allocation->student->user_id) {{-- Check if student has a user_id --}}
+                                @if ($theses->contains('user_id', $allocation->student->user_id)) {{-- Check if student has submitted a thesis --}}
+                                    @php
+                                        $submissionId = $theses->where('user_id', $allocation->student->user_id)->first()->id;
+                                    @endphp
+                                    @if (App\Models\ThesisApproval::where('submission_id', $submissionId)->where('supervisor_id', $allocation->supervisor_id)->exists())
+                                        Submitted - Approved
+                                    @else
+                                        Submitted - not Approved
+                                    @endif
+                                @else
+                                    Not Submitted
+                                @endif
+                            @else
+                                Not Submitted
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
