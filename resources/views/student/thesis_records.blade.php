@@ -346,7 +346,7 @@
 <script>
 document.getElementById('sendReminderBtn').addEventListener('click', function() {
     var supervisorEmails = <?php echo json_encode($supervisorEmails); ?>;
-    var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Get CSRF token from meta tag
+    var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); 
 
     if (Array.isArray(supervisorEmails)) {
         var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
@@ -355,7 +355,7 @@ document.getElementById('sendReminderBtn').addEventListener('click', function() 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/sendReminder', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.setRequestHeader('X-CSRF-TOKEN', token); // Set CSRF token in request headers
+            xhr.setRequestHeader('X-CSRF-TOKEN', token); 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
