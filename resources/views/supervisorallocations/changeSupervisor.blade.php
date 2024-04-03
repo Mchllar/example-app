@@ -1,5 +1,24 @@
 <x-layout>
-    <div class="container mx-auto p-4">
+    <style>
+        /* Custom CSS to style sections in green color */
+        .section-heading {
+            color: green;
+        }
+
+        /* Custom CSS for form container */
+        .form-container {
+            background-color: #f3f4f6; /* Grey background */
+            padding: 20px; /* Add padding for better visual appearance */
+        }
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Make the container at least as tall as the viewport */
+        }
+    </style>
+    <div class="centered">
+        <div class="form-container max-w-lg mx-auto px-4 py-8 rounded-lg shadow-md">
         <h1 class="text-3xl font-bold mb-4 text-center">Change Supervisor Request Form</h1>
 
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -58,5 +77,6 @@
                 
             </form>
         </div>
+    </div>
     </div>
 </x-layout>
