@@ -44,6 +44,7 @@ class Student extends Model
     {
         return $this->belongsTo(Conference::class);
     }
+
     public function supervisors()
     {
         return $this->belongsToMany(User::class, 'student_supervisor', 'student_id', 'supervisor_id');
@@ -52,5 +53,10 @@ class Student extends Model
     public function allSupervisors()
     {
         return $this->belongsToMany(User::class, 'role_user')->where('role_id', 'supervisor');
+    }
+
+    public function thesis()
+    {
+        return $this->belongsTo(Thesis::class);
     }
 }

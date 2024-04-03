@@ -23,9 +23,6 @@
                     <a href="#" class="font-bold hover:underline">Send Thesis Correction or Reminders</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">Submit Thesis/Dissertation</a>
-                </li>
-                <li class="mx-4 my-2">
                     <a href="{{ route('academic_leave.view')}}" class="font-bold hover:underline">View Student Leave Requests</a>
                 </li>
                 <li class="mx-4 my-2">

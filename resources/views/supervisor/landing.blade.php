@@ -14,7 +14,7 @@
                     <a href="#" class="font-bold hover:underline">Update Progress Report</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">View Students</a>
+                    <a href="{{ route('view.supervisee')}}" class="font-bold hover:underline">View Students</a>
                 </li>
             </ul>
         </div>

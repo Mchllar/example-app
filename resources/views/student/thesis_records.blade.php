@@ -148,6 +148,17 @@
         #sendReminderBtn:active {
             background-color: green;
         }
+        .confirmation {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: none;
+    }
     </style>
 </head>
 <body>
@@ -180,14 +191,19 @@
                     <div class="file-info">
                         <span>{{ $row['thesis_document'] }}</span>
                         @if(auth()->user()->role_id == 1) 
-                            <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
-                                <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
-                                    <span>Edit File</span>
-                                </label>
-                            </form>
+                            @php
+                                $approval = \App\Models\ThesisApproval::where('submission_id', $row['id'])->first();
+                            @endphp
+                            @if(!$approval)
+                                <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
+                                    <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
+                                        <span>Edit File</span>
+                                    </label>
+                                </form>
+                            @endif
                         @endif
                     </div>
                 </td>
@@ -197,84 +213,85 @@
                 <td class="center-cell">{{ $row['correction_form'] ? $row['correction_form'] : '-' }}</td>
                 <td class="center-cell">{{ $row['correction_summary'] ? $row['correction_summary'] : '-' }}</td>
                 @if(auth()->user()->role_id == 1) {{-- Check if user is a student --}}
-                <td>
-                    <?php
-                        // Retrieve the student record based on the user_id from the theses table
-                        $student = \App\Models\Student::where('user_id', $row->user_id)->first();
-
-                        if($student) {
-                            // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
-                            $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
-
-                            // Initialize an array to store supervisor names and their respective statuses
-                            $supervisorsInfo = [];
-                            $supervisorEmails = [];
-
-                            foreach ($supervisorIds as $supervisorId) {
-                                // Retrieve the supervisor's name
-                                $supervisorName = \App\Models\User::find($supervisorId)->name;
-                                
-                                // Retrieve the supervisor's email
-                                $supervisorEmail = \App\Models\User::find($supervisorId)->email;
-
-                                // Check if the supervisor has approved the document
-                                $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
-                                    ->where('submission_id', $row->id)
-                                    ->first();
-
-                                // Determine the status based on approval existence
-                                $status = $approval ? 'Approved' : 'Not Approved';
-
-                                // Add supervisor's name and status to the array
-                                $supervisorsInfo[] = [
-                                    'name' => $supervisorName,
-                                    'status' => $status
-                                ];
-
-                                // Add supervisor's email to the array if not approved
-                                if ($status != 'Approved') {
-                                    $supervisorEmails[] = $supervisorEmail;
-                                }
-                            }
-
-                            // Display supervisor names and their respective statuses 
-                            foreach ($supervisorsInfo as $supervisorInfo) {
-                                echo $supervisorInfo['name'] . ' (' . $supervisorInfo['status'] . ')<br>';
-                            }
-
-                            // Implement reminder button
-                        //if (!empty($supervisorEmails)) {
-                            // Pass the $supervisorEmails array to JavaScript function
-                           // echo '<button id="sendReminderBtn" onclick="sendReminder(' . htmlspecialchars(json_encode($supervisorEmails), ENT_QUOTES, 'UTF-8') . ')">Send Reminder</button>';
-                        //}
-                      if (!empty($supervisorEmails)){
-                        echo '<button id="sendReminderBtn">Send Reminder</button>';
-                      }
-                        
-
-                       
-                        }
-                    ?>
-                </td>
-                @endif
                     <td>
-                        @if(auth()->user()->role_id == 2) {{-- Check if user is a supervisor --}}
-                            <div id="approvalContainer{{ $row['id'] }}" class="approval-container">
-                                <form id="approvalForm{{ $row['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="submission_id" value="{{ $row['id'] }}">
-                                    <button id="approveButton{{ $row['id'] }}" class="approve-button">Approve</button>
-                                </form>
-                                <!--<span id="approvalText{{ $row['id'] }}" class="approval-text" style="display: none; color: green;">Approved</span>-->
-                            </div>
-                        @endif
+                        <?php
+                            // Retrieve the student record based on the user_id from the theses table
+                            $student = \App\Models\Student::where('user_id', $row->user_id)->first();
+
+                            if($student) {
+                                // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
+                                $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
+
+                                // Initialize an array to store supervisor names and their respective statuses
+                                $supervisorsInfo = [];
+                                $supervisorEmails = [];
+
+                                foreach ($supervisorIds as $supervisorId) {
+                                    // Retrieve the supervisor's name
+                                    $supervisorName = \App\Models\User::find($supervisorId)->name;
+
+                                    // Retrieve the supervisor's email
+                                    $supervisorEmail = \App\Models\User::find($supervisorId)->email;
+
+                                    // Check if the supervisor has approved the document
+                                    $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
+                                        ->where('submission_id', $row->id)
+                                        ->first();
+
+                                    // Determine the status based on approval existence
+                                    $status = $approval ? 'Approved' : 'Not Approved';
+
+                                    // Add supervisor's name and status to the array
+                                    $supervisorsInfo[] = [
+                                        'name' => $supervisorName,
+                                        'status' => $status
+                                    ];
+
+                                    // Add supervisor's email to the array if not approved
+                                    if ($status != 'Approved') {
+                                        $supervisorEmails[] = $supervisorEmail;
+                                    }
+                                }
+
+                                // Display supervisor names and their respective statuses 
+                                foreach ($supervisorsInfo as $supervisorInfo) {
+                                    echo $supervisorInfo['name'] . ' (' . $supervisorInfo['status'] . ')<br>';
+                                }
+
+                                // Display the 'Approve' button or 'Approved' text based on approval status
+                                if (!empty($supervisorEmails)) {
+                                    echo '<button id="sendReminderBtn">Send Reminder</button>';
+                                } 
+                            }
+                        ?>
                     </td>
-                </tr>
-            @endforeach 
+                @endif
+                <td>
+                @if(auth()->user()->role_id == 2) {{-- Check if user is a supervisor --}}
+                    @php
+                        // Check if a record exists in the thesis approvals table for the current submission and supervisor
+                        $approval = \App\Models\ThesisApproval::where('supervisor_id', auth()->user()->id)
+                                                                ->where('submission_id', $row['id'])
+                                                                ->first();
+                    @endphp
+                    
+                    @if($approval)
+                        <span class="approval-text" style="color: green;">Approved</span>
+                    @else
+                        <div id="approvalContainer{{ $row['id'] }}" class="approval-container">
+                            <form id="approvalForm{{ $row['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="submission_id" value="{{ $row['id'] }}">
+                                <button id="approveButton{{ $row['id'] }}" class="approve-button" onclick="approveSubmission({{ $row['id'] }})">Approve</button>
+                            </form>
+                        </div>
+                    @endif
+                @endif
+            </td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
-
-
     </div>
 
     @else
@@ -321,57 +338,46 @@
 
     </script>  
 
-   <!-- <script>
-    function sendReminder(supervisorEmails) {
+    <!-- JavaScript code to send AJAX request -->
+    <script>
+    document.getElementById('sendReminderBtn').addEventListener('click', function() {
+        var supervisorEmails = <?php echo json_encode($supervisorEmails ?? []); ?>;
+        var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); 
 
-        // Check if supervisorEmails is an array
         if (Array.isArray(supervisorEmails)) {
-            // Display pop-up with supervisor's emails
             var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
             
             if (confirmation) {              
-            alert('Reminders sent to:\n\n' + supervisorEmails.join('\n'));
-
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/sendReminder', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-CSRF-TOKEN', token); 
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            alert(xhr.responseText);
+                        } else {
+                            alert('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.send(JSON.stringify({ emails: supervisorEmails }));
             }
         } else {
-            // Handle the case where supervisorEmails is not an array
             console.error("supervisorEmails is not an array");
         }
-    }
-    </script> -->
+    });
+    </script>
 
+    <script>
+        function approveSubmission(id) {
+            // Hide the button
+            document.getElementById('approveButton' + id).style.display = 'none';
+            // Show the text
+            document.getElementById('approvalText' + id).style.display = 'inline';
 
-
-<!-- JavaScript code to send AJAX request -->
-<script>
-document.getElementById('sendReminderBtn').addEventListener('click', function() {
-    var supervisorEmails = <?php echo json_encode($supervisorEmails); ?>;
-    var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); 
-
-    if (Array.isArray(supervisorEmails)) {
-        var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
-        
-        if (confirmation) {              
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/sendReminder', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.setRequestHeader('X-CSRF-TOKEN', token); 
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        alert(xhr.responseText);
-                    } else {
-                        alert('Error: ' + xhr.status);
-                    }
-                }
-            };
-            xhr.send(JSON.stringify({ emails: supervisorEmails }));
         }
-    } else {
-        console.error("supervisorEmails is not an array");
-    }
-});
-</script>
+    </script>
 
     </body>
 </html>

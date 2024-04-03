@@ -13,6 +13,7 @@ use App\Http\Controllers\IntentionSubmissionController;
 use App\Http\Controllers\ConferenceReviewController;
 use App\Http\Controllers\AcademicLeaveRequestController;
 use App\Http\Controllers\SupervisorAllocationController;
+use App\Http\Controllers\SuperviseeController;
 
 
 
@@ -99,9 +100,6 @@ Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->nam
 Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
 Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
 
-
-
-
 // Progress Report Routes
 Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index');
 Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create');
@@ -130,3 +128,6 @@ Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])
 Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');
 Route::get('/changeSupervisor',[SupervisorAllocationController::class, 'changeSupervisor'])->name('changeSupervisor');
 Route::post('/changeSupervisor/store',[SupervisorAllocationController::class, 'storeChangeSupervisor'])->name('changeSupervisor.store');
+
+//Student Records (Supervisor)
+Route::get('/superviseeRecords', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee');

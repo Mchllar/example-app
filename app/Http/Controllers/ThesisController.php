@@ -189,10 +189,6 @@ class ThesisController extends Controller
             return response()->json(['error' => 'Failed to send reminder emails. Please try again later.'], 500);
         }
     }
-
-    public function Reminder(){
-        return view ('emails.reminder');
-    }
     
 }   
     

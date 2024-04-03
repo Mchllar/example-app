@@ -31,6 +31,8 @@ class Thesis extends Model
             return $this->belongsTo(ThesisApprovals::class);
         }
         
+ 
+        
 }
 
 
