@@ -10,6 +10,8 @@ class CreateChangeSupervisorRequestsTable extends Migration
     {
         Schema::create('change_supervisor_requests', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->string('thesis_title');
             $table->string('proposed_supervisor_1')->nullable();
             $table->string('proposed_supervisor_2')->nullable();

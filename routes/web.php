@@ -128,6 +128,3 @@ Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])
 Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');
 Route::get('/changeSupervisor',[SupervisorAllocationController::class, 'changeSupervisor'])->name('changeSupervisor');
 Route::post('/changeSupervisor/store',[SupervisorAllocationController::class, 'storeChangeSupervisor'])->name('changeSupervisor.store');
-
-//Student Records (Supervisor)
-Route::get('/superviseeRecords', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee');

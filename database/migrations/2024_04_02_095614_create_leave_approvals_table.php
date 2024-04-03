@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('leave_approvals', function (Blueprint $table) {
             $table->id();
             $table->date('ogs_approval_date')->nullable();
-            $table->unsignedBigInteger('staff_id')->nullable();
-            $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

@@ -20,4 +20,9 @@ class ChangeSupervisorRequest extends Model
         'reason_for_change',
         'student_id',
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
 }
