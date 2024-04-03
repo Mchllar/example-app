@@ -14,6 +14,9 @@
                     <a href="#" class="font-bold hover:underline">List of Supervisors</a>
                 </li>
                 <li class="mx-4 my-2">
+                    <a href="#" class="font-bold hover:underline">View Change of Supervisor Requests</a>
+                </li>
+                <li class="mx-4 my-2">
                     <a href="#" class="font-bold hover:underline">View Submitted Thesis</a>
                 </li>
                 <li class="mx-4 my-2">
