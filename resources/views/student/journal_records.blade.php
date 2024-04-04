@@ -43,18 +43,28 @@
             background-color: #ddd;
         }
         .btn {
-            width: 30%;
-            padding: 10px;
+            padding: 4px 8px;
             background-color: #4CAF50;
             color: white;
-            border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            width: 14%; 
             cursor: pointer;
+            margin-top: 20px; 
+            font-family: Arial, sans-serif;
+            display: block; 
+            text-align: center;
+
         }
 
         .btn:hover {
             background-color: #45a049;
         }
+
+                  
+        .document-link:hover {
+            cursor: pointer;
+            color: green; 
+            }
 
     </style>
     <div class="main-content">   
@@ -80,7 +90,9 @@
                         <td>{{ $row['journal_title'] }}</td>
                         <td>{{ $row['title_of_paper'] }}</td>
                         <td>{{ $row['status'] }}</td>
-                        <td>{{ $row['file_upload'] }}</td>
+                        <td>
+                        <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">{{ $row['file_upload'] }}</span>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -91,3 +103,9 @@
     <a href="{{ route('journalSubmission') }}" class="btn btn-primary">Submit Journal Article</a>
     </div>
 </x-layout>
+
+    <script>
+        function openDocument(pdfUrl) {
+            window.open(pdfUrl, '_blank');
+        }
+    </script>

@@ -36,7 +36,7 @@
                 display: block;
                 margin: 20px auto; /* Center the button horizontally with top and bottom margin */
                 padding: 10px 20px;
-                background-color: red; /* Set button color to red */
+                background-color: #45a049; /* Set button color to red */
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -45,7 +45,7 @@
             }
 
             button[type="submit"]:hover {
-                background-color: blue; /* Change button color to blue when hovered over */
+                background-color:green; /* Change button color to blue when hovered over */
             }
 
             a {
@@ -62,7 +62,7 @@
                 text-align: center; /* Center align the header */
 
             }
-
+  
         </style>
     </head>
     <body>

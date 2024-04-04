@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
-
 class ThesisController extends Controller
 {
     // View for submitting thesis
@@ -21,9 +20,9 @@ class ThesisController extends Controller
         return view('student.thesis_submission');
     }
 
-    // Saving thesis to database
-    public function store(Request $request)
-    {
+ // Saving thesis to database
+public function store(Request $request)
+{
     $request->validate([
         'submission_type' => 'required',
         'thesis_document' => 'required|file|mimes:pdf',
@@ -41,33 +40,33 @@ class ThesisController extends Controller
     // Handle thesis document upload
     if ($request->hasFile('thesis_document')) {
         $thesis_document = $request->file('thesis_document');
-        $thesis_document_path = time() . '_' . $thesis_document->getClientOriginalName();
-        $thesis_document->storeAs('thesis_documents', $thesis_document_path);
+        $thesis_document_path = $thesis_document->getClientOriginalName();
+        $thesis_document->move(public_path('thesis_documents'), $thesis_document_path);
         $thesis->thesis_document = $thesis_document_path;
     }
 
     // Handle correction form upload
     if ($request->hasFile('correction_form')) {
         $correction_form = $request->file('correction_form');
-        $correction_form_path = time() . '_' . $correction_form->getClientOriginalName();
-        $correction_form->storeAs('correction_forms', $correction_form_path);
+        $correction_form_path = $correction_form->getClientOriginalName();
+        $correction_form->move(public_path('correction_forms'), $correction_form_path);
         $thesis->correction_form = $correction_form_path;
     }
 
     // Handle correction summary upload
     if ($request->hasFile('correction_summary')) {
         $correction_summary = $request->file('correction_summary');
-        $correction_summary_path =  time() . '_' . $correction_summary->getClientOriginalName();
-        $correction_summary->storeAs('correction_summaries', $correction_summary_path);
+        $correction_summary_path = $correction_summary->getClientOriginalName();
+        $correction_summary->move(public_path('correction_summaries'), $correction_summary_path);
         $thesis->correction_summary = $correction_summary_path;
     }
-
 
     // Save the Thesis instance to the database
     $thesis->save();
 
-    return redirect()->back()->with('success', 'Thesis submitted successfully!');
-    }
+    return redirect('student.thesis_submission')->with('message', 'Thesis submitted successfully!');
+}
+
 
     // View of the Thesis submission
     public function index()
@@ -152,7 +151,8 @@ class ThesisController extends Controller
         $approval->save();
 
         // Return a success response
-        return response()->json(['message' => 'Thesis approved successfully'], 200);
+        return redirect('thesis.index')->with('message', 'Thesis approved successfully.');
+
     } 
 
     public function sendReminder(Request $request) {
@@ -160,20 +160,11 @@ class ThesisController extends Controller
             // Retrieve supervisor's emails from the request
             $emails = $request->input('emails');
             
-            // Get student name from authenticated user
-           // $user = Auth::user();
-           // $studentName = $user->name;
-           $studentName = 'Michelle Guya';
+            //Get student name from authenticated user
+            $user = Auth::user();
+            $studentName = $user->name;
+           
     
-            // Initialize reminder message
-           /* $reminder = [
-                'action' => 'Please review',
-                'task' => 'thesis submission',
-                'name' => $studentName,
-                'url' => 'http://127.0.0.1:8000/thesis.approval',
-            ];*/
-          
-   
             // Send reminder emails to each recipient
             foreach ($emails as $email) {
                 Mail::to($email)->send(new ThesisApprovalReminder($studentName));    

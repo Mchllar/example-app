@@ -26,33 +26,33 @@ class JournalSubmissionController extends Controller
         ]);
     
         // Ensure the directory exists
-        Storage::makeDirectory('public/files');
-
+        Storage::makeDirectory('public/journal_publications');
+    
         // Handle File Upload
         if ($request->hasFile('file_upload')) {
             $file = $request->file('file_upload');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/files', $fileName);
-
-            // Get the authenticated student's student_number
+            $file_path = $file->getClientOriginalName();
+            $file->move(public_path('journal_publications'), $file_path);
+    
+            // Get the authenticated user's ID
             $user_id = Auth::user()->id;
-
-            
+    
             // Create New Journal Entry
             $journal = new Journal();
-            $journal->user_id = $user_id; // Use student_id as foreign key reference
+            $journal->user_id = $user_id; // Use user_id as foreign key reference
             $journal->journal_title = $request->journal_title;
             $journal->title_of_paper = $request->title_of_paper;
             $journal->status = $request->status;
-            $journal->file_upload = $fileName; // Store the file path in the database
+            $journal->file_upload = $file_path; // Store the file path in the database
             $journal->save();
-
+    
             // Redirect back with a success message
-            return redirect()->back()->with('success', 'Journal Publication submitted successfully.');
+            return redirect('journalSubmission')->with('message', 'Journal Publication submitted successfully.');
         } else {
-            return redirect()->back()->with('error', 'File upload failed.'); // Handle file upload failure
+            return redirect('journal.index')->with('message', 'File upload failed.'); // Handle file upload failure
         }
     }
+    
         // Retrieving Records
         public function index()
         {

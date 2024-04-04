@@ -16,7 +16,6 @@
             line-height: 1.5;
         }
 
-        /* Table styles */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -42,18 +41,32 @@
         tr:hover {
             background-color: #ddd;
         }
+
         .btn {
-            width: 30%;
-            padding: 10px;
+            padding: 4px 8px;
             background-color: #4CAF50;
             color: white;
-            border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            width: 14%; 
             cursor: pointer;
+            margin-top: 20px; 
+            font-family: Arial, sans-serif;
+            display: block; 
+            text-align: center;
         }
 
         .btn:hover {
             background-color: #45a049;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .document-link:hover {
+            cursor: pointer;
+            color: green; 
         }
 
     </style>
@@ -78,7 +91,9 @@
                         <td>{{ $row['conference_title'] }}</td>
                         <td>{{ $row['title_of_paper'] }}</td>
                         <td>{{ $row['status'] }}</td>
-                        <td>{{ $row['file_upload'] }}</td>
+                        <td>
+                        <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $row->file_upload) }}')">{{ $row['file_upload'] }}</span>
+                        </td>
                     </tr>
                 @endforeach  
             </tbody>
@@ -89,3 +104,9 @@
     <a href="{{ route('conferenceSubmission') }}" class="btn btn-primary">Submit Conference Paper</a>
     </div>
 </x-layout>
+
+    <script>
+            function openDocument(pdfUrl) {
+                window.open(pdfUrl, '_blank');
+            }
+    </script>

@@ -75,83 +75,71 @@
         
         Lock editing 
 
-        Supervisor Clearance default - Not approved for each supervisor 
-
-        Show supervisors' names 
-
         Yes/no option to notify the supervisor (Send reminder date; show previously sent reminder) 
-
-        View the same table as the supervisor; List all supervisees, replace reminder button with approve submission 
 
         button to this current submission 
 
         redirection to new page
         
-        Constraints for editing thesis submissions (Lock and unlock(0 or 1) button for each student
-
-        Submission approvals table Submission ID, Supervisor ID, Submission type, Approval date
-
-        Check if all supervisors appear in the submission table-->
+        Constraints for editing thesis submissions (Lock and unlock(0 or 1) button for each student-->
         <h2> Thesis/Dissertation Submission</h2>
-
         <form id="thesisForm" action="{{ route('thesis.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf 
-        <label for="submission_type">Submission Type:</label>
-        <select name="submission_type" id="submission_type">
-            <option value="">Select Submission Type</option>
-            <option value="pre_defense">Pre-Defense</option>
-            <option value="post_defense">Post-Defense</option>
-        </select>
-        <br>
+            @csrf
+            <label for="submission_type">Submission Type:</label>
+            <select name="submission_type" id="submission_type">
+                <option value="0">Select Submission Type</option>
+                <option value="1">Pre-Defense</option>
+                <option value="2">Post-Defense</option>
+            </select>
+            <br>
 
-        <div id="fileInputs">
-           
-            <div id="thesis_document_div" style="display: none;">
-                <label for="thesis_document">Thesis Document:</label>
-                <input type="file" name="thesis_document" id="thesis_document">
-                <br>
+            <div id="fileInputs" style="display: none;">
+                <div id="thesis_document_div">
+                    <label for="thesis_document">Thesis Document:</label>
+                    <input type="file" name="thesis_document" id="thesis_document">
+                    <br>
+                </div>
+
+                <div id="correction_form_div" style="display: none;">
+                    <label for="correction_form">Correction Form:</label>
+                    <input type="file" name="correction_form" id="correction_form">
+                    <br>
+                </div>
+
+                <div id="correction_summary_div" style="display: none;">
+                    <label for="correction_summary">Correction Summary:</label>
+                    <input type="file" name="correction_summary" id="correction_summary">
+                    <br>
+                </div>
             </div>
 
-            <div id="correction_form_div" style="display: none;">
-                <label for="correction_form">Correction Form:</label>
-                <input type="file" name="correction_form" id="correction_form">
-                <br>
-            </div>
-
-            <div id="correction_summary_div" style="display: none;">
-                <label for="correction_summary">Correction Summary:</label>
-                <input type="file" name="correction_summary" id="correction_summary">
-                <br>
-            </div>
-        </div>
-
-        <button type="submit">Submit</button>
-    </form>
+            <button type="submit">Submit</button>
+        </form>
 
     <script>
-        document.getElementById('submission_type').addEventListener('change', function() {
-            var submissionType = this.value;
-            var fileInputs = document.getElementById('fileInputs');
-            var thesisDocumentDiv = document.getElementById('thesis_document_div');
-            var correctionFormDiv = document.getElementById('correction_form_div');
-            var correctionSummaryDiv = document.getElementById('correction_summary_div');
+            document.getElementById('submission_type').addEventListener('change', function() {
+                var submissionType = this.value;
+                var fileInputs = document.getElementById('fileInputs');
+                var thesisDocumentDiv = document.getElementById('thesis_document_div');
+                var correctionFormDiv = document.getElementById('correction_form_div');
+                var correctionSummaryDiv = document.getElementById('correction_summary_div');
 
-            // Show/hide file inputs based on submission type
-            if (submissionType === 'pre_defense') {
-                fileInputs.style.display = 'block';
-                thesisDocumentDiv.style.display = 'block'; 
-                correctionFormDiv.style.display = 'none'; 
-                correctionSummaryDiv.style.display = 'none';
-            } else if (submissionType === 'post_defense') {
-                fileInputs.style.display = 'block';
-                thesisDocumentDiv.style.display = 'block'; 
-                correctionFormDiv.style.display = 'block'; 
-                correctionSummaryDiv.style.display = 'block';
-            } else {
-                fileInputs.style.display = 'none'; 
-            }
-        });
-    </script>
+                // Show/hide file inputs based on submission type
+                if (submissionType === '1') { // Pre-Defense
+                    fileInputs.style.display = 'block';
+                    thesisDocumentDiv.style.display = 'block'; 
+                    correctionFormDiv.style.display = 'none'; 
+                    correctionSummaryDiv.style.display = 'none';
+                } else if (submissionType === '2') { // Post-Defense
+                    fileInputs.style.display = 'block';
+                    thesisDocumentDiv.style.display = 'block'; 
+                    correctionFormDiv.style.display = 'block'; 
+                    correctionSummaryDiv.style.display = 'block';
+                } else {
+                    fileInputs.style.display = 'none'; 
+                }
+            });
+        </script>
 
     </body>
 </x-layout>

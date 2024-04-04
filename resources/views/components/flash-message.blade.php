@@ -1,9 +1,13 @@
 @if(session()->has('message'))
-<div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed top-0 left-0 right-0 flex justify-center items-center bg-laravel text-white">
-    <div class="px-48 py-3">
-        <p>
-            {{session('message')}}
-        </p>
+    <div id="successMessage" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white border border-green-700 rounded p-4 shadow-md">
+        <p style="font-family: Arial, sans-serif;">{{ session('message') }}</p>
     </div>
-</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function(){
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+        });
+    </script>
 @endif

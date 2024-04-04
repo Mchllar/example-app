@@ -9,27 +9,11 @@ class CreateThesisSubmissionsTable extends Migration
     
     public function up()
     {
-       // Schema::create('theses', function (Blueprint $table) {
-        //    $table->id();
-        //    $table->unsignedBigInteger('user_id');
-         //   $table->foreign('user_id')->references('id')->on('users');
-            //$table->string('thesis'); 
-            //$table->string('submission_type'); 
-            //$table->foreignId('current_supervisor_1_id')->constrained('users');
-            //$table->foreignId('current_supervisor_2_id')->constrained('users');
-            //$table->foreignId('current_supervisor_3_id')->nullable()->constrained('users');
-            //$table->boolean('supervisor_verdict')->default(false); 
-            //$table->date('Reminder');
-
-            //$table->string('correction_form')->nullable(); 
-            //$table->string('correction_summary')->nullable();
-            //$table->timestamps();
-
             Schema::create('theses', function (Blueprint $table) {
                 $table->id();
                 $table->unsignedBigInteger('user_id');
                 $table->foreign('user_id')->references('id')->on('users');
-                $table->string('submission_type');
+                $table->tinyInteger('submission_type')->default(0)->comment('0: Unknown, 1: Pre Defense, 2: Post Defense');
                 $table->string('thesis_document');
                 $table->string('correction_form')->nullable();
                 $table->string('correction_summary')->nullable();

@@ -95,20 +95,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar navigation -->
-        <div class="sidebar">
-            <ul>
-                <li><a href="/" class="font-bold">Home</a></li>
-                <li><a href="{{ route('changeSupervisor') }}" class="font-bold">Request Change of Supervisor</a></li>
-                <li><a href="{{ route('progress_reports.index')}}" class="font-bold">Submit Progress Report</a></li>
-                <li><a href="{{ route('journal.index')}}" class="font-bold">Journal Publications</a></li>
-                <li><a href="{{ route('conference.index')}}" class="font-bold">Conference Publications</a></li>
-                <li><a href="{{ route('thesis.index')}}"class="font-bold">Thesis/Dissertation</a></li>
-                <li><a href="#" class="font-bold">Request for Academic Leave</a></li>
-                <li><a href="{{ route('conference.review')}}" class="font-bold">Request for Conference Approval</a></li>
-                <li><a href="{{ route('notice.submission')}}" class="font-bold">Submit Notice Of Intent</a></li>
-            </ul>
-        </div>
         <!-- Main content -->
         <div class="main-content">
             <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>

@@ -23,32 +23,34 @@ class ConferenceController extends Controller
             'file_upload' => 'required', 
         ]);
 
-                // Ensure the directory exists
-                Storage::makeDirectory('public/files');
+            // Ensure the directory exists
+            Storage::makeDirectory('public/conference_publications');
 
-                // Handle File Upload
-                if ($request->hasFile('file_upload')) {
+            // Handle File Upload
+            if ($request->hasFile('file_upload')) {
                 $file = $request->file('file_upload');
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public/files', $fileName);
-                
+                $file_path = $file->getClientOriginalName();
+                $file->move(public_path('conference_publications'), $file_path);
+                           
                 // Get the authenticated student's student_number
                 $user_id = Auth::user()->id;
 
                 // Create New Conference Entry
                 $conference = new Conference();
-                $conference->user_id = $user_id; // Use student_id as foreign key reference
+                $conference->user_id = $user_id; 
                 $conference->conference_title = $request->conference_title;
                 $conference->title_of_paper = $request->title_of_paper;
                 $conference->status = $request->status;
-                $conference->file_upload = $fileName; // Store the file path in the database
+                $conference->file_upload = $file_path; 
                 $conference->save();
         
                 // Redirect back with a success message
-                return redirect()->back()->with('success', 'Conference Publication submitted successfully.');
+                return redirect('conferenceSubmission')->with('message', 'Conference Publication submitted successfully.');
             } else {
-                return redirect()->back()->with('error', 'File upload failed.'); // Handle file upload failure
+                return redirect('conference.index')->with('message', 'File upload failed.'); // Handle file upload failure
             }
+
+            
         }
      
       

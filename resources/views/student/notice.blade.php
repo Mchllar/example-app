@@ -86,6 +86,11 @@
         .upload-button:hover, .btn:hover {
             background-color: blue
         }
+
+        .document-link:hover {
+            cursor: pointer;
+            color: green; 
+        }
     </style>
 </head>
 <body>
@@ -172,7 +177,9 @@ function validateForm() {
                         <td>{{ $row['journal_title'] }}</td>
                         <td>{{ $row['title_of_paper'] }}</td>
                         <td>{{ $row['status'] }}</td>
-                        <td>{{ $row['file_upload'] }}</td>
+                        <td>
+                        <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">{{ $row['file_upload'] }}</span>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -202,7 +209,9 @@ function validateForm() {
                         <td>{{ $row['conference_title'] }}</td>
                         <td>{{ $row['title_of_paper'] }}</td>
                         <td>{{ $row['status'] }}</td>
-                        <td>{{ $row['file_upload'] }}</td>
+                        <td>
+                        <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $row->file_upload) }}')">{{ $row['file_upload'] }}</span>
+                        </td>
                     </tr>
                 @endforeach  
             </tbody>
@@ -214,3 +223,9 @@ function validateForm() {
     </div>
 </body>
 </x-layout>
+
+<script>
+            function openDocument(pdfUrl) {
+                window.open(pdfUrl, '_blank');
+            }
+    </script>

@@ -100,7 +100,7 @@ class SupervisorAllocationController extends Controller
 
         // Save the model instance
         $changeSupervisorRequest->save();
-
+        
         return redirect('/')->with('message', 'Change Supervisor request submitted successfully.');
   }
 
