@@ -45,10 +45,10 @@ class ConferenceReviewController extends Controller
         $review->save();
 
         // Redirect with success message
-        return redirect()->back()->with('message', 'Conference Publication submitted successfully.');
+        return redirect('/')->with('message', 'Conference Review Submitted Successfully.');
     } else {
         // Handle file upload failure
-        return redirect()->back()->with('message', 'File upload failed.');
+        return redirect('/')->with('message', 'Conference Review Submission Failed.');
     }
 }
 

@@ -20,52 +20,62 @@ class ThesisController extends Controller
         return view('student.thesis_submission');
     }
 
- // Saving thesis to database
-public function store(Request $request)
-{
-    $request->validate([
-        'submission_type' => 'required',
-        'thesis_document' => 'required|file|mimes:pdf',
-        'correction_form' => 'nullable|file|mimes:pdf',
-        'correction_summary' => 'nullable|file|mimes:pdf',
-    ]);
-
-    $user_id = Auth::user()->id;
-
-    // Create a new Thesis instance
-    $thesis = new Thesis();
-    $thesis->user_id = $user_id;
-    $thesis->submission_type = $request->submission_type;
-
-    // Handle thesis document upload
-    if ($request->hasFile('thesis_document')) {
-        $thesis_document = $request->file('thesis_document');
-        $thesis_document_path = $thesis_document->getClientOriginalName();
-        $thesis_document->move(public_path('thesis_documents'), $thesis_document_path);
-        $thesis->thesis_document = $thesis_document_path;
+    public function store(Request $request)
+    {
+        $request->validate([
+            'submission_type' => 'required',
+            'thesis_document' => 'required|file|mimes:pdf',
+            'correction_form' => 'nullable|file|mimes:pdf',
+            'correction_summary' => 'nullable|file|mimes:pdf',
+        ]);
+    
+        $user_id = Auth::user()->id;
+        $submission_type = $request->submission_type;
+    
+        // Check if there's an existing thesis entry for the current user and submission type
+        $existingThesis = Thesis::where('user_id', $user_id)
+                                 ->where('submission_type', $submission_type)
+                                 ->first();
+    
+        // If an existing entry is found, update it; otherwise, create a new instance
+        if ($existingThesis) {
+            $thesis = $existingThesis;
+        } else {
+            $thesis = new Thesis();
+            $thesis->user_id = $user_id;
+            $thesis->submission_type = $submission_type;
+        }
+    
+        // Handle thesis document upload
+        if ($request->hasFile('thesis_document')) {
+            $thesis_document = $request->file('thesis_document');
+            $thesis_document_path = $thesis_document->getClientOriginalName();
+            $thesis_document->move(public_path('thesis_documents'), $thesis_document_path);
+            $thesis->thesis_document = $thesis_document_path;
+        }
+    
+        // Handle correction form upload
+        if ($request->hasFile('correction_form')) {
+            $correction_form = $request->file('correction_form');
+            $correction_form_path = $correction_form->getClientOriginalName();
+            $correction_form->move(public_path('correction_forms'), $correction_form_path);
+            $thesis->correction_form = $correction_form_path;
+        }
+    
+        // Handle correction summary upload
+        if ($request->hasFile('correction_summary')) {
+            $correction_summary = $request->file('correction_summary');
+            $correction_summary_path = $correction_summary->getClientOriginalName();
+            $correction_summary->move(public_path('correction_summaries'), $correction_summary_path);
+            $thesis->correction_summary = $correction_summary_path;
+        }
+    
+        // Save the Thesis instance to the database
+        $thesis->save();
+    
+        return redirect('thesis.index')->with('message', 'Thesis submitted successfully!');
     }
-
-    // Handle correction form upload
-    if ($request->hasFile('correction_form')) {
-        $correction_form = $request->file('correction_form');
-        $correction_form_path = $correction_form->getClientOriginalName();
-        $correction_form->move(public_path('correction_forms'), $correction_form_path);
-        $thesis->correction_form = $correction_form_path;
-    }
-
-    // Handle correction summary upload
-    if ($request->hasFile('correction_summary')) {
-        $correction_summary = $request->file('correction_summary');
-        $correction_summary_path = $correction_summary->getClientOriginalName();
-        $correction_summary->move(public_path('correction_summaries'), $correction_summary_path);
-        $thesis->correction_summary = $correction_summary_path;
-    }
-
-    // Save the Thesis instance to the database
-    $thesis->save();
-
-    return redirect('student.thesis_submission')->with('message', 'Thesis submitted successfully!');
-}
+    
 
 
     // View of the Thesis submission
@@ -125,9 +135,11 @@ public function store(Request $request)
             $thesis->save();
             // Return a success response with reload flag
             return response()->json(['message' => 'Thesis document updated successfully', 'reload' => true], 200);
+
         } else {
             // Return an error response if no file is provided
-            return response()->json(['error' => 'No file provided'], 400);
+            return response()->json(['message' => 'Thesis document not updated', 'reload' => true], 200);
+
         }
     }
         
@@ -152,7 +164,6 @@ public function store(Request $request)
 
         // Return a success response
         return redirect('thesis.index')->with('message', 'Thesis approved successfully.');
-
     } 
 
     public function sendReminder(Request $request) {
@@ -180,7 +191,6 @@ public function store(Request $request)
             return response()->json(['error' => 'Failed to send reminder emails. Please try again later.'], 500);
         }
     }
-    
 }   
     
 

@@ -39,17 +39,21 @@ class JournalSubmissionController extends Controller
     
             // Create New Journal Entry
             $journal = new Journal();
-            $journal->user_id = $user_id; // Use user_id as foreign key reference
+            $journal->user_id = $user_id; 
             $journal->journal_title = $request->journal_title;
             $journal->title_of_paper = $request->title_of_paper;
             $journal->status = $request->status;
-            $journal->file_upload = $file_path; // Store the file path in the database
+            $journal->file_upload = $file_path; 
             $journal->save();
     
             // Redirect back with a success message
-            return redirect('journalSubmission')->with('message', 'Journal Publication submitted successfully.');
+            return redirect('journal.index')->with('message', 'Journal Publication submitted successfully');
+
+
         } else {
-            return redirect('journal.index')->with('message', 'File upload failed.'); // Handle file upload failure
+            
+            return redirect('journal.index')->with('message', 'Journal Publication upload Failed.');
+
         }
     }
     

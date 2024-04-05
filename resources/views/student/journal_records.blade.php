@@ -59,7 +59,10 @@
         .btn:hover {
             background-color: #45a049;
         }
-
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
                   
         .document-link:hover {
             cursor: pointer;
@@ -91,7 +94,7 @@
                         <td>{{ $row['title_of_paper'] }}</td>
                         <td>{{ $row['status'] }}</td>
                         <td>
-                        <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">{{ $row['file_upload'] }}</span>
+                        <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">View Publication</span>
                         </td>
                     </tr>
                 @endforeach

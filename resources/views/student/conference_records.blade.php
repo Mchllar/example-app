@@ -92,7 +92,7 @@
                         <td>{{ $row['title_of_paper'] }}</td>
                         <td>{{ $row['status'] }}</td>
                         <td>
-                        <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $row->file_upload) }}')">{{ $row['file_upload'] }}</span>
+                        <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $row->file_upload) }}')">View Publication</span>
                         </td>
                     </tr>
                 @endforeach  
