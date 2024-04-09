@@ -28,7 +28,8 @@ return new class extends Migration
             ['name' => 'Jehovah Witness'],
             ['name' => 'Islam'],
             ['name' => 'Hinduism'],
-            ['name' => 'Traditionalist']
+            ['name' => 'Traditionalist'],
+            ['name' => 'Other']
         ];
 
         DB::table('religion')->insert($religionData);
