@@ -29,11 +29,10 @@ class Student extends Model
     }
 
 
-    public function supervisorAllocation()
+    public function supervisorAllocations()
     {
-        return $this->hasOne(SupervisorAllocation::class);
+        return $this->hasMany(SupervisorAllocation::class);
     }
-
     public function journal()
     {
         return $this->hasMany(Journal::class);

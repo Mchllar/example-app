@@ -10,14 +10,14 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Number of Requests</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($students as $student)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap"><a href="{{ route('academic_leave.approve', ['student_id' => $student->id]) }}" class="text-blue-500 hover:underline">{{ $student->name }}</a></td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $student->requests_count }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $student->program->name}}</td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -40,8 +40,6 @@
             <form action="{{ route('storeSchoolApproval') }}" method="POST">
                 @csrf
                 <div class="mb-2">
-                    <label for="name">Staff Name:</label>
-                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('name', auth()->user()->name) }}"required>
                     <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
                 </div>
                 <div class="mb-2">
@@ -68,8 +66,6 @@
             <form action="{{ route('storeBoardApproval') }}" method="POST">
                 @csrf
                 <div class="mb-2">
-                    <label for="name">Staff Name:</label>
-                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('name', auth()->user()->name) }}"required>
                     <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
                 </div>
                 <div class="mb-2">
@@ -96,8 +92,6 @@
             <form action="{{ route('storeDirectorApproval') }}" method="POST">
                 @csrf
                 <div class="mb-2">
-                    <label for="name">Staff Name:</label>
-                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('name', auth()->user()->name) }}"required>
                     <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
                 </div>
                 <div class="mb-2">
