@@ -12,6 +12,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+    
+            position: relative;
         }
 
         p {
@@ -185,10 +187,36 @@
             cursor: pointer;
             color: green; 
         }
+        #pdfContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            overflow: auto; /* Allow scrolling within the container */
+        }
+
+        #pdfViewer {
+            width: 90%;
+            height: 90%;
+            max-width: 1000px; /* Adjust the maximum width based on your preference */
+            max-height: 90%; /* Adjust the maximum height based on your preference */
+            border: none;
+        }
+
+
 
     </style>
 </head>
 <body>
+    <div id="pdfContainer" style="display: none;">
+        <iframe id="pdfViewer" frameborder="0"></iframe>
+    </div>
 <x-layout>
     @if (isset($thesis) && !$thesis->isEmpty())
         <p>List of Thesis/Dissertation Documents</p>
@@ -224,8 +252,8 @@
                             @endif
                             <td>
                                 <div class="file-info">
-                                    <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">{{ $row->thesis_document }}</span>
-
+                                <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">View Thesis</span>
+  
                                     @if(auth()->user()->role_id == 1) 
                                         @php
                                             $approval = \App\Models\ThesisApproval::where('submission_id', $row['id'])->first();
@@ -256,12 +284,12 @@
                             <td>{{ $row['updated_at'] }}</td> 
                             <td class="center-cell">
                                 <span class="document-link" onclick="openDocument('{{ asset('corrections_forms/' . $row->correction_form) }}')">
-                                    {{ $row['correction_form'] ? $row['correction_form'] : '-' }}
+                                    {{ $row->correction_form ? 'View Form' : '-' }}
                                 </span>
                             </td>
                             <td class="center-cell">
                                 <span class="document-link" onclick="openDocument('{{ asset('corrections_summaries/' . $row->correction_summary) }}')">
-                                    {{ $row['correction_summary'] ? $row['correction_summary'] : '-' }}
+                                    {{ $row->correction_summary ? 'View Summary' : '-' }}
                                 </span>
                             </td>
                             @if(auth()->user()->role_id == 1) {{-- Check if user is a student --}}
@@ -350,22 +378,27 @@
         </div>
 
     @else
-        <p>No Thesis/Dissertation Submissions</p>   
+        <p style="margin-top: 50px;">Currently, No Thesis has been  Submitted.</p>   
     @endif
 
-    @if(auth()->user()->role_id == 1) {{-- Check if user is a student --}}
+    @if(auth()->user()->role_id == 1) 
         <a href="{{ route('thesis.submission') }}" class="btn btn-primary">Submit Thesis</a>
     @endif
-
 
 </x-layout>
 
 
     <script>
         function openDocument(pdfUrl) {
-            window.open(pdfUrl, '_blank');
+            // Display the PDF container
+            document.getElementById('pdfContainer').style.display = 'flex'; // Use 'flex' instead of 'block' for proper centering
+            
+            // Set the source of the iframe to the PDF URL
+            document.getElementById('pdfViewer').src = pdfUrl;
         }
+
     </script>
+
 
     <script>
         function uploadNewFile(id) {

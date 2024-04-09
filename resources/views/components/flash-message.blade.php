@@ -7,7 +7,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             setTimeout(function(){
                 document.getElementById('successMessage').style.display = 'none';
-            }, 3000);
+            }, 2000);
         });
     </script>
 @endif

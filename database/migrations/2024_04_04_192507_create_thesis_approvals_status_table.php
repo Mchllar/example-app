@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('thesis_approvals_status', function (Blueprint $table) {
             $table->id();
-           /* $table->unsignedBigInteger('submission_type');
-            $table->foreign('submission_type')->references()
-            $table->string('status');*/
+            $table->unsignedBigInteger('submission_id');
+            $table->foreign('submission_id')->references('id')->on('theses');
+            $table->string('status');
             $table->timestamps();
         });
     }

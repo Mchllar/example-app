@@ -45,15 +45,13 @@ class ConferenceController extends Controller
                 $conference->save();
         
                 // Redirect back with a success message
-                return redirect('conferenceSubmission')->with('message', 'Conference Publication submitted successfully.');
+                return redirect('conference.index')->with('message', 'Conference Publication submitted successfully.');
             } else {
-                return redirect('conference.index')->with('message', 'File upload failed.'); // Handle file upload failure
+                return redirect('conference.index')->with('message', 'Conference Publication upload Failed.'); 
             }
 
             
         }
-     
-      
 
         // Retrieving Records
         public function index()

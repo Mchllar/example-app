@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ThesisApproval extends Model
+class ThesisStatus extends Model
 {
     protected $fillable = [
         
         'submission_id',
-        'supervisor_id',
+        'status',
     ];
 
     public function submission(){
@@ -22,9 +22,9 @@ class ThesisApproval extends Model
 
         return $this->belongsTo(User::class); 
     }
-    public function status(){
 
-        return $this->belongsTo(ThesisStatus::class);
+    public function approval(){
+
+        return $this->belongsTo(ThesisApproval::class);
     }
-
 }

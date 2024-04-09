@@ -92,8 +92,11 @@
             font-size: 16px;
             line-height: 1.5;
         }
+        h5 {
+            color: red; 
+        }
     </style>
-
+<body>
     <div class="container">
         <!-- Sidebar navigation -->
         <div class="sidebar">
@@ -136,9 +139,11 @@
                 </table>
                 </br>
                 <h3> Upload the actual paper or the acceptance. </h3></br>
+                <h5>(Upload PDF documents ONLY.)</h5>
                 <input type="file" name="file_upload"> </br></br>
                 <input type="submit" value="Submit">
             </form>
         </div>
     </div>
+    </body>
 </x-layout>

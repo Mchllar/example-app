@@ -53,6 +53,7 @@
 </head>
 <body>
 <x-layout>
+    @if (isset($supervisorAllocations) && !$supervisorAllocations->isEmpty())
     <p>List of Supervisees</p>
 
     <div class="table-container">   
@@ -76,7 +77,7 @@
                         <td>{{ $allocation->student->program->name }}</td>
                         <td>{{ $allocation->student->academic_status }}</td>
                         <td>
-                            @if ($allocation->student->user_id) {{-- Check if student has a user_id --}}
+                            @if ($allocation->student->user_id)
                                 @if ($theses->contains('user_id', $allocation->student->user_id)) {{-- Check if student has submitted a thesis --}}
                                     @php
                                         $submissionId = $theses->where('user_id', $allocation->student->user_id)->first()->id;
@@ -97,7 +98,9 @@
                 @endforeach
             </tbody>
         </table>
-
     </div>
+    @else 
+    <p> You currently have no Assigned Supervisees</p>
+    @endif
 </x-layout> 
 </body>

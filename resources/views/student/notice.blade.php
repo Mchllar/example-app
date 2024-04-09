@@ -187,7 +187,7 @@ function validateForm() {
     @else
         <p> You currently have no Journal Articles</p>
     @endif
-    <a href="{{ route('journalSubmission') }}" class="btn btn-primary">Submit Journal Article</a>
+    <a href="{{ route('journalSubmission') }}" class="btn btn-primary">Submit New Journal Article</a>
     
 
 </br>
@@ -219,7 +219,7 @@ function validateForm() {
     @else
         <p> You currently have no Conference Articles</p>   
     @endif
-    <a href="{{ route('conferenceSubmission') }}" class="btn btn-primary">Submit Conference Paper</a>
+    <a href="{{ route('conferenceSubmission') }}" class="btn btn-primary">Submit New Conference Paper</a>
     </div>
 </body>
 </x-layout>

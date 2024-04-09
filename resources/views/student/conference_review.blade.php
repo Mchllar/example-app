@@ -58,8 +58,8 @@
             }
 
             h5 {
-                color: red; /* Set paragraph color to red */
-                text-align: center; /* Center align the header */
+                color: red; 
+                text-align: center; 
 
             }
   
