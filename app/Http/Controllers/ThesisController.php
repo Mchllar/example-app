@@ -81,8 +81,8 @@ class ThesisController extends Controller
     // View of the Thesis submission
     public function index()
     {
-    // Retrieve the currently authenticated user
-    $user = auth()->user();
+        // Retrieve the currently authenticated user
+        $user = auth()->user();
     
     // Check if the user's role is supervisor
     if ($user->role_id == 2) {

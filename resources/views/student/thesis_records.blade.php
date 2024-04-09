@@ -1,481 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Meta tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('pdfjs/web/viewer.css') }}" rel="stylesheet">
-
-    <!-- External CSS -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-            position: relative;
-        }
-
-        p {
-            text-align: center;
-            font-size: 25px;
-            line-height: 1.5;
-        }
-
-        .main-content {
-            flex: 3;
-            padding: 20px;
-        }
-
-        /* Apply basic styles to the table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        /* Center the table horizontally within its container */
-        .table-container {
-            margin: 20px auto;
-            width: 90%;
-            overflow-x: auto; /* Allow horizontal scrolling if needed */
-        }
-
-        /* Apply styles to table header cells */
-        th {
-            background-color: #f2f2f2;
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        /* Apply styles to table data cells */
-        td {
-            border: 1px solid #ddd;
-            padding: 10px;
-        }
-
-        /* Apply background color to even rows for better readability */
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        /* Hover effect on rows */
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        /* Apply ellipsis to text overflow in cells */
-        td, th {
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis;
-        }
-
-        .btn {
-            padding: 4px 8px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-            width: 10%; 
-            cursor: pointer;
-            margin-top: 20px;
-            margin-left: 10px; 
-            font-family: Arial, sans-serif;
-            display: block; 
-            text-align: center;
-
-        }
-
-        .btn:hover {
-            background-color: green; /* Darker shade of blue on hover */
-        }
-
-        .file-info {
-            display: flex; /* Use flexbox for layout */
-            align-items: center; /* Center vertically */
-            flex-direction: column; /* Set column direction */
-        }
-
-        .edit-file-button {
-            background-color: #007bff;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px; 
-            font-family: Arial, sans-serif;
-            display: block; 
-        }
-
-        .edit-file-button:hover {
-            background-color: #dc3545; /* Red color */
-        }
-
-        .center-cell {
-            text-align: center;
-        }
-
-        .button-container {
-            float: right;
-            margin-left: 10px; 
-        }
-
-        .approve-button {
-            background-color: #0000FF; 
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .approve-button:hover {
-            background-color: #4CAF50; 
-        }
-
-        .clearance-row {
-            /* Initially hide clearance row for non-supervisors */
-            display: none;
-        }  
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
         
-        /* Default button style */
-        #sendReminderBtn {
-            background-color: #4CAF50;
-            border: 1px solid black;
-            color: black;
-            padding: 2px 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: background-color 0.3s, color 0.3s;
-            width: 100%; /* Set button width to 100% */
-        }
-
-        /* Style for hover effect */
-        #sendReminderBtn:hover {
-            background-color: red;
-            color: white;
-        }
-
-        /* Style for active state */
-        #sendReminderBtn:active {
-            background-color: green;
-        }
-
-        .confirmation {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
+                position: relative;
             }
 
-        .document-link:hover {
-            cursor: pointer;
-            color: green; 
-        }
-        #pdfContainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            overflow: auto; /* Allow scrolling within the container */
-        }
+            p {
+                text-align: center;
+                font-size: 25px;
+                line-height: 1.5;
+            }
 
-        #pdfViewer {
-            width: 90%;
-            height: 90%;
-            max-width: 1000px; /* Adjust the maximum width based on your preference */
-            max-height: 90%; /* Adjust the maximum height based on your preference */
-            border: none;
-        }
+            .main-content {
+                flex: 3;
+                padding: 20px;
+            }
 
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
 
+            .table-container {
+                margin: 20px auto;
+                width: 90%;
+                overflow-x: auto; 
+            }
 
-    </style>
-</head>
-<body>
-    <div id="pdfContainer" style="display: none;">
-        <iframe id="pdfViewer" frameborder="0"></iframe>
-    </div>
-<x-layout>
-    @if (isset($thesis) && !$thesis->isEmpty())
-        <p>List of Thesis/Dissertation Documents</p>
-        <div class="table-container">
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        @if(auth()->user()->role_id == 2) 
-                            <th>Student Name</th>
-                        @else
-                            <th>ID</th>
-                        @endif
-                        <th>Thesis/Dissertation File</th>
-                        <th>Submission Type</th>
-                        <th>Upload Date</th>
-                        <th>Update On</th>
-                        <th>Correction Form</th>
-                        <th>Correction Summary</th>
-                        @if(auth()->user()->role_id == 2) 
-                            <th>Clearance</th>
-                        @else
-                            <th>Supervisor Clearance</th>  
-                        @endif
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($thesis as $row)
-                        <tr>
-                            @if(auth()->user()->role_id == 1)
-                                <td>{{ $row['id'] }}</td>
-                            @elseif(auth()->user()->role_id == 2)
-                                <td>{{ $row->user->name }}</td>                            
-                            @endif
-                            <td>
-                                <div class="file-info">
-                                <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">View Thesis</span>
-  
-                                    @if(auth()->user()->role_id == 1) 
-                                        @php
-                                            $approval = \App\Models\ThesisApproval::where('submission_id', $row['id'])->first();
-                                        @endphp
-                                        @if(!$approval)
-                                            <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
-                                                @csrf
-                                                @method('PUT')
-                                                <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
-                                                <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
-                                                    <span>Replace File</span>
-                                                </label>
-                                            </form>
-                                        @endif
-                                    @endif
-                                </div>
-                            </td>
-                            <td>
-                                @if ($row['submission_type'] == 1)
-                                    Pre Defense
-                                @elseif ($row['submission_type'] == 2)
-                                    Post Defense
-                                @else
-                                    Unknown
-                                @endif
-                            </td>
-                            <td>{{ $row['created_at'] }}</td>  
-                            <td>{{ $row['updated_at'] }}</td> 
-                            <td class="center-cell">
-                                <span class="document-link" onclick="openDocument('{{ asset('corrections_forms/' . $row->correction_form) }}')">
-                                    {{ $row->correction_form ? 'View Form' : '-' }}
-                                </span>
-                            </td>
-                            <td class="center-cell">
-                                <span class="document-link" onclick="openDocument('{{ asset('corrections_summaries/' . $row->correction_summary) }}')">
-                                    {{ $row->correction_summary ? 'View Summary' : '-' }}
-                                </span>
-                            </td>
-                            @if(auth()->user()->role_id == 1) {{-- Check if user is a student --}}
-                                <td>
-                                    <?php
-                                        // Retrieve the student record based on the user_id from the theses table
-                                        $student = \App\Models\Student::where('user_id', $row->user_id)->first();
+            th {
+                background-color: #f2f2f2;
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+            }
 
-                                        if($student) {
-                                            // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
-                                            $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
+            td {
+                border: 1px solid #ddd;
+                padding: 10px;
+            }
 
-                                            if($supervisorIds->isEmpty()){
-                                                echo '<span style="color: red;">No supervisor assigned</span>';
-                                            } else {
-                                                // Initialize an array to store supervisor names and their respective statuses
-                                                $supervisorsInfo = [];
-                                                $supervisorEmails = [];
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
 
-                                                foreach ($supervisorIds as $supervisorId) {
-                                                    // Retrieve the supervisor's name
-                                                    $supervisorName = \App\Models\User::find($supervisorId)->name;
+            tr:hover {
+                background-color: #f5f5f5;
+            }
 
-                                                    // Retrieve the supervisor's email
-                                                    $supervisorEmail = \App\Models\User::find($supervisorId)->email;
+            td, th {
+                white-space: nowrap; 
+                overflow: hidden; 
+                text-overflow: ellipsis;
+            }
 
-                                                    // Check if the supervisor has approved the document
-                                                    $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
-                                                        ->where('submission_id', $row->id)
-                                                        ->first();
+            .btn {
+                padding: 4px 8px;
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+                width: 10%; 
+                cursor: pointer;
+                margin-top: 20px;
+                margin-left: 10px; 
+                font-family: Arial, sans-serif;
+                display: block; 
+                text-align: center;
 
-                                                    // Determine the status based on approval existence
-                                                    $status = $approval ? 'Approved' : 'Not Approved';
+            }
 
-                                                    // Add supervisor's name and status to the array
-                                                    $supervisorsInfo[] = [
-                                                        'name' => $supervisorName,
-                                                        'status' => $status
-                                                    ];
+            .btn:hover {
+                background-color: green; 
+            }
 
-                                                    // Add supervisor's email to the array if not approved
-                                                    if ($status != 'Approved') {
-                                                        $supervisorEmails[] = $supervisorEmail;
-                                                    }
-                                                }
+            .file-info {
+                display: flex; 
+                align-items: center; 
+                flex-direction: column; 
+            }
 
-                                                // Display supervisor names and their respective statuses 
-                                                foreach ($supervisorsInfo as $supervisorInfo) {
-                                                    echo $supervisorInfo['name'] . ' (' . $supervisorInfo['status'] . ')<br>';
-                                                }
+            .edit-file-button {
+                background-color: #007bff;
+                color: white;
+                padding: 4px 8px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px; 
+                font-family: Arial, sans-serif;
+                display: block; 
+            }
 
-                                                // Display the 'Approve' button or 'Approved' text based on approval status
-                                                if (!empty($supervisorEmails)) {
-                                                    echo '<button id="sendReminderBtn">Send Reminder</button>';
-                                                } 
-                                            }
-                                        }
-                                    ?>
-                                </td>
-                            @elseif(auth()->user()->role_id == 2)
-                                <td>
-                                    @php
-                                        // Check if a record exists in the thesis approvals table for the current submission and supervisor
-                                        $approval = \App\Models\ThesisApproval::where('supervisor_id', auth()->user()->id)
-                                                                            ->where('submission_id', $row['id'])
-                                                                            ->first();
-                                    @endphp
-                                    
-                                    @if($approval)
-                                        <span class="approval-text" style="color: green;">Approved</span>
-                                    @else
-                                        <div id="approvalContainer{{ $row['id'] }}" class="approval-container">
-                                            <form id="approvalForm{{ $row['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="submission_id" value="{{ $row['id'] }}">
-                                                <button id="approveButton{{ $row['id'] }}" class="approve-button" onclick="approveSubmission({{ $row['id'] }})">Approve</button>
-                                            </form>
-                                        </div>
-                                    @endif
-                                </td>
-                            @endif
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            .edit-file-button:hover {
+                background-color: #dc3545; 
+            }
+
+            .center-cell {
+                text-align: center;
+            }
+
+            .button-container {
+                float: right;
+                margin-left: 10px; 
+            }
+
+            .approve-button {
+                background-color: #0000FF; 
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+            .approve-button:hover {
+                background-color: #4CAF50; 
+            }
+
+            .clearance-row {
+                display: none;
+            }  
+            
+            #sendReminderBtn {
+                background-color: #4CAF50;
+                border: 1px solid black;
+                color: black;
+                padding: 2px 10px;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 10px;
+                transition: background-color 0.3s, color 0.3s;
+                width: 100%; 
+            }
+
+            #sendReminderBtn:hover {
+                background-color: red;
+                color: white;
+            }
+
+            #sendReminderBtn:active {
+                background-color: green;
+            }
+
+            .confirmation {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                display: none;
+            }
+
+            th {
+                background-color: #4CAF50;
+                color: white;
+                }
+
+            .document-link:hover {
+                cursor: pointer;
+                color: green; 
+            }
+
+            #pdfContainer {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                justify-content: center;
+                align-items: center;
+                z-index: 999;
+            }
+
+            #pdfContainer button {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                padding: 8px 8px;
+                background-color: red;
+                color: white;
+                border: none;
+                cursor: pointer;           
+            }
+
+            #pdfContainer iframe {
+                width: 80%;
+                height: 80%;
+                border: none;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div id="pdfContainer">
+            <button onclick="closeDocument()">Close</button>
+            <iframe id="pdfViewer" frameborder="0"></iframe>
         </div>
 
-    @else
-        <p style="margin-top: 50px;">Currently, No Thesis has been  Submitted.</p>   
-    @endif
+        <x-layout>
+            @if (isset($thesis) && !$thesis->isEmpty())
+                <p>List of Thesis/Dissertation Documents</p>
+                <div class="table-container">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                @if(auth()->user()->role_id == 2) 
+                                    <th>Student Name</th>
+                                @else
+                                    <th>ID</th>
+                                @endif
+                                <th>Thesis/Dissertation File</th>
+                                <th>Submission Type</th>
+                                <th>Submission Date</th>
+                                <th>Correction Form</th>
+                                <th>Correction Summary</th>
+                                @if(auth()->user()->role_id == 2) 
+                                    <th>Clearance</th>
+                                @else
+                                    <th>Supervisor Clearance</th>  
+                                @endif
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($thesis as $row)
+                                <tr>
+                                    @if(auth()->user()->role_id == 1)
+                                        <td>{{ $row['id'] }}</td>
+                                    @elseif(auth()->user()->role_id == 2)
+                                        <td>{{ $row->user->name }}</td>                            
+                                    @endif
+                                    <td>
+                                        <div class="file-info">
+                                        <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">View Thesis</span>
+        
+                                            @if(auth()->user()->role_id == 1) 
+                                                @php
+                                                    $approval = \App\Models\ThesisApproval::where('submission_id', $row['id'])->first();
+                                                @endphp
+                                                @if(!$approval)
+                                                    <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
+                                                        <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
+                                                            <span>Replace File</span>
+                                                        </label>
+                                                    </form>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if ($row['submission_type'] == 1)
+                                            Pre Defense
+                                        @elseif ($row['submission_type'] == 2)
+                                            Post Defense
+                                        @else
+                                            Unknown
+                                        @endif
+                                    </td>
+                                    <td>{{ $row['created_at'] }}</td> 
+                                    <td class="center-cell">
+                                        <span class="document-link" onclick="openDocument('{{ asset('correction_forms/' . $row->correction_form) }}')">
+                                            {{ $row->correction_form ? 'View Form' : '-' }}
+                                        </span>
+                                    </td>
+                                    <td class="center-cell">
+                                        <span class="document-link" onclick="openDocument('{{ asset('correction_summaries/' . $row->correction_summary) }}')">
+                                            {{ $row->correction_summary ? 'View Summary' : '-' }}
+                                        </span>
+                                    </td>
+                                    @if(auth()->user()->role_id == 1) {{-- Check if user is a student --}}
+                                        <td>
+                                            <?php
+                                                // Retrieve the student record based on the user_id from the theses table
+                                                $student = \App\Models\Student::where('user_id', $row->user_id)->first();
 
-    @if(auth()->user()->role_id == 1) 
-        <a href="{{ route('thesis.submission') }}" class="btn btn-primary">Submit Thesis</a>
-    @endif
+                                                if($student) {
+                                                    // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
+                                                    $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
 
-</x-layout>
+                                                    if($supervisorIds->isEmpty()){
+                                                        echo '<span style="color: red;">No supervisor assigned</span>';
+                                                    } else {
+                                                        // Initialize an array to store supervisor names and their respective statuses
+                                                        $supervisorsInfo = [];
+                                                        $supervisorEmails = [];
 
+                                                        foreach ($supervisorIds as $supervisorId) {
+                                                            // Retrieve the supervisor's name
+                                                            $supervisorName = \App\Models\User::find($supervisorId)->name;
 
-    <script>
-        function openDocument(pdfUrl) {
-            // Display the PDF container
-            document.getElementById('pdfContainer').style.display = 'flex'; // Use 'flex' instead of 'block' for proper centering
-            
-            // Set the source of the iframe to the PDF URL
-            document.getElementById('pdfViewer').src = pdfUrl;
-        }
+                                                            // Retrieve the supervisor's email
+                                                            $supervisorEmail = \App\Models\User::find($supervisorId)->email;
 
-    </script>
+                                                            // Check if the supervisor has approved the document
+                                                            $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
+                                                                ->where('submission_id', $row->id)
+                                                                ->first();
 
+                                                            // Determine the status based on approval existence
+                                                            $status = $approval ? 'Approved' : 'Not Approved';
 
-    <script>
-        function uploadNewFile(id) {
-            var form = document.getElementById('uploadForm' + id);
-            var fileInput = form.querySelector('input[type="file"]');
-            var file = fileInput.files[0];
-            
-            var formData = new FormData();
-            formData.append('thesis_document', file);
+                                                            // Add supervisor's name and status to the array
+                                                            $supervisorsInfo[] = [
+                                                                'name' => $supervisorName,
+                                                                'status' => $status
+                                                            ];
 
-            fetch(`/thesis/${id}`, {  // Make sure the URL is correct  // Make sure the URL is correct
-                method: 'POST', // Set the method to POST
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                // Handle success response
-                window.location.reload();
+                                                            // Add supervisor's email to the array if not approved
+                                                            if ($status != 'Approved') {
+                                                                $supervisorEmails[] = $supervisorEmail;
+                                                            }
+                                                        }
 
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-                // Handle error
-            });
-        }
+                                                        // Display supervisor names and their respective statuses 
+                                                        foreach ($supervisorsInfo as $supervisorInfo) {
+                                                            echo $supervisorInfo['name'] . ' (' . $supervisorInfo['status'] . ')<br>';
+                                                        }
 
-    </script>  
+                                                        // Display the 'Approve' button or 'Approved' text based on approval status
+                                                        if (!empty($supervisorEmails)) {
+                                                            echo '<button id="sendReminderBtn">Send Reminder</button>';
+                                                        } 
+                                                    }
+                                                }
+                                            ?>
+                                        </td>
+                                    @elseif(auth()->user()->role_id == 2)
+                                        <td>
+                                            @php
+                                                // Check if a record exists in the thesis approvals table for the current submission and supervisor
+                                                $approval = \App\Models\ThesisApproval::where('supervisor_id', auth()->user()->id)
+                                                                                    ->where('submission_id', $row['id'])
+                                                                                    ->first();
+                                            @endphp
+                                            
+                                            @if($approval)
+                                                <span class="approval-text" style="color: green;">Approved</span>
+                                            @else
+                                                <div id="approvalContainer{{ $row['id'] }}" class="approval-container">
+                                                    <form id="approvalForm{{ $row['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="submission_id" value="{{ $row['id'] }}">
+                                                        <button id="approveButton{{ $row['id'] }}" class="approve-button" onclick="approveSubmission({{ $row['id'] }})">Approve</button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
-    <!-- JavaScript code to send AJAX request -->
-    <script>
-    document.getElementById('sendReminderBtn').addEventListener('click', function() {
-        var supervisorEmails = <?php echo json_encode($supervisorEmails ?? []); ?>;
-        var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); 
+            @else
+                <p style="margin-top: 50px;">Currently, No Thesis has been  Submitted.</p>   
+            @endif
 
-        if (Array.isArray(supervisorEmails)) {
-            var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
-            
-            if (confirmation) {              
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/sendReminder', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.setRequestHeader('X-CSRF-TOKEN', token); 
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            alert(xhr.responseText);
-                        } else {
-                            alert('Error: ' + xhr.status);
-                        }
-                    }
-                };
-                xhr.send(JSON.stringify({ emails: supervisorEmails }));
+            @if(auth()->user()->role_id == 1) 
+                <a href="{{ route('thesis.submission') }}" class="btn btn-primary">Submit Thesis</a>
+            @endif
+
+        </x-layout>
+
+        <script>
+            function openDocument(pdfUrl) {
+                // Display the PDF container
+                document.getElementById('pdfContainer').style.display = 'flex'; 
+                
+                // Set the source of the iframe to the PDF URL
+                document.getElementById('pdfViewer').src = pdfUrl;
             }
-        } else {
-            console.error("supervisorEmails is not an array");
-        }
-    });
-    </script>
 
-    <script>
-        function approveSubmission(id) {
-            // Hide the button
-            document.getElementById('approveButton' + id).style.display = 'none';
-            // Show the text
-            document.getElementById('approvalText' + id).style.display = 'inline';
+            function closeDocument() {
+                // Hide the PDF container
+                document.getElementById('pdfContainer').style.display = 'none';
+                
+                // Clear the source of the iframe
+                document.getElementById('pdfViewer').src = '';
+            }
 
-        }
-    </script>
+        </script>
+
+
+        <script>
+            function uploadNewFile(id) {
+                var form = document.getElementById('uploadForm' + id);
+                var fileInput = form.querySelector('input[type="file"]');
+                var file = fileInput.files[0];
+                
+                var formData = new FormData();
+                formData.append('thesis_document', file);
+
+                fetch(`/thesis/${id}`, {  // Make sure the URL is correct  // Make sure the URL is correct
+                    method: 'POST', // Set the method to POST
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // Handle success response
+                    window.location.reload();
+
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Handle error
+                });
+            }
+
+        </script>  
+
+        <script>
+        document.getElementById('sendReminderBtn').addEventListener('click', function() {
+            var supervisorEmails = <?php echo json_encode($supervisorEmails ?? []); ?>;
+            var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); 
+
+            if (Array.isArray(supervisorEmails)) {
+                var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
+                
+                if (confirmation) {              
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/sendReminder', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.setRequestHeader('X-CSRF-TOKEN', token); 
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                alert(xhr.responseText);
+                            } else {
+                                alert('Error: ' + xhr.status);
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify({ emails: supervisorEmails }));
+                }
+            } else {
+                console.error("supervisorEmails is not an array");
+            }
+        });
+        </script>
+
+        <script>
+            function approveSubmission(id) {
+                
+                document.getElementById('approveButton' + id).style.display = 'none';
+                
+                document.getElementById('approvalText' + id).style.display = 'inline';
+
+            }
+        </script>
 
     </body>
 </html>
