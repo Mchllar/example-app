@@ -309,6 +309,7 @@
                                                             // Retrieve the supervisor's email
                                                             $supervisorEmail = \App\Models\User::find($supervisorId)->email;
 
+
                                                             // Check if the supervisor has approved the document
                                                             $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
                                                                 ->where('submission_id', $row->id)
