@@ -14,22 +14,22 @@
                     <a href="#" class="font-bold hover:underline">List of Supervisors</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="{{ route('reviewChangeSupervisorRequests') }}" class="font-bold hover:underline">View Change of Supervisor Requests</a>
+                    <a href="#" class="font-bold hover:underline">View Change of Supervisor Requests</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">View Submitted Thesis</a>
+                    <a href="#" class="font-bold hover:underline">Thesis Submissions</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="#" class="font-bold hover:underline">Send Thesis Correction or Reminders</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="{{ route('academic_leave.view')}}" class="font-bold hover:underline">View Student Leave Requests</a>
+                    <a href="{{ route('academic_leave.view')}}" class="font-bold hover:underline">Student Leave Requests</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">View Conference Approvals</a>
+                    <a href="#" class="font-bold hover:underline">Conference Approvals</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">View Submitted Notice Of Intent</a>
+                    <a href="#" class="font-bold hover:underline">Notices Of Intent</a>
                 </li>
             </ul>
         </div>
