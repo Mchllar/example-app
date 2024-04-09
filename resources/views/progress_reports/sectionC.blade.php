@@ -31,7 +31,8 @@
     <p style="font-weight: bold; color: red;">(To be completed by the Supervisors in consultation with the Student)</p><br>
     <ol>
         <li><strong>(a) Is this student working at a rate, which will allow them to complete his or her thesis by the planned completion date?</strong></li><br>
-        <input type="text" id="students_completion_rate" name="students_completion_rate" class="border border-gray-200 rounded p-2 w-full" placeholder="Yes or no, why?">
+            <label><input type="radio" name="students_completion_rate" value="1"> Yes</label><br>
+            <label><input type="radio" name="students_completion_rate" value="0"> No</label><br>
         <li><strong>(b) Please rate the student’s progress in the last six months in relation to their goals and work plan</strong></li><br>
         <ul>
             <li><label><input type="radio" name="progress_rating" value="significantly_more">Significantly more than planned</label></li>

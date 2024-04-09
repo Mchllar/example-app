@@ -21,8 +21,8 @@ class CreateProgressReportsTable extends Migration
             $table->foreign('principal_supervisor_id')->references('id')->on('users')->where('role_id', '=', 2);
             $table->unsignedBigInteger('lead_supervisor_id');
             $table->foreign('lead_supervisor_id')->references('id')->on('users')->where('role_id', '=', 2);
-            $table->unsignedBigInteger('reporting_periods_id');
-            $table->foreign('reporting_periods_id')->references('id')->on('reporting_periods')->default(1);
+            $table->unsignedBigInteger('reporting_periods_id')->default(1);
+            $table->foreign('reporting_periods_id')->references('id')->on('reporting_periods');
             $table->string('mode_of_study')->nullable();
             $table->text('goals_set');
             $table->text('progress_report');

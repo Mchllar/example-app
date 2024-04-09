@@ -39,9 +39,12 @@ class ProgressReportController extends Controller
             'mode_of_study' => 'nullable|string',
             'reporting_period' => 'nullable|exists:reporting_periods,id',
         ]);
-        //dd($validatedData);
-
-        Session::put('sectionA_data', $validatedData);
+    
+        $progressReport = ProgressReport::create($validatedData);
+    
+        // Store the ID of the created ProgressReport in the session for later use if needed
+        Session::put('progress_report_id', $progressReport->id);
+    
         return redirect()->route('progress_reports.sectionB');
     }
 
@@ -59,8 +62,13 @@ class ProgressReportController extends Controller
             'agreed_goals' => 'required|string',
             'students_progress_rating' => 'required|integer',
         ]);
-
-        Session::put('sectionB_data', $validatedData);
+    
+        // Retrieve the progress report ID from the session
+        $progressReportId = Session::get('progress_report_id');
+    
+        // Update the progress report with data from section B
+        ProgressReport::findOrFail($progressReportId)->update($validatedData);
+    
         return redirect()->route('progress_reports.sectionC');
     }
 
@@ -79,10 +87,16 @@ class ProgressReportController extends Controller
             'concerns_about_student' => 'required|string',
             'inadequate_aspects_comment' => 'required|string',
         ]);
-
-        Session::put('sectionC_data', $validatedData);
+    
+        // Retrieve the progress report ID from the session
+        $progressReportId = Session::get('progress_report_id');
+    
+        // Update the progress report with data from section C
+        ProgressReport::findOrFail($progressReportId)->update($validatedData);
+    
         return redirect()->route('progress_reports.sectionD');
     }
+    
 
     public function sectionD()
     {
