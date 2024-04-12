@@ -83,23 +83,27 @@ class ThesisController extends Controller
     {
         // Retrieve the currently authenticated user
         $user = auth()->user();
-    
-    // Check if the user's role is supervisor
-    if ($user->role_id == 2) {
-        // Retrieve supervisees' theses if the user is a supervisor
-        $superviseeUserIds = SupervisorAllocation::where('supervisor_id', $user->id)
-            ->join('students', 'supervisor_allocations.student_id', '=', 'students.id')
-            ->pluck('students.user_id')
-            ->toArray();
+
+        // Check if the user's role is admin (role_id = 3 for admin)
+        if ($user->role_id == 3) {
+            // Retrieve all thesis records from the database
+            $thesis = Thesis::all();
+        } elseif ($user->role_id == 2) {
+            // Retrieve supervisees' theses if the user is a supervisor
+            $superviseeUserIds = SupervisorAllocation::where('supervisor_id', $user->id)
+                ->join('students', 'supervisor_allocations.student_id', '=', 'students.id')
+                ->pluck('students.user_id')
+                ->toArray();
+            
+            $thesis = Thesis::whereIn('user_id', $superviseeUserIds)->get();
+        } else {
+            // Retrieve theses submitted by the authenticated user (student)
+            $thesis = Thesis::where('user_id', $user->id)->get();
+        }
         
-        $thesis = Thesis::whereIn('user_id', $superviseeUserIds)->get();
-    } else {
-        // Retrieve theses submitted by the authenticated user (student)
-        $thesis = Thesis::where('user_id', $user->id)->get();
+        return view('student.thesis_records', compact('thesis'));
     }
-    
-    return view('student.thesis_records', compact('thesis'));
-    }
+
 
  
     // Changing the uploaded thesis document

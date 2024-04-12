@@ -54,53 +54,79 @@
 <body>
 <x-layout>
     @if (isset($supervisorAllocations) && !$supervisorAllocations->isEmpty())
-    <p>List of Supervisees</p>
+        <p>List of Supervisees</p>
 
-    <div class="table-container">   
-        <table>
-            <thead>
-                <tr>
-                    <th>Student Number</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Program Name</th>
-                    <th>Academic Status</th>
-                    <th>Thesis Submission Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($supervisorAllocations as $allocation)
+        <div class="table-container">   
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $allocation->student->student_number }}</td>
-                        <td>{{ $allocation->student->user->name }}</td>
-                        <td>{{ $allocation->student->user->email }}</td>
-                        <td>{{ $allocation->student->program->name }}</td>
-                        <td>{{ $allocation->student->academic_status }}</td>
-                        <td>
-                            @if ($allocation->student->user_id)
-                                @if ($theses->contains('user_id', $allocation->student->user_id)) {{-- Check if student has submitted a thesis --}}
-                                    @php
-                                        $submissionId = $theses->where('user_id', $allocation->student->user_id)->first()->id;
-                                    @endphp
-                                    @if (App\Models\ThesisApproval::where('submission_id', $submissionId)->where('supervisor_id', $allocation->supervisor_id)->exists())
-                                        Submitted - Approved
-                                    @else
-                                        Submitted - not Approved
-                                    @endif
-                                @else
-                                    Not Submitted
-                                @endif
-                            @else
-                                Not Submitted
-                            @endif
-                        </td>
+                        <th>Student Number</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Program Name</th>
+                        <th>Academic Status</th>
+                        <th>Thesis Submission Status</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach ($supervisorAllocations as $allocation)
+                        <tr>
+                            <td>{{ $allocation->student->student_number }}</td>
+                            <td>{{ $allocation->student->user->name }}</td>
+                            <td>{{ $allocation->student->user->email }}</td>
+                            <td>{{ $allocation->student->program->name }}</td>
+                            <td>{{ $allocation->student->academic_status }}</td>
+                            <td>
+                                @php
+                                    $submissionStatuses = [];
+
+                                    // Find all thesis submissions for the student
+                                    $submissions = $theses->where('user_id', $allocation->student->user_id);
+
+                                    if ($submissions->isNotEmpty()) {
+                                        foreach ($submissions as $submission) {
+                                            $submissionStatus = 'Submitted';
+
+                                            // Determine the submission type name based on submission type value
+                                            switch ($submission->submission_type) {
+                                                case 1:
+                                                    $submissionTypeName = 'Pre Defense';
+                                                    break;
+                                                case 2:
+                                                    $submissionTypeName = 'Post Defense';
+                                                    break;
+                                                default:
+                                                    $submissionTypeName = 'Unknown';
+                                                    break;
+                                            }
+
+                                            // Check if the submission is approved by the supervisor
+                                            $isApproved = App\Models\ThesisApproval::where('submission_id', $submission->id)
+                                                                                        ->where('supervisor_id', $allocation->supervisor_id)
+                                                                                        ->exists();
+
+                                            $approvalStatus = $isApproved ? 'Approved' : 'Not Approved';
+
+                                            // Build submission status string
+                                            $submissionStatuses[] = "{$submissionTypeName} - {$submissionStatus} ({$approvalStatus})";
+                                        }
+                                    } else {
+                                        $submissionStatuses[] = 'Not Submitted';
+                                    }
+                                @endphp
+
+                                @foreach ($submissionStatuses as $status)
+                                    {{ $status }}<br>
+                                @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @else 
-    <p> You currently have no Assigned Supervisees</p>
+        <p>You currently have no Assigned Supervisees</p>
     @endif
-</x-layout> 
+</x-layout>
+
 </body>

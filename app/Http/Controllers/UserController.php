@@ -136,6 +136,8 @@ public function store(Request $request)
         'nationality' => 'nullable|exists:country,id',
         'religion' => 'nullable|exists:religion,id',
         'password' => 'required|string|min:8|confirmed',
+       /* 'curriculum_vitae' => 'required|file|mimes:pdf|max:2048', // Curriculum vitae file validation*/
+
     ]);
 
     // Handle profile picture upload
@@ -144,6 +146,10 @@ public function store(Request $request)
         $profilePath = $request->file('profile')->store('profiles', 'public');
     }
 
+        /*Handle curriculum vitae upload
+        $cvFile = $request->file('curriculum_vitae');
+        $cvPath = $cvFile->storeAs('public/curricula_vitae', $cvFile->getClientOriginalName());*/
+    
     // Store user details and role-specific data in session
     $userData = [
         'name' => $validatedData['name'],
@@ -177,6 +183,8 @@ public function store(Request $request)
         // Supervisor-specific fields
         $supervisorData = [
             'curriculum_vitae' => $request->file('curriculum_vitae')->store('cv', 'public'),
+
+            /*'curriculum_vitae' => $cvPath,*/
             'school_id' => $request->input('school'),
             'user_id' => $user->id, // Associate with the created user
         ];
