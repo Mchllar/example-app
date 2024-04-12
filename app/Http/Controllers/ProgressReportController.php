@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ProgressReport;
 use App\Models\ReportingPeriod;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ProgressReportController extends Controller
@@ -35,16 +34,22 @@ class ProgressReportController extends Controller
         $validatedData = $request->validate([
             'student_id' => 'nullable|exists:students,id',
             'principal_supervisor_id' => 'nullable|exists:users,id',
-            'lead_supervisor_id' =>'nullable|exists:users,id',
+            'lead_supervisor_id' => 'nullable|exists:users,id',
             'mode_of_study' => 'nullable|string',
             'reporting_period' => 'nullable|exists:reporting_periods,id',
         ]);
-    
-        $progressReport = ProgressReport::create($validatedData);
-    
-        // Store the ID of the created ProgressReport in the session for later use if needed
-        Session::put('progress_report_id', $progressReport->id);
-    
+        //dd($validatedData);
+        // Store student_id and reporting_period in session
+        session(['student_id' => $validatedData['student_id']]);
+        session(['reporting_period' => $validatedData['reporting_period']]);
+        $progressReport = ProgressReport::updateOrCreate(
+            [
+                'student_id' => $validatedData['student_id'],
+                'reporting_periods_id' => $validatedData['reporting_period'],
+            ],
+            $validatedData
+        );
+
         return redirect()->route('progress_reports.sectionB');
     }
 
@@ -54,24 +59,26 @@ class ProgressReportController extends Controller
     }
 
     public function storeSectionB(Request $request)
-    {
-        $validatedData = $request->validate([
-            'goals_set' => 'required|string',
-            'progress_report' => 'required|string',
-            'problems_issues' => 'required|string',
-            'agreed_goals' => 'required|string',
-            'students_progress_rating' => 'required|integer',
-        ]);
-    
-        // Retrieve the progress report ID from the session
-        $progressReportId = Session::get('progress_report_id');
-    
-        // Update the progress report with data from section B
-        ProgressReport::findOrFail($progressReportId)->update($validatedData);
-    
-        return redirect()->route('progress_reports.sectionC');
-    }
+{
+    $validatedData = $request->validate([
+        'goals_set' => 'required|string',
+        'progress_report' => 'required|string',
+        'problems_issues' => 'required|string',
+        'agreed_goals' => 'required|string',
+        'students_progress_rating' => 'required|integer',
+    ]);
 
+    // Retrieve session data
+    $studentId = session('student_id');
+    $reportingPeriod = session('reporting_period');
+
+    // Update the progress report record from section A
+    $progressReport = ProgressReport::where('student_id', $studentId)
+                                    ->where('reporting_periods_id', $reportingPeriod)
+                                    ->update($validatedData);
+
+    return redirect()->route('progress_reports.sectionC');
+}
     public function sectionC()
     {
         return view('progress_reports.sectionC');
@@ -88,21 +95,22 @@ class ProgressReportController extends Controller
             'inadequate_aspects_comment' => 'required|string',
         ]);
     
-        // Retrieve the progress report ID from the session
-        $progressReportId = Session::get('progress_report_id');
+        // Retrieve session data
+        $studentId = session('student_id');
+        $reportingPeriod = session('reporting_period');
     
-        // Update the progress report with data from section C
-        ProgressReport::findOrFail($progressReportId)->update($validatedData);
+        // Update the progress report record from section A
+        $progressReport = ProgressReport::where('student_id', $studentId)
+                                        ->where('reporting_periods_id', $reportingPeriod)
+                                        ->update($validatedData);
     
         return redirect()->route('progress_reports.sectionD');
     }
-    
 
     public function sectionD()
     {
         return view('progress_reports.sectionD');
     }
-
     public function storeSectionD(Request $request)
     {
         $validatedData = $request->validate([
@@ -110,38 +118,16 @@ class ProgressReportController extends Controller
             'dir_registration_recommendation' => 'nullable|string',
             'dir_unsatisfactory_progress_comments' => 'nullable|string',
         ]);
-
-        Session::put('sectionD_data', $validatedData);
-        return redirect()->route('progress_reports.final_submission');
-    }
-
-    public function showFinalSubmissionPage()
-    {
-        return view('progress_reports.final_submission');
-    }
-
-    public function finalSubmission(Request $request)
-    {
-        // Merge the session data and the form data
-        $combinedData = array_merge(
-            Session::get('sectionA_data', []),
-            Session::get('sectionB_data', []),
-            Session::get('sectionC_data', []),
-            Session::get('sectionD_data', [])
-        );
-         //dd($combinedData);
-        
-            // Create a new ProgressReport instance with the combined data and save it to the database
-            ProgressReport::create($combinedData);
-            DB::commit();
-       
-
-        // Clear session data
-        Session::forget('sectionA_data');
-        Session::forget('sectionB_data');
-        Session::forget('sectionC_data');
-        Session::forget('sectionD_data');
-
-        return redirect()->route('progress_reports.index')->with('message', 'Progress report created successfully!');
+    
+        // Retrieve session data
+        $studentId = session('student_id');
+        $reportingPeriod = session('reporting_period');
+    
+        // Update the progress report record from section A
+        $progressReport = ProgressReport::where('student_id', $studentId)
+                                        ->where('reporting_periods_id', $reportingPeriod)
+                                        ->update($validatedData);
+    
+        return redirect('/')->with('message', 'Updated successfully');
     }
 }

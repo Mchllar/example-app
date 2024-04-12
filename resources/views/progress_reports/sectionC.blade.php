@@ -26,6 +26,8 @@
     <!-- This view will contain the form fields for step 2 -->
     <form method="POST" action="{{ route('progress_reports.storeSectionC') }}" class="form-container max-w-3xl mx-auto px-4 py-8">
         @csrf
+    <input type="hidden" name="student_id" value="{{ session('student_id') }}">
+    <input type="hidden" name="reporting_period" value="{{ session('reporting_period')}}">
     <div class="form-container max-w-3xl mx-auto px-4 py-8">
     <h2 class="text-lg font-semibold mb-4"><strong class="section-heading">SECTION C: SUPERVISOR COMMENTS ON PROGRESS</strong></h2>
     <p style="font-weight: bold; color: red;">(To be completed by the Supervisors in consultation with the Student)</p><br>

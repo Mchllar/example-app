@@ -26,6 +26,9 @@
     <!-- This view will contain the form fields for step 2 -->
     <form method="POST" action="{{ route('progress_reports.storeSectionB') }}" class="form-container max-w-3xl mx-auto px-4 py-8">
         @csrf
+        <input type="hidden" name="student_id" value="{{ session('student_id') }}">
+        <input type="hidden" name="reporting_period" value="{{ session('reporting_period')}}">
+
         <div class="form-container max-w-3xl mx-auto px-4 py-8">
             <h2 class="text-lg font-semibold mb-4"><strong class="section-heading">SECTION B: STUDENT REPORT ON PROGRESS</strong></h2>
             <div>
