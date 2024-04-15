@@ -78,6 +78,7 @@ Route::get('/review.record', [ConferenceReviewController::class, 'index'])->name
 Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('notice.submission');
 Route::get('/notice/create', [IntentionSubmissionController::class, 'create'])->name('notice.create');
 Route::post('/noticeSubmit', [IntentionSubmissionController::class, 'store'])->name('notice.store');
+Route::get('/notice.record', [IntentionSubmissionController::class, 'adminIndex'])->name('notice.record');
 
 // Conference Submission
 Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');

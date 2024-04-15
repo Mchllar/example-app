@@ -94,8 +94,6 @@
     </style>
 </head>
 <body>
-    
-<!--<img src="{{ asset('images/sgs_logo_dark.png') }}" alt="White logo" style="display: block; margin: 20px auto 0; width: 20%;"> -->
 
 <h2 style="text-align: center; font-size: 20px; ">NOTICE OF INTENTION TO SUBMIT THESIS</h2>
 <div class="form-container">
@@ -146,10 +144,6 @@ function validateForm() {
         setTimeout(function(){ errorMessage.style.display = "none"; }, 3000); // Hide error message after 3 seconds
         return false; // Prevent form submission
     }
-    
-    successMessage.style.display = "inline"; // Show success message
-    setTimeout(function(){ successMessage.style.display = "none"; }, 3000); // Hide success message after 3 seconds
-    return true; // Allow form submission
 }
 </script>
 

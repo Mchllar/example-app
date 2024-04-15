@@ -97,7 +97,7 @@ class User extends Authenticatable
         return $this->belongsTo(Conference::class);
     }
 
-    public function intention()
+    public function notice()
     {
 
         return $this->hasMany(Notice::class);
