@@ -287,61 +287,61 @@
                                     </td>
                                     @if(auth()->user()->role_id == 1 || auth()->user()->role_id == 3)
                                     <td>
-    <?php
-        // Retrieve the student record based on the user_id from the theses table
-        $student = \App\Models\Student::where('user_id', $row->user_id)->first();
+                                        <?php
+                                            // Retrieve the student record based on the user_id from the theses table
+                                            $student = \App\Models\Student::where('user_id', $row->user_id)->first();
 
-        if ($student) {
-            // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
-            $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
+                                            if ($student) {
+                                                // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
+                                                $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
 
-            if ($supervisorIds->isEmpty()) {
-                echo '<span style="color: red;">No supervisor assigned</span>';
-            } else {
-                // Initialize an array to store supervisor names and their respective statuses
-                $supervisorsInfo = [];
-                $supervisorEmails = [];
+                                                if ($supervisorIds->isEmpty()) {
+                                                    echo '<span style="color: red;">No supervisor assigned</span>';
+                                                } else {
+                                                    // Initialize an array to store supervisor names and their respective statuses
+                                                    $supervisorsInfo = [];
+                                                    $supervisorEmails = [];
 
-                foreach ($supervisorIds as $supervisorId) {
-                    // Retrieve the supervisor's name
-                    $supervisorName = \App\Models\User::find($supervisorId)->name;
+                                                    foreach ($supervisorIds as $supervisorId) {
+                                                        // Retrieve the supervisor's name
+                                                        $supervisorName = \App\Models\User::find($supervisorId)->name;
 
-                    // Retrieve the supervisor's email
-                    $supervisorEmail = \App\Models\User::find($supervisorId)->email;
+                                                        // Retrieve the supervisor's email
+                                                        $supervisorEmail = \App\Models\User::find($supervisorId)->email;
 
-                    // Check if the supervisor has approved the document
-                    $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
-                        ->where('submission_id', $row->id)
-                        ->first();
+                                                        // Check if the supervisor has approved the document
+                                                        $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
+                                                            ->where('submission_id', $row->id)
+                                                            ->first();
 
-                    // Determine the status based on approval existence
-                    $status = $approval ? 'Approved' : 'Not Approved';
+                                                        // Determine the status based on approval existence
+                                                        $status = $approval ? 'Approved' : 'Not Approved';
 
-                    // Add supervisor's name and status to the array
-                    $supervisorsInfo[] = [
-                        'name' => $supervisorName,
-                        'status' => $status
-                    ];
+                                                        // Add supervisor's name and status to the array
+                                                        $supervisorsInfo[] = [
+                                                            'name' => $supervisorName,
+                                                            'status' => $status
+                                                        ];
 
-                    // Add supervisor's email to the array if not approved
-                    if ($status != 'Approved') {
-                        $supervisorEmails[] = $supervisorEmail;
-                    }
-                }
+                                                        // Add supervisor's email to the array if not approved
+                                                        if ($status != 'Approved') {
+                                                            $supervisorEmails[] = $supervisorEmail;
+                                                        }
+                                                    }
 
-                // Display supervisor names and their respective statuses 
-                foreach ($supervisorsInfo as $supervisorInfo) {
-                    echo $supervisorInfo['name'] . ' (' . $supervisorInfo['status'] . ')<br>';
-                }
+                                                    // Display supervisor names and their respective statuses 
+                                                    foreach ($supervisorsInfo as $supervisorInfo) {
+                                                        echo $supervisorInfo['name'] . ' (' . $supervisorInfo['status'] . ')<br>';
+                                                    }
 
-                // Display the 'Send Reminder' button if user role is student (role_id == 1) and supervisor emails are not empty
-                if (auth()->user()->role_id == 1 && !empty($supervisorEmails)) {
-                    echo '<button id="sendReminderBtn">Send Reminder</button>';
-                }
-            }
-        }
-    ?>
-</td>
+                                                    // Display the 'Send Reminder' button if user role is student (role_id == 1) and supervisor emails are not empty
+                                                    if (auth()->user()->role_id == 1 && !empty($supervisorEmails)) {
+                                                        echo '<button id="sendReminderBtn">Send Reminder</button>';
+                                                    }
+                                                }
+                                            }
+                                        ?>
+                                    </td>
 
                                     @elseif(auth()->user()->role_id == 2)
                                         <td>

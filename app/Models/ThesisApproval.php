@@ -22,9 +22,6 @@ class ThesisApproval extends Model
 
         return $this->belongsTo(User::class); 
     }
-    public function status(){
 
-        return $this->belongsTo(ThesisStatus::class);
-    }
 
 }

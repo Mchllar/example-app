@@ -71,6 +71,8 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceReview'])->name('conference.review');
 Route::get('/review/create', [ConferenceReviewController::class, 'create'])->name('review.create');
 Route::post('/reviewSubmit', [ConferenceReviewController::class, 'store'])->name('review.store');
+Route::post('/review.approval', [ConferenceReviewController::class, 'approve'])->name('criteria.approval');
+Route::get('/review.record', [ConferenceReviewController::class, 'index'])->name('review.record');
 
 //Notice of Intention to Submit Thesis
 Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('notice.submission');

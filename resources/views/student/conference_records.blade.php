@@ -19,7 +19,7 @@
                 }
 
                 table {
-                    width: 100%;
+                    width: 80%;
                     border-collapse: collapse;
                     margin-top: 20px;
                     margin-left: auto;
@@ -82,24 +82,30 @@
                 justify-content: center;
                 align-items: center;
                 z-index: 999;
-            }
+                }
 
-            #pdfContainer button {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                padding: 8px 8px;
-                background-color: red;
-                color: white;
-                border: none;
-                cursor: pointer;           
-            }
+                #pdfContainer button {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    padding: 8px 8px;
+                    background-color: red;
+                    color: white;
+                    border: none;
+                    cursor: pointer;           
+                }
 
-            #pdfContainer iframe {
-                width: 80%;
-                height: 80%;
-                border: none;
-            }
+                #pdfContainer iframe {
+                    width: 80%;
+                    height: 80%;
+                    border: none;
+                }
+
+                p {
+                    text-align: center;
+                    font-size: 25px;
+                    line-height: 1.5;
+                }
 
             </style>
         </head>
@@ -113,6 +119,7 @@
             <div class="main-content">  
             <br>
             @if (auth()->user()->role_id == 3)
+            <p>List of All Conference Articles:</p>
                 @if (isset($conferences) && !$conferences->isEmpty())
                     <table>
                         <thead> 

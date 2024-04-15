@@ -107,7 +107,7 @@
                     </li>
 
                     <li class="mx-4 my-2">
-                        <a href="#" class="font-bold hover:underline">Conference Review Requests</a>
+                        <a href="{{ route('review.record')}}" class="font-bold hover:underline">Conference Review Requests</a>
                     </li>
                     <li class="mx-4 my-2">
                         <a href="#" class="font-bold hover:underline">Notices Of Intent</a>

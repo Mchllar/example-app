@@ -64,9 +64,6 @@ class JournalSubmissionController extends Controller
         // Retrieve the currently authenticated user
         $user = auth()->user();
     
-        // Debug: Log the user's role ID
-        Log::info('User Role ID:', ['role_id' => $user->role_id]);
-    
         // Determine which journals to retrieve based on user's role
         if ($user->role_id == 3) {
             // User is an admin (role ID 3): Retrieve all journals
