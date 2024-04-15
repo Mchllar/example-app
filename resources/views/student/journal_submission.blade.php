@@ -96,45 +96,45 @@
             }
     </style>
 </head>
-<x-layout>
+
 <body>
-    <div class="container">
-        <!-- Main content -->
-        <div class="main-content">
-            <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
+    <x-layout>
+        <div class="container">
+            <!-- Main content -->
+            <div class="main-content">
+                <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
 
-            <form action="{{ route('journal.store') }}" method="post" enctype="multipart/form-data">
-                @csrf
+                <form action="{{ route('journal.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
 
-                <table>
-                    <tr>
-                        <th>Journal Title</th>
-                        <th>Title of Paper</th>
-                        <th>Status of Paper</th>
-                    </tr>
-                    <tr>
-                        
-                        <td><input type="text" name="journal_title" id="journal_title"  ></td>
-                        <td><input type="text" name="title_of_paper" id="title_of_paper" ></td>
-                        <td>
-                            <select name="status" id="status" >
-                                <option value="under review">Under Review</option>
-                                <option value="accepted">Accepted</option>
-                                <option value="published">Published</option>
-                            </select>
-                        </td>
-                    </tr>
+                    <table>
+                        <tr>
+                            <th>Journal Title</th>
+                            <th>Title of Paper</th>
+                            <th>Status of Paper</th>
+                        </tr>
+                        <tr>
+                            
+                            <td><input type="text" name="journal_title" id="journal_title"  ></td>
+                            <td><input type="text" name="title_of_paper" id="title_of_paper" ></td>
+                            <td>
+                                <select name="status" id="status" >
+                                    <option value="under review">Under Review</option>
+                                    <option value="accepted">Accepted</option>
+                                    <option value="published">Published</option>
+                                </select>
+                            </td>
+                        </tr>
 
-                </table>
-                <br>
-                <h3> Upload the actual paper or the acceptance. </h3><br>
-                <h5>(Upload PDF documents ONLY.)</h5>
-                <input type="file" name="file_upload"> <br><br>
-                <input type="submit" value="Submit">
-            </form>
+                    </table>
+                    <br>
+                    <h3> Upload the actual paper or the acceptance. </h3><br>
+                    <h5>(Upload PDF documents ONLY.)</h5>
+                    <input type="file" name="file_upload"> <br><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div> 
         </div>
-
-        
-    </div>
+    </x-layout>
 </body>
-</x-layout>
+

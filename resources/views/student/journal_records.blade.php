@@ -101,6 +101,11 @@
                 height: 80%;
                 border: none;
             }
+            p {
+            text-align: center;
+            font-size: 25px;
+            line-height: 1.5;
+        }
 
         </style>
     </head>
@@ -111,43 +116,78 @@
         </div>
 
         <x-layout>
-            <div class="main-content">   
-            <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
-            </br>
+            <div class="main-content">
+                @if (auth()->user()->role_id == 3)
+                    @if (isset($journals) && !$journals->isEmpty())
+                        <p>List of All Journal Articles</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Student Number</th>
+                                    <th>Student Name</th>
+                                    <th>Journal Title</th>
+                                    <th>Title of Paper</th>
+                                    <th>Status</th>
+                                    <th>File</th>
+                                    <th>Submission Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($journals as $row)
+                                    <tr>
+                                        <td>{{ $row->student->student_number }}</td>
+                                        <td>{{ $row->student->user->name }}</td>
+                                        <td>{{ $row->journal_title }}</td>
+                                        <td>{{ $row->title_of_paper }}</td>
+                                        <td>{{ $row->status }}</td>
+                                        <td>
+                                            <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">View Publication</span>
+                                        </td>
+                                        <td>{{ $row->created_at }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>No Journal Publications have been submitted.</p>
+                    @endif
+                @else
+                    <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
 
-            
-            @if (isset($journals) && !$journals->isEmpty())
-                <p>List of your Journal Articles: </p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Journal Title</th>
-                            <th>Title of Paper</th>
-                            <th>Status</th>
-                            <th>File</th>
-                            <th>Submission Date</th>                             
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($journals as $row)
-                            <tr>
-                                <td>{{ $row['journal_title'] }}</td>
-                                <td>{{ $row['title_of_paper'] }}</td>
-                                <td>{{ $row['status'] }}</td>
-                                <td>
-                                <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">View Publication</span>
-                                </td>
-                                <td>{{ $row['created_at'] }}</td> 
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <p> You currently have no Journal Articles</p>
-            @endif
-            <a href="{{ route('journalSubmission') }}" class="btn btn-primary">Submit Journal Article</a>
+                    @if (isset($journals) && !$journals->isEmpty())
+                        <p>List of Your Journal Articles:</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Journal Title</th>
+                                    <th>Title of Paper</th>
+                                    <th>Status</th>
+                                    <th>File</th>
+                                    <th>Submission Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($journals as $row)
+                                    <tr>
+                                        <td>{{ $row->journal_title }}</td>
+                                        <td>{{ $row->title_of_paper }}</td>
+                                        <td>{{ $row->status }}</td>
+                                        <td>
+                                            <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">View Publication</span>
+                                        </td>
+                                        <td>{{ $row->created_at }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>You currently have no Journal Articles.</p>
+                    @endif
+                        <a href="{{ route('journalSubmission') }}" class="btn btn-primary">Submit Journal Article</a>
+                @endif
             </div>
         </x-layout>
+
 
         <script>
             function openDocument(pdfUrl) {
