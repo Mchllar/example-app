@@ -8,7 +8,7 @@ use App\Models\Conference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IntentionSubmissionController extends Controller
+class IntentionController extends Controller
 {
     public function noticeSubmission()
     {

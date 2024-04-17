@@ -17,40 +17,11 @@
             justify-content: space-between;
         }
 
-        /* Sidebar navigation */
-        .sidebar {
-            flex: 1;
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-right: 1px solid #ccc;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .sidebar li {
-            margin-bottom: 10px;
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .sidebar a:hover {
-            color: #555;
-        }
-
-        /* Main content */
         .main-content {
             flex: 3;
             padding: 20px;
         }
 
-        /* Form styles */
         form {
             width: 100%;
             max-width: 800px;
@@ -73,7 +44,7 @@
         }
 
         input[type="submit"] {
-            width: 30%;
+            width: 20%;
             padding: 10px;
             background-color: #4CAF50;
             color: white;
@@ -86,24 +57,32 @@
             background-color: #45a049;
         }
 
-        p {
-            text-align: justify;
-            font-size: 16px;
-            line-height: 1.5;
-        }
         h5 {
-                color: red; 
-            }
+            color: red; 
+        }
+
+        button.back-button {
+            padding: 10px 20px;
+            background-color: #0000FF; 
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        button.back-button:hover {
+            background-color: #4CAF50; 
+        }
     </style>
 </head>
 
 <body>
     <x-layout>
         <div class="container">
-            <!-- Main content -->
             <div class="main-content">
-                <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
-
                 <form action="{{ route('journal.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
@@ -133,6 +112,8 @@
                     <input type="file" name="file_upload"> <br><br>
                     <input type="submit" value="Submit">
                 </form>
+                
+                <button class="back-button" onclick="window.history.back()">Back</button>
             </div> 
         </div>
     </x-layout>

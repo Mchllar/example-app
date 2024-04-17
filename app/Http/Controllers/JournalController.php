@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
-class JournalSubmissionController extends Controller
+class JournalController extends Controller
 {
     public function journalSubmission()
     {
