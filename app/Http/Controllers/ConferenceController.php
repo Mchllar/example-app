@@ -54,14 +54,24 @@ class ConferenceController extends Controller
         }
 
         // Retrieving Records
+
         public function index()
         {
             // Retrieve the currently authenticated user
             $user = auth()->user();
-
-            // Retrieve conferences submitted by the authenticated user
-            $conferences = Conference::where('user_id', auth()->id())->get();
-            
+        
+            // Determine which journals to retrieve based on user's role
+            if ($user->role_id == 3) {
+                // User is an admin (role ID 3): Retrieve all journals
+                $conferences = Conference::all();
+            } elseif ($user->role_id == 1) {
+                // User is a student (role ID 1): Retrieve journals submitted by the student
+                $conferences = Conference::where('user_id', $user->id)->get();
+            } else {
+                // Handle other roles as needed (optional)
+                $conferences = collect(); // Default to an empty collection if role is unknown
+            }
+        
             return view('student.conference_records', compact('conferences'));
         }
 

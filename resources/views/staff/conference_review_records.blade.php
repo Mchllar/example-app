@@ -72,6 +72,23 @@
                 color: green; 
             }
 
+            .approve-button {
+                background-color: #0000FF; 
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+            .approve-button:hover {
+                background-color: #4CAF50; 
+            }
+
             #pdfContainer {
                 display: none;
                 position: fixed;
@@ -106,7 +123,6 @@
             font-size: 25px;
             line-height: 1.5;
         }
-
         </style>
     </head>
     <body>
@@ -116,77 +132,102 @@
         </div>
 
         <x-layout>
-            <div class="main-content">
+            <div class="main-content">  
                 @if (auth()->user()->role_id == 3)
-                    @if (isset($journals) && !$journals->isEmpty())
-                        <p>List of All Journal Articles</p>
+                    @if (isset($reviews) && !$reviews->isEmpty())
+                        <p>List of Conference Review Criteria</p>
                         <table>
                             <thead>
                                 <tr>
                                     <th>Student Number</th>
                                     <th>Student Name</th>
-                                    <th>Journal Title</th>
-                                    <th>Title of Paper</th>
-                                    <th>Status</th>
-                                    <th>File</th>
+                                    <th>Document</th>
+                                    <th>Comments</th>
                                     <th>Submission Date</th>
+                                    <th>Clearance</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($journals as $row)
+                                @foreach ($reviews as $row)
                                     <tr>
                                         <td>{{ $row->student->student_number }}</td>
                                         <td>{{ $row->student->user->name }}</td>
-                                        <td>{{ $row->journal_title }}</td>
-                                        <td>{{ $row->title_of_paper }}</td>
-                                        <td>{{ $row->status }}</td>
                                         <td>
-                                            <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">View Publication</span>
+                                            <span class="document-link" onclick="openDocument('{{ asset('conference_reviews/' . $row->file_upload) }}')">View Document</span>
                                         </td>
-                                        <td>{{ $row->created_at }}</td>
+                                        <td>{{ $row->comments }}</td>
+                                        <td>{{ $row->updated_at }}</td>
+                                        <td>
+                                            @php
+                                                $approval = \App\Models\ConferenceReviewApproval::where('admin_id', auth()->user()->id)
+                                                                                ->where('criteria_id', $row->id)
+                                                                                ->first();
+                                            @endphp
+                                            
+                                            @if($approval)
+                                                <span class="approval-text" style="color: green;">Approved</span>
+                                            @else
+                                                <div id="approvalContainer{{ $row->id }}" class="approval-container">
+                                                    <form id="approvalForm{{ $row->id }}" action="{{ route('criteria.approval') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="criteria_id" value="{{ $row->id }}">
+                                                        <button id="approveButton{{ $row->id }}" class="approve-button" onclick="approveSubmission({{ $row->id }})">Approve</button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     @else
-                        <p>No Journal Publications have been submitted.</p>
+                        <p>Currently no Reviews have been Submitted.</p>
                     @endif
                 @else
-                    <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
-
-                    @if (isset($journals) && !$journals->isEmpty())
-                        <p>List of Your Journal Articles:</p>
+                    @if (isset($reviews) && !$reviews->isEmpty())
+                        <p>List of Conference Review Criteria</p>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Journal Title</th>
-                                    <th>Title of Paper</th>
-                                    <th>Status</th>
-                                    <th>File</th>
+                                    <th>Document</th>
+                                    <th>Comments</th>
                                     <th>Submission Date</th>
+                                    <th>Clearance</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($journals as $row)
+                                @foreach ($reviews as $row)
                                     <tr>
-                                        <td>{{ $row->journal_title }}</td>
-                                        <td>{{ $row->title_of_paper }}</td>
-                                        <td>{{ $row->status }}</td>
                                         <td>
-                                            <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $row->file_upload) }}')">View Publication</span>
+                                            <span class="document-link" onclick="openDocument('{{ asset('conference_reviews/' . $row->file_upload) }}')">View Document</span>
                                         </td>
-                                        <td>{{ $row->created_at }}</td>
+                                        <td>{{ $row->comments }}</td>
+                                        <td>{{ $row->updated_at }}</td>
+                                        <td>
+                                            @php
+                                                $approval = \App\Models\ConferenceReviewApproval::where('criteria_id', $row->id)
+                                                                                            ->where('admin_id', auth()->user()->id)
+                                                                                            ->exists();
+                                            @endphp
+                                            
+                                            @if($approval)
+                                                <span class="approval-text" style="color: green;">Approved</span>
+                                            @else
+                                                <span class="approval-text" style="color: red;">Not Approved</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     @else
-                        <p>You currently have no Journal Articles.</p>
+                        <p>You have not submitted any Document for Review.</p>
                     @endif
-                        <a href="{{ route('journalSubmission') }}" class="btn btn-primary">Submit Journal Article</a>
+                    <a href="{{ route('conference.review') }}" class="btn btn-primary">Submit New Document for Review</a>
                 @endif
             </div>
         </x-layout>
+
 
 
         <script>
@@ -206,6 +247,16 @@
                 document.getElementById('pdfViewer').src = '';
             }
 
+        </script>
+
+        <script>
+            function approveSubmission(id) {
+                
+                document.getElementById('approveButton' + id).style.display = 'none';
+                
+                document.getElementById('approvalText' + id).style.display = 'inline';
+
+            }
         </script>
     </body>
 </html>

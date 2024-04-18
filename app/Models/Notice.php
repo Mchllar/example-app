@@ -25,4 +25,9 @@ class Notice extends Model
     public function conferences(){
         return $this->belongsTo(Conference::class);
     }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'user_id', 'user_id');
+    }
 }

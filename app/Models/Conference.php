@@ -16,7 +16,11 @@ class Conference extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'user_id', 'user_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
     public function notice(){
         return $this->belongsTo(Notice::class);

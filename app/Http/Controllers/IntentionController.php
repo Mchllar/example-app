@@ -8,7 +8,7 @@ use App\Models\Conference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IntentionSubmissionController extends Controller
+class IntentionController extends Controller
 {
     public function noticeSubmission()
     {
@@ -33,7 +33,7 @@ class IntentionSubmissionController extends Controller
         ]);
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Intention to Submit Notice submitted successfully.');
+        return redirect('/')->with('message', 'Intention to Submit Notice submitted successfully.');
     }
 
     // Retrieving Records
@@ -51,5 +51,12 @@ class IntentionSubmissionController extends Controller
       
 
         return view('student.notice', compact('journals', 'conferences'));
+    }
+
+    public function adminIndex()
+    {
+        $notices = Notice::all();
+
+        return view('staff.intention_notices_records', compact('notices'));
     }
 }

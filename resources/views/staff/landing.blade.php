@@ -107,10 +107,10 @@
                     </li>
 
                     <li class="mx-4 my-2">
-                        <a href="#" class="font-bold hover:underline">Conference Review Requests</a>
+                        <a href="{{ route('review.record')}}" class="font-bold hover:underline">Conference Review Requests</a>
                     </li>
                     <li class="mx-4 my-2">
-                        <a href="#" class="font-bold hover:underline">Notices Of Intent</a>
+                        <a href="{{ route('notice.record')}}" class="font-bold hover:underline">Notices Of Intent</a>
                     </li>
                     <li class="mx-4 my-2">
                         <a href="{{ route('reporting-periods.index')}}" class="font-bold hover:underline">Update Reporting Periods</a>

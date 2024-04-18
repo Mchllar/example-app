@@ -7,8 +7,9 @@ use App\Models\Journal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
-class JournalSubmissionController extends Controller
+class JournalController extends Controller
 {
     public function journalSubmission()
     {
@@ -57,15 +58,26 @@ class JournalSubmissionController extends Controller
         }
     }
     
-        // Retrieving Records
-        public function index()
-        {
-            // Retrieve the currently authenticated user
-            $user = auth()->user();
-           
-            // Retrieve journals submitted by the authenticated user
-            $journals = Journal::where('user_id', auth()->id())->get();
-            
-            return view('student.journal_records', compact('journals'));
+    //Retrieve records
+    public function index()
+    {
+        // Retrieve the currently authenticated user
+        $user = auth()->user();
+    
+        // Determine which journals to retrieve based on user's role
+        if ($user->role_id == 3) {
+            // User is an admin (role ID 3): Retrieve all journals
+            $journals = Journal::all();
+        } elseif ($user->role_id == 1) {
+            // User is a student (role ID 1): Retrieve journals submitted by the student
+            $journals = Journal::where('user_id', $user->id)->get();
+        } else {
+            // Handle other roles as needed (optional)
+            $journals = collect(); // Default to an empty collection if role is unknown
         }
+    
+        return view('student.journal_records', compact('journals'));
+    }
+    
+    
 }

@@ -19,7 +19,7 @@
                 }
 
                 table {
-                    width: 100%;
+                    width: 80%;
                     border-collapse: collapse;
                     margin-top: 20px;
                     margin-left: auto;
@@ -82,24 +82,30 @@
                 justify-content: center;
                 align-items: center;
                 z-index: 999;
-            }
+                }
 
-            #pdfContainer button {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                padding: 8px 8px;
-                background-color: red;
-                color: white;
-                border: none;
-                cursor: pointer;           
-            }
+                #pdfContainer button {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    padding: 8px 8px;
+                    background-color: red;
+                    color: white;
+                    border: none;
+                    cursor: pointer;           
+                }
 
-            #pdfContainer iframe {
-                width: 80%;
-                height: 80%;
-                border: none;
-            }
+                #pdfContainer iframe {
+                    width: 80%;
+                    height: 80%;
+                    border: none;
+                }
+
+                p {
+                    text-align: center;
+                    font-size: 25px;
+                    line-height: 1.5;
+                }
 
             </style>
         </head>
@@ -111,41 +117,77 @@
 
         <x-layout>
             <div class="main-content">  
-            <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
             <br>
-
-            @if (isset($conferences) && !$conferences->isEmpty())
-            <p>List of your Conference Articles:</p>
-                <table>
-                    <thead> 
-                        <tr>          
-                            <th>Conference Title & Website</th>
-                            <th>Title of Paper Presentation</th>
-                            <th>Status of Paper</th>
-                            <th>File</th>  
-                            <th>Submission Date</th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($conferences as $row)
-                            <tr>
-                                <td>{{ $row['conference_title'] }}</td>
-                                <td>{{ $row['title_of_paper'] }}</td>
-                                <td>{{ $row['status'] }}</td>
-                                <td>
-                                <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $row->file_upload) }}')">View Publication</span>
-                                </td>
-                                <td>{{ $row['created_at'] }}</td> 
+            @if (auth()->user()->role_id == 3)
+            <p>List of All Conference Articles:</p>
+                @if (isset($conferences) && !$conferences->isEmpty())
+                    <table>
+                        <thead> 
+                            <tr>      
+                                <th>Student Number</th>
+                                <th>Student Name</th>    
+                                <th>Conference Title & Website</th>
+                                <th>Title of Paper Presentation</th>
+                                <th>Status of Paper</th>
+                                <th>File</th>  
+                                <th>Submission Date</th> 
                             </tr>
-                        @endforeach  
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($conferences as $row)
+                                <tr>
+                                    <td>{{ $row->student->student_number }}</td>
+                                    <td>{{ $row->student->user->name }}</td>
+                                    <td>{{ $row['conference_title'] }}</td>
+                                    <td>{{ $row['title_of_paper'] }}</td>
+                                    <td>{{ $row['status'] }}</td>
+                                    <td>
+                                        <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $row->file_upload) }}')">View Publication</span>
+                                    </td>
+                                    <td>{{ $row['created_at'] }}</td> 
+                                </tr>
+                            @endforeach  
+                        </tbody>
+                    </table>
+                @else
+                    <p>No Journal Publications have been submitted.</p>
+                @endif
             @else
-                <p> You currently have no Conference Articles</p>   
-            @endif
-            <a href="{{ route('conferenceSubmission') }}" class="btn btn-primary">Submit Conference Paper</a>
-            </div>
-        </x-layout>
+                <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
+                
+                @if (isset($conferences) && !$conferences->isEmpty())
+                    <p>List of Your Conference Articles:</p>
+                    <table>
+                        <thead> 
+                            <tr>         
+                                <th>Conference Title & Website</th>
+                                <th>Title of Paper Presentation</th>
+                                <th>Status of Paper</th>
+                                <th>File</th>  
+                                <th>Submission Date</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($conferences as $row)
+                                <tr>
+                                    <td>{{ $row['conference_title'] }}</td>
+                                    <td>{{ $row['title_of_paper'] }}</td>
+                                    <td>{{ $row['status'] }}</td>
+                                    <td>
+                                        <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $row->file_upload) }}')">View Publication</span>
+                                    </td>
+                                    <td>{{ $row['created_at'] }}</td> 
+                                </tr>
+                            @endforeach  
+                        </tbody>
+                    </table>
+                @else
+                    <p> You currently have no Conference Articles</p>   
+                @endif
+                    <a href="{{ route('conferenceSubmission') }}" class="btn btn-primary">Submit Conference Paper</a>
+            @endif        
+        </div>
+    </x-layout>
 
         <script>
             function openDocument(pdfUrl) {

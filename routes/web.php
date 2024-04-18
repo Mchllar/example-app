@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Facade;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\ProgressReportController;
 use App\Http\Controllers\ConferenceController;
-use App\Http\Controllers\JournalSubmissionController;
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ThesisController;
-use App\Http\Controllers\IntentionSubmissionController;
+use App\Http\Controllers\IntentionController;
 use App\Http\Controllers\ConferenceReviewController;
 use App\Http\Controllers\AcademicLeaveRequestController;
 use App\Http\Controllers\SupervisorAllocationController;
@@ -29,13 +29,6 @@ use App\Http\Controllers\ReportingPeriodController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
-// Landing Page Route
-//Route::get('/', function () {    return view('landing');})->name('landing')->middleware('auth');
 // Landing Page Route
 Route::get('/', [UserController::class, 'showLandingPage'])->name('landing')->middleware('auth');
 
@@ -72,11 +65,14 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceReview'])->name('conference.review');
 Route::get('/review/create', [ConferenceReviewController::class, 'create'])->name('review.create');
 Route::post('/reviewSubmit', [ConferenceReviewController::class, 'store'])->name('review.store');
+Route::post('/review.approval', [ConferenceReviewController::class, 'approve'])->name('criteria.approval');
+Route::get('/review.record', [ConferenceReviewController::class, 'index'])->name('review.record');
 
 //Notice of Intention to Submit Thesis
-Route::get('/noticeSubmission', [IntentionSubmissionController::class, 'noticeSubmission'])->name('notice.submission');
-Route::get('/notice/create', [IntentionSubmissionController::class, 'create'])->name('notice.create');
-Route::post('/noticeSubmit', [IntentionSubmissionController::class, 'store'])->name('notice.store');
+Route::get('/noticeSubmission', [IntentionController::class, 'noticeSubmission'])->name('notice.submission');
+Route::get('/notice/create', [IntentionController::class, 'create'])->name('notice.create');
+Route::post('/noticeSubmit', [IntentionController::class, 'store'])->name('notice.store');
+Route::get('/notice.record', [IntentionController::class, 'adminIndex'])->name('notice.record');
 
 // Conference Submission
 Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
@@ -86,10 +82,10 @@ Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('
 Route::get('/conference.index', [ConferenceController::class, 'index'])->name('conference.index');
 
 //Journal Submission
-Route::get('/journalSubmission', [JournalSubmissionController::class, 'journalSubmission'])->name('journalSubmission');
-Route::get('/journal/create', [JournalSubmissionController::class, 'create'])->name('journal.create');
-Route::post('/journalSubmit', [JournalSubmissionController::class, 'store'])->name('journal.store');
-Route::get('/journal.index', [JournalSubmissionController::class, 'index'])->name('journal.index')->middleware('auth');
+Route::get('/journalSubmission', [JournalController::class, 'journalSubmission'])->name('journalSubmission');
+Route::get('/journal/create', [JournalController::class, 'create'])->name('journal.create');
+Route::post('/journalSubmit', [JournalController::class, 'store'])->name('journal.store');
+Route::get('/journal.index', [JournalController::class, 'index'])->name('journal.index')->middleware('auth');
 
 //Thesis
 Route::get('/thesis.index', [ThesisController::class, 'index'])->name('thesis.index');
