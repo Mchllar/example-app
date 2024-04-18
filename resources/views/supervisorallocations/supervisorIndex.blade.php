@@ -1,4 +1,5 @@
 <x-layout>
+    @include('partials._searchtwo')
     <div class="flex justify-center items-center h-full">
         <div class="container mx-auto">
             <h1 class="text-3xl font-bold mb-8">List of Supervisors</h1>
@@ -31,6 +32,7 @@
                                 <th class="grey-cell px-4 py-2">Notes</th>
                                 <th class="grey-cell px-4 py-2">Status</th>
                                 <th class="grey-cell px-4 py-2">Contract</th>
+                                <th class="grey-cell px-4 py-2">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,6 +50,9 @@
                                             @else
                                                 None
                                             @endif
+                                        </td>
+                                        <td class="border px-4 py-2">
+                                            <a href="{{ route('allocation.edit', ['id' => $allocation->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

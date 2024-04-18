@@ -129,6 +129,8 @@ Route::get('/supervisorStudentAllocation', [SupervisorAllocationController::clas
 Route::get('/allocationStudent', [SupervisorAllocationController::class, 'allocationStudent'])->name('allocationStudent');
 Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])->name('allocation');
 Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');
+Route::get('/allocation/{id}/edit', [SupervisorAllocationController::class, 'edit'])->name('allocation.edit');
+Route::put('/allocation/{id}', [SupervisorAllocationController::class, 'update'])->name('allocation.update');
 Route::get('/changeSupervisor',[SupervisorAllocationController::class, 'changeSupervisor'])->name('changeSupervisor');
 Route::post('/changeSupervisor/store',[SupervisorAllocationController::class, 'storeChangeSupervisor'])->name('changeSupervisor.store');
 Route::get('/review-change-supervisor-requests', [SupervisorAllocationController::class, 'reviewChangeSupervisorRequests'])->name('reviewChangeSupervisorRequests');
