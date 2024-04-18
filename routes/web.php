@@ -109,10 +109,12 @@ Route::get('/progress_reports/sectionA', [ProgressReportController::class, 'sect
 Route::post('/progress_reports/storeSectionA', [ProgressReportController::class, 'storeSectionA'])->name('progress_reports.storeSectionA');
 Route::get('/progress_reports/sectionB', [ProgressReportController::class, 'sectionB'])->name('progress_reports.sectionB');
 Route::post('/progress_reports/storeSectionB', [ProgressReportController::class, 'storeSectionB'])->name('progress_reports.storeSectionB');
-Route::get('/progress_reports/sectionC', [ProgressReportController::class, 'sectionC'])->name('progress_reports.sectionC');
+Route::get('/progress_reports/sectionC/{studentId}/{reportingPeriod}', [ProgressReportController::class, 'sectionC'])->name('progress_reports.sectionC');
 Route::post('/progress_reports/storeSectionC', [ProgressReportController::class, 'storeSectionC'])->name('progress_reports.storeSectionC');
 Route::get('/progress_reports/sectionD', [ProgressReportController::class, 'sectionD'])->name('progress_reports.sectionD');
 Route::post('/progress_reports/storeSectionD', [ProgressReportController::class, 'storeSectionD'])->name('progress_reports.storeSectionD');
+Route::get('/progress_reports/updateReport', [ProgressReportController::class, 'updateReport'])->name('progress_reports.updateReport');
+
 //Route::get('/progress_reports/final_submission', [ProgressReportController::class, 'showFinalSubmissionPage'])->name('progress_reports.final_submission');
 //Route::post('/progress_reports/finalSubmission', [ProgressReportController::class, 'finalSubmission'])->name('progress_reports.finalSubmission');
 

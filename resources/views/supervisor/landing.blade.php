@@ -11,7 +11,7 @@
                     <a href="{{ route('thesis.index')}}" class="font-bold hover:underline">Approve Thesis</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="#" class="font-bold hover:underline">Update Progress Report</a>
+                    <a href="{{route('progress_reports.updateReport')}}" class="font-bold hover:underline">Update Progress Report</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="{{ route('view.supervisee')}}" class="font-bold hover:underline">View Students</a>

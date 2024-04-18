@@ -80,6 +80,7 @@ class ProgressReportController extends Controller
  
     public function storeSectionB(Request $request)
     {
+        // Validation of form data
         $validatedData = $request->validate([
             'student_id' => 'nullable|exists:students,id',
             'principal_supervisor_id' => 'nullable|exists:users,id',
@@ -99,111 +100,92 @@ class ProgressReportController extends Controller
                                         ->where('reporting_periods_id', $reportingPeriod)
                                         ->first();
     
-        // Generate a unique token for the student and reporting period combination
-        $token = md5($studentId . $reportingPeriod);
-    
-        // Store the token in the session for later use in section C
-        session(['section_c_token' => $token]);
-    
-        // Retrieve the principal supervisor's ID from the progress report
-        $principalSupervisorId = $progressReport->principal_supervisor_id ?? null;
-    
-        // Ensure that the progress report exists and has a principal supervisor ID
-        if ($progressReport && $principalSupervisorId) {
-            // Retrieve the student's name from the data source
+        // Check if the progress report and principal supervisor ID exist
+        if ($progressReport && $progressReport->principal_supervisor_id) {
+            // Retrieve the student's name
             $student = $progressReport->student;
-            $studentName = $student ? $student->user->name : 'Student'; // Default to 'Student' if name not found
+            $studentName = $student ? $student->user->name : 'Student';
     
-            // Update the progress report record from section A
+            // Update the progress report record with section B data
             $progressReport->update($validatedData);
     
-            // Generate the link to section C with the token as a parameter
-            $link = route('progress_reports.sectionC', ['token' => $token]);
+            // Generate the link to section C with student ID and reporting period as parameters
+            $link = route('progress_reports.updateReport');
     
             // Send email notification to the principal supervisor
-            $principalSupervisor = User::find($principalSupervisorId);
+            $principalSupervisor = User::find($progressReport->principal_supervisor_id);
             if ($principalSupervisor) {
-                $emailContent = "Please fill in the progress report for your student: $studentName. Click the following link to proceed: $link";
+                $emailContent = "Please fill in the progress report for your student:  $studentName. You can find it here on the SGS: $link";
     
-                Mail::to($principalSupervisor->email)->send(new ProgressReportNotification($emailContent)); // Adjust the Mailable class and parameters accordingly
+                Mail::to($principalSupervisor->email)->send(new ProgressReportNotification($emailContent));
             }
         } else {
             // Handle the case where the progress report or principal supervisor ID is not found
-            // You can redirect back with an error message or handle it based on your application's logic
         }
     
         return redirect('/')->with('message', 'Next section to be filled by Supervisor');
     }
-
-    public function sectionC()
+    
+    public function updateReport()
     {
-        // Retrieve token from session
-        $token = session('section_c_token');
+        $progressReports = ProgressReport::all(); // Retrieve all progress reports
+        return view('progress_reports.update', compact('progressReports'));
+    }
     
-        // Check if the token exists and has the correct format
-        if ($token && strpos($token, '_') !== false) {
-            // Unravel the token to extract student ID and reporting period
-            $tokenParts = explode('_', $token);
-            list($studentId, $reportingPeriod) = $tokenParts;
+    public function sectionC($studentId, $reportingPeriod)
+    {
+        
+        // Verify that the student ID and reporting period are correct
+        //dd($studentId, $reportingPeriod);
     
-            // Retrieve the progress report data for the student and reporting period
-            $progressReport = ProgressReport::where('student_id', $studentId)
-                                            ->where('reporting_periods_id', $reportingPeriod)
-                                            ->first();
+        // Retrieve the progress report data for the student and reporting period
+        $progressReport = ProgressReport::where('student_id', $studentId)
+                                         ->where('reporting_periods_id', $reportingPeriod)
+                                         ->first();
+                                         
+        //dd($progressReport);
+
     
-            // Pass the progress report data to the view
-            return view('progress_reports.sectionC', compact('progressReport', 'studentId', 'reportingPeriod'));
-        } else {
-            // Handle the case where the token is missing or has an incorrect format
-            // You can redirect back with an error message or handle it based on your application's logic
-        }
+        // Pass the progress report data to the view
+        return view('progress_reports.sectionC', compact('progressReport', 'studentId', 'reportingPeriod'));
     }
     
     
     public function storeSectionC(Request $request)
     {
-        // Retrieve token from session
-        $token = session('section_c_token');
-    
-        // Unravel the token to extract student ID and reporting period
-        $tokenParts = explode('_', $token);
-        if (count($tokenParts) === 2) {
-            list($studentId, $reportingPeriod) = $tokenParts;
-        } else {
-            // Handle the case where the token format is incorrect
-            // You can redirect back with an error message or handle it based on your application's logic
-        }
-    
-        // Retrieve session data if not already defined
-        if (!isset($studentId) || !isset($reportingPeriod)) {
-            $studentId = session('student_id');
-            $reportingPeriod = session('reporting_period');
-        }
-    
         $validatedData = $request->validate([
             'student_id' => 'nullable|exists:students,id',
-            'principal_supervisor_id' => 'nullable|exists:users,id',
             'students_completion_rate' => 'nullable|integer',
             'thesis_completion_percentage' => 'nullable|integer|min:0|max:100',
             'completion_estimation' => 'nullable|string',
             'problems_addressed' => 'required|string',
             'concerns_about_student' => 'required|string',
             'inadequate_aspects_comment' => 'required|string',
+            'reporting_period' => 'nullable|exists:reporting_periods,id',
         ]);
+    
+        $studentId = $validatedData['student_id']; // Get student ID from validated data
+    
+        $reportingPeriod = $validatedData['reporting_period']; // Get reporting period from validated data
     
         // Retrieve the progress report record
         $progressReport = ProgressReport::where('student_id', $studentId)
-            ->where('reporting_periods_id', $reportingPeriod)
-            ->first();
+                                        ->where('reporting_periods_id', $reportingPeriod)
+                                        ->first();
     
         if ($progressReport) {
+            // Update the progress report with the validated data
             $progressReport->update($validatedData);
         } else {
             // Handle the case where the progress report record is not found
+            // This could involve creating a new progress report record or displaying an error message
         }
     
+        // Redirect back to the desired page with a success message
         return redirect('/')->with('message', 'To be completed by Director of OGS');
     }
+    
+    
     
     public function sectionD()
     {
