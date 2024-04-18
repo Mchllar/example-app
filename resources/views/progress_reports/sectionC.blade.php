@@ -22,8 +22,6 @@
             padding: 20px; /* Add padding for better visual appearance */
         }
     </style>
-    <!-- Step 3 Form -->
-    <!-- This view will contain the form fields for step 2 -->
     <form method="POST" action="{{ route('progress_reports.storeSectionC') }}" class="form-container max-w-3xl mx-auto px-4 py-8">
         @csrf
     <input type="hidden" name="student_id" value="{{ session('student_id') }}">

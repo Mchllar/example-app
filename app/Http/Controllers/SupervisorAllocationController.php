@@ -19,7 +19,19 @@ class SupervisorAllocationController extends Controller
         $students = Student::with('supervisors')->get();
         return view('supervisorallocations.index', ['students' => $students]);
     }
-
+    public function supervisorStudentAllocation()
+    {
+        $supervisors = User::where('role_id', 2)->get();
+        $students = Student::all();
+        return view('supervisorallocations.supervisorIndex', compact('supervisors', 'students'));
+    }
+    
+public function allocationStudent()
+    {
+        $supervisors = User::where('role_id', 2)->get();
+        $students = Student::all();
+        return view("supervisorallocations.studentAllocation", compact('supervisors', 'students'));
+    }
     public function allocation()
     {
         $supervisors = User::where('role_id', 2)->get();
@@ -67,7 +79,14 @@ class SupervisorAllocationController extends Controller
         $allocation->supervisor_id = $request->supervisor_id;
         $allocation->save();
 
-        return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
+        if ($request->is('allocation')) {
+            return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
+        } elseif ($request->is('allocationStudent')) {
+            return redirect()->route('supervisorStudentAllocation')->with('message', 'Allocation created successfully!');
+        } else {
+            // Default redirect
+            return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
+        }
     }
     public function changeSupervisor()
     {

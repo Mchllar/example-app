@@ -85,10 +85,10 @@
                         <a href="{{ route('supervisorAllocation') }}" class="font-bold hover:underline">List of Students</a>
                     </li>
                     <li class="mx-4 my-2">
-                        <a href="#" class="font-bold hover:underline">List of Supervisors</a>
+                        <a href="{{ route('supervisorStudentAllocation') }}" class="font-bold hover:underline">List of Supervisors</a>
                     </li>
                     <li class="mx-4 my-2">
-                        <a href="#" class="font-bold hover:underline">View Change of Supervisor Requests</a>
+                        <a href="{{ route('reviewChangeSupervisorRequests') }}" class="font-bold hover:underline">View Change of Supervisor Requests</a>
                     </li>
                     <li class="mx-4 my-2">
                         <a href="{{ route('academic_leave.view')}}" class="font-bold hover:underline">Student Leave Requests</a>
@@ -111,6 +111,12 @@
                     </li>
                     <li class="mx-4 my-2">
                         <a href="#" class="font-bold hover:underline">Notices Of Intent</a>
+                    </li>
+                    <li class="mx-4 my-2">
+                        <a href="{{ route('reporting-periods.index')}}" class="font-bold hover:underline">Update Reporting Periods</a>
+                    </li>
+                    <li class="mx-4 my-2">
+                        <a href="#" class="font-bold hover:underline">Complete Progress Report</a>
                     </li>
                 </ul>
             </div>

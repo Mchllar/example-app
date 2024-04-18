@@ -1,31 +1,31 @@
 <x-layout>
     <div class="flex justify-center items-center h-full">
         <div class="container mx-auto">
-            <h1 class="text-3xl font-bold mb-8">List of Students</h1>
-            @if($students->isEmpty())
-                <p>No students found.</p>
+            <h1 class="text-3xl font-bold mb-8">List of Supervisors</h1>
+            @if($supervisors->isEmpty())
+                <p>No supervisors found.</p>
             @else
-                @foreach($students as $student)
+                @foreach($supervisors as $supervisor)
                     <table class="table-auto w-full mb-4">
                         <thead>
                             <tr>
-                                <th class="grey-cell px-4 py-2">Student Name</th>
-                                <th class="grey-cell px-4 py-2">Program</th>
-                                <th class="grey-cell px-4 py-2">Assign Supervisor</th>
+                                <th class="grey-cell px-4 py-2">Supervisor Name</th>
+                                <th class="grey-cell px-4 py-2">School</th>
+                                <th class="grey-cell px-4 py-2">Assign Student</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="border px-4 py-2">{{ $student->user->name }}</td>
-                                <td class="border px-4 py-2">{{ $student->program->name }}</td>
+                                <td class="border px-4 py-2">{{ $supervisor->name }}</td>
+                                <td class="border px-4 py-2">{{ $supervisor->staff->school->name }}</td>
                                 <td class="border px-4 py-2">
-                                    <a href="{{ route('allocation', ['student_id' => $student->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Assign New Supervisor</a>
+                                    <a href="{{ route('allocationStudent', ['supervisor_id' => $supervisor->id, 'supervisor_name' => urlencode($supervisor->name)]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Assign New Student</a>
                                 </td>
                             </tr>
                         </tbody>
                         <thead>
                             <tr>
-                                <th class="grey-cell px-4 py-2">Supervisor</th>
+                                <th class="grey-cell px-4 py-2">Student</th>
                                 <th class="grey-cell px-4 py-2">Start Date</th>
                                 <th class="grey-cell px-4 py-2">End Date</th>
                                 <th class="grey-cell px-4 py-2">Notes</th>
@@ -34,10 +34,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if($student->supervisorAllocations()->exists())
-                                @foreach($student->supervisorAllocations as $allocation)
+                            @if($supervisor->supervisorAllocations()->exists())
+                                @foreach($supervisor->supervisorAllocations as $allocation)
                                     <tr>
-                                        <td class="border px-4 py-2">{{ $allocation->supervisor->name }}</td>
+                                        <td class="border px-4 py-2">{{ $allocation->student->user->name }}</td>
                                         <td class="border px-4 py-2">{{ $allocation->start_date }}</td>
                                         <td class="border px-4 py-2">{{ $allocation->end_date }}</td>
                                         <td class="border px-4 py-2">{{ $allocation->notes }}</td>
@@ -53,7 +53,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td class="border px-4 py-2" colspan="6">No supervisor allocation found.</td>
+                                    <td class="border px-4 py-2" colspan="6">No student allocation found.</td>
                                 </tr>
                             @endif
                         </tbody>
@@ -63,7 +63,6 @@
         </div>
     </div>
 </x-layout>
-
 <style>
     .grey-cell {
         background-color: #f3f4f6; /* Grey color */

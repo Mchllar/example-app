@@ -14,6 +14,7 @@ use App\Http\Controllers\ConferenceReviewController;
 use App\Http\Controllers\AcademicLeaveRequestController;
 use App\Http\Controllers\SupervisorAllocationController;
 use App\Http\Controllers\SuperviseeController;
+use App\Http\Controllers\ReportingPeriodController;
 
 
 
@@ -128,6 +129,8 @@ Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'view
 
 // Define routes for SupervisorAllocationController
 Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation');
+Route::get('/supervisorStudentAllocation', [SupervisorAllocationController::class, 'supervisorStudentAllocation'])->name('supervisorStudentAllocation');Route::get('/allocationStudent', [SupervisorAllocationController::class, 'allocationStudent'])->name('allocationStudent');
+Route::get('/allocationStudent', [SupervisorAllocationController::class, 'allocationStudent'])->name('allocationStudent');
 Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])->name('allocation');
 Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');
 Route::get('/changeSupervisor',[SupervisorAllocationController::class, 'changeSupervisor'])->name('changeSupervisor');
@@ -137,3 +140,9 @@ Route::get('/viewStudentForm/{studentId}', [SupervisorAllocationController::clas
 Route::post('/storeSchoolApproval',[SupervisorAllocationController::class, 'storeSchoolApproval'])->name('storeSchoolApproval');
 Route::post('/storeBoardApproval',[SupervisorAllocationController::class, 'storeBoardApproval'])->name('storeBoardApproval');
 Route::post('/storeDirectApproval',[SupervisorAllocationController::class, 'storeDirectorApproval'])->name('storeDirectorApproval');
+
+
+Route::get('/reporting-periods', [ReportingPeriodController::class, 'index'])->name('reporting-periods.index');
+Route::get('/reporting-periods/create', [ReportingPeriodController::class, 'create'])->name('reporting-periods.create');
+Route::post('/reporting-periods', [ReportingPeriodController::class, 'store'])->name('reporting-periods.store');
+Route::delete('/reporting-periods/{id}', [ReportingPeriodController::class, 'destroy'])->name('reporting-periods.destroy');
