@@ -1,11 +1,11 @@
 <x-layout>
-<style>
-a:hover {
+    <style>
+        a:hover {
             color: red;
         }
-</style>
+    </style>
     <div class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-4">Update Progress Reports</h1>
+        <h1 class="text-2xl font-bold mb-4">Complete Progress Reports</h1>
         <table class="min-w-full">
             <thead>
                 <tr>
@@ -19,12 +19,11 @@ a:hover {
                 <tr>
                     <td class="border px-4 py-2">
                         <!-- Make the student's name a link -->
-                        <a href="{{ route('progress_reports.sectionC', ['studentId' => $report->student->id, 'reportingPeriod' => $report->reportingPeriod->id]) }}">
+                        <a href="{{ route('progress_reports.sectionD', ['studentId' => $report->student->id, 'reportingPeriod' => $report->reportingPeriod->id]) }}">
                             {{ $report->student->user->name }}
                         </a>
                     </td>
                     <td class="border px-4 py-2">{{ $report->reportingPeriod->name }}</td>
-                    <!-- Populate other table cells with respective data -->
                 </tr>
                 @endforeach
             </tbody>

@@ -116,7 +116,7 @@
                         <a href="{{ route('reporting-periods.index')}}" class="font-bold hover:underline">Update Reporting Periods</a>
                     </li>
                     <li class="mx-4 my-2">
-                        <a href="#" class="font-bold hover:underline">Complete Progress Report</a>
+                        <a href="{{route('progress_reports.completeReport')}}" class="font-bold hover:underline">Complete Progress Report</a>
                     </li>
                 </ul>
             </div>

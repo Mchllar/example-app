@@ -153,6 +153,7 @@ class ProgressReportController extends Controller
     
     public function storeSectionC(Request $request)
     {
+        // Validate the incoming request data
         $validatedData = $request->validate([
             'student_id' => 'nullable|exists:students,id',
             'students_completion_rate' => 'nullable|integer',
@@ -164,18 +165,32 @@ class ProgressReportController extends Controller
             'reporting_period' => 'nullable|exists:reporting_periods,id',
         ]);
     
-        $studentId = $validatedData['student_id']; // Get student ID from validated data
-    
-        $reportingPeriod = $validatedData['reporting_period']; // Get reporting period from validated data
+        // Get student ID and reporting period from validated data
+        $studentId = $validatedData['student_id'];
+        $reportingPeriod = $validatedData['reporting_period'];
     
         // Retrieve the progress report record
         $progressReport = ProgressReport::where('student_id', $studentId)
-                                        ->where('reporting_periods_id', $reportingPeriod)
-                                        ->first();
+            ->where('reporting_periods_id', $reportingPeriod)
+            ->first();
     
+        // Check if the progress report record exists
         if ($progressReport) {
             // Update the progress report with the validated data
             $progressReport->update($validatedData);
+    
+            // Retrieve the student's name
+            $studentName = optional($progressReport->student->user)->name ?? 'Student';
+    
+            // Generate the link to the complete report page
+            $link = route('progress_reports.completeReport');
+    
+            // Send email to staff users
+            $staffUsers = User::where('role_id', 3)->get();
+            foreach ($staffUsers as $user) {
+                $emailContent = "Please fill in the progress report for your student: $studentName. You can find it here on the SGS: $link";
+                Mail::to($user->email)->send(new ProgressReportNotification($progressReport));
+            }
         } else {
             // Handle the case where the progress report record is not found
             // This could involve creating a new progress report record or displaying an error message
@@ -187,28 +202,56 @@ class ProgressReportController extends Controller
     
     
     
-    public function sectionD()
+    
+    public function completeReport()
     {
-        return view('progress_reports.sectionD');
+        $progressReports = ProgressReport::all(); // Retrieve all progress reports
+        return view('progress_reports.complete', compact('progressReports'));
+    }
+    public function sectionD($studentId, $reportingPeriod)
+    {
+        
+        // Verify that the student ID and reporting period are correct
+        //dd($studentId, $reportingPeriod);
+    
+        // Retrieve the progress report data for the student and reporting period
+        $progressReport = ProgressReport::where('student_id', $studentId)
+                                         ->where('reporting_periods_id', $reportingPeriod)
+                                         ->first();
+                                         
+       //dd($progressReport);
+
+    
+        // Pass the progress report data to the view
+        return view('progress_reports.sectionD', compact('progressReport', 'studentId', 'reportingPeriod'));
     }
     public function storeSectionD(Request $request)
     {
         $validatedData = $request->validate([
             'student_id' => 'nullable|exists:students,id',
-            'principal_supervisor_id' => 'nullable|exists:users,id',
             'dir_progress_satisfaction' => 'required|string',
             'dir_registration_recommendation' => 'nullable|string',
             'dir_unsatisfactory_progress_comments' => 'nullable|string',
+            'reporting_period' => 'nullable|exists:reporting_periods,id',
         ]);
+      //dd($validatedData);
+        // Get student ID and reporting period from validated data
+        $studentId = $validatedData['student_id'];
+        $reportingPeriod = $validatedData['reporting_period'];
     
-        // Retrieve session data
-        $studentId = session('student_id');
-        $reportingPeriod = session('reporting_period');
-    
-        // Update the progress report record from section A
+        // Retrieve the progress report record
         $progressReport = ProgressReport::where('student_id', $studentId)
-                                        ->where('reporting_periods_id', $reportingPeriod)
-                                        ->update($validatedData);
+            ->where('reporting_periods_id', $reportingPeriod)
+            ->first();
+    
+        // Check if the progress report record exists
+        if ($progressReport) {
+            // Update the progress report with the validated data
+            $progressReport->update($validatedData);
+        } else {
+            // Handle the case where the progress report record is not found
+            // This could involve creating a new progress report record or displaying an error message
+        }
     
         return redirect('/')->with('message', 'Updated successfully');
     }
