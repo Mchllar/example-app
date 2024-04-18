@@ -113,8 +113,8 @@ Route::get('/progress_reports/sectionC', [ProgressReportController::class, 'sect
 Route::post('/progress_reports/storeSectionC', [ProgressReportController::class, 'storeSectionC'])->name('progress_reports.storeSectionC');
 Route::get('/progress_reports/sectionD', [ProgressReportController::class, 'sectionD'])->name('progress_reports.sectionD');
 Route::post('/progress_reports/storeSectionD', [ProgressReportController::class, 'storeSectionD'])->name('progress_reports.storeSectionD');
-Route::get('/progress_reports/final_submission', [ProgressReportController::class, 'showFinalSubmissionPage'])->name('progress_reports.final_submission');
-Route::post('/progress_reports/finalSubmission', [ProgressReportController::class, 'finalSubmission'])->name('progress_reports.finalSubmission');
+//Route::get('/progress_reports/final_submission', [ProgressReportController::class, 'showFinalSubmissionPage'])->name('progress_reports.final_submission');
+//Route::post('/progress_reports/finalSubmission', [ProgressReportController::class, 'finalSubmission'])->name('progress_reports.finalSubmission');
 
 //Academic Request
 Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'create'])->name('academic_leave.create');
