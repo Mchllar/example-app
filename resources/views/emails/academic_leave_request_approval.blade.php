@@ -10,5 +10,4 @@ Your academic leave has been approved from
 to
 - **Return Date:** {{ $academicLeaveRequest->return_date }}
 
-
 Regards

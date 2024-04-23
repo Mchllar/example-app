@@ -20,7 +20,7 @@
                                 <td class="border px-4 py-2">{{ $student->user->name }}</td>
                                 <td class="border px-4 py-2">{{ $student->program->name }}</td>
                                 <td class="border px-4 py-2">
-                                    <a href="{{ route('allocation', ['student_id' => $student->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Assign New Supervisor</a>
+                                    <a href="{{ route('allocation', ['student_id' => $student->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Assign</a>
                                 </td>
                             </tr>
                         </tbody>
