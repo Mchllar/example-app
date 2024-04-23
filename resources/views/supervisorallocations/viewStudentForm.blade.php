@@ -7,7 +7,7 @@
 
         /* Custom CSS for form container */
         .form-container {
-            background-color: #f3f4f6; /* Grey background */
+            background-color: #333333; /* Grey background */
             padding: 20px; /* Add padding for better visual appearance */
         }
 
@@ -42,11 +42,7 @@
                 <div class="mb-2">
                     <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
                 </div>
-                <div class="mb-2">
-                    <label for="student_name">Student Name:</label>
-                    <input type="text" id="student_name" name="student_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $student->user->name }}" required>
-                    <input type="hidden" id="student_id" name="student_id" value="{{ $student->id }}">
-                </div>                
+                    <input type="hidden" id="student_id" name="student_id" value="{{ $student->id }}">               
                 <div class="mb-2">
                     <label for="status">Status:</label>
                     <select id="status" name="status" class="form-select border border-gray-200 rounded p-2" required>
@@ -68,11 +64,7 @@
                 <div class="mb-2">
                     <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
                 </div>
-                <div class="mb-2">
-                    <label for="student_name">Student Name:</label>
-                    <input type="text" id="student_name" name="student_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $student->user->name }}" required>
-                    <input type="hidden" id="student_id" name="student_id" value="{{ $student->id }}">
-                </div>                
+                    <input type="hidden" id="student_id" name="student_id" value="{{ $student->id }}">            
                 <div class="mb-2">
                     <label for="status">Status:</label>
                     <select id="status" name="status" class="form-select border border-gray-200 rounded p-2" required>
@@ -94,11 +86,7 @@
                 <div class="mb-2">
                     <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
                 </div>
-                <div class="mb-2">
-                    <label for="student_name">Student Name:</label>
-                    <input type="text" id="student_name" name="student_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ $student->user->name }}" required>
-                    <input type="hidden" id="student_id" name="student_id" value="{{ $student->id }}">
-                </div>                
+                    <input type="hidden" id="student_id" name="student_id" value="{{ $student->id }}">               
                 <div class="mb-2">
                     <label for="status">Status:</label>
                     <select id="status" name="status" class="form-select border border-gray-200 rounded p-2" required>

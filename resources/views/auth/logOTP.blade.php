@@ -16,10 +16,13 @@
                 <div class="mb-6">
                     <button
                         type="submit"
-                        class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
+                        class="bg-green-500 text-white rounded py-2 px-4 hover:bg-black"
                     >
                         Submit
                     </button>
+                </div>
+                <div class="mb-6">
+                    <a href="{{ route('resend-otp') }}" class="text-blue-500 hover:text-blue-700">Resend OTP</a>
                 </div>
             </form>
         </div>
