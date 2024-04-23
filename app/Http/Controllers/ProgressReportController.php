@@ -189,7 +189,7 @@ class ProgressReportController extends Controller
             $staffUsers = User::where('role_id', 3)->get();
             foreach ($staffUsers as $user) {
                 $emailContent = "Please fill in the progress report for your student: $studentName. You can find it here on the SGS: $link";
-                Mail::to($user->email)->send(new ProgressReportNotification($progressReport));
+                Mail::to($user->email)->send(new ProgressReportNotification($emailContent));
             }
         } else {
             // Handle the case where the progress report record is not found

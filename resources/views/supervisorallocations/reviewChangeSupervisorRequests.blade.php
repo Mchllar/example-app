@@ -8,6 +8,7 @@
             <table class="table-auto w-full">
                 <thead>
                     <tr>
+                        <th class="border px-4 py-2">No. of requests</th>
                         <th class="border px-4 py-2">Student Name</th>
                         <th class="border px-4 py-2">Program</th>
                     </tr>
@@ -21,7 +22,7 @@
                                 {{ $requests->first()->student->user->name }}
                             </a>
                         </td>
-                        <td class="border px-4 py-2">{{ $student->program->name}}</td>
+                        <td class="border px-4 py-2">{{ $requests->first()->student->program->name}}</td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -20,6 +20,7 @@
                     >
                         Submit
                     </button>
+                    <a href="{{ route('resend.regotp') }}" class="text-blue-500 hover:text-blue-700">Resend OTP</a>
                 </div>
             </form>
             </form>

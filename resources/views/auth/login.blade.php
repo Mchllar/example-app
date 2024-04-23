@@ -33,8 +33,12 @@
           <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
             Sign In
           </button>
-        </div>
-  
+        </div>       
+      
+        <div class="mt-2">
+          <a href="{{ route('password.reset', ['token' => 'your_token_here']) }}" class="text-laravel">Forgot Your Password?</a>
+      </div>
+
         <div class="mt-8">
           <p>
             Don't have an account?

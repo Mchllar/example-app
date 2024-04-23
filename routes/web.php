@@ -55,8 +55,22 @@ Route::get('/verify-login-otp', [UserController::class, 'logOTP']);
 Route::post('/verify-login-otp', [UserController::class, 'verifyLoginOtp']);
 
 //Resend OTP
-Route::get('/resend-otp', [UserController::class, 'resendOtp'])->name('resend-otp'); 
+Route::get('/resend-otp', [UserController::class, 'resendOtp'])->name('resend-otp')->middleware('guest'); 
 Route::get('/resend-registration-otp', [UserController::class, 'resendRegOtp'])->name('resendRegOtp');
+
+
+// Route to show forgot password form
+Route::get('/forgot-password', [UserController::class, 'showForgotPasswordForm'])->name('password.forgot');
+
+// Route to show reset password form
+Route::get('/reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('password.reset');
+
+// Route to handle password reset
+Route::post('/reset-password', [UserController::class, 'reset'])->name('password.update');
+
+// Route to handle email for password reset
+Route::post('/forgot-password', [UserController::class, 'email'])->name('password.email');
+
 
 // Log User Out
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');

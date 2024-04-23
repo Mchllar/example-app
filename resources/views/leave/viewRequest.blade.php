@@ -16,7 +16,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($students as $student)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap"><a href="{{ route('academic_leave.approve', ['student_id' => $student->id]) }}" class="text-blue-500 hover:underline">{{ $student->name }}</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="{{ route('academic_leave.approve', ['student_id' => $student->id]) }}" class="text-blue-500 hover:underline">{{ $student->user->name }}</a></td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $student->program->name}}</td>
                         </tr>
                         @endforeach

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BoardRequestApproval;
-use App\Models\DirectorRequestApproval;
 use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Models\BoardRequestApproval;
 use App\Models\SupervisorAllocation;
+use Illuminate\Support\Facades\Mail;
 use App\Models\SchoolRequestApproval;
 use App\Models\ChangeSupervisorRequest;
+use App\Models\DirectorRequestApproval;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\ChangeSupervisorNotification;
 
 class SupervisorAllocationController extends Controller
 {
@@ -207,8 +209,16 @@ public function allocationStudent()
 
         // Save the model instance
         $changeSupervisorRequest->save();
-        
-        return redirect('/')->with('message', 'Change Supervisor request submitted successfully.');
+        // Fetch all users with the staff role
+        $staffUsers = User::where('role_id', 3)->get();
+
+        // Send email to each staff user
+        foreach ($staffUsers as $user) {
+        Mail::to($user->email)->send(new ChangeSupervisorNotification($changeSupervisorRequest));
+    }
+
+
+        return redirect('/')->with('message', 'Change Supervisor request submitted successfully, email sent to Administrator.');
   }
 
   public function reviewChangeSupervisorRequests()
