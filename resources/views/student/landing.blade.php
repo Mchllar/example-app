@@ -26,7 +26,7 @@
                     <a href="{{ route('academic_leave.create') }}" class="font-bold hover:underline">Request for Academic Leave</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="{{ route('conference.review')}}" class="font-bold hover:underline">Request for Conference Approval</a>
+                    <a href="{{ route('review.record')}}" class="font-bold hover:underline">Request for Conference Approval</a>
                 </li>
                 <li class="mx-4 my-2">
                     <a href="{{ route('notice.submission')}}" class="font-bold hover:underline">Submit Notice Of Intent</a>

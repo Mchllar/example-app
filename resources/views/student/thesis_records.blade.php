@@ -248,7 +248,7 @@
                                         <div class="file-info">
                                         <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">View Thesis</span>
         
-                                            @if(auth()->user()->role_id == 1) 
+                                           <!-- @if(auth()->user()->role_id == 1) 
                                                 @php
                                                     $approval = \App\Models\ThesisApproval::where('submission_id', $row['id'])->first();
                                                 @endphp
@@ -262,7 +262,7 @@
                                                         </label>
                                                     </form>
                                                 @endif
-                                            @endif
+                                            @endif-->
                                         </div>
                                     </td>
                                     <td>
@@ -274,7 +274,7 @@
                                             Unknown
                                         @endif
                                     </td>
-                                    <td>{{ $row['created_at'] }}</td> 
+                                    <td>{{ $row['updated_at'] }}</td> 
                                     <td class="center-cell">
                                         <span class="document-link" onclick="openDocument('{{ asset('correction_forms/' . $row->correction_form) }}')">
                                             {{ $row->correction_form ? 'View Form' : '-' }}
@@ -376,10 +376,25 @@
             @endif
 
             @if(auth()->user()->role_id == 1) 
-                <a href="{{ route('thesis.submission') }}" class="btn btn-primary">Submit Thesis</a>
+                @php
+                    $routeName = route('thesis.submission');
+                @endphp
+                <a href="#" class="btn btn-primary" onclick="confirmSubmit(event, '{{ $routeName }}')">Submit Thesis</a>
             @endif
 
+
         </x-layout>
+
+        <script>
+            function confirmSubmit(event, route) {
+                event.preventDefault(); 
+                
+                if (confirm("NB: A new submission will replace the previously submitted record. Proceed with thesis submission?")) {
+                    window.location.href = route; 
+                } else {}
+            }
+        </script>
+
 
         <script>
             function openDocument(pdfUrl) {
@@ -438,34 +453,71 @@
         </script>  
 
         <script>
-        document.getElementById('sendReminderBtn').addEventListener('click', function() {
-            var supervisorEmails = <?php echo json_encode($supervisorEmails ?? []); ?>;
-            var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); 
+            document.getElementById('sendReminderBtn').addEventListener('click', function() {
+                var lastSentDate = localStorage.getItem('lastSentDate');
 
-            if (Array.isArray(supervisorEmails)) {
-                var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
-                
-                if (confirmation) {              
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', '/sendReminder', true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.setRequestHeader('X-CSRF-TOKEN', token); 
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4) {
-                            if (xhr.status === 200) {
-                                alert(xhr.responseText);
-                            } else {
-                                alert('Error: ' + xhr.status);
-                            }
-                        }
-                    };
-                    xhr.send(JSON.stringify({ emails: supervisorEmails }));
+                if (lastSentDate) {
+                    var twoDaysAgo = new Date();
+                    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+
+                    if (new Date(lastSentDate) > twoDaysAgo) {
+                        alert('Cannot send reminder yet. Please wait at least 2 days before sending another reminder.');
+                        return; // Prevent further execution
+                    }
                 }
-            } else {
-                console.error("supervisorEmails is not an array");
+
+                // Continue with sending the reminder if allowed
+                var supervisorEmails = <?php echo json_encode($supervisorEmails ?? []); ?>;
+                var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                if (Array.isArray(supervisorEmails)) {
+                    var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
+
+                    if (confirmation) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/sendReminder', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.setRequestHeader('X-CSRF-TOKEN', token);
+
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
+                                    var response = JSON.parse(xhr.responseText);
+                                    alert(response.message);
+
+                                    // Update last sent date in local storage
+                                    localStorage.setItem('lastSentDate', new Date().toISOString());
+                                } else {
+                                    alert('Error: ' + xhr.status);
+                                }
+                            }
+                        };
+                        xhr.send(JSON.stringify({ emails: supervisorEmails }));
+                    }
+                } else {
+                    console.error("supervisorEmails is not an array");
+                }
+            });
+
+            // Function to display sent date from local storage
+            function displaySentDate(sentDate) {
+                var button = document.getElementById('sendReminderBtn');
+                var dateElement = document.createElement('div');
+                dateElement.textContent = 'Reminder sent on: ' + sentDate;
+                dateElement.style.color = 'blue'; // Set text color to blue
+                button.parentNode.insertBefore(dateElement, button.nextSibling);
             }
-        });
+
+            // Load and display sent date when the page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                var storedDate = localStorage.getItem('sentDate');
+                if (storedDate) {
+                    displaySentDate(storedDate);
+                }
+            });
+
         </script>
+
 
         <script>
             function approveSubmission(id) {
