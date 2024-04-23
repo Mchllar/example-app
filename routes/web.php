@@ -110,6 +110,8 @@ Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.u
 Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
 Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
 Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
+//Route::get('/check-submission', 'ThesisController@checkSubmission')->middleware('auth')->name('check-submission');
+
 
 
 //Supervisees

@@ -149,38 +149,21 @@
                     <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
                 </li>
                 @endauth
-                </ul>
-            </nav>
-        </div>
-
-        <!-- Main content -->
-        <div class="main-content" :class="{ 'ml-0': !open, 'ml-60': open }">
-            <nav class="flex justify-between items-center mb-4">
-                <a href="/"
-                    ><img class="w-38" src="{{asset('images/School-of-Graduate-Studies-logo.png') }}" alt="" class="logo"
-                /></a>
-                <ul class="flex space-x-6 mr-6 text-lg">
-                    <!-- Your navigation links here -->
-                    
-                </ul>
-            </nav>
-            <main>
-                {{$slot}}
-                <!-- Conditionally show back button -->
-                @if(request()->path() !== '/')
+            </ul>
+        </nav>
+        <main>
+    
+        {{$slot}}
+              <!-- Conditionally show back button -->
+            @if(request()->path() !== '/')
                 <div style="margin-top: 10px;"> <!-- Wrapper for spacing -->
                     <button class="back-button" onclick="window.history.back()">Back</button>
                 </div>
-                @endif
-            </main>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer-content">
-            <footer id="footer" class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-16 p-4 md:justify-center transition-opacity duration-500 opacity-100">
-                <p class="ml-2">&copy; 2023, All Rights Reserved</p>
-            </footer>
-        </div>
+            @endif
+        </main>
+        <footer id="footer" class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-16 p-4 md:justify-center transition-opacity duration-500 opacity-100">
+            <p class="ml-2">&copy; 2023, All Rights Reserved</p>
+        </footer>
 
         <script>
             let lastScrollTop = 0;

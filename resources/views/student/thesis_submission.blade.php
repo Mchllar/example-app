@@ -50,7 +50,7 @@
             button[type="submit"] {
                 background-color: #4CAF50;
                 color: white;
-                padding: 12px 24px;
+                padding: 10px 24px;
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
@@ -70,16 +70,11 @@
     </head>
     <body>
                
-        <!-- Preview the uploads 
+        <!--  
 
-        
         Lock editing 
 
-        Yes/no option to notify the supervisor (Send reminder date; show previously sent reminder) 
-
         button to this current submission 
-
-        redirection to new page
         
         Constraints for editing thesis submissions (Lock and unlock(0 or 1) button for each student-->
         <h2> Thesis/Dissertation Submission</h2>
@@ -92,6 +87,8 @@
                 <option value="2">Post-Defense</option>
             </select>
             <br>
+            <h4 style="color: red;"> NB: Only submit PDF documents.</h4>
+
 
             <div id="fileInputs" style="display: none;">
                 <div id="thesis_document_div">
@@ -115,8 +112,53 @@
 
             <button type="submit">Submit</button>
         </form>
+  <!--      
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('thesisForm');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
 
-    <script>
+        // Call a function to handle the submission check
+        checkSubmissionBeforeSubmit();
+    });
+});
+
+function checkSubmissionBeforeSubmit() {
+    const submissionType = document.getElementById('submission_type').value;
+
+    // Make an AJAX request to your backend
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `/check-submission?submission_type=${submissionType}`, true);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                
+                // Handle the response
+                if (response.canSubmit) {
+                    if (confirm(response.message)) {
+                        // If user confirms, proceed with form submission
+                        document.getElementById('thesisForm').submit();
+                    }
+                } else {
+                    alert(response.message); // Show error message
+                }
+            } else {
+                // Handle error response
+                console.error('Error fetching submission status:', xhr.status);
+            }
+        }
+    };
+
+    xhr.send();
+}
+
+
+</script>
+-->
+        <script>
             document.getElementById('submission_type').addEventListener('change', function() {
                 var submissionType = this.value;
                 var fileInputs = document.getElementById('fileInputs');

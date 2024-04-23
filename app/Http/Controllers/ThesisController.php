@@ -12,6 +12,8 @@ use App\Mail\ThesisApprovalReminder;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class ThesisController extends Controller
 {
@@ -103,9 +105,41 @@ class ThesisController extends Controller
         
         return view('student.thesis_records', compact('thesis'));
     }
+/*
+    // ThesisController.php
+public function checkSubmission(Request $request) {
+    $submissionType = $request->input('submission_type');
+    $user = auth()->user();
 
+    // Perform database queries to check existing submissions
+    $existingSubmission = Thesis::where('user_id', $user->id)
+                                ->where('submission_type', $submissionType)
+                                ->first();
 
- 
+    if ($existingSubmission) {
+        $approvedSubmission = ThesisApproval::where('submission_id', $existingSubmission->id)->first();
+
+        if ($approvedSubmission) {
+            return response()->json([
+                'canSubmit' => false,
+                'message' => 'You cannot replace an already approved submission.'
+            ]);
+        } else {
+            return response()->json([
+                'canSubmit' => true,
+                'message' => 'Your new submission will replace the old one. Proceed?'
+            ]);
+        }
+    } else {
+        return response()->json([
+            'canSubmit' => true,
+            'message' => 'No previous submission found. Proceed with the new submission.'
+        ]);
+    }
+}
+*/
+
+/*
     // Changing the uploaded thesis document
     public function update(Request $request, $id)
     {
@@ -145,7 +179,7 @@ class ThesisController extends Controller
             return response()->json(['message' => 'Thesis document not updated', 'reload' => true], 200);
 
         }
-    }
+    }*/
         
     public function approveThesis(Request $request)
     {
@@ -185,8 +219,10 @@ class ThesisController extends Controller
                 Mail::to($email)->send(new ThesisApprovalReminder($studentName));    
             }
 
+            $sentDate = Carbon::now()->toDateString(); // Get current date (YYYY-MM-DD format)
+
             // If no exceptions are thrown, return success response
-           return 'Reminder emails sent successfully';
+            return response()->json(['message' => 'Reminder emails sent successfully', 'sent_date' => $sentDate]);
         } catch (\Exception $e) {
             // Output the error message to the console or log it
             dump('Failed to send reminder emails: ' . $e->getMessage());
