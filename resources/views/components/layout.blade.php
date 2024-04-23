@@ -154,12 +154,12 @@
         <main>
     
         {{$slot}}
-              <!-- Conditionally show back button -->
-            @if(request()->path() !== '/')
-                <div style="margin-top: 10px;"> <!-- Wrapper for spacing -->
-                    <button class="back-button" onclick="window.history.back()">Back</button>
-                </div>
-            @endif
+<!-- Conditionally show back button -->
+@if(request()->path() !== '/' && request()->path() !== 'login' && request()->path() !== 'register' && request()->path() !== 'verify-login-otp')
+    <div style="margin-top: 10px;"> <!-- Wrapper for spacing -->
+        <button class="back-button" onclick="window.history.back()">Back</button>
+    </div>
+@endif
         </main>
         <footer id="footer" class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-16 p-4 md:justify-center transition-opacity duration-500 opacity-100">
             <p class="ml-2">&copy; 2023, All Rights Reserved</p>
