@@ -171,11 +171,11 @@
         <main>
             {{$slot}}
             <!-- Conditionally show back button -->
-            @if(request()->path() !== '/')
+            @if(request()->path() !== '/' && request()->path() !== 'login' && request()->path() !== 'register' && request()->path() !== 'verify-login-otp')
             <div style="margin-top: 10px;"> <!-- Wrapper for spacing -->
                 <button class="back-button" onclick="window.history.back()">Back</button>
-            </div>
-            @endif
+            </div>
+        @endif
         </main>
     </div>
 
