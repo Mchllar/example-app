@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SchoolRequestApproval extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'student_id', 'status'];
+    protected $fillable = ['change_supervisor_request_id','user_id', 'student_id', 'status'];
 
     public function student()
     {

@@ -93,7 +93,7 @@
                 <li>
                     <span class="font-bold"> Welcome, {{ auth()->user()->name }}</span>
                 </li>
-                <li>
+                <li class="font-bold">
                     <form class="inline" method="POST" action="/logout">
                         @csrf
                         <button type="logout">
@@ -172,10 +172,10 @@
             {{$slot}}
             <!-- Conditionally show back button -->
             @if(request()->path() !== '/' && request()->path() !== 'login' && request()->path() !== 'register' && request()->path() !== 'verify-login-otp')
-            <div style="margin-top: 10px;"> <!-- Wrapper for spacing -->
+            <div style="margin-top: 10px; display: flex; justify-content: flex-end;"> <!-- Wrapper for spacing and positioning -->
                 <button class="back-button" onclick="window.history.back()">Back</button>
-            </div>
-        @endif
+            </div>
+            @endif
         </main>
     </div>
 

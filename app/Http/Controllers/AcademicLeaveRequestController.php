@@ -75,7 +75,7 @@ public function viewRequests()
     return view('leave.viewRequest', ['students' => $students]);
 }
 
-    public function approve(Request $request)
+public function approve(Request $request)
 {
     // Get the student ID from the request
     $studentId = $request->input('student_id');
@@ -93,12 +93,14 @@ public function viewRequests()
     return view('leave.approval', compact('academicLeaveRequest'));
 }
 
+
 public function storeApprove(Request $request)
 {
     $validatedData = $request->validate([
         'user_id' => 'required|exists:users,id',
         'ogs_approval_date' => 'required|date',
         'status' => 'required|string',
+        'academic_leave_request_id' => 'required|exists:academic_leave_requests,id', // Validate the academic_leave_request_id
     ]);
 
     // Create a new leave approval record
@@ -111,10 +113,11 @@ public function storeApprove(Request $request)
     $student = $academicLeaveRequest->student;
 
     // Send an email notification to the student
-    Mail::to($student->user->email)->send(new AcademicLeaveRequestNotification($academicLeaveRequest));
+    Mail::to($student->user->email)->send(new AcademicLeaveRequestApproval($academicLeaveRequest)); // Corrected mail class
 
     // Redirect back with success message
     return redirect('/')->with("message", "Approved");
 }
+
 
 }

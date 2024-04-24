@@ -72,6 +72,7 @@
         <div class="form-container max-w-lg mx-auto px-4 py-8 rounded-lg shadow-md">
         <form method="POST" action="{{ route('academic_leave.storeApprove', $academicLeaveRequest->id) }}" class="mr-4">
             @csrf
+            <input type="hidden" name="academic_leave_request_id" value="{{ $academicLeaveRequest->id }}">
             <div class="mb-4">
                  <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Supervisor Name</label>
                  <input type="text" id="name" name="name" value="{{ old('name', auth()->user()->name) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
