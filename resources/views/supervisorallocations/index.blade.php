@@ -71,6 +71,6 @@
 
 <style>
     .grey-cell {
-        background-color: #f3f4f6; /* Grey color */
+        background-color: #f3f4f6;
     }
 </style>
