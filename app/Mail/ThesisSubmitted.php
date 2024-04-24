@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 
 
-class IntentionMail extends Mailable
+class ThesisSubmitted extends Mailable
 {
     use Queueable, SerializesModels;
     
@@ -33,8 +33,8 @@ class IntentionMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Notice of Intention Notification')
-                    ->view('emails.intention')
+        return $this->subject('Thesis Submission Notification')
+                    ->view('emails.thesis_notification')
                     ->with([
                         'studentName' => $this->studentName,
                         'studentNumber' => $this->studentNumber
