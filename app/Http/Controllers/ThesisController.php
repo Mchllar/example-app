@@ -8,6 +8,7 @@ use App\Models\ThesisApproval;
 use App\Models\SupervisorAllocation;
 use App\Models\User;
 use App\Models\Student;
+use App\Mail\IntentionMail;
 use App\Mail\ThesisApprovalReminder;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
@@ -212,11 +213,15 @@ public function checkSubmission(Request $request) {
             //Get student name from authenticated user
             $user = Auth::user();
             $studentName = $user->name;
+            $studentNumber = $user->student->student_number;
+
+
+            // Fetch all users with the admin role
+            $admin = User::where('role_id', 3)->get();
            
-    
             // Send reminder emails to each recipient
-            foreach ($emails as $email) {
-                Mail::to($email)->send(new ThesisApprovalReminder($studentName));    
+            foreach ($admin as $admin) {
+                Mail::to($admin)->send(new IntentionMail($studentName, $studentNumber));
             }
 
             $sentDate = Carbon::now()->toDateString(); // Get current date (YYYY-MM-DD format)

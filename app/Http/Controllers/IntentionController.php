@@ -24,6 +24,8 @@ class IntentionController extends Controller
 
         // Get the authenticated student's student_number
         $user_id = Auth::user()->id;
+        $user = Auth::user();
+        $studentName = $user->name;
         
         // Create New Notice Entry
         Notice::create([
@@ -47,8 +49,6 @@ class IntentionController extends Controller
 
         // Retrieve conferences submitted by the authenticated user
         $conferences = Conference::where('user_id', Auth::id())->get();
-
-      
 
         return view('student.notice', compact('journals', 'conferences'));
     }
