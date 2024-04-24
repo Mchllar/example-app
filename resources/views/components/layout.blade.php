@@ -93,6 +93,14 @@
                 <li>
                     <span class="font-bold"> Welcome, {{ auth()->user()->name }}</span>
                 </li>
+                <li>
+                    <form class="inline" method="POST" action="/logout">
+                        @csrf
+                        <button type="logout">
+                            <i class="fa-solid fa-door-closed"></i> Logout
+                        </button>
+                    </form>
+                </li>
                 @if(auth()->check())
                 @switch(auth()->user()->role_id)
                 @case(1) {{-- Student --}}
@@ -135,14 +143,6 @@
                 @break
                 @endswitch
                 @endif
-                <li>
-                    <form class="inline" method="POST" action="/logout">
-                        @csrf
-                        <button type="logout">
-                            <i class="fa-solid fa-door-closed"></i> Logout
-                        </button>
-                    </form>
-                </li>
                 @else
                 <li>
                     <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i>
@@ -182,7 +182,7 @@
     <!-- Footer -->
     <div class="footer-content">
         <footer id="footer" class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-16 p-4 md:justify-center transition-opacity duration-500 opacity-100">
-            <p class="ml-2">&copy; 2023, All Rights Reserved</p>
+            <p class="ml-2">&copy; 2024, All Rights Reserved</p>
         </footer>
     </div>
 
