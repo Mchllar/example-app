@@ -121,6 +121,7 @@
                 <li class="font-bold"><a href="{{route('progress_reports.updateReport')}}">Update Progress
                         Report</a></li>
                 <li class="font-bold"><a href="{{ route('view.supervisee')}}">View Students</a></li>
+                <li class="font-bold"><a href="{{ route('academic_leave.view')}}">Student Leave Requests</a></li>
                 @break
                 @case(3) {{-- Staff --}}
                 <li class="font-bold"><a href="/">Home</a></li>

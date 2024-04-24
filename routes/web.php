@@ -61,13 +61,10 @@ Route::get('/resend-registration-otp', [UserController::class, 'resendRegOtp'])-
 
 // Route to show forgot password form
 Route::get('/forgot-password', [UserController::class, 'showForgotPasswordForm'])->name('password.forgot');
-
 // Route to show reset password form
 Route::get('/reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('password.reset');
-
 // Route to handle password reset
 Route::post('/reset-password', [UserController::class, 'reset'])->name('password.update');
-
 // Route to handle email for password reset
 Route::post('/forgot-password', [UserController::class, 'email'])->name('password.email');
 
@@ -140,6 +137,9 @@ Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'cr
 Route::post('/academic_leave/store', [AcademicLeaveRequestController::class, 'store'])->name('academic_leave.store');
 Route::get('/academic_leave/approve', [AcademicLeaveRequestController::class, 'approve'])->name('academic_leave.approve');
 Route::post('/academic_leave/storeApprove', [AcademicLeaveRequestController::class, 'storeApprove'])->name('academic_leave.storeApprove');
+Route::post('/academic_leave/facultyApprove', [AcademicLeaveRequestController::class, 'facultyApprove'])->name('academic_leave.facultyApprove');
+Route::post('/academic_leave/ogsApprove', [AcademicLeaveRequestController::class, 'ogsApprove'])->name('academic_leave.ogsApprove');
+Route::post('/academic_leave/registrarApprove', [AcademicLeaveRequestController::class, 'registrarApprove'])->name('academic_leave.registrarApprove');
 Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'viewRequests'])->name('academic_leave.view');
 
 // Define routes for SupervisorAllocationController

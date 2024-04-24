@@ -16,6 +16,9 @@
                 <li class="mx-4 my-2">
                     <a href="{{ route('view.supervisee')}}" class="font-bold hover:underline">View Students</a>
                 </li>
+                <li class="mx-4 my-2">
+                    <a href="{{ route('academic_leave.view')}}" class="font-bold hover:underline">Student Leave Requests</a>
+                </li>
             </ul>
         </div>
     </section>
