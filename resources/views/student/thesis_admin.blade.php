@@ -219,52 +219,26 @@
                     <table class="custom-table">
                         <thead>
                             <tr>
-                                @if(auth()->user()->role_id == 2 || auth()->user()->role_id == 3) 
-                                    <th>Student Name</th>
-                                @else
-                                    <th>ID</th>
-                                @endif
+                                <th>Student Name</th>
+                                <th>ID</th>
                                 <th>Thesis/Dissertation File</th>
                                 <th>Submission Type</th>
                                 <th>Submission Date</th>
                                 <th>Correction Form</th>
                                 <th>Correction Summary</th>
                                 <th>Examination Reports</th>
-                                <th>Minutes</th>
-                                @if(auth()->user()->role_id == 2 || auth()->user()->role_id == 3) 
-                                    <th>Clearance</th>
-                                @else
-                                    <th>Supervisor Clearance</th>  
-                                @endif
+                                <th>Minutes</th> 
+                                <th>Clearance</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($thesis as $row)
                                 <tr>
-                                    @if(auth()->user()->role_id == 1)
-                                        <td>{{ $row['id'] }}</td>
-                                    @elseif(auth()->user()->role_id == 2 || auth()->user()->role_id == 3)
-                                        <td>{{ $row->user->name }}</td>                            
-                                    @endif
+                                    <td>{{ $row->user->name }}</td>
+                                    <td>{{ $row->user->student->student_number }}</td>
                                     <td>
                                         <div class="file-info">
-                                        <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">View Thesis</span>
-        
-                                           <!-- @if(auth()->user()->role_id == 1) 
-                                                @php
-                                                    $approval = \App\Models\ThesisApproval::where('submission_id', $row['id'])->first();
-                                                @endphp
-                                                @if(!$approval)
-                                                    <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
-                                                        <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
-                                                            <span>Replace File</span>
-                                                        </label>
-                                                    </form>
-                                                @endif
-                                            @endif-->
+                                            <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">View Thesis</span>
                                         </div>
                                     </td>
                                     <td>
@@ -287,23 +261,49 @@
                                             {{ $row->correction_summary ? 'View Summary' : '-' }}
                                         </span>
                                     </td>
-
-                                    @if(auth()->user()->role_id == 1) 
+                                        <!-- Conditionally display either document links or upload buttons based on file existence -->
                                         <td class="center-cell">
-                                            <span class="document-link" onclick="openDocument('{{ asset('examination_reports/' . $row->examination_report) }}')">
-                                                {{ $row->examination_report ? 'View Report' : '-' }}
-                                            </span>
+                                            @if ($row->examination_report)
+                                                <span class="document-link" onclick="openDocument('{{ asset('examination_reports/' . $row->examination_report) }}')">
+                                                    View Report
+                                                </span>
+                                            @else
+                                                <form action="{{ route('thesis.adminStore') }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="user_id" value="{{ $user_id }}">
+                                                    <input type="hidden" name="submission_type" value="{{ $submission_type }}">
+
+                                                    <label for="examination_report_file" class="upload-button">
+                                                        <button type="button" onclick="document.getElementById('examination_report_file').click()>
+                                                            Upload Report
+                                                        </button>
+                                                        <input type="file" id="examination_report_file" name="examination_report_file" style="display: none;" onchange="this.form.submit()">
+                                                    </label>
+                                                </form>
+                                            @endif
                                         </td>
 
                                         <td class="center-cell">
-                                            <span class="document-link" onclick="openDocument('{{ asset('minutes/' . $row->minutes) }}')">
-                                                {{ $row->minutes ? 'View Minutes' : '-' }}
-                                            </span>
-                                        </td>                   
-                                    @endif
+                                            @if ($row->minutes)
+                                                <span class="document-link" onclick="openDocument('{{ asset('minutes/' . $row->minutes) }}')">
+                                                    View Minutes
+                                                </span>
+                                            @else
+                                                <form action="{{ route('thesis.adminStore') }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="user_id" value="{{ $user_id }}">
+                                                    <input type="hidden" name="submission_type" value="{{ $submission_type }}">
 
+                                                    <label for="minutes_file" class="upload-button">
+                                                        <button type="button"  onclick="document.getElementById('minutes_file').click()">
+                                                            Upload Minutes
+                                                        </button>
+                                                        <input type="file" id="minutes_file" name="minutes_file" style="display: none;" onchange="this.form.submit()">
+                                                    </label>
+                                                </form>
+                                            @endif
+                                        </td>
 
-                                    @if(auth()->user()->role_id == 1 || auth()->user()->role_id == 3)
                                     <td>
                                         <?php
                                             // Retrieve the student record based on the user_id from the theses table
@@ -359,30 +359,7 @@
                                                 }
                                             }
                                         ?>
-                                    </td>
-
-                                    @elseif(auth()->user()->role_id == 2)
-                                        <td>
-                                            @php
-                                                // Check if a record exists in the thesis approvals table for the current submission and supervisor
-                                                $approval = \App\Models\ThesisApproval::where('supervisor_id', auth()->user()->id)
-                                                                                    ->where('submission_id', $row['id'])
-                                                                                    ->first();
-                                            @endphp
-                                            
-                                            @if($approval)
-                                                <span class="approval-text" style="color: green;">Approved</span>
-                                            @else
-                                                <div id="approvalContainer{{ $row['id'] }}" class="approval-container">
-                                                    <form id="approvalForm{{ $row['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="submission_id" value="{{ $row['id'] }}">
-                                                        <button id="approveButton{{ $row['id'] }}" class="approve-button" onclick="approveSubmission({{ $row['id'] }})">Approve</button>
-                                                    </form>
-                                                </div>
-                                            @endif
-                                        </td>
-                                    @endif
+                                    </td>  
                                 </tr>
                             @endforeach
                         </tbody>
@@ -392,15 +369,6 @@
             @else
                 <p style="margin-top: 50px;">Currently, No Thesis has been  Submitted.</p>   
             @endif
-
-            @if(auth()->user()->role_id == 1) 
-                @php
-                    $routeName = route('thesis.submission');
-                @endphp
-                <a href="#" class="btn btn-primary" onclick="confirmSubmit(event, '{{ $routeName }}')">Submit Thesis</a>
-            @endif
-
-
         </x-layout>
 
         <script>
@@ -432,121 +400,6 @@
             }
 
         </script>
-
-
-        <script>
-            function uploadNewFile(id) {
-                var form = document.getElementById('uploadForm' + id);
-                var fileInput = form.querySelector('input[type="file"]');
-                var file = fileInput.files[0];
-                
-                var formData = new FormData();
-                formData.append('thesis_document', file);
-
-                fetch(`/thesis/${id}`, {  // Make sure the URL is correct  // Make sure the URL is correct
-                    method: 'POST', // Set the method to POST
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    // Handle success response
-                    window.location.reload();
-
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                    // Handle error
-                });
-            }
-
-        </script>  
-
-        <script>
-            document.getElementById('sendReminderBtn').addEventListener('click', function() {
-                var lastSentDate = localStorage.getItem('lastSentDate');
-
-                if (lastSentDate) {
-                    var twoDaysAgo = new Date();
-                    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
-
-                    if (new Date(lastSentDate) > twoDaysAgo) {
-                        alert('Cannot send reminder yet. Please wait at least 2 days before sending another reminder.');
-                        return; // Prevent further execution
-                    }
-                }
-
-                // Continue with sending the reminder if allowed
-                var supervisorEmails = <?php echo json_encode($supervisorEmails ?? []); ?>;
-                var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                if (Array.isArray(supervisorEmails)) {
-                    var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
-
-                    if (confirmation) {
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('POST', '/sendReminder', true);
-                        xhr.setRequestHeader('Content-Type', 'application/json');
-                        xhr.setRequestHeader('X-CSRF-TOKEN', token);
-
-                        xhr.onreadystatechange = function() {
-                            if (xhr.readyState === 4) {
-                                if (xhr.status === 200) {
-                                    var response = JSON.parse(xhr.responseText);
-                                    alert(response.message);
-
-                                    // Update last sent date in local storage
-                                    localStorage.setItem('lastSentDate', new Date().toISOString());
-                                } else {
-                                    alert('Error: ' + xhr.status);
-                                }
-                            }
-                        };
-                        xhr.send(JSON.stringify({ emails: supervisorEmails }));
-                    }
-                } else {
-                    console.error("supervisorEmails is not an array");
-                }
-            });
-
-            // Function to display sent date from local storage
-            function displaySentDate(sentDate) {
-                var button = document.getElementById('sendReminderBtn');
-                var dateElement = document.createElement('div');
-                dateElement.textContent = 'Reminder sent on: ' + sentDate;
-                dateElement.style.color = 'blue'; // Set text color to blue
-                button.parentNode.insertBefore(dateElement, button.nextSibling);
-            }
-
-            // Load and display sent date when the page loads
-            document.addEventListener('DOMContentLoaded', function() {
-                var storedDate = localStorage.getItem('sentDate');
-                if (storedDate) {
-                    displaySentDate(storedDate);
-                }
-            });
-
-        </script>
-
-
-        <script>
-            function approveSubmission(id) {
-                
-                document.getElementById('approveButton' + id).style.display = 'none';
-                
-                document.getElementById('approvalText' + id).style.display = 'inline';
-
-            }
-        </script>
-
     </body>
 </html>
 

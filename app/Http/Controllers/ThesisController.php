@@ -26,15 +26,24 @@ class ThesisController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
             'submission_type' => 'required',
             'thesis_document' => 'required|file|mimes:pdf',
             'correction_form' => 'nullable|file|mimes:pdf',
             'correction_summary' => 'nullable|file|mimes:pdf',
         ]);
+
+        session(['user_id' => $validatedData['user_id']]);
+        session(['submission_type' => $validatedData['submission_type']]);
+
+        $validatedData = array_merge($validatedData,[
+            'examination_report'=> '',
+            'minutes'=> '',
+        ]);
     
         $user_id = Auth::user()->id;
-        $submission_type = $request->submission_type;
+        $submission_type = $validatedData['submission_type'];
     
         // Check if there's an existing thesis entry for the current user and submission type
         $existingThesis = Thesis::where('user_id', $user_id)
@@ -116,12 +125,81 @@ class ThesisController extends Controller
             }
         }
 
-        return redirect('#')->with('message', 'Thesis submission notification sent to supervisors.');
 
         // Save the Thesis instance to the database
         $thesis->save();
+
+        /*$thesis = Thesis::updateOrCreate(
+            [
+                'user_id' => $request['user_id'],
+                'submission_type' => $request['submission_type'],
+
+            ],
+            $validatedData
+        );*/
     
-        return redirect('thesis.index')->with('message', 'Thesis submitted successfully!');
+        return redirect('thesis.index')->with('message', 'Thesis submitted successfully and an email has been sent to your supervisors.');
+    }
+
+    public function admin($user_id, $submission_type)
+    {
+        $thesis = Thesis::where('user_id', $user_id)
+                        ->where('submission_type', $submission_type)
+                        ->first();
+
+        return view('student.thesis_admin', compact('thesis', 'user_id', 'submission_type'));
+    }
+
+    public function adminStore(Request $request){
+
+        $validatedData = $request -> validate([
+            'user_id' => 'nullable|exists:users,id',
+            'examination_report'=> 'nullable|string',
+            'minutes'=> 'nullable|string',
+        ]);
+
+        // Retrieve session data
+        $user_id = session('user_id');
+        $submission_type = session('submission_type');
+
+        $thesis = Thesis::where('user_id', $user_id)
+                        ->where('submission_type', $submission_type)
+                        ->first();
+
+        if($thesis){
+
+            // Handle examination reports upload
+            if ($request->hasFile('examination_report')) {
+                $examination_report = $request->file('examination_report');
+                $examination_report_path = $examination_report->getClientOriginalName();
+                $examination_report->move(public_path('examination_reports'), $examination_report_path);
+                $thesis->examination_report = $examination_report_path;
+            }
+
+            // Handle minutes upload
+            if ($request->hasFile('minutes')) {
+                $minutes = $request->file('minutes');
+                $minutes_path = $minutes->getClientOriginalName();
+                $minutes->move(public_path('minutes'), $minutes_path);
+                $thesis->minutes = $minutes_path;
+            }
+
+            $thesis->save();
+            //$thesis ->update($validatedData);
+
+            $student = User::find($user_id);
+
+            if ($student){
+
+                $adminName = Auth::user()->name;
+                $emailContent = "Greetings, the minutes and examination reports have been uploaded by $adminName.";
+                Mail::to($student->email)->send(new DefenseReport($emailContent));
+            }
+
+            return redirect()->with('message', 'Examination report and minutes uploaded successfully.');
+        }  
+
+        return redirect()->with('failmessage', 'Thesis not found for the specified user and submission type.');
     }
     
 
@@ -149,6 +227,18 @@ class ThesisController extends Controller
         }
         
         return view('student.thesis_records', compact('thesis'));
+    }
+
+    //Admin view of the Thesis submission
+    public function adminIndex($user_id, $submission_type)
+    {
+        $thesis = Thesis::where('user_id', $user_id)
+                        ->where('submission_type', $submission_type)
+                        ->first();
+
+        $thesis = Thesis::all();
+            
+        return view('student.thesis_admin', compact('thesis', 'user_id', 'submission_type'));  
     }
     
         

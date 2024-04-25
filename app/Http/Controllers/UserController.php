@@ -12,6 +12,7 @@ use App\Models\Religion;
 use App\Models\School;
 use App\Models\Student;
 use App\Models\Country;
+use App\Models\Thesis;
 use App\Mail\UserRegistered;
 use App\Mail\SendOtpMail;
 use Illuminate\Support\Str;
@@ -108,7 +109,9 @@ class UserController extends Controller
                 case 2: // Supervisor
                     return view('supervisor.landing');
                 case 3: // Staff
-                    return view('staff.landing');
+                    $user_id = User::pluck('id');
+                    $submission_type = Thesis::pluck('submission_type');
+                    return view('staff.landing', compact('user_id', 'submission_type'));
                 default:
                     abort(403, 'Unauthorized action.');
             }

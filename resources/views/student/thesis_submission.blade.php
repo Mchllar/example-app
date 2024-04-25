@@ -73,6 +73,8 @@
         <h2> Thesis/Dissertation Submission</h2>
         <form id="thesisForm" action="{{ route('thesis.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="user_id" value="{{ auth()->user()->student->id }}">
+
             <label for="submission_type">Submission Type:</label>
             <select name="submission_type" id="submission_type">
                 <option value="0">Select Submission Type</option>
