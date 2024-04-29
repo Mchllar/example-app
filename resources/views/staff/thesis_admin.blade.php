@@ -203,6 +203,50 @@
                 height: 80%;
                 border: none;
             }
+            button[type="button"] {
+                display: block;
+                margin: 20px auto; 
+                padding: 6px 15px;
+                background-color: green;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease; 
+            }
+
+            button[type="button"]:hover {
+                background-color:#45a049; 
+            }
+            .custom-file-upload {
+                display: inline-block;
+                padding: 5px 5px;
+                cursor: pointer;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+            }
+
+            /* Visually hide the default file input */
+            input[type="file"] {
+                display: none;
+            }
+            button[type="submit"] {
+                display: block;
+                margin: 20px auto;
+                padding: 6px 15px;
+                background-color: blue;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease; 
+            }
+
+            button[type="submit"]:hover {
+                background-color:green; 
+            }
         </style>
 
     </head>
@@ -226,9 +270,9 @@
                                 <th>Submission Date</th>
                                 <th>Correction Form</th>
                                 <th>Correction Summary</th>
-                                <th>Examination Reports</th>
-                                <th>Minutes</th> 
                                 <th>Clearance</th>
+                                <th>Report</th>
+                                <th>Minutes</th>    
                             </tr>
                         </thead>
                         <tbody>
@@ -261,49 +305,6 @@
                                             {{ $row->correction_summary ? 'View Summary' : '-' }}
                                         </span>
                                     </td>
-                                        <!-- Conditionally display either document links or upload buttons based on file existence -->
-                                        <td class="center-cell">
-                                            @if ($row->examination_report)
-                                                <span class="document-link" onclick="openDocument('{{ asset('examination_reports/' . $row->examination_report) }}')">
-                                                    View Report
-                                                </span>
-                                            @else
-                                                <form action="{{ route('thesis.adminStore') }}" method="POST" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <input type="hidden" name="user_id" value="{{ $user_id }}">
-                                                    <input type="hidden" name="submission_type" value="{{ $submission_type }}">
-
-                                                    <label for="examination_report_file" class="upload-button">
-                                                        <button type="button" onclick="document.getElementById('examination_report_file').click()>
-                                                            Upload Report
-                                                        </button>
-                                                        <input type="file" id="examination_report_file" name="examination_report_file" style="display: none;" onchange="this.form.submit()">
-                                                    </label>
-                                                </form>
-                                            @endif
-                                        </td>
-
-                                        <td class="center-cell">
-                                            @if ($row->minutes)
-                                                <span class="document-link" onclick="openDocument('{{ asset('minutes/' . $row->minutes) }}')">
-                                                    View Minutes
-                                                </span>
-                                            @else
-                                                <form action="{{ route('thesis.adminStore') }}" method="POST" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <input type="hidden" name="user_id" value="{{ $user_id }}">
-                                                    <input type="hidden" name="submission_type" value="{{ $submission_type }}">
-
-                                                    <label for="minutes_file" class="upload-button">
-                                                        <button type="button"  onclick="document.getElementById('minutes_file').click()">
-                                                            Upload Minutes
-                                                        </button>
-                                                        <input type="file" id="minutes_file" name="minutes_file" style="display: none;" onchange="this.form.submit()">
-                                                    </label>
-                                                </form>
-                                            @endif
-                                        </td>
-
                                     <td>
                                         <?php
                                             // Retrieve the student record based on the user_id from the theses table
@@ -359,8 +360,46 @@
                                                 }
                                             }
                                         ?>
-                                    </td>  
-                                </tr>
+                                    </td> 
+                                    @if ($row->report)
+                                        <td class="center-cell">
+                                            <span class="document-link" onclick="openDocument('{{ asset('examination_reports/' . $row->report->report) }}')">
+                                                View Report
+                                            </span>
+                                        </td> <!-- View Report -->
+                                    @else 
+                                        <td> <!-- Upload Report -->
+                                            <button type="button" onclick="document.getElementById('reports{{ $row->id }}').click();">
+                                                Upload Report 
+                                            </button>                                     
+                                            <form id="uploadForm1{{ $row->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $row->id]) }}" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="file" id="reports{{ $row->id }}" name="report" required accept=".pdf"><br>
+                                            </form>
+                                        </td>
+                                        <td> <!-- Empty Minutes column -->
+                                            <!-- This column is intentionally left empty -->
+                                        </td>
+                                    @endif
+
+                                    @if ($row->minutes)
+                                        <td class="center-cell">
+                                            <span class="document-link" onclick="openDocument('{{ asset('minutes/' . $row->minutes->minutes) }}')">
+                                                View Minutes
+                                            </span>
+                                        </td> <!-- View Minutes -->
+                                    @else
+                                        <td> <!-- Upload Minutes -->
+                                            <button type="button" onclick="document.getElementById('uploadMinutes{{ $row->id }}').click();">
+                                                Upload Minutes
+                                            </button> 
+                                            <form id="uploadFormMinutes{{ $row->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $row->id]) }}" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="file" id="uploadMinutes{{ $row->id }}" name="minutes" required accept=".pdf"><br>                                     
+                                            </form>
+                                        </td> 
+                                    @endif
+                                    </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -381,7 +420,6 @@
             }
         </script>
 
-
         <script>
             function openDocument(pdfUrl) {
                 // Display the PDF container
@@ -398,8 +436,21 @@
                 // Clear the source of the iframe
                 document.getElementById('pdfViewer').src = '';
             }
-
         </script>
+
+        <script>
+            function showUploadForm1() {
+                var form = document.getElementById('uploadForm1');
+                form.style.display = 'block';
+            }
+        
+        </script>
+        <script>
+                function showUploadForm2() {
+                var form = document.getElementById('uploadForm2');
+                form.style.display = 'block';
+            }
+            </script>
     </body>
 </html>
 

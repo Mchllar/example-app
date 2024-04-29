@@ -229,8 +229,8 @@
                                 <th>Submission Date</th>
                                 <th>Correction Form</th>
                                 <th>Correction Summary</th>
-                                <th>Examination Reports</th>
-                                <th>Minutes</th>
+                                <th>Examination Report</th>
+                                <th>Defense Minutes</th>
                                 @if(auth()->user()->role_id == 2 || auth()->user()->role_id == 3) 
                                     <th>Clearance</th>
                                 @else
@@ -239,75 +239,61 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($thesis as $row)
+                            @foreach ($thesis as $thesis)
                                 <tr>
                                     @if(auth()->user()->role_id == 1)
-                                        <td>{{ $row['id'] }}</td>
+                                        <td>{{ $thesis['id'] }}</td>
                                     @elseif(auth()->user()->role_id == 2 || auth()->user()->role_id == 3)
-                                        <td>{{ $row->user->name }}</td>                            
+                                        <td>{{ $thesis->user->name }}</td>                            
                                     @endif
                                     <td>
                                         <div class="file-info">
-                                        <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">View Thesis</span>
-        
-                                           <!-- @if(auth()->user()->role_id == 1) 
-                                                @php
-                                                    $approval = \App\Models\ThesisApproval::where('submission_id', $row['id'])->first();
-                                                @endphp
-                                                @if(!$approval)
-                                                    <form id="uploadForm{{ $row['id'] }}" action="{{ route('thesis.update', $row['id']) }}" method="POST" enctype="multipart/form-data">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input id="fileInput{{ $row['id'] }}" type="file" name="thesis_document" onchange="uploadNewFile({{ $row['id'] }})" style="display: none;">
-                                                        <label for="fileInput{{ $row['id'] }}" class="edit-file-button">
-                                                            <span>Replace File</span>
-                                                        </label>
-                                                    </form>
-                                                @endif
-                                            @endif-->
+                                        <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>
                                         </div>
                                     </td>
                                     <td>
-                                        @if ($row['submission_type'] == 1)
+                                        @if ($thesis['submission_type'] == 1)
                                             Pre Defense
-                                        @elseif ($row['submission_type'] == 2)
+                                        @elseif ($thesis['submission_type'] == 2)
                                             Post Defense
                                         @else
                                             Unknown
                                         @endif
                                     </td>
-                                    <td>{{ $row['updated_at'] }}</td> 
+                                    <td>{{ $thesis['updated_at'] }}</td> 
                                     <td class="center-cell">
-                                        <span class="document-link" onclick="openDocument('{{ asset('correction_forms/' . $row->correction_form) }}')">
-                                            {{ $row->correction_form ? 'View Form' : '-' }}
+                                        <span class="document-link" onclick="openDocument('{{ asset('correction_forms/' . $thesis->correction_form) }}')">
+                                            {{ $thesis->correction_form ? 'View Form' : '-' }}
                                         </span>
                                     </td>
                                     <td class="center-cell">
-                                        <span class="document-link" onclick="openDocument('{{ asset('correction_summaries/' . $row->correction_summary) }}')">
-                                            {{ $row->correction_summary ? 'View Summary' : '-' }}
+                                        <span class="document-link" onclick="openDocument('{{ asset('correction_summaries/' . $thesis->correction_summary) }}')">
+                                            {{ $thesis->correction_summary ? 'View Summary' : '-' }}
                                         </span>
                                     </td>
-
-                                    @if(auth()->user()->role_id == 1) 
-                                        <td class="center-cell">
-                                            <span class="document-link" onclick="openDocument('{{ asset('examination_reports/' . $row->examination_report) }}')">
-                                                {{ $row->examination_report ? 'View Report' : '-' }}
+                                    <td class="center-cell">
+                                        @if ($thesis->report) {{-- Check if report relationship exists --}}
+                                            <span class="document-link" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">
+                                                View Report
                                             </span>
-                                        </td>
-
-                                        <td class="center-cell">
-                                            <span class="document-link" onclick="openDocument('{{ asset('minutes/' . $row->minutes) }}')">
-                                                {{ $row->minutes ? 'View Minutes' : '-' }}
+                                        @else
+                                            - {{-- Display dash if report relationship does not exist --}}
+                                        @endif
+                                    </td>
+                                    <td class="center-cell">
+                                        @if ($thesis->minutes)
+                                            <span class="document-link" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">
+                                                View Minutes
                                             </span>
-                                        </td>                   
-                                    @endif
-
-
+                                        @else
+                                            - {{-- Display dash if minutes relationship does not exist --}}
+                                        @endif
+                                    </td>
                                     @if(auth()->user()->role_id == 1 || auth()->user()->role_id == 3)
                                     <td>
                                         <?php
                                             // Retrieve the student record based on the user_id from the theses table
-                                            $student = \App\Models\Student::where('user_id', $row->user_id)->first();
+                                            $student = \App\Models\Student::where('user_id', $thesis->user_id)->first();
 
                                             if ($student) {
                                                 // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
@@ -329,7 +315,7 @@
 
                                                         // Check if the supervisor has approved the document
                                                         $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
-                                                            ->where('submission_id', $row->id)
+                                                            ->where('submission_id', $thesis->id)
                                                             ->first();
 
                                                         // Determine the status based on approval existence
@@ -366,18 +352,18 @@
                                             @php
                                                 // Check if a record exists in the thesis approvals table for the current submission and supervisor
                                                 $approval = \App\Models\ThesisApproval::where('supervisor_id', auth()->user()->id)
-                                                                                    ->where('submission_id', $row['id'])
+                                                                                    ->where('submission_id', $thesis['id'])
                                                                                     ->first();
                                             @endphp
                                             
                                             @if($approval)
                                                 <span class="approval-text" style="color: green;">Approved</span>
                                             @else
-                                                <div id="approvalContainer{{ $row['id'] }}" class="approval-container">
-                                                    <form id="approvalForm{{ $row['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
+                                                <div id="approvalContainer{{ $thesis['id'] }}" class="approval-container">
+                                                    <form id="approvalForm{{ $thesis['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
                                                         @csrf
-                                                        <input type="hidden" name="submission_id" value="{{ $row['id'] }}">
-                                                        <button id="approveButton{{ $row['id'] }}" class="approve-button" onclick="approveSubmission({{ $row['id'] }})">Approve</button>
+                                                        <input type="hidden" name="submission_id" value="{{ $thesis['id'] }}">
+                                                        <button id="approveButton{{ $thesis['id'] }}" class="approve-button" onclick="approveSubmission({{ $thesis['id'] }})">Approve</button>
                                                     </form>
                                                 </div>
                                             @endif
@@ -443,8 +429,8 @@
                 var formData = new FormData();
                 formData.append('thesis_document', file);
 
-                fetch(`/thesis/${id}`, {  // Make sure the URL is correct  // Make sure the URL is correct
-                    method: 'POST', // Set the method to POST
+                fetch(`/thesis/${id}`, {  
+                    method: 'POST', 
                     body: formData,
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -458,13 +444,13 @@
                 })
                 .then(data => {
                     console.log(data);
-                    // Handle success response
+                    
                     window.location.reload();
 
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
-                    // Handle error
+                   
                 });
             }
 

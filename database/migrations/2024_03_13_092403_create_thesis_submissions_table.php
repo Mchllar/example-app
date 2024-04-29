@@ -17,8 +17,6 @@ class CreateThesisSubmissionsTable extends Migration
                 $table->string('thesis_document');
                 $table->string('correction_form')->nullable();
                 $table->string('correction_summary')->nullable();
-                $table->string('examination_report')->nullable();
-                $table->string('minutes')->nullable();
                 $table->timestamps();
                 
             });
