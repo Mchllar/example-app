@@ -69,17 +69,12 @@
         </style>
     </head>
     <body>
-               
-        <!--  
-
-        Lock editing 
-
-        button to this current submission 
         
-        Constraints for editing thesis submissions (Lock and unlock(0 or 1) button for each student-->
         <h2> Thesis/Dissertation Submission</h2>
         <form id="thesisForm" action="{{ route('thesis.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="user_id" value="{{ auth()->user()->student->id }}">
+
             <label for="submission_type">Submission Type:</label>
             <select name="submission_type" id="submission_type">
                 <option value="0">Select Submission Type</option>
@@ -112,52 +107,7 @@
 
             <button type="submit">Submit</button>
         </form>
-  <!--      
-<script>
-        document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('thesisForm');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission behavior
 
-        // Call a function to handle the submission check
-        checkSubmissionBeforeSubmit();
-    });
-});
-
-function checkSubmissionBeforeSubmit() {
-    const submissionType = document.getElementById('submission_type').value;
-
-    // Make an AJAX request to your backend
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `/check-submission?submission_type=${submissionType}`, true);
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                
-                // Handle the response
-                if (response.canSubmit) {
-                    if (confirm(response.message)) {
-                        // If user confirms, proceed with form submission
-                        document.getElementById('thesisForm').submit();
-                    }
-                } else {
-                    alert(response.message); // Show error message
-                }
-            } else {
-                // Handle error response
-                console.error('Error fetching submission status:', xhr.status);
-            }
-        }
-    };
-
-    xhr.send();
-}
-
-
-</script>
--->
         <script>
             document.getElementById('submission_type').addEventListener('change', function() {
                 var submissionType = this.value;
@@ -182,6 +132,7 @@ function checkSubmissionBeforeSubmit() {
                 }
             });
         </script>
+
 
     </body>
 </x-layout>

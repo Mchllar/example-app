@@ -8,7 +8,8 @@ use App\Models\ThesisApproval;
 use App\Models\SupervisorAllocation;
 use App\Models\User;
 use App\Models\Student;
-use App\Mail\IntentionMail;
+use App\Models\Staff;
+use App\Mail\ThesisSubmitted;
 use App\Mail\ThesisApprovalReminder;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
@@ -25,15 +26,24 @@ class ThesisController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
             'submission_type' => 'required',
             'thesis_document' => 'required|file|mimes:pdf',
             'correction_form' => 'nullable|file|mimes:pdf',
             'correction_summary' => 'nullable|file|mimes:pdf',
         ]);
+
+        session(['user_id' => $validatedData['user_id']]);
+        session(['submission_type' => $validatedData['submission_type']]);
+
+        $validatedData = array_merge($validatedData,[
+            'examination_report'=> '',
+            'minutes'=> '',
+        ]);
     
         $user_id = Auth::user()->id;
-        $submission_type = $request->submission_type;
+        $submission_type = $validatedData['submission_type'];
     
         // Check if there's an existing thesis entry for the current user and submission type
         $existingThesis = Thesis::where('user_id', $user_id)
@@ -42,6 +52,15 @@ class ThesisController extends Controller
     
         // If an existing entry is found, update it; otherwise, create a new instance
         if ($existingThesis) {
+
+            $isApproved = ThesisApproval::where('submission_id', $existingThesis->id)
+                                            ->exists();
+
+            if($isApproved){
+                return redirect('thesisSubmission')->with('failmessage', 'You cannot replace an approved Thesis document!');
+
+            }
+            
             $thesis = $existingThesis;
         } else {
             $thesis = new Thesis();
@@ -72,14 +91,117 @@ class ThesisController extends Controller
             $correction_summary->move(public_path('correction_summaries'), $correction_summary_path);
             $thesis->correction_summary = $correction_summary_path;
         }
-    
+
+        //Email Notification to Supervisor
+        $user = Auth::user();
+        $studentName = $user->name;
+        $studentNumber = $user->student->student_number;
+        $studentId = $user->student->id; // Get the student ID
+
+
+        // Retrieve the student record based on the authenticated user's ID
+        $student = Student::where('user_id', $user->id)->first();
+
+        if (!$student) {
+            // Handle case where student record is not found for the authenticated user
+            return redirect()->back()->with('error', 'Student record not found.');
+        }
+
+        // Retrieve assigned supervisors for the current student
+        $supervisorIds = SupervisorAllocation::where('student_id', $studentId)
+                            ->pluck('supervisor_id') 
+                            ->toArray(); 
+
+        // Fetch supervisor emails from the users table based on supervisor IDs
+        $supervisorEmails = User::whereIn('id', $supervisorIds)
+                                ->pluck('email')
+                                ->toArray(); 
+
+        // Send email to each supervisor
+        foreach ($supervisorEmails as $supervisorEmail) {
+            if ($supervisorEmail) {
+                // Send email to supervisor
+                Mail::to($supervisorEmail)->send(new ThesisSubmitted($studentName, $studentNumber));
+            }
+        }
+
+
         // Save the Thesis instance to the database
         $thesis->save();
+
+        /*$thesis = Thesis::updateOrCreate(
+            [
+                'user_id' => $request['user_id'],
+                'submission_type' => $request['submission_type'],
+
+            ],
+            $validatedData
+        );*/
     
-        return redirect('thesis.index')->with('message', 'Thesis submitted successfully!');
+        return redirect('thesis.index')->with('message', 'Thesis submitted successfully and an email has been sent to your supervisors.');
+    }
+
+    public function admin($user_id, $submission_type)
+    {
+        $thesis = Thesis::where('user_id', $user_id)
+                        ->where('submission_type', $submission_type)
+                        ->first();
+
+        return view('student.thesis_admin', compact('thesis', 'user_id', 'submission_type'));
+    }
+
+    public function adminStore(Request $request){
+
+        $validatedData = $request -> validate([
+            'user_id' => 'nullable|exists:users,id',
+            'examination_report'=> 'nullable|string',
+            'minutes'=> 'nullable|string',
+        ]);
+
+        // Retrieve session data
+        $user_id = session('user_id');
+        $submission_type = session('submission_type');
+
+        $thesis = Thesis::where('user_id', $user_id)
+                        ->where('submission_type', $submission_type)
+                        ->first();
+
+        if($thesis){
+
+            // Handle examination reports upload
+            if ($request->hasFile('examination_report')) {
+                $examination_report = $request->file('examination_report');
+                $examination_report_path = $examination_report->getClientOriginalName();
+                $examination_report->move(public_path('examination_reports'), $examination_report_path);
+                $thesis->examination_report = $examination_report_path;
+            }
+
+            // Handle minutes upload
+            if ($request->hasFile('minutes')) {
+                $minutes = $request->file('minutes');
+                $minutes_path = $minutes->getClientOriginalName();
+                $minutes->move(public_path('minutes'), $minutes_path);
+                $thesis->minutes = $minutes_path;
+            }
+
+            $thesis->save();
+            //$thesis ->update($validatedData);
+
+            $student = User::find($user_id);
+
+            if ($student){
+
+                $adminName = Auth::user()->name;
+                $emailContent = "Greetings, the minutes and examination reports have been uploaded by $adminName.";
+                Mail::to($student->email)->send(new DefenseReport($emailContent));
+            }
+
+            return redirect()->with('message', 'Examination report and minutes uploaded successfully.');
+        }  
+
+        return redirect()->with('failmessage', 'Thesis not found for the specified user and submission type.');
     }
     
-
 
     // View of the Thesis submission
     public function index()
@@ -106,81 +228,19 @@ class ThesisController extends Controller
         
         return view('student.thesis_records', compact('thesis'));
     }
-/*
-    // ThesisController.php
-public function checkSubmission(Request $request) {
-    $submissionType = $request->input('submission_type');
-    $user = auth()->user();
 
-    // Perform database queries to check existing submissions
-    $existingSubmission = Thesis::where('user_id', $user->id)
-                                ->where('submission_type', $submissionType)
-                                ->first();
-
-    if ($existingSubmission) {
-        $approvedSubmission = ThesisApproval::where('submission_id', $existingSubmission->id)->first();
-
-        if ($approvedSubmission) {
-            return response()->json([
-                'canSubmit' => false,
-                'message' => 'You cannot replace an already approved submission.'
-            ]);
-        } else {
-            return response()->json([
-                'canSubmit' => true,
-                'message' => 'Your new submission will replace the old one. Proceed?'
-            ]);
-        }
-    } else {
-        return response()->json([
-            'canSubmit' => true,
-            'message' => 'No previous submission found. Proceed with the new submission.'
-        ]);
-    }
-}
-*/
-
-/*
-    // Changing the uploaded thesis document
-    public function update(Request $request, $id)
+    //Admin view of the Thesis submission
+    public function adminIndex($user_id, $submission_type)
     {
-        // Validate the request data
-        $request->validate([
-            'thesis_document' => 'required|file|mimes:pdf',
-        ]);
+        $thesis = Thesis::where('user_id', $user_id)
+                        ->where('submission_type', $submission_type)
+                        ->first();
 
-        // Retrieve the thesis record to update
-        $thesis = Thesis::findOrFail($id);
-
-        // Get the user ID
-        $user_id = Auth::user()->id;
-
-        // Ensure the authenticated user owns the thesis record
-        if ($thesis->user_id != $user_id) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        // Handle the file upload
-        if ($request->hasFile('thesis_document')) {
-            // Get the new file
-            $newFile = $request->file('thesis_document');
-            // Generate a unique file name
-            $newFileName = time() . '_' . $newFile->getClientOriginalName();
-            // Store the new file
-            $newFile->storeAs('public/files', $newFileName);
-            // Update the thesis document path
-            $thesis->thesis_document = $newFileName;
-            // Save the updated thesis record
-            $thesis->save();
-            // Return a success response with reload flag
-            return response()->json(['message' => 'Thesis document updated successfully', 'reload' => true], 200);
-
-        } else {
-            // Return an error response if no file is provided
-            return response()->json(['message' => 'Thesis document not updated', 'reload' => true], 200);
-
-        }
-    }*/
+        $thesis = Thesis::all();
+            
+        return view('student.thesis_admin', compact('thesis', 'user_id', 'submission_type'));  
+    }
+    
         
     public function approveThesis(Request $request)
     {
@@ -213,15 +273,11 @@ public function checkSubmission(Request $request) {
             //Get student name from authenticated user
             $user = Auth::user();
             $studentName = $user->name;
-            $studentNumber = $user->student->student_number;
-
-
-            // Fetch all users with the admin role
-            $admin = User::where('role_id', 3)->get();
            
+    
             // Send reminder emails to each recipient
-            foreach ($admin as $admin) {
-                Mail::to($admin)->send(new IntentionMail($studentName, $studentNumber));
+            foreach ($emails as $email) {
+                Mail::to($email)->send(new ThesisApprovalReminder($studentName));    
             }
 
             $sentDate = Carbon::now()->toDateString(); // Get current date (YYYY-MM-DD format)

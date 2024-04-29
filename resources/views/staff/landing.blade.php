@@ -94,7 +94,7 @@
                         <a href="{{ route('academic_leave.view')}}" class="font-bold hover:underline">Student Leave Requests</a>
                     </li>
                     <li class="mx-4 my-2">
-                        <a href="{{ route('thesis.index')}}" class="font-bold hover:underline">Thesis Submissions</a>
+                        <a href="{{ route('thesis.adminIndex', ['user_id' => $user_id, 'submission_type' => $submission_type]) }}" class="font-bold hover:underline">Thesis Submissions</a>
                     </li>
                     <li class="mx-4 my-2">
                         <a href="{{ route('journal.index')}}" class="font-bold hover:underline"> Journal Publications</a>

@@ -27,5 +27,9 @@ class Staff extends Model
     {
         return $this->hasMany(SupervisorAllocation::class);
     }
+    public function student(){
+
+        return $this->belongsTo(Student::class);
+    }
 
 }

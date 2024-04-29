@@ -107,6 +107,10 @@ Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.u
 Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
 Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
 Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
+Route::post('/thesis.admin', [ThesisController::class, 'adminStore'])->name('thesis.adminStore');
+Route::get('/thesis_records_admin/{user_id}/{submission_type}', [ThesisController::class, 'admin'])->name('thesis.admin');
+Route::get('/thesis.admin_index/{user_id}/{submission_type}', [ThesisController::class, 'adminIndex'])->name('thesis.adminIndex');
+
 //Route::get('/check-submission', 'ThesisController@checkSubmission')->middleware('auth')->name('check-submission');
 
 
