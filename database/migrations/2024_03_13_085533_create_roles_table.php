@@ -25,6 +25,11 @@ return new class extends Migration
             ['name' => 'student'],
             ['name' => 'supervisor'],
             ['name' => 'staff'],
+            ['name' => 'School Dean'],
+            ['name' => 'Registrar'],
+            ['name' => 'Board of Graduate Studies'],
+            ['name' => 'School Administrator'],
+
         ]);
     }
 

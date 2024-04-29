@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademicLeaveRequest;
 use App\Models\Student;
+use App\Models\FacultyApproval;
+use App\Models\OgsApproval;
+use App\Models\RegistrarApproval;
 use App\Models\Staff;
 use App\Models\LeaveApproval;
 use App\Models\User;
@@ -119,5 +122,79 @@ public function storeApprove(Request $request)
     return redirect('/')->with("message", "Approved");
 }
 
+public function facultyApprove(Request $request)
+{
+    $validatedData = $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'ogs_approval_date' => 'required|date',
+        'status' => 'required|string',
+        'academic_leave_request_id' => 'required|exists:academic_leave_requests,id', // Validate the academic_leave_request_id
+    ]);
+
+    // Create a new leave approval record
+    $leaveApproval = FacultyApproval::create($validatedData);
+
+    // Retrieve the academic leave request associated with the approval
+    $academicLeaveRequest = $leaveApproval->academicLeaveRequest;
+
+    // Get the student associated with the academic leave request
+    $student = $academicLeaveRequest->student;
+
+    // Send an email notification to the student
+    Mail::to($student->user->email)->send(new AcademicLeaveRequestApproval($academicLeaveRequest)); // Corrected mail class
+
+    // Redirect back with success message
+    return redirect('/')->with("message", "Approved");
+}
+
+public function ogsApprove(Request $request)
+{
+    $validatedData = $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'ogs_approval_date' => 'required|date',
+        'status' => 'required|string',
+        'academic_leave_request_id' => 'required|exists:academic_leave_requests,id', // Validate the academic_leave_request_id
+    ]);
+
+    // Create a new leave approval record
+    $leaveApproval = OgsApproval::create($validatedData);
+
+    // Retrieve the academic leave request associated with the approval
+    $academicLeaveRequest = $leaveApproval->academicLeaveRequest;
+
+    // Get the student associated with the academic leave request
+    $student = $academicLeaveRequest->student;
+
+    // Send an email notification to the student
+    Mail::to($student->user->email)->send(new AcademicLeaveRequestApproval($academicLeaveRequest)); // Corrected mail class
+
+    // Redirect back with success message
+    return redirect('/')->with("message", "Approved");
+}
+
+public function registrarApprove(Request $request)
+{
+    $validatedData = $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'ogs_approval_date' => 'required|date',
+        'status' => 'required|string',
+        'academic_leave_request_id' => 'required|exists:academic_leave_requests,id', // Validate the academic_leave_request_id
+    ]);
+
+    // Create a new leave approval record
+    $leaveApproval = RegistrarApproval::create($validatedData);
+
+    // Retrieve the academic leave request associated with the approval
+    $academicLeaveRequest = $leaveApproval->academicLeaveRequest;
+
+    // Get the student associated with the academic leave request
+    $student = $academicLeaveRequest->student;
+
+    // Send an email notification to the student
+    Mail::to($student->user->email)->send(new AcademicLeaveRequestApproval($academicLeaveRequest)); // Corrected mail class
+
+    // Redirect back with success message
+    return redirect('/')->with("message", "Approved");
+}
 
 }

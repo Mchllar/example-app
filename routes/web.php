@@ -62,13 +62,10 @@ Route::get('/resend-registration-otp', [UserController::class, 'resendRegOtp'])-
 
 // Route to show forgot password form
 Route::get('/forgot-password', [UserController::class, 'showForgotPasswordForm'])->name('password.forgot');
-
 // Route to show reset password form
 Route::get('/reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('password.reset');
-
 // Route to handle password reset
 Route::post('/reset-password', [UserController::class, 'reset'])->name('password.update');
-
 // Route to handle email for password reset
 Route::post('/forgot-password', [UserController::class, 'email'])->name('password.email');
 
@@ -115,51 +112,54 @@ Route::post('/submit-reports-and-minutes/{thesis}', [AdminController::class, 'su
 Route::get('/adminThesis', [AdminController::class, 'admin'])->name('thesis.admin');
 
 //Supervisees
-Route::get('/view.supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee');
+Route::get('/view.supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee')->middleware('auth');
 
 // Progress Report Routes
-Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index');
-Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create');
-Route::post('/progress_reports', [ProgressReportController::class, 'store'])->name('progress_reports.store');
-Route::get('/progress_reports/sectionA', [ProgressReportController::class, 'sectionA'])->name('progress_reports.sectionA');
-Route::post('/progress_reports/storeSectionA', [ProgressReportController::class, 'storeSectionA'])->name('progress_reports.storeSectionA');
-Route::get('/progress_reports/sectionB', [ProgressReportController::class, 'sectionB'])->name('progress_reports.sectionB');
-Route::post('/progress_reports/storeSectionB', [ProgressReportController::class, 'storeSectionB'])->name('progress_reports.storeSectionB');
-Route::get('/progress_reports/sectionC/{studentId}/{reportingPeriod}', [ProgressReportController::class, 'sectionC'])->name('progress_reports.sectionC');
-Route::post('/progress_reports/storeSectionC', [ProgressReportController::class, 'storeSectionC'])->name('progress_reports.storeSectionC');
-Route::get('/progress_reports/sectionD/{studentId}/{reportingPeriod}', [ProgressReportController::class, 'sectionD'])->name('progress_reports.sectionD');
-Route::post('/progress_reports/storeSectionD', [ProgressReportController::class, 'storeSectionD'])->name('progress_reports.storeSectionD');
-Route::get('/progress_reports/updateReport', [ProgressReportController::class, 'updateReport'])->name('progress_reports.updateReport');
-Route::get('/progress_reports/completeReport', [ProgressReportController::class, 'completeReport'])->name('progress_reports.completeReport');
+Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index')->middleware('auth');
+Route::get('/progress_reports/create', [ProgressReportController::class, 'create'])->name('progress_reports.create')->middleware('auth');
+Route::post('/progress_reports', [ProgressReportController::class, 'store'])->name('progress_reports.store')->middleware('auth');
+Route::get('/progress_reports/sectionA', [ProgressReportController::class, 'sectionA'])->name('progress_reports.sectionA')->middleware('auth');
+Route::post('/progress_reports/storeSectionA', [ProgressReportController::class, 'storeSectionA'])->name('progress_reports.storeSectionA')->middleware('auth');
+Route::get('/progress_reports/sectionB', [ProgressReportController::class, 'sectionB'])->name('progress_reports.sectionB')->middleware('auth');
+Route::post('/progress_reports/storeSectionB', [ProgressReportController::class, 'storeSectionB'])->name('progress_reports.storeSectionB')->middleware('auth');
+Route::get('/progress_reports/sectionC/{studentId}/{reportingPeriod}', [ProgressReportController::class, 'sectionC'])->name('progress_reports.sectionC')->middleware('auth');
+Route::post('/progress_reports/storeSectionC', [ProgressReportController::class, 'storeSectionC'])->name('progress_reports.storeSectionC')->middleware('auth');
+Route::get('/progress_reports/sectionD/{studentId}/{reportingPeriod}', [ProgressReportController::class, 'sectionD'])->name('progress_reports.sectionD')->middleware('auth');
+Route::post('/progress_reports/storeSectionD', [ProgressReportController::class, 'storeSectionD'])->name('progress_reports.storeSectionD')->middleware('auth');
+Route::get('/progress_reports/updateReport', [ProgressReportController::class, 'updateReport'])->name('progress_reports.updateReport')->middleware('auth');
+Route::get('/progress_reports/completeReport', [ProgressReportController::class, 'completeReport'])->name('progress_reports.completeReport')->middleware('auth');
 
 //Route::get('/progress_reports/final_submission', [ProgressReportController::class, 'showFinalSubmissionPage'])->name('progress_reports.final_submission');
 //Route::post('/progress_reports/finalSubmission', [ProgressReportController::class, 'finalSubmission'])->name('progress_reports.finalSubmission');
 
 //Academic Request
-Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'create'])->name('academic_leave.create');
-Route::post('/academic_leave/store', [AcademicLeaveRequestController::class, 'store'])->name('academic_leave.store');
-Route::get('/academic_leave/approve', [AcademicLeaveRequestController::class, 'approve'])->name('academic_leave.approve');
-Route::post('/academic_leave/storeApprove', [AcademicLeaveRequestController::class, 'storeApprove'])->name('academic_leave.storeApprove');
-Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'viewRequests'])->name('academic_leave.view');
+Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'create'])->name('academic_leave.create')->middleware('auth');
+Route::post('/academic_leave/store', [AcademicLeaveRequestController::class, 'store'])->name('academic_leave.store')->middleware('auth');
+Route::get('/academic_leave/approve', [AcademicLeaveRequestController::class, 'approve'])->name('academic_leave.approve')->middleware('auth');
+Route::post('/academic_leave/storeApprove', [AcademicLeaveRequestController::class, 'storeApprove'])->name('academic_leave.storeApprove')->middleware('auth');
+Route::post('/academic_leave/facultyApprove', [AcademicLeaveRequestController::class, 'facultyApprove'])->name('academic_leave.facultyApprove')->middleware('auth');
+Route::post('/academic_leave/ogsApprove', [AcademicLeaveRequestController::class, 'ogsApprove'])->name('academic_leave.ogsApprove')->middleware('auth');
+Route::post('/academic_leave/registrarApprove', [AcademicLeaveRequestController::class, 'registrarApprove'])->name('academic_leave.registrarApprove')->middleware('auth');
+Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'viewRequests'])->name('academic_leave.view')->middleware('auth');
 
 // Define routes for SupervisorAllocationController
-Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation');
-Route::get('/supervisorStudentAllocation', [SupervisorAllocationController::class, 'supervisorStudentAllocation'])->name('supervisorStudentAllocation');Route::get('/allocationStudent', [SupervisorAllocationController::class, 'allocationStudent'])->name('allocationStudent');
-Route::get('/allocationStudent', [SupervisorAllocationController::class, 'allocationStudent'])->name('allocationStudent');
-Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])->name('allocation');
-Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store');
-Route::get('/allocation/{id}/edit', [SupervisorAllocationController::class, 'edit'])->name('allocation.edit');
-Route::put('/allocation/{id}', [SupervisorAllocationController::class, 'update'])->name('allocation.update');
-Route::get('/changeSupervisor',[SupervisorAllocationController::class, 'changeSupervisor'])->name('changeSupervisor');
-Route::post('/changeSupervisor/store',[SupervisorAllocationController::class, 'storeChangeSupervisor'])->name('changeSupervisor.store');
-Route::get('/review-change-supervisor-requests', [SupervisorAllocationController::class, 'reviewChangeSupervisorRequests'])->name('reviewChangeSupervisorRequests');
-Route::get('/viewStudentForm/{studentId}', [SupervisorAllocationController::class, 'viewStudentForm'])->name('viewStudentForm');
-Route::post('/storeSchoolApproval',[SupervisorAllocationController::class, 'storeSchoolApproval'])->name('storeSchoolApproval');
-Route::post('/storeBoardApproval',[SupervisorAllocationController::class, 'storeBoardApproval'])->name('storeBoardApproval');
-Route::post('/storeDirectApproval',[SupervisorAllocationController::class, 'storeDirectorApproval'])->name('storeDirectorApproval');
+Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation')->middleware('auth');
+Route::get('/supervisorStudentAllocation', [SupervisorAllocationController::class, 'supervisorStudentAllocation'])->name('supervisorStudentAllocation')->middleware('auth');
+Route::get('/allocationStudent', [SupervisorAllocationController::class, 'allocationStudent'])->name('allocationStudent')->middleware('auth');
+Route::get('/allocation', [SupervisorAllocationController::class, 'allocation'])->name('allocation')->middleware('auth');
+Route::post('/allocation/store', [SupervisorAllocationController::class, 'store'])->name('allocation.store')->middleware('auth');
+Route::get('/allocation/{id}/edit', [SupervisorAllocationController::class, 'edit'])->name('allocation.edit')->middleware('auth');
+Route::put('/allocation/{id}', [SupervisorAllocationController::class, 'update'])->name('allocation.update')->middleware('auth');
+Route::get('/changeSupervisor',[SupervisorAllocationController::class, 'changeSupervisor'])->name('changeSupervisor')->middleware('auth');
+Route::post('/changeSupervisor/store',[SupervisorAllocationController::class, 'storeChangeSupervisor'])->name('changeSupervisor.store')->middleware('auth');
+Route::get('/review-change-supervisor-requests', [SupervisorAllocationController::class, 'reviewChangeSupervisorRequests'])->name('reviewChangeSupervisorRequests')->middleware('auth');
+Route::get('/viewStudentForm/{studentId}', [SupervisorAllocationController::class, 'viewStudentForm'])->name('viewStudentForm')->middleware('auth');
+Route::post('/storeSchoolApproval',[SupervisorAllocationController::class, 'storeSchoolApproval'])->name('storeSchoolApproval')->middleware('auth');
+Route::post('/storeBoardApproval',[SupervisorAllocationController::class, 'storeBoardApproval'])->name('storeBoardApproval')->middleware('auth');
+Route::post('/storeDirectApproval',[SupervisorAllocationController::class, 'storeDirectorApproval'])->name('storeDirectorApproval')->middleware('auth');
 
 
-Route::get('/reporting-periods', [ReportingPeriodController::class, 'index'])->name('reporting-periods.index');
-Route::get('/reporting-periods/create', [ReportingPeriodController::class, 'create'])->name('reporting-periods.create');
-Route::post('/reporting-periods', [ReportingPeriodController::class, 'store'])->name('reporting-periods.store');
-Route::delete('/reporting-periods/{id}', [ReportingPeriodController::class, 'destroy'])->name('reporting-periods.destroy');
+Route::get('/reporting-periods', [ReportingPeriodController::class, 'index'])->name('reporting-periods.index')->middleware('auth');
+Route::get('/reporting-periods/create', [ReportingPeriodController::class, 'create'])->name('reporting-periods.create')->middleware('auth');
+Route::post('/reporting-periods', [ReportingPeriodController::class, 'store'])->name('reporting-periods.store')->middleware('auth');
+Route::delete('/reporting-periods/{id}', [ReportingPeriodController::class, 'destroy'])->name('reporting-periods.destroy')->middleware('auth');

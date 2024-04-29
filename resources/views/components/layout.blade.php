@@ -88,73 +88,77 @@
         <nav :class="{ 'hidden': !open, 'block': open }">
             <a href="/"><img class="w-38" src="{{ asset('images/School-of-Graduate-Studies-logo.png') }}"
                     alt="Logo"></a>
-            <ul class="mt-6 space-y-4">
-                @auth
-                <li>
-                    <span class="font-bold"> Welcome, {{ auth()->user()->name }}</span>
-                </li>
-                <li class="font-bold">
-                    <form class="inline" method="POST" action="/logout">
-                        @csrf
-                        <button type="logout">
-                            <i class="fa-solid fa-door-closed"></i> Logout
-                        </button>
-                    </form>
-                </li>
-                @if(auth()->check())
-                @switch(auth()->user()->role_id)
-                @case(1) {{-- Student --}}
-                <li class="font-bold"><a href="/">Home</a></li>
-                <li class="font-bold"><a href="{{ route('changeSupervisor') }}">Request Change of Supervisor</a></li>
-                <li class="font-bold"><a href="{{ route('progress_reports.index')}}">Submit Progress Report</a></li>
-                <li class="font-bold"><a href="{{ route('journal.index')}}"> Journal Publication</a></li>
-                <li class="font-bold"><a href="{{ route('conference.index')}}"> Conference Publication</a></li>
-                <li class="font-bold"><a href="{{ route('thesis.index')}}">Thesis/Dissertation</a></li>
-                <li class="font-bold"><a href="{{ route('academic_leave.create') }}">Request for Academic
-                        Leave</a></li>
-                <li class="font-bold"><a href="{{ route('conference.review')}}">Request for Conference Approval</a></li>
-                <li class="font-bold"><a href="{{ route('notice.submission')}}">Submit Notice Of Intent</a></li>
-                @break
-                @case(2) {{-- Supervisor --}}
-                <li class="font-bold"><a href="/">Home</a></li>
-                <li class="font-bold"><a href="{{ route('thesis.index')}}">Approve Thesis</a></li>
-                <li class="font-bold"><a href="{{route('progress_reports.updateReport')}}">Update Progress
-                        Report</a></li>
-                <li class="font-bold"><a href="{{ route('view.supervisee')}}">View Students</a></li>
-                @break
-                @case(3) {{-- Staff --}}
-                <li class="font-bold"><a href="/">Home</a></li>
-                <li class="font-bold"><a href="{{ route('supervisorAllocation') }}">List of Students</a></li>
-                <li class="font-bold"><a href="{{ route('supervisorStudentAllocation') }}">List of
-                        Supervisors</a></li>
-                <li class="font-bold"><a href="{{ route('reviewChangeSupervisorRequests') }}">View Change of
-                        Supervisor Requests</a></li>
-                <li class="font-bold"><a href="{{ route('academic_leave.view')}}">Student Leave Requests</a></li>
-                <li class="font-bold"><a href="{{ route('thesis.index')}}">Thesis Submissions</a></li>
-                <li class="font-bold"><a href="{{ route('journal.index')}}"> Journal Publications</a></li>
-                <li class="font-bold"><a href="{{ route('conference.index')}}"> Conference Publications</a></li>
-                <li class="font-bold"><a href="#">Send Thesis Correction or Reminders</a></li>
-                <li class="font-bold"><a href="{{ route('review.record')}}">Conference Review Requests</a></li>
-                <li class="font-bold"><a href="{{ route('notice.record')}}">Notices Of Intent</a></li>
-                <li class="font-bold"><a href="{{ route('reporting-periods.index')}}">Update Reporting
-                        Periods</a></li>
-                <li class="font-bold"><a href="{{route('progress_reports.completeReport')}}">Complete Progress
-                        Report</a></li>
-                @break
-                @endswitch
-                @endif
-                @else
-                <li>
-                    <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i>
-                        Register</a>
-                </li>
-                <li>
-                    <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        Login</a>
-                </li>
-                @endauth
-
-            </ul>
+                    <ul class="mt-6 space-y-4">
+                        @auth
+                        <li>
+                            <span class="font-bold" style="color: black;"><i class="fas fa-user"></i> {{ auth()->user()->name }}</span>
+                        </li>
+                        <li class="font-bold">
+                            <form class="inline" method="POST" action="/logout">
+                                @csrf
+                                <button type="logout">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </button>
+                            </form>
+                        </li>
+                        @if(auth()->check())
+                        @switch(auth()->user()->role_id)
+                        @case(1) {{-- Student --}}
+                        <li class="font-bold"><a href="/"><i class="fas fa-home"></i>Home</a></li>
+                        <li class="font-bold"><a href="{{ route('changeSupervisor') }}"><i class="fas fa-user-graduate"></i>Request Change of Supervisor</a></li>
+                        <li class="font-bold"><a href="{{ route('progress_reports.index')}}"><i class="fas fa-chart-line"></i>Submit Progress Report</a></li>
+                        <li class="font-bold"><a href="{{ route('journal.index')}}"><i class="fas fa-book"></i>Journal Publication</a></li>
+                        <li class="font-bold"><a href="{{ route('conference.index')}}"><i class="fas fa-users"></i>Conference Publication</a></li>
+                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-file-alt"></i>Thesis/Dissertation</a></li>
+                        <li class="font-bold"><a href="{{ route('academic_leave.create') }}"><i class="fas fa-graduation-cap"></i>Request for Academic
+                                Leave</a></li>
+                        <li class="font-bold"><a href="{{ route('conference.review')}}"><i class="fas fa-check-circle"></i>Request for Conference Approval</a></li>
+                        <li class="font-bold"><a href="{{ route('notice.submission')}}"><i class="fas fa-sticky-note"></i>Submit Notice Of Intent</a></li><br>
+                        @break
+                        @case(2) {{-- Supervisor --}}
+                        <li class="font-bold"><a href="/"><i class="fas fa-home"></i>Home</a></li>
+                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-check-circle"></i>Approve Thesis</a></li>
+                        <li class="font-bold"><a href="{{route('progress_reports.updateReport')}}"><i class="fas fa-chart-line"></i>Update Progress
+                                Report</a></li>
+                        <li class="font-bold"><a href="{{ route('view.supervisee')}}"><i class="fas fa-user-graduate"></i>View Students</a></li>
+                        <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"></i>Student Leave Requests</a></li>
+                        @break
+                        @case(3) {{-- Staff --}}
+                        <li class="font-bold"><a href="/"><i class="fas fa-home"></i>Home</a></li>
+                        <li class="font-bold"><a href="/register" class="hover:text-laravel"><i class="fas fa-user-plus"></i>
+                                Register New Users</a>
+                        </li>
+                        <li class="font-bold"><a href="{{ route('supervisorAllocation') }}"><i class="fas fa-graduation-cap"></i>List of Students</a></li>
+                        <li class="font-bold"><a href="{{ route('supervisorStudentAllocation') }}"><i class="fas fa-user-graduate"></i>List of
+                                Supervisors</a></li>
+                        <li class="font-bold"><a href="{{ route('reviewChangeSupervisorRequests') }}"><i class="fas fa-exchange-alt"></i>View Change of
+                                Supervisor Requests</a></li>
+                        <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"></i>Student Leave Requests</a></li>
+                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-file-alt"></i>Thesis Submissions</a></li>
+                        <li class="font-bold"><a href="{{ route('journal.index')}}"><i class="fas fa-book"></i> Journal Publications</a></li>
+                        <li class="font-bold"><a href="{{ route('conference.index')}}"><i class="fas fa-users"></i> Conference Publications</a></li>
+                        <li class="font-bold"><a href="#"><i class="fas fa-envelope"></i>Send Thesis Correction or Reminders</a></li>
+                        <li class="font-bold"><a href="{{ route('review.record')}}"><i class="fas fa-check-circle"></i>Conference Review Requests</a></li>
+                        <li class="font-bold"><a href="{{ route('notice.record')}}"><i class="fas fa-sticky-note"></i>Notices Of Intent</a></li>
+                        <li class="font-bold"><a href="{{ route('reporting-periods.index')}}"><i class="fas fa-calendar-alt"></i>Update Reporting
+                                Periods</a></li>
+                        <li class="font-bold"><a href="{{route('progress_reports.completeReport')}}"><i class="fas fa-chart-line"></i>Complete Progress
+                                Report</a></li><br>
+                        @break
+                        @endswitch
+                        @endif
+                        @else
+                        <li>
+                            <a href="/register" class="hover:text-laravel"><i class="fas fa-user-plus"></i>
+                                Register</a>
+                        </li>
+                        <li>
+                            <a href="/login" class="hover:text-laravel"><i class="fas fa-arrow-right"></i>
+                                Login</a>
+                        </li>
+                        @endauth
+                    </ul>
+                    
         </nav>
     </div>
 
