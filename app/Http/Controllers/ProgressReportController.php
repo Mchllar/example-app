@@ -82,15 +82,13 @@ class ProgressReportController extends Controller
     {
         // Validation of form data
         $validatedData = $request->validate([
-            'student_id' => 'nullable|exists:students,id',
-            'principal_supervisor_id' => 'nullable|exists:users,id',
             'goals_set' => 'required|string',
             'progress_report' => 'required|string',
             'problems_issues' => 'required|string',
             'agreed_goals' => 'required|string',
             'students_progress_rating' => 'required|integer',
         ]);
-    
+        //dd($validatedData);
         // Retrieve session data
         $studentId = session('student_id');
         $reportingPeriod = session('reporting_period');
@@ -253,6 +251,6 @@ class ProgressReportController extends Controller
             // This could involve creating a new progress report record or displaying an error message
         }
     
-        return redirect('/')->with('message', 'Updated successfully');
+        return redirect('/')->with('message', 'Completed successfully');
     }
 }
