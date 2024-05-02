@@ -25,6 +25,9 @@ class Journal extends Model
         return $this->hasMany(Notice::class);
     }
     
-
+    public function journalApproval()
+    {
+        return $this->belongsTo(JournalApproval::class);
+    }
     
 }

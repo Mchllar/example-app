@@ -247,8 +247,16 @@
             button[type="submit"]:hover {
                 background-color:green; 
             }
-        </style>
+            .document-link {
+                cursor: pointer; 
+            }
 
+            .document-link.available {
+                color: blue; 
+                text-decoration: underline; 
+            }
+            
+        </style>
     </head>
     <body>
         <div id="pdfContainer">
@@ -265,150 +273,119 @@
                             <tr>
                                 <th>Student Name</th>
                                 <th>ID</th>
-                                <th>Thesis/Dissertation File</th>
-                                <th>Submission Type</th>
-                                <th>Submission Date</th>
-                                <th>Correction Form</th>
-                                <th>Correction Summary</th>
-                                <th>Clearance</th>
-                                <th>Report</th>
-                                <th>Minutes</th>    
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($thesis as $row)
-                                <tr>
-                                    <td>{{ $row->user->name }}</td>
-                                    <td>{{ $row->user->student->student_number }}</td>
+                            @php
+                                $groupedThesis = $thesis->groupBy('user_id');
+                            @endphp
+                            @foreach ($groupedThesis as $userId => $theses)
+                                @php
+                                    $user = $theses->first()->user;
+                                @endphp
+                                <tr class="student-row">
                                     <td>
-                                        <div class="file-info">
-                                            <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $row->thesis_document) }}')">View Thesis</span>
-                                        </div>
+                                        <button class="toggle-details-btn" data-student-id="{{ $user->id }}">{{ $user->name }} ▶ </button>
                                     </td>
-                                    <td>
-                                        @if ($row['submission_type'] == 1)
-                                            Pre Defense
-                                        @elseif ($row['submission_type'] == 2)
-                                            Post Defense
-                                        @else
-                                            Unknown
-                                        @endif
+                                    <td>{{ $user->student->student_number }}</td>
+                                </tr>
+                                <tr class="details-row" id="details-{{ $user->id }}" style="display: none;">
+                                    <td colspan="2">
+                                        <strong>Thesis/Dissertation Details for {{ $user->name }}</strong><br>
+                                        <table class="inner-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Thesis/Dissertation File</th>
+                                                    <th>Submission Type</th>
+                                                    <th>Submission Date</th>
+                                                    <th>Supervisors</th>
+                                                    <th>Reports</th>
+                                                    <th>Minutes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($theses as $thesis)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="file-info">
+                                                                <span class="document-link available" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ $thesis->submission_type == 1 ? 'Pre Defense' : ($thesis->submission_type == 2 ? 'Post Defense' : 'Unknown') }}</td>
+                                                        <td>{{ $thesis->updated_at }}</td>
+                                                        <td>
+                                                            @if ($user->student && $user->student->supervisors->isEmpty())
+                                                                <span style="color: red;">No supervisor assigned</span>
+                                                            @else
+                                                                @foreach ($user->student->supervisors as $supervisor)
+                                                                    {{ $supervisor->name }} ({{ $supervisor->pivot->approved ? 'Approved' : 'Not Approved' }})<br>
+                                                                @endforeach
+                                                                @if (auth()->user()->role_id == 1 && !$user->student->supervisors->isEmpty())
+                                                                    <button class="send-reminder-btn">Send Reminder</button>
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($thesis->report)
+                                                                <div class="file-info">
+                                                                    <span class="document-link available" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">View Report</span>
+                                                                </div>
+                                                            @else
+                                                                <button type="button" onclick="document.getElementById('reports{{ $thesis->id }}').click();">
+                                                                    Upload Report
+                                                                </button>                                     
+                                                                <form id="uploadForm{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <input type="file" id="reports{{ $thesis->id }}" name="report" required accept=".pdf"><br>
+                                                                </form>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($thesis->minutes)
+                                                                <div class="file-info">
+                                                                    <span class="document-link available" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">View Minutes</span>
+                                                                </div>
+                                                            @else
+                                                                <button type="button" onclick="document.getElementById('uploadMinutes{{ $thesis->id }}').click();">
+                                                                    Upload Minutes
+                                                                </button> 
+                                                                <form id="uploadFormMinutes{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <input type="file" id="uploadMinutes{{ $thesis->id }}" name="minutes" required accept=".pdf"><br>                                     
+                                                                </form>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </td>
-                                    <td>{{ $row['updated_at'] }}</td> 
-                                    <td class="center-cell">
-                                        <span class="document-link" onclick="openDocument('{{ asset('correction_forms/' . $row->correction_form) }}')">
-                                            {{ $row->correction_form ? 'View Form' : '-' }}
-                                        </span>
-                                    </td>
-                                    <td class="center-cell">
-                                        <span class="document-link" onclick="openDocument('{{ asset('correction_summaries/' . $row->correction_summary) }}')">
-                                            {{ $row->correction_summary ? 'View Summary' : '-' }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <?php
-                                            // Retrieve the student record based on the user_id from the theses table
-                                            $student = \App\Models\Student::where('user_id', $row->user_id)->first();
-
-                                            if ($student) {
-                                                // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
-                                                $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
-
-                                                if ($supervisorIds->isEmpty()) {
-                                                    echo '<span style="color: red;">No supervisor assigned</span>';
-                                                } else {
-                                                    // Initialize an array to store supervisor names and their respective statuses
-                                                    $supervisorsInfo = [];
-                                                    $supervisorEmails = [];
-
-                                                    foreach ($supervisorIds as $supervisorId) {
-                                                        // Retrieve the supervisor's name
-                                                        $supervisorName = \App\Models\User::find($supervisorId)->name;
-
-                                                        // Retrieve the supervisor's email
-                                                        $supervisorEmail = \App\Models\User::find($supervisorId)->email;
-
-                                                        // Check if the supervisor has approved the document
-                                                        $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
-                                                            ->where('submission_id', $row->id)
-                                                            ->first();
-
-                                                        // Determine the status based on approval existence
-                                                        $status = $approval ? 'Approved' : 'Not Approved';
-
-                                                        // Add supervisor's name and status to the array
-                                                        $supervisorsInfo[] = [
-                                                            'name' => $supervisorName,
-                                                            'status' => $status
-                                                        ];
-
-                                                        // Add supervisor's email to the array if not approved
-                                                        if ($status != 'Approved') {
-                                                            $supervisorEmails[] = $supervisorEmail;
-                                                        }
-                                                    }
-
-                                                    // Display supervisor names and their respective statuses 
-                                                    foreach ($supervisorsInfo as $supervisorInfo) {
-                                                        echo $supervisorInfo['name'] . ' (' . $supervisorInfo['status'] . ')<br>';
-                                                    }
-
-                                                    // Display the 'Send Reminder' button if user role is student (role_id == 1) and supervisor emails are not empty
-                                                    if (auth()->user()->role_id == 1 && !empty($supervisorEmails)) {
-                                                        echo '<button id="sendReminderBtn">Send Reminder</button>';
-                                                    }
-                                                }
-                                            }
-                                        ?>
-                                    </td> 
-                                    @if ($row->report)
-                                        <td class="center-cell">
-                                            <span class="document-link" onclick="openDocument('{{ asset('examination_reports/' . $row->report->report) }}')">
-                                                View Report
-                                            </span>
-                                        </td> <!-- View Report -->
-                                    @else 
-                                        <td> <!-- Upload Report -->
-                                            <button type="button" onclick="document.getElementById('reports{{ $row->id }}').click();">
-                                                Upload Report 
-                                            </button>                                     
-                                            <form id="uploadForm1{{ $row->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $row->id]) }}" enctype="multipart/form-data">
-                                                @csrf
-                                                <input type="file" id="reports{{ $row->id }}" name="report" required accept=".pdf"><br>
-                                            </form>
-                                        </td>
-                                        <td> <!-- Empty Minutes column -->
-                                            <!-- This column is intentionally left empty -->
-                                        </td>
-                                    @endif
-
-                                    @if ($row->minutes)
-                                        <td class="center-cell">
-                                            <span class="document-link" onclick="openDocument('{{ asset('minutes/' . $row->minutes->minutes) }}')">
-                                                View Minutes
-                                            </span>
-                                        </td> <!-- View Minutes -->
-                                    @else
-                                        <td> <!-- Upload Minutes -->
-                                            <button type="button" onclick="document.getElementById('uploadMinutes{{ $row->id }}').click();">
-                                                Upload Minutes
-                                            </button> 
-                                            <form id="uploadFormMinutes{{ $row->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $row->id]) }}" enctype="multipart/form-data">
-                                                @csrf
-                                                <input type="file" id="uploadMinutes{{ $row->id }}" name="minutes" required accept=".pdf"><br>                                     
-                                            </form>
-                                        </td> 
-                                    @endif
-                                    </tr>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-
             @else
-                <p style="margin-top: 50px;">Currently, No Thesis has been  Submitted.</p>   
+                <p style="margin-top: 50px;">Currently, No Thesis has been submitted.</p>   
             @endif
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const toggleButtons = document.querySelectorAll('.toggle-details-btn');
+                    toggleButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            const studentId = button.getAttribute('data-student-id');
+                            const detailsRow = document.getElementById(`details-${studentId}`);
+                            if (detailsRow) {
+                                detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+                            }
+                        });
+                    });
+                });
+            </script>
         </x-layout>
+
+
 
         <script>
             function confirmSubmit(event, route) {

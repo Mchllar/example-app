@@ -68,7 +68,7 @@ class ConferenceReviewController extends Controller
         // Get the admin ID from the authenticated user
         $adminId = auth()->user()->id;
 
-        // Retrieve the thesis ID from the submission ID
+        // Retrieve the review ID from the submission ID
         $criteriaId = $request->input('criteria_id');
 
         // Create a new ReviewApproval instance
