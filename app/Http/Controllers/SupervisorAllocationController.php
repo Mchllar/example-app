@@ -111,6 +111,13 @@ public function allocationStudent()
         $allocation->student_id = $request->student_id;
         $allocation->supervisor_id = $request->supervisor_id;
         $allocation->save();
+        // Handle document upload
+        if ($request->hasFile('contract')) {
+            $contract = $request->file('contract');
+            $contract_path = $contract->getClientOriginalName();
+            $contract->move(public_path('contract'), $contract_path);
+            $allocation->contract = $contract_path;
+        }
 
         if ($request->is('allocation')) {
             return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');

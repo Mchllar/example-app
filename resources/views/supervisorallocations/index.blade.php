@@ -24,18 +24,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <thead>
-                            <tr>
-                                <th class="grey-cell px-4 py-2">Supervisor</th>
-                                <th class="grey-cell px-4 py-2">Start Date</th>
-                                <th class="grey-cell px-4 py-2">End Date</th>
-                                <th class="grey-cell px-4 py-2">Notes</th>
-                                <th class="grey-cell px-4 py-2">Status</th>
-                                <th class="grey-cell px-4 py-2">Contract</th>
-                                <th class="gre-cell px-4 py-2">Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        <tbody class="hidden" id="allocation-{{ $student->id }}">
                             @if($student->supervisorAllocations()->exists())
                                 @foreach($student->supervisorAllocations as $allocation)
                                     <tr>
@@ -58,11 +47,12 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td class="border px-4 py-2" colspan="6">No supervisor allocation found.</td>
+                                    <td class="border px-4 py-2" colspan="7">No supervisor allocation found.</td>
                                 </tr>
                             @endif
                         </tbody>
                     </table>
+                    <button onclick="toggleAllocation({{ $student->id }})" class="text-blue-500">View Supervisor's</button>
                 @endforeach
             @endif
         </div>
@@ -74,3 +64,10 @@
         background-color: #f3f4f6;
     }
 </style>
+
+<script>
+    function toggleAllocation(studentId) {
+        var allocationTable = document.getElementById("allocation-" + studentId);
+        allocationTable.classList.toggle("hidden");
+    }
+</script>

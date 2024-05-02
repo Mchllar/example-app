@@ -35,7 +35,7 @@ Route::get('/', [UserController::class, 'showLandingPage'])->name('landing')->mi
 
 //ALL USER AUTH ROUTES
 //Showing the register form
-Route::get('/register', [UserController::class, 'register'])->middleware('guest');
+Route::get('/register', [UserController::class, 'register'])->middleware('auth');
 
 
 //Show login form

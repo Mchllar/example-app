@@ -1,4 +1,3 @@
-@component('mail::message')
 <h2>Academic Leave Request Notification</h2>
 
 <p>Dear Student,

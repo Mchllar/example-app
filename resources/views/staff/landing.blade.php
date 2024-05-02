@@ -82,6 +82,9 @@
                         <a href="/" class="font-bold hover:underline">Home</a>
                     </li>
                     <li class="mx-4 my-2">
+                        <a href="/register" class="font-bold hover:underline">Register new users</a>
+                    </li>
+                    <li class="mx-4 my-2">
                         <a href="{{ route('supervisorAllocation') }}" class="font-bold hover:underline">List of Students</a>
                     </li>
                     <li class="mx-4 my-2">

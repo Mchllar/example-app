@@ -150,8 +150,8 @@ class UserController extends Controller
         // Handle profile picture upload
         $profilePath = null;
         if ($request->hasFile('profile')) {
-            $profilePath = $request->file('profile')->store('profiles', 'public');
-        }
+            $profilePath = $request->file('profile')->store('images', 'public');
+        }        
         
         // Store user details and role-specific data
         $userData = [
@@ -183,7 +183,14 @@ class UserController extends Controller
             Student::create($studentData);
         } elseif ($validatedData['role'] == 2) {
             // Supervisor-specific fields
-            $supervisorData = [
+            if ($request->hasFile('curriculum_vitae')) {
+                $curriculumVitaeFile = $request->file('curriculum_vitae');
+                $curriculumVitaePath = $curriculumVitaeFile->store('cv', 'public'); // Store the file in the public/cv directory
+            } else {
+                // Handle case where file is not provided
+            }
+                    
+               $supervisorData = [
                 'curriculum_vitae' => $request->file('curriculum_vitae')->store('cv', 'public'),
                 'school_id' => $request->input('school'),
                 'user_id' => $user->id, // Associate with the created user
@@ -200,7 +207,7 @@ class UserController extends Controller
         Mail::to($validatedData['email'])->send(new UserRegistered($password, $resetLink));
     
         // Redirect to landing page
-        return redirect('/')->with('message', 'Registration successful! An email has been sent to this User with login details.');
+        return redirect()->route('supervisorAllocation')->with('message', 'Registration successful! An email has been sent to this User with login details.');
     }
 
     
