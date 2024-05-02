@@ -8,6 +8,7 @@ class Thesis extends Model
         'user_id', 
         'submission_type', 
         'thesis_document', 
+
        ];
 
         public function student()
@@ -23,6 +24,16 @@ class Thesis extends Model
         public function approvals(){
 
             return $this->belongsTo(ThesisApprovals::class);
+        }
+        
+        public function minutes(){
+
+            return $this->hasOne(ThesesMinutes::class, 'submission_id');
+        }
+
+        public function report(){
+
+            return $this->hasOne(ThesesReports::class, 'submission_id');
         }
         
  

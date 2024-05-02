@@ -15,6 +15,7 @@ use App\Http\Controllers\AcademicLeaveRequestController;
 use App\Http\Controllers\SupervisorAllocationController;
 use App\Http\Controllers\SuperviseeController;
 use App\Http\Controllers\ReportingPeriodController;
+use App\Http\Controllers\AdminController;
 
 
 
@@ -107,13 +108,8 @@ Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.u
 Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
 Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
 Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
-Route::post('/thesis.admin', [ThesisController::class, 'adminStore'])->name('thesis.adminStore');
-Route::get('/thesis_records_admin/{user_id}/{submission_type}', [ThesisController::class, 'admin'])->name('thesis.admin');
-Route::get('/thesis.admin_index/{user_id}/{submission_type}', [ThesisController::class, 'adminIndex'])->name('thesis.adminIndex');
-
-//Route::get('/check-submission', 'ThesisController@checkSubmission')->middleware('auth')->name('check-submission');
-
-
+Route::post('/submit-reports-and-minutes/{thesis}', [AdminController::class, 'submitReportsAndMinutes'])->name('admin.submit-reports-and-minutes');
+Route::get('/adminThesis', [AdminController::class, 'admin'])->name('thesis.admin');
 
 //Supervisees
 Route::get('/view.supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee')->middleware('auth');
