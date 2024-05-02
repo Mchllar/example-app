@@ -8,17 +8,18 @@
 
                     <div class="mb-4">
                         <label for="supervisor_id" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Supervisor') }}</label>
-                        <select id="supervisor_id" class="form-select border border-gray-300 @error('supervisor_id') border-red-500 @enderror" name="supervisor_id" required>
-                            <option value="">-- Select Supervisor --</option>
-                            @foreach($supervisors as $supervisor)
-                                <option value="{{ $supervisor->id }}" @if(old('supervisor_id') == $supervisor->id) selected @endif>{{ optional($supervisor)->name }}</option>
-                            @endforeach
-                        </select>
-                    
+                        @foreach($supervisors as $supervisor)
+                            @if(old('supervisor_id') == $supervisor->id || $supervisor->id == request()->query('supervisor_id'))
+                                <label>{{ $supervisor->name }}</label>
+                                <input type="hidden" name="supervisor_id" value="{{ $supervisor->id }}">
+                            @endif
+                        @endforeach
                         @error('supervisor_id')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
+                    
+                    
 
                     <div class="mb-4">
                         <label for="start_date" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Start Date') }}</label>
@@ -69,7 +70,7 @@
 
 
                     <div class="mb-4">
-                        <select id="student_id" class="form-select border border-gray-300 @error('student_id') border-red-500 @enderror" name="student_id" required>
+                        <select id="student_id" class="form-select border border-gray-300 @error('student_id') border-red-500 @enderror" name="student_id" required size="5">
                             <option value="">-- Select Student --</option>
                             @foreach($students as $student)
                             <option value="{{ $student->id }}">{{ $student->user->name }}</option>

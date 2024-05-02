@@ -1,4 +1,3 @@
-@component('mail::message')
 # Academic Leave Request Notification
 
 Dear Staff,
@@ -18,4 +17,4 @@ View Request
 
 Thanks,<br>
 {{ $academicLeaveRequest->student->user->name }}
-@endcomponent
+SGS

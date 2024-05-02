@@ -1,6 +1,5 @@
-@component('mail::message')
-# Your SGS Account Created
-
+<h2>Your SGS Account Created</h2>
+<p>
 Your SGS account has been created.
 
 Your password is: {{ $password }}
@@ -11,6 +10,6 @@ Please reset your password by clicking the button below:
 Reset Password
 @endcomponent
 
-Thanks,<br>
-{{ config('app.name') }}
-@endcomponent
+Regards,<br>
+SGS
+</p>

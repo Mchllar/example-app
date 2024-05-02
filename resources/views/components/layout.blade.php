@@ -148,10 +148,10 @@
                         @endswitch
                         @endif
                         @else
-                        <li>
+                        <!--<li>
                             <a href="/register" class="hover:text-laravel"><i class="fas fa-user-plus"></i>
                                 Register</a>
-                        </li>
+                        </li>-->
                         <li>
                             <a href="/login" class="hover:text-laravel"><i class="fas fa-arrow-right"></i>
                                 Login</a>

@@ -39,7 +39,11 @@
                     <select name="role" class="border border-gray-200 rounded p-2 w-full" id="roleSelect" required>
                         <option value="1">Student</option>
                         <option value="2">Supervisor</option>
-                        <option value="3">Staff</option>
+                        <option value="3">SGS</option>
+                        <option value="4">School Dean</option>
+                        <option value="5">Registrar</option>
+                        <option value="6">Board of Graduate Studies</option>
+                        <option value="7">School Administrator</option>
                     </select>
                 </div>
 

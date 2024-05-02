@@ -36,15 +36,18 @@
         </div>       
       
         <div class="mt-2">
-          <a href="{{ route('password.reset', ['token' => 'your_token_here']) }}" class="text-laravel">Forgot Your Password?</a>
+          <p>
+            Forgot Your Password?
+            <a href="{{ route('password.reset', ['token' => 'your_token_here']) }}" class="text-laravel"> Reset here</a>
+          </p>
       </div>
 
-        <div class="mt-8">
+        <!--<div class="mt-8">
           <p>
             Don't have an account?
             <a href="/register" class="text-laravel">Register</a>
           </p>
-        </div>
+        </div>-->
       </form>
     </x-card>
   </x-layout>

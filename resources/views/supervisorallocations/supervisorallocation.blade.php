@@ -7,17 +7,22 @@
                     @csrf
 
                     <div class="mb-4">
-                        <select id="student_id" class="form-select border border-gray-300 @error('student_id') border-red-500 @enderror" name="student_id" required>
-                            <option value="">-- Select Student --</option>
-                            @foreach($students as $student)
-                                <option value="{{ $student->id }}" @if(old('student_id') == $student->id || $student->id == request()->input('student_id')) selected @endif>{{ optional($student->user)->name }}</option>
-                            @endforeach
-                        </select>
-                    
+                        <label for="student_id" class="block text-gray-700 text-sm font-bold mb-2">Student</label>
+                        @foreach($students as $student)
+                            @if(old('student_id') == $student->id || $student->id == request()->input('student_id'))
+                                <label>{{ optional($student->user)->name }}</label>
+                                <input type="hidden" name="student_id" value="{{ $student->id }}">
+                            @endif
+                        @endforeach
                         @error('student_id')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
+                    
+                    <!--<div class="mb-4">
+                        <input type="hidden" name="student_name" value="{{ optional($student->user)->name }}">
+                        <p>{{ optional($student->user)->name }}</p>
+                    </div>-->
 
                     <div class="mb-4">
                         <label for="start_date" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Start Date') }}</label>
@@ -69,7 +74,7 @@
 
                     <div class="mb-4">
                         <label for="supervisor_id" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Supervisor') }}</label>
-                        <select id="supervisor_id" class="form-select border border-gray-300 @error('supervisor_id') border-red-500 @enderror" name="supervisor_id" required>
+                        <select id="supervisor_id" class="form-select border border-gray-300 @error('supervisor_id') border-red-500 @enderror" name="supervisor_id" required size="5">
                             <option value="">-- Select Supervisor --</option>
                             @foreach($supervisors as $supervisor)
                                 <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
