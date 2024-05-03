@@ -207,7 +207,7 @@ class UserController extends Controller
         Mail::to($validatedData['email'])->send(new UserRegistered($password, $resetLink));
     
         // Redirect to landing page
-        return redirect()->route('supervisorAllocation')->with('message', 'Registration successful! An email has been sent to this User with login details.');
+        return redirect('/')->with('message', 'Registration successful! An email has been sent to this User with login details.');
     }
 
     

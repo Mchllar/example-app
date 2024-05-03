@@ -1,11 +1,12 @@
-<h2>Academic Leave Request Notification</h2>
+<h2 style="color: black;">Academic Leave Request Notification</h2>
 
-<p>Dear Student,
+<p style="color: black;">Dear Student,
 
 Your academic leave has been approved from
 
-
-Leave Start Date:{{ $academicLeaveRequest->leave_start_date }}
-to
-Return Date:{{ $academicLeaveRequest->return_date }}
-Regards<p>
+<ul>
+<li>Leave Start Date:{{ $academicLeaveRequest->leave_start_date }}</li>
+<li>Return Date:{{ $academicLeaveRequest->return_date }}</li>
+</ul>
+Regards
+</p>

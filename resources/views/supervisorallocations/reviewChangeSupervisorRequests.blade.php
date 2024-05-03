@@ -1,5 +1,10 @@
 <!-- resources/views/reviewChangeSupervisorRequests.blade.php -->
-
+<style>
+    .th{
+        background-color:#4CAF50;
+        color: white;
+    }
+</style>
 <x-layout>
     <div class="container mx-auto p-4">
         <h1 class="text-3xl font-bold mb-4 text-center">Review Change Supervisor Requests</h1>
@@ -8,9 +13,9 @@
             <table class="table-auto w-full">
                 <thead>
                     <tr>
-                        <th class="border px-4 py-2">No. of requests</th>
-                        <th class="border px-4 py-2">Student Name</th>
-                        <th class="border px-4 py-2">Program</th>
+                        <th class="th border px-4 py-2">No. of requests</th>
+                        <th class="th border px-4 py-2">Student Name</th>
+                        <th class="th border px-4 py-2">Program</th>
                     </tr>
                 </thead>
                 <tbody>

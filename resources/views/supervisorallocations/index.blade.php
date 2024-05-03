@@ -10,9 +10,9 @@
                     <table class="table-auto w-full mb-4">
                         <thead>
                             <tr>
-                                <th class="grey-cell px-4 py-2">Student Name</th>
-                                <th class="grey-cell px-4 py-2">Program</th>
-                                <th class="grey-cell px-4 py-2">Assign Supervisor</th>
+                                <th>Student Name</th>
+                                <th>Program</th>
+                                <th>Assign Supervisor</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,14 +25,21 @@
                             </tr>
                         </tbody>
                         <tbody class="hidden" id="allocation-{{ $student->id }}">
+                            <tr>
+                                <th>Supervisor Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Notes</th>
+                                <th>Contract</th>
+                                <th>Edit</th>
+                            </tr>
                             @if($student->supervisorAllocations()->exists())
                                 @foreach($student->supervisorAllocations as $allocation)
                                     <tr>
-                                        <td class="border px-4 py-2">{{ $allocation->supervisor->name }}</td>
+                                        <td class="border px-4 py-2">{{ $allocation->supervisor->name }}({{ $allocation->status }})</td>
                                         <td class="border px-4 py-2">{{ $allocation->start_date }}</td>
                                         <td class="border px-4 py-2">{{ $allocation->end_date }}</td>
                                         <td class="border px-4 py-2">{{ $allocation->notes }}</td>
-                                        <td class="border px-4 py-2">{{ $allocation->status }}</td>
                                         <td class="border px-4 py-2">
                                             @if($allocation->contract)
                                                 <a href="{{ asset($allocation->contract) }}" target="_blank">View Contract</a>
@@ -52,7 +59,7 @@
                             @endif
                         </tbody>
                     </table>
-                    <button onclick="toggleAllocation({{ $student->id }})" class="text-blue-500">View Supervisor's</button>
+                    <button onclick="toggleAllocation({{ $student->id }})" class="text-blue-500">View Supervisors</button>
                 @endforeach
             @endif
         </div>
@@ -62,6 +69,10 @@
 <style>
     .grey-cell {
         background-color: #f3f4f6;
+    }
+    th{
+        background-color:#4CAF50;
+        color: white;
     }
 </style>
 
