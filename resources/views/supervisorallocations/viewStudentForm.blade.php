@@ -34,6 +34,10 @@
             </div>
         </div>
     </div>
+    @php
+        $userRole = auth()->user()->role->name ?? null;
+     @endphp
+     @if($userRole === 'School Dean')
     <p class="text-center"><strong>Approve Request</strong></p>
     <div class="centered">
         <div class="form-container max-w-lg mx-auto px-4 py-8 rounded-lg shadow-md">
@@ -56,6 +60,7 @@
             </form>
         </div>
     </div>
+    @elseif($userRole === 'Board of Graduate Studies')
     <p class="text-center"><strong>Approve Request</strong></p>
     <div class="centered">
         <div class="form-container max-w-lg mx-auto px-4 py-8 rounded-lg shadow-md">
@@ -78,6 +83,7 @@
             </form>
         </div>
     </div>
+    @elseif($userRole === 'staff')
     <p class="text-center"><strong>Approve Request</strong></p>
     <div class="centered">
         <div class="form-container max-w-lg mx-auto px-4 py-8 rounded-lg shadow-md">
@@ -100,4 +106,5 @@
             </form>
         </div>
     </div>
+    @endif
 </x-layout>

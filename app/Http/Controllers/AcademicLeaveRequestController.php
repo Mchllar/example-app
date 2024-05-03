@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademicLeaveRequest;
 use App\Models\Student;
-use App\Models\FacultyApproval;
-use App\Models\OgsApproval;
-use App\Models\RegistrarApproval;
+use App\Models\FacultyLeaveApproval;
+use App\Models\OgsLeaveApproval;
+use App\Models\RegistrarLeaveApproval;
 use App\Models\Staff;
 use App\Models\LeaveApproval;
 use App\Models\User;
@@ -132,7 +132,7 @@ public function facultyApprove(Request $request)
     ]);
 
     // Create a new leave approval record
-    $leaveApproval = FacultyApproval::create($validatedData);
+    $leaveApproval = FacultyLeaveApproval::create($validatedData);
 
     // Retrieve the academic leave request associated with the approval
     $academicLeaveRequest = $leaveApproval->academicLeaveRequest;
@@ -157,7 +157,7 @@ public function ogsApprove(Request $request)
     ]);
 
     // Create a new leave approval record
-    $leaveApproval = OgsApproval::create($validatedData);
+    $leaveApproval = OgsLeaveApproval::create($validatedData);
 
     // Retrieve the academic leave request associated with the approval
     $academicLeaveRequest = $leaveApproval->academicLeaveRequest;
@@ -182,7 +182,7 @@ public function registrarApprove(Request $request)
     ]);
 
     // Create a new leave approval record
-    $leaveApproval = RegistrarApproval::create($validatedData);
+    $leaveApproval = RegistrarLeaveApproval::create($validatedData);
 
     // Retrieve the academic leave request associated with the approval
     $academicLeaveRequest = $leaveApproval->academicLeaveRequest;

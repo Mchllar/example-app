@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Change Supervisor Request</h1>
-    <p>Dear Staff Member,</p>
+    <p>Dear Office of Graduate Studies,</p>
     <p>A change supervisor request has been submitted.</p>
     
     <p><strong>Student ID:</strong> {{ $changeSupervisorRequest->student->user->name }}</p>

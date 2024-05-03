@@ -119,9 +119,9 @@ public function allocationStudent()
             $allocation->contract = $contract_path;
         }
 
-        if ($request->is('allocation')) {
+        if ($request->routeIs('allocation')) {
             return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
-        } elseif ($request->is('allocationStudent')) {
+        } elseif ($request->routeIs('allocationStudent')) {
             return redirect()->route('supervisorStudentAllocation')->with('message', 'Allocation created successfully!');
         } else {
             // Default redirect
@@ -255,7 +255,7 @@ public function allocationStudent()
 
         SchoolRequestApproval::create($validatedData);
 
-        return redirect('/')->with('message', 'School leave request approved!');
+        return redirect('/')->with('message', 'Request approved!');
     }
 
     public function storeBoardApproval(Request $request)
@@ -268,7 +268,7 @@ public function allocationStudent()
 
         BoardRequestApproval::create($validatedData);
 
-        return redirect('/')->with('message', 'School leave request approved!');
+        return redirect('/')->with('message', 'Request approved!');
     }
 
     public function storeDirectorApproval(Request $request)
@@ -281,7 +281,7 @@ public function allocationStudent()
 
         DirectorRequestApproval::create($validatedData);
 
-        return redirect()->route('supervisorAllocation')->with('message', 'School leave request approved!');
+        return redirect()->route('supervisorAllocation')->with('message', 'Request approved start here!');
     }
         
 }
