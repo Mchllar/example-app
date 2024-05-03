@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Journal;
+use App\Models\JournalApproval;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -79,5 +80,27 @@ class JournalController extends Controller
         return view('student.journal_records', compact('journals'));
     }
     
+    public function approveJournal(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'submission_id' => 'required|exists:journals,id',
+        ]);
+
+        // Get the admin ID from the authenticated user
+        $adminId = auth()->user()->id;
+
+        // Retrieve the journal ID from the submission ID
+        $journalId = $request->input('submission_id');
+
+        // Create a new JournalApproval instance
+        $approval = new JournalApproval();
+        $approval->submission_id = $journalId;
+        $approval->admin_id = $adminId;
+        $approval->save();
+
+        // Return a success response
+        return redirect('journal.index')->with('message', 'Thesis approved successfully.');
+    } 
     
 }

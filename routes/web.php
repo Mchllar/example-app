@@ -92,12 +92,16 @@ Route::get('/conference/create', [ConferenceController::class, 'create'])->name(
 Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('conference.store');
 //Route::get('/conferenceRecords', [ConferenceController::class, 'records'])->name('conference.records')->middleware('auth');
 Route::get('/conference.index', [ConferenceController::class, 'index'])->name('conference.index');
+Route::post('/conference.approval', [ConferenceController::class, 'approveConference'])->name('conference.approval');
+
 
 //Journal Submission
 Route::get('/journalSubmission', [JournalController::class, 'journalSubmission'])->name('journalSubmission');
 Route::get('/journal/create', [JournalController::class, 'create'])->name('journal.create');
 Route::post('/journalSubmit', [JournalController::class, 'store'])->name('journal.store');
 Route::get('/journal.index', [JournalController::class, 'index'])->name('journal.index')->middleware('auth');
+Route::post('/journal.approval', [JournalController::class, 'approveJournal'])->name('journal.approval');
+
 
 //Thesis
 Route::get('/thesis.index', [ThesisController::class, 'index'])->name('thesis.index');

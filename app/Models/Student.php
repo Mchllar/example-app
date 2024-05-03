@@ -58,4 +58,14 @@ class Student extends Model
     {
         return $this->belongsTo(Thesis::class);
     }
+
+    public function conferenceApproval()
+    {
+        return $this->hasMany(ConferenceApproval::class);
+    }
+
+    public function journalApproval()
+    {
+        return $this->hasMany(JournalApproval::class);
+    }
 }

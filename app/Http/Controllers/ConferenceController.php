@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Conference;
+use App\Models\ConferenceApproval;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class ConferenceController extends Controller
 {
@@ -75,4 +78,27 @@ class ConferenceController extends Controller
             return view('student.conference_records', compact('conferences'));
         }
 
-    }
+        public function approveConference(Request $request)
+        {
+            // Validate the request
+            $request->validate([
+                'submission_id' => 'required|exists:conferences,id',
+            ]);
+
+            // Get the admin ID from the authenticated user
+            $adminId = auth()->user()->id;
+
+            // Retrieve the conference ID from the submission ID
+            $conferenceId = $request->input('submission_id');
+
+            // Create a new ConferenceApproval instance
+            $approval = new ConferenceApproval();
+            $approval->submission_id = $conferenceId;
+            $approval->admin_id = $adminId;
+            $approval->save();
+
+            // Flash success message and variables to the next request
+            return redirect()->route('conference.index')->with('message', 'Conference approved successfully.');
+                            
+        }
+}

@@ -203,6 +203,14 @@
                 height: 80%;
                 border: none;
             }
+            .document-link {
+                cursor: pointer; 
+            }
+
+            .document-link.available {
+                color: blue; 
+                text-decoration: underline; 
+            }
         </style>
 
     </head>
@@ -219,7 +227,7 @@
                     <table class="custom-table">
                         <thead>
                             <tr>
-                                @if(auth()->user()->role_id == 2 || auth()->user()->role_id == 3) 
+                                @if(auth()->user()->role_id == 2 ) 
                                     <th>Student Name</th>
                                 @else
                                     <th>ID</th>
@@ -231,7 +239,7 @@
                                 <th>Correction Summary</th>
                                 <th>Examination Report</th>
                                 <th>Defense Minutes</th>
-                                @if(auth()->user()->role_id == 2 || auth()->user()->role_id == 3) 
+                                @if(auth()->user()->role_id == 2) 
                                     <th>Clearance</th>
                                 @else
                                     <th>Supervisor Clearance</th>  
@@ -243,12 +251,12 @@
                                 <tr>
                                     @if(auth()->user()->role_id == 1)
                                         <td>{{ $thesis['id'] }}</td>
-                                    @elseif(auth()->user()->role_id == 2 || auth()->user()->role_id == 3)
+                                    @elseif(auth()->user()->role_id == 2 )
                                         <td>{{ $thesis->user->name }}</td>                            
                                     @endif
                                     <td>
                                         <div class="file-info">
-                                        <span class="document-link" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>
+                                        <span class="document-link available" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>
                                         </div>
                                     </td>
                                     <td>
@@ -262,34 +270,38 @@
                                     </td>
                                     <td>{{ $thesis['updated_at'] }}</td> 
                                     <td class="center-cell">
-                                        <span class="document-link" onclick="openDocument('{{ asset('correction_forms/' . $thesis->correction_form) }}')">
-                                            {{ $thesis->correction_form ? 'View Form' : '-' }}
-                                        </span>
+                                    @if ($thesis->correction_form)
+                                        <span class="document-link available" onclick="openDocument('{{ asset('correction_forms/' . $thesis->correction_form) }}')">View Form</span>
+                                    @else
+                                        -
+                                    @endif
                                     </td>
                                     <td class="center-cell">
-                                        <span class="document-link" onclick="openDocument('{{ asset('correction_summaries/' . $thesis->correction_summary) }}')">
-                                            {{ $thesis->correction_summary ? 'View Summary' : '-' }}
-                                        </span>
+                                        @if ($thesis->correction_summary)
+                                            <span class="document-link available" onclick="openDocument('{{ asset('correction_summaries/' . $thesis->correction_summary) }}')">View Summary</span>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
                                     <td class="center-cell">
-                                        @if ($thesis->report) {{-- Check if report relationship exists --}}
-                                            <span class="document-link" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">
+                                        @if ($thesis->report)
+                                            <span class="document-link available" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">
                                                 View Report
                                             </span>
                                         @else
-                                            - {{-- Display dash if report relationship does not exist --}}
+                                            - 
                                         @endif
                                     </td>
                                     <td class="center-cell">
                                         @if ($thesis->minutes)
-                                            <span class="document-link" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">
+                                            <span class="document-link available" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">
                                                 View Minutes
                                             </span>
                                         @else
-                                            - {{-- Display dash if minutes relationship does not exist --}}
+                                            - 
                                         @endif
                                     </td>
-                                    @if(auth()->user()->role_id == 1 || auth()->user()->role_id == 3)
+                                    @if(auth()->user()->role_id == 1)
                                     <td>
                                         <?php
                                             // Retrieve the student record based on the user_id from the theses table
@@ -354,6 +366,10 @@
                                                 $approval = \App\Models\ThesisApproval::where('supervisor_id', auth()->user()->id)
                                                                                     ->where('submission_id', $thesis['id'])
                                                                                     ->first();
+
+                                                                                    echo "Conference ID: " . $thesis->id;
+
+                                                                                   
                                             @endphp
                                             
                                             @if($approval)
@@ -466,7 +482,7 @@
 
                     if (new Date(lastSentDate) > twoDaysAgo) {
                         alert('Cannot send reminder yet. Please wait at least 2 days before sending another reminder.');
-                        return; // Prevent further execution
+                        return;
                     }
                 }
 

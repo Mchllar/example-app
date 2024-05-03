@@ -123,6 +123,11 @@
             font-size: 25px;
             line-height: 1.5;
         }
+        .document-link {
+                    color: blue;           
+                    text-decoration: underline;  
+                    cursor: pointer;       
+                }
         </style>
     </head>
     <body>
@@ -206,7 +211,6 @@
                                         <td>
                                             @php
                                                 $approval = \App\Models\ConferenceReviewApproval::where('criteria_id', $row->id)
-                                                                                            ->where('admin_id', auth()->user()->id)
                                                                                             ->exists();
                                             @endphp
                                             

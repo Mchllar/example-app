@@ -129,6 +129,22 @@ class User extends Authenticatable
         return $this->hasMany(SupervisorAllocation::class, 'supervisor_id');
     }
 
+    public function conferenceApproval()
+    {
+        return $this->belongsTo(ConferenceApproval::class);
+
+    }
+    public function journalApproval()
+    {
+        return $this->belongsTo(JournalApproval::class);
+
+    }
+    public function conferenceReview()
+    {
+        return $this->belongsTo(ConferenceReviewApproval::class);
+
+    }
+    
 
 
 }

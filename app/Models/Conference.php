@@ -25,4 +25,11 @@ class Conference extends Model
     public function notice(){
         return $this->belongsTo(Notice::class);
     }
+    
+    public function conferenceApproval()
+    {
+        return $this->hasOne(ConferenceApproval::class, 'submission_id', 'id');
+    }
+
+
 }
