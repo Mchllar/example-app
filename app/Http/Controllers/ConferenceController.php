@@ -50,7 +50,7 @@ class ConferenceController extends Controller
                 // Redirect back with a success message
                 return redirect('conference.index')->with('message', 'Conference Publication submitted successfully.');
             } else {
-                return redirect('conference.index')->with('message', 'Conference Publication upload Failed.'); 
+                return redirect('conference.index')->with('failMessage', 'Conference Publication upload Failed.'); 
             }
 
             

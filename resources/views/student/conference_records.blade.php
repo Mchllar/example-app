@@ -131,54 +131,49 @@
             </style>
         </head>
         <body>
+
         <div id="pdfContainer">
             <button onclick="closeDocument()">Close</button>
             <iframe id="pdfViewer" frameborder="0"></iframe>
         </div>
+
         <x-layout>
-    <div class="main-content">
-        <br>
-        @if (auth()->user()->role_id == 3)
-            <p>List of All Conference Articles:</p>
-            @if (isset($conferences) && !$conferences->isEmpty())
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Student Number</th>
-                            <th>Student Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $groupedConferences = $conferences->groupBy('student_id');
-                        @endphp
-                        @foreach ($groupedConferences as $studentId => $studentConferences)
-                            @php
-                                $student = $studentConferences->first()->student;
-                            @endphp
-                            <tr class="student-row">
-                                <td>{{ $student->student_number }}</td>
-                                <td>{{ $student->user->name }}</td>
-                                <td>
-                                    <button class="toggle-details-btn" data-student-id="{{ $student->id }}">▶ Show Submissions</button>
-                                </td>
-                            </tr>
-                            <tr class="details-row" id="details-{{ $student->id }}" style="display: none;">
-                                <td colspan="3">
-                                    <table class="inner-table">
+            <div class="main-content">
+                @if (auth()->user()->role_id == 3)
+                    @if (isset($conferences) && !$conferences->isEmpty())
+                        <p>List of All Conference Articles:</p>
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student Number</th>
+                                        <th>Student Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $groupedConferences = $conferences->groupBy('student_id');
+                                    @endphp
+                                    @foreach ($groupedConferences as $studentId => $studentConferences)
+                                        @php
+                                            $student = $studentConferences->first()->student;
+                                        @endphp
+
+                                        <tr class="student-row">
+                                            <td>{{ $student->student_number }}</td>
+                                            <td>{{ $student->user->name }}</td>
+                                        </tr>
+                                </tbody>
+                                    <table class="hidden" id="submissions-{{ $student->id }}">
                                         <thead>
-                                            <tr>
-                                                <th>Conference Title & Website</th>
-                                                <th>Title of Paper Presentation</th>
-                                                <th>Status of Paper</th>
-                                                <th>File</th>
-                                                <th>Submission Date</th>
-                                                <th>Clearance</th>
-                                            </tr>
+                                            <th>Conference Title & Website</th>
+                                            <th>Title of Paper Presentation</th>
+                                            <th>Status of Paper</th>
+                                            <th>File</th>
+                                            <th>Submission Date</th>
+                                            <th>Clearance</th>
                                         </thead>
                                         <tbody>
-                                            @foreach ($studentConferences as $conference)
+                                            @foreach ($conferences as $conference)
                                                 <tr>
                                                     <td>{{ $conference->conference_title }}</td>
                                                     <td>{{ $conference->title_of_paper }}</td>
@@ -205,84 +200,71 @@
                                                             </div>
                                                         @endif
                                                     </td>
-
                                                 </tr>
                                             @endforeach
                                         </tbody>
+                                    @endforeach
                                     </table>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <p>No Conference Articles have been submitted.</p>
-            @endif
-        @else
-            <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
-            
-            @if (isset($conferences) && !$conferences->isEmpty())
-                <p>List of Your Conference Articles:</p>
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Conference Title & Website</th>
-                            <th>Title of Paper Presentation</th>
-                            <th>Status of Paper</th>
-                            <th>File</th>
-                            <th>Submission Date</th>
-                            <th>Admin Clearance</th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($conferences as $conference)
-                            <tr>
-                                <td>{{ $conference->conference_title }}</td>
-                                <td>{{ $conference->title_of_paper }}</td>
-                                <td>{{ $conference->status }}</td>
-                                <td>
-                                    <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $conference->file_upload) }}')">View Publication</span>
-                                </td>
-                                <td>{{ $conference->created_at }}</td>
-                                <td>
-                                    @php
-                                    $approval = \App\Models\ConferenceApproval::where('submission_id', $conference->id)->first();
-                                    @endphp
+                            </table>
+                        <button onclick="toggleSubmissions({{ $student->id }})" class="text-blue-500">View Submissions</button>
+                    @else
+                        <p>No Conference Articles have been submitted.</p>
+                    @endif
+                @else
+                    <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
+                    
+                    @if (isset($conferences) && !$conferences->isEmpty())
+                        <p>List of Your Conference Articles:</p>
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Conference Title & Website</th>
+                                    <th>Title of Paper Presentation</th>
+                                    <th>Status of Paper</th>
+                                    <th>File</th>
+                                    <th>Submission Date</th>
+                                    <th>Admin Clearance</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($conferences as $conference)
+                                    <tr>
+                                        <td>{{ $conference->conference_title }}</td>
+                                        <td>{{ $conference->title_of_paper }}</td>
+                                        <td>{{ $conference->status }}</td>
+                                        <td>
+                                            <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $conference->file_upload) }}')">View Publication</span>
+                                        </td>
+                                        <td>{{ $conference->created_at }}</td>
+                                        <td>
+                                            @php
+                                            $approval = \App\Models\ConferenceApproval::where('submission_id', $conference->id)->first();
+                                            @endphp
 
-                                    @if($approval)
-                                        <span class="approval-text" style="color: green;">Approved</span>
-                                    @else
-                                        <span class="approval-text" style="color: red;">Not Approved</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @else
-                <p>You currently have no Conference Articles.</p>
-            @endif
-            <a href="{{ route('conferenceSubmission') }}" class="btn btn-primary">Submit Conference Paper</a>
-        @endif
-    </div>
+                                            @if($approval)
+                                                <span class="approval-text" style="color: green;">Approved</span>
+                                            @else
+                                                <span class="approval-text" style="color: red;">Not Approved</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>You currently have no Conference Articles.</p>
+                    @endif
+                    <a href="{{ route('conferenceSubmission') }}" class="btn btn-primary">Submit Conference Paper</a>
+                @endif
+            </div>
+        </x-layout>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleButtons = document.querySelectorAll('.toggle-details-btn');
-            toggleButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const studentId = button.getAttribute('data-student-id');
-                    const detailsRow = document.getElementById(`details-${studentId}`);
-                    if (detailsRow) {
-                        detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-                    }
-                });
-            });
-        });
-    </script>
-</x-layout>
-
-
+        <script>
+            function toggleSubmissions(studentId) {
+                var journalTable = document.getElementById("submissions-" + studentId);
+                journalTable.classList.toggle("hidden");
+            }
+        </script>
 
         <script>
             function openDocument(pdfUrl) {

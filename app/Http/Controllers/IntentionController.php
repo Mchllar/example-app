@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Notice;
 use App\Models\Journal;
+use App\Models\JournalApproval;
+use App\Models\ConferenceApproval;
 use App\Mail\IntentionMail;
 use App\Models\Conference;
 use Illuminate\Http\Request;
@@ -51,13 +53,23 @@ class IntentionController extends Controller
     public function index()
     {
         // Retrieve the currently authenticated user
-        $user = Auth::user();
+        $user = auth()->user();
 
-        // Retrieve journals submitted by the authenticated user
-        $journals = Journal::where('user_id', Auth::id())->get();
+        // Determine which journals to retrieve based on user's role
+        if ($user->role_id == 3) {
+            // User is an admin (role ID 3): Retrieve all journals
+            $notices = Notice::all();
+        } elseif ($user->role_id == 1) {
+            // User is a student (role ID 1): Retrieve journals submitted by the student
+            $journals = Journal::where('user_id', $user->id)->get();
 
-        // Retrieve conferences submitted by the authenticated user
-        $conferences = Conference::where('user_id', Auth::id())->get();
+            // Retrieve conferences submitted by the authenticated user
+            $conferences = Conference::where('user_id', Auth::id())->get();
+
+        } else {
+            // Handle other roles as needed (optional)
+            $journals = collect(); // Default to an empty collection if role is unknown
+        }
 
         return view('student.notice', compact('journals', 'conferences'));
     }

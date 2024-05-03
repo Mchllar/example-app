@@ -19,42 +19,46 @@ class AdminController extends Controller
         return view('staff.thesis_admin', compact('thesis'));
     }
 
-    public function submitReportsAndMinutes(Request $request, Thesis $thesis) {
+    public function submitReports(Request $request, Thesis $thesis)
+    {
         $request->validate([
-            'reports' => 'nullable|file|mimes:pdf',
-            'minutes' => 'nullable|file|mimes:pdf',
+            'reports' => 'required|file|mimes:pdf',
         ]);
-    
-        // Handle report file upload
+
         if ($request->hasFile('reports')) {
             $reportFile = $request->file('reports');
             $reportPath = $reportFile->getClientOriginalName();
             $reportFile->move(public_path('examination_reports'), $reportPath);
-            
-            // Create or update report record
+
             ThesesReports::updateOrCreate(
                 ['submission_id' => $thesis->id],
                 ['report' => $reportPath]
             );
-
         }
-    
-        // Handle minutes file upload
+
+        return redirect()->route('adminThesis')->with('message', 'Report submitted successfully.');
+    }
+
+    public function submitMinutes(Request $request, Thesis $thesis)
+    {
+        $request->validate([
+            'minutes' => 'required|file|mimes:pdf',
+        ]);
+
         if ($request->hasFile('minutes')) {
             $minutesFile = $request->file('minutes');
             $minutesPath = $minutesFile->getClientOriginalName();
             $minutesFile->move(public_path('minutes'), $minutesPath);
 
-            // Create or update minutes record
             ThesesMinutes::updateOrCreate(
                 ['submission_id' => $thesis->id],
                 ['minutes' => $minutesPath]
             );
         }
-    
-        $thesis->save(); 
-    
-        return redirect('adminThesis')->with('message', 'Reports and minutes submitted successfully.');
-    }
 
+        return redirect()->route('adminThesis')->with('message', 'Minutes submitted successfully.');
+    }
 }
+    
+
+

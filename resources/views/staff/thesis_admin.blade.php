@@ -10,7 +10,6 @@
                 margin: 0;
                 padding: 0;
         
-                position: relative;
             }
 
             p {
@@ -25,40 +24,31 @@
             }
 
             table {
-                width: 100%;
+                width: 80%;
                 border-collapse: collapse;
-            }
-
-            .table-container {
-                margin: 20px auto;
-                width: 90%;
-                overflow-x: auto; 
+                margin-top: 20px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             th {
                 background-color: #f2f2f2;
                 border: 1px solid #ddd;
-                padding: 10px;
+                padding: 8px;
                 text-align: left;
             }
 
             td {
                 border: 1px solid #ddd;
-                padding: 10px;
+                padding: 8px;
             }
 
             tr:nth-child(even) {
-                background-color: #f9f9f9;
+                background-color: #f2f2f2;
             }
 
             tr:hover {
-                background-color: #f5f5f5;
-            }
-
-            td, th {
-                white-space: nowrap; 
-                overflow: hidden; 
-                text-overflow: ellipsis;
+                background-color: #ddd;
             }
 
             .btn {
@@ -207,7 +197,7 @@
                 display: block;
                 margin: 20px auto; 
                 padding: 6px 15px;
-                background-color: green;
+                background-color: blue;
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -216,7 +206,7 @@
             }
 
             button[type="button"]:hover {
-                background-color:#45a049; 
+                background-color:#4CAF50; 
             }
             .custom-file-upload {
                 display: inline-block;
@@ -232,20 +222,21 @@
             input[type="file"] {
                 display: none;
             }
-            button[type="submit"] {
-                display: block;
-                margin: 20px auto;
-                padding: 6px 15px;
-                background-color: blue;
-                color: white;
+            .upload-button {
+                background-color: #0000FF; 
                 border: none;
-                border-radius: 5px;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
                 cursor: pointer;
-                transition: background-color 0.3s ease; 
+                border-radius: 5px;
             }
 
-            button[type="submit"]:hover {
-                background-color:green; 
+            .upload-button:hover {
+                background-color: #4CAF50; 
             }
             .document-link {
                 cursor: pointer; 
@@ -265,127 +256,132 @@
         </div>
 
         <x-layout>
-            @if (isset($thesis) && !$thesis->isEmpty())
-                <p>List of Thesis/Dissertation Documents</p>
-                <div class="table-container">
-                    <table class="custom-table">
-                        <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th>ID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $groupedThesis = $thesis->groupBy('user_id');
-                            @endphp
-                            @foreach ($groupedThesis as $userId => $theses)
+            <div class="main content">
+                @if (isset($thesis) && !$thesis->isEmpty())
+                    <p>List of Thesis/Dissertation Documents</p>
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Student Number</th>
+                                    <th>Student Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 @php
-                                    $user = $theses->first()->user;
+                                    $groupedThesis = $thesis->groupBy('user_id');
                                 @endphp
-                                <tr class="student-row">
-                                    <td>
-                                        <button class="toggle-details-btn" data-student-id="{{ $user->id }}">{{ $user->name }} ▶ </button>
-                                    </td>
-                                    <td>{{ $user->student->student_number }}</td>
-                                </tr>
-                                <tr class="details-row" id="details-{{ $user->id }}" style="display: none;">
-                                    <td colspan="2">
-                                        <strong>Thesis/Dissertation Details for {{ $user->name }}</strong><br>
-                                        <table class="inner-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Thesis/Dissertation File</th>
-                                                    <th>Submission Type</th>
-                                                    <th>Submission Date</th>
-                                                    <th>Supervisors</th>
-                                                    <th>Reports</th>
-                                                    <th>Minutes</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($theses as $thesis)
-                                                    <tr>
-                                                        <td>
-                                                            <div class="file-info">
-                                                                <span class="document-link available" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $thesis->submission_type == 1 ? 'Pre Defense' : ($thesis->submission_type == 2 ? 'Post Defense' : 'Unknown') }}</td>
-                                                        <td>{{ $thesis->updated_at }}</td>
-                                                        <td>
-                                                            @if ($user->student && $user->student->supervisors->isEmpty())
-                                                                <span style="color: red;">No supervisor assigned</span>
-                                                            @else
-                                                                @foreach ($user->student->supervisors as $supervisor)
-                                                                    {{ $supervisor->name }} ({{ $supervisor->pivot->approved ? 'Approved' : 'Not Approved' }})<br>
-                                                                @endforeach
-                                                                @if (auth()->user()->role_id == 1 && !$user->student->supervisors->isEmpty())
-                                                                    <button class="send-reminder-btn">Send Reminder</button>
-                                                                @endif
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($thesis->report)
-                                                                <div class="file-info">
-                                                                    <span class="document-link available" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">View Report</span>
-                                                                </div>
-                                                            @else
-                                                                <button type="button" onclick="document.getElementById('reports{{ $thesis->id }}').click();">
-                                                                    Upload Report
-                                                                </button>                                     
-                                                                <form id="uploadForm{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <input type="file" id="reports{{ $thesis->id }}" name="report" required accept=".pdf"><br>
-                                                                </form>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($thesis->minutes)
-                                                                <div class="file-info">
-                                                                    <span class="document-link available" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">View Minutes</span>
-                                                                </div>
-                                                            @else
-                                                                <button type="button" onclick="document.getElementById('uploadMinutes{{ $thesis->id }}').click();">
-                                                                    Upload Minutes
-                                                                </button> 
-                                                                <form id="uploadFormMinutes{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <input type="file" id="uploadMinutes{{ $thesis->id }}" name="minutes" required accept=".pdf"><br>                                     
-                                                                </form>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <p style="margin-top: 50px;">Currently, No Thesis has been submitted.</p>   
-            @endif
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const toggleButtons = document.querySelectorAll('.toggle-details-btn');
-                    toggleButtons.forEach(button => {
-                        button.addEventListener('click', function() {
-                            const studentId = button.getAttribute('data-student-id');
-                            const detailsRow = document.getElementById(`details-${studentId}`);
-                            if (detailsRow) {
-                                detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-                            }
-                        });
-                    });
-                });
-            </script>
+                                @foreach ($groupedThesis as $userId => $theses)
+                                    @php
+                                        $user = $theses->first()->user;
+                                    @endphp
+                                    <tr class="student-row">
+                                        <td>{{ $user->student->student_number }}</td>
+                                        <td>{{ $user->name }}</td>
+                                    </tr>
+                            </tbody>
+                                <table class="hidden" id="submissions-{{ $user->id }}">
+                                    <thead>
+                                        <tr>
+                                            <th>Thesis/Dissertation File</th>
+                                            <th>Submission Type</th>
+                                            <th>Submission Date</th>
+                                            <th>Supervisors</th>
+                                            <th>Reports</th>
+                                            <th>Minutes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($theses as $thesis)
+                                            <tr>
+                                                <td>
+                                                    <div class="file-info">
+                                                        <span class="document-link available" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $thesis->submission_type == 1 ? 'Pre Defense' : ($thesis->submission_type == 2 ? 'Post Defense' : 'Unknown') }}</td>
+                                                <td>{{ $thesis->updated_at }}</td>
+                                                <td>
+                                                    @if ($user->student && $user->student->supervisors->isEmpty())
+                                                        <span style="color: red;">No supervisor assigned</span>
+                                                    @else
+                                                        @foreach ($user->student->supervisors as $supervisor)
+                                                            {{ $supervisor->name }} ({{ $supervisor->pivot->approved ? 'Approved' : 'Not Approved' }})<br>
+                                                        @endforeach
+                                                        @if (auth()->user()->role_id == 1 && !$user->student->supervisors->isEmpty())
+                                                            <button class="send-reminder-btn">Send Reminder</button>
+                                                        @endif
+                                                    @endif
+                                                </td>
+                                                
+                                                <td>
+                                                    @if ($thesis->report)
+                                                        <div class="file-info">
+                                                            <span class="document-link available" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">View Report</span>
+                                                        </div>
+                                                    @else
+                                                        <div id="reportUpload{{ $thesis->id }}">
+                                                            <button class="upload-button" type="button" onclick="document.getElementById('reports{{ $thesis->id }}').click();">
+                                                                Upload Report
+                                                            </button>
+                                                            <form id="uploadForm{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <input type="file" id="reports{{ $thesis->id }}" name="reports" required accept=".pdf" onchange="handleFileChange(this, {{ $thesis->id }})">
+                                                                <div id="fileNameContainer{{ $thesis->id }}"></div>
+                                                                <button type="submit" id="submitBtn{{ $thesis->id }}" style="display: none;">Submit Report</button>
+                                                            </form>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($thesis->minutes)
+                                                        <div class="file-info">
+                                                            <span class="document-link available" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">View Minutes</span>
+                                                        </div>
+                                                    @else
+                                                        <button class="upload-button" type="button" onclick="document.getElementById('uploadMinutes{{ $thesis->id }}').click();">
+                                                            Upload Minutes
+                                                        </button> 
+                                                        <form id="uploadFormMinutes{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-minutes', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="file" id="uploadMinutes{{ $thesis->id }}" name="minutes" required accept=".pdf"><br>                                     
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                        </table>
+                    @endforeach
+                    <button onclick="toggleSubmissions({{ $user->id }})" class="text-blue-500">View Submissions</button>
+                @else
+                    <p style="margin-top: 50px;">Currently, No Thesis has been submitted.</p>   
+                @endif
+            </div>
         </x-layout>
 
+        <script>
+            function handleFileChange(input, thesisId) {
+                const fileNameContainer = document.getElementById('fileNameContainer' + thesisId);
+                const submitBtn = document.getElementById('submitBtn' + thesisId);
 
+                if (input.files.length > 0) {
+                    const fileName = input.files[0].name;
+                    fileNameContainer.textContent = fileName;
+                    submitBtn.style.display = 'inline-block';
+                } else {
+                    fileNameContainer.textContent = '';
+                    submitBtn.style.display = 'none';
+                }
+            }
+        </script>
+
+        <script>
+            function toggleSubmissions(userId) {
+                var journalTable = document.getElementById("submissions-" + userId);
+                journalTable.classList.toggle("hidden");
+            }
+        </script>
 
         <script>
             function confirmSubmit(event, route) {
@@ -396,7 +392,7 @@
                 } else {}
             }
         </script>
-
+       
         <script>
             function openDocument(pdfUrl) {
                 // Display the PDF container

@@ -141,76 +141,98 @@
                 @if (auth()->user()->role_id == 3)
                     @if (isset($reviews) && !$reviews->isEmpty())
                         <p>List of Conference Review Criteria</p>
-                        <table>
+                        <table class="custom-table">
                             <thead>
                                 <tr>
                                     <th>Student Number</th>
                                     <th>Student Name</th>
-                                    <th>Document</th>
-                                    <th>Comments</th>
-                                    <th>Submission Date</th>
-                                    <th>Clearance</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($reviews as $row)
-                                    <tr>
-                                        <td>{{ $row->student->student_number }}</td>
-                                        <td>{{ $row->student->user->name }}</td>
-                                        <td>
-                                            <span class="document-link" onclick="openDocument('{{ asset('conference_reviews/' . $row->file_upload) }}')">View Document</span>
-                                        </td>
-                                        <td>{{ $row->comments }}</td>
-                                        <td>{{ $row->updated_at }}</td>
-                                        <td>
-                                            @php
-                                                $approval = \App\Models\ConferenceReviewApproval::where('admin_id', auth()->user()->id)
-                                                                                ->where('criteria_id', $row->id)
-                                                                                ->first();
-                                            @endphp
-                                            
-                                            @if($approval)
-                                                <span class="approval-text" style="color: green;">Approved</span>
-                                            @else
-                                                <div id="approvalContainer{{ $row->id }}" class="approval-container">
-                                                    <form id="approvalForm{{ $row->id }}" action="{{ route('criteria.approval') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="criteria_id" value="{{ $row->id }}">
-                                                        <button id="approveButton{{ $row->id }}" class="approve-button" onclick="approveSubmission({{ $row->id }})">Approve</button>
-                                                    </form>
-                                                </div>
-                                            @endif
-                                        </td>
+                                @php
+                                    $groupedReviews = $reviews->groupBy('student_id');
+                                @endphp
+                                @foreach ($groupedReviews as $studentId => $studentReview)
+                                    @php
+                                        $student = $studentReview->first()->student;
+                                    @endphp
+                                    <tr class="student-row">
+                                        <td>{{ $student->student_number }}</td>
+                                        <td>{{ $student->user->name }}</td>
                                     </tr>
-                                @endforeach
                             </tbody>
+                                <table class="hidden" id="submissions-{{ $student->id }}">
+                                    <thead>
+                                        <tr>
+                                            <th>Student Number</th>
+                                            <th>Student Name</th>
+                                            <th>Document</th>
+                                            <th>Comments</th>
+                                            <th>Submission Date</th>
+                                            <th>Admin Clearance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($studentReview as $review)
+                                            <tr>
+                                                <td>{{ $review->student->student_number }}</td>
+                                                <td>{{ $review->student->user->name }}</td>
+                                                <td>
+                                                    <span class="document-link" onclick="openDocument('{{ asset('conference_reviews/' . $review->file_upload) }}')">View Document</span>
+                                                </td>
+                                                <td>{{ $review->comments }}</td>
+                                                <td>{{ $review->updated_at }}</td>
+                                                <td>
+                                                    @php
+                                                        $approval = \App\Models\ConferenceReviewApproval::where('admin_id', auth()->user()->id)
+                                                                                        ->where('criteria_id', $review->id)
+                                                                                        ->first();
+                                                    @endphp
+                                                    
+                                                    @if($approval)
+                                                        <span class="approval-text" style="color: green;">Approved</span>
+                                                    @else
+                                                        <div id="approvalContainer{{ $review->id }}" class="approval-container">
+                                                            <form id="approvalForm{{ $review->id }}" action="{{ route('criteria.approval') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" name="criteria_id" value="{{ $review->id }}">
+                                                                <button id="approveButton{{ $review->id }}" class="approve-button" onclick="approveSubmission({{ $review->id }})">Approve</button>
+                                                            </form>
+                                                        </div>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                @endforeach
+                                </table>    
                         </table>
+                        <button onclick="toggleSubmissions({{ $student->id }})" class="text-blue-500">View Submissions</button>
                     @else
                         <p>Currently no Reviews have been Submitted.</p>
                     @endif
                 @else
                     @if (isset($reviews) && !$reviews->isEmpty())
-                        <p>List of Conference Review Criteria</p>
-                        <table>
+                        <table class="custom-table">
                             <thead>
                                 <tr>
                                     <th>Document</th>
                                     <th>Comments</th>
                                     <th>Submission Date</th>
-                                    <th>Clearance</th>
+                                    <th>Admin Clearance</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($reviews as $row)
+                                @foreach ($reviews as $review)
                                     <tr>
                                         <td>
-                                            <span class="document-link" onclick="openDocument('{{ asset('conference_reviews/' . $row->file_upload) }}')">View Document</span>
+                                            <span class="document-link" onclick="openDocument('{{ asset('conference_reviews/' . $review->file_upload) }}')">View Document</span>
                                         </td>
-                                        <td>{{ $row->comments }}</td>
-                                        <td>{{ $row->updated_at }}</td>
+                                        <td>{{ $review->comments }}</td>
+                                        <td>{{ $review->updated_at }}</td>
                                         <td>
                                             @php
-                                                $approval = \App\Models\ConferenceReviewApproval::where('criteria_id', $row->id)
+                                                $approval = \App\Models\ConferenceReviewApproval::where('criteria_id', $review->id)
                                                                                             ->exists();
                                             @endphp
                                             
@@ -227,10 +249,17 @@
                     @else
                         <p>You have not submitted any Document for Review.</p>
                     @endif
-                    <a href="{{ route('conference.review') }}" class="btn btn-primary">Submit New Document for Review</a>
+                    <a href="{{ route('conference.review') }}" class="btn btn-primary">Submit New Document</a>
                 @endif
             </div>
         </x-layout>
+
+        <script>
+            function toggleSubmissions(studentId) {
+                var journalTable = document.getElementById("submissions-" + studentId);
+                journalTable.classList.toggle("hidden");
+            }
+        </script>
 
 
 
