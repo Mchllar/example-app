@@ -206,7 +206,21 @@
             }
 
             button[type="button"]:hover {
-                background-color:#4CAF50; 
+                background-color:green; 
+            }
+
+            input[type="submit"] {
+            width: 100%;
+            padding: 5px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #45a049;
             }
             .custom-file-upload {
                 display: inline-block;
@@ -218,7 +232,6 @@
                 border-radius: 5px;
             }
 
-            /* Visually hide the default file input */
             input[type="file"] {
                 display: none;
             }
@@ -244,6 +257,11 @@
 
             .document-link.available {
                 color: blue; 
+                text-decoration: underline; 
+            }
+            .custom-button-text {
+                color: blue; 
+                margin-left: 10%; 
                 text-decoration: underline; 
             }
             
@@ -319,17 +337,23 @@
                                                             <span class="document-link available" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">View Report</span>
                                                         </div>
                                                     @else
-                                                        <div id="reportUpload{{ $thesis->id }}">
-                                                            <button class="upload-button" type="button" onclick="document.getElementById('reports{{ $thesis->id }}').click();">
-                                                                Upload Report
-                                                            </button>
-                                                            <form id="uploadForm{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
-                                                                @csrf
-                                                                <input type="file" id="reports{{ $thesis->id }}" name="reports" required accept=".pdf" onchange="handleFileChange(this, {{ $thesis->id }})">
-                                                                <div id="fileNameContainer{{ $thesis->id }}"></div>
-                                                                <button type="submit" id="submitBtn{{ $thesis->id }}" style="display: none;">Submit Report</button>
-                                                            </form>
-                                                        </div>
+                                                    <form id="uploadForm{{ $thesis->id }}" action="{{ route('admin.submit-reports', ['thesis' => $thesis->id]) }}" method="post" enctype="multipart/form-data">
+    @csrf
+
+    <!-- File input field (hidden by default) -->
+    <input type="file" id="reportInput{{ $thesis->id }}" name="report" style="display: none;" onchange="handleReportSelect(this)">
+
+    <!-- Button to trigger file input -->
+    <button type="button" onclick="document.getElementById('reportInput{{ $thesis->id }}').click();">
+        Choose Report
+    </button>
+
+    <!-- Placeholder for displaying selected file name -->
+    <span id="selectedReportName{{ $thesis->id }}"></span>
+
+    <!-- Submit button (initially hidden) -->
+    <input type="submit" id="submitReportButton{{ $thesis->id }}" style="display: none;">
+</form>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -338,13 +362,24 @@
                                                             <span class="document-link available" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">View Minutes</span>
                                                         </div>
                                                     @else
-                                                        <button class="upload-button" type="button" onclick="document.getElementById('uploadMinutes{{ $thesis->id }}').click();">
-                                                            Upload Minutes
-                                                        </button> 
-                                                        <form id="uploadFormMinutes{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-minutes', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
-                                                            @csrf
-                                                            <input type="file" id="uploadMinutes{{ $thesis->id }}" name="minutes" required accept=".pdf"><br>                                     
-                                                        </form>
+                                                    <form id="uploadForm{{ $thesis->id }}" action="{{ route('admin.submit-minutes', ['thesis' => $thesis->id]) }}" method="post" enctype="multipart/form-data">
+                                                        @csrf
+
+                                                        <!-- File input field (hidden by default) -->
+                                                        <input type="file" id="minutesInput{{ $thesis->id }}" name="minutes" style="display: none;" onchange="handleFileSelect(this)">
+
+                                                        <!-- Button to trigger file input -->
+                                                        <button type="button" onclick="document.getElementById('minutesInput{{ $thesis->id }}').click();">
+                                                            Choose File
+                                                        </button>
+
+                                                        <!-- Placeholder for displaying selected file name -->
+                                                        <span id="selectedFileName{{ $thesis->id }}"></span>
+
+                                                        <!-- Submit button (initially hidden) -->
+                                                        <input type="submit" id="submitButton{{ $thesis->id }}" style="display: none;">
+                                                    </form>
+
                                                     @endif
                                                 </td>
                                             </tr>
@@ -353,34 +388,70 @@
                                 </table>
                         </table>
                     @endforeach
-                    <button onclick="toggleSubmissions({{ $user->id }})" class="text-blue-500">View Submissions</button>
+                    <button  id="toggleButton-{{ $userId }}" onclick="toggleSubmissions({{ $userId }})" class="custom-button-text">View Submissions</button>
                 @else
                     <p style="margin-top: 50px;">Currently, No Thesis has been submitted.</p>   
                 @endif
             </div>
         </x-layout>
+        <script>
+    // Function to handle report selection
+    function handleReportSelect(input) {
+        // Get the submit button and selected report name elements
+        var submitButton = document.getElementById('submitReportButton{{ $thesis->id }}');
+        var reportNameSpan = document.getElementById('selectedReportName{{ $thesis->id }}');
+
+        // Display the submit button if a report has been selected
+        if (input.files && input.files[0]) {
+            submitButton.style.display = 'inline-block'; // Show the submit button
+
+            // Display the selected report name
+            reportNameSpan.textContent = input.files[0].name;
+        } else {
+            submitButton.style.display = 'none'; // Hide the submit button if no report selected
+            reportNameSpan.textContent = ''; // Clear the displayed report name
+        }
+    }
+</script>
 
         <script>
-            function handleFileChange(input, thesisId) {
-                const fileNameContainer = document.getElementById('fileNameContainer' + thesisId);
-                const submitBtn = document.getElementById('submitBtn' + thesisId);
+    // Function to handle file selection
+    function handleFileSelect(input) {
+        // Get the submit button and selected file name elements
+        var submitButton = document.getElementById('submitButton{{ $thesis->id }}');
+        var fileNameSpan = document.getElementById('selectedFileName{{ $thesis->id }}');
 
-                if (input.files.length > 0) {
-                    const fileName = input.files[0].name;
-                    fileNameContainer.textContent = fileName;
-                    submitBtn.style.display = 'inline-block';
-                } else {
-                    fileNameContainer.textContent = '';
-                    submitBtn.style.display = 'none';
-                }
-            }
-        </script>
+        // Display the submit button if a file has been selected
+        if (input.files && input.files[0]) {
+            submitButton.style.display = 'inline-block'; // Show the submit button
+
+            // Display the selected file name
+            fileNameSpan.textContent = input.files[0].name;
+        } else {
+            submitButton.style.display = 'none'; // Hide the submit button if no file selected
+            fileNameSpan.textContent = ''; // Clear the displayed file name
+        }
+    }
+</script>
+
 
         <script>
-            function toggleSubmissions(userId) {
-                var journalTable = document.getElementById("submissions-" + userId);
-                journalTable.classList.toggle("hidden");
-            }
+    function toggleSubmissions(userId) {
+        var submission = document.getElementById("submissions-" + userId);
+        var button = document.getElementById("toggleButton-" + userId);
+
+        // Toggle the visibility of the submission section
+        submission.classList.toggle("hidden");
+
+        // Toggle the button text between "View Submissions" and "Minimize"
+        if (button.textContent === 'View Submissions') {
+            button.textContent = 'Minimize';
+        } else {
+            button.textContent = 'View Submissions';
+        }
+    }
+</script>
+
         </script>
 
         <script>

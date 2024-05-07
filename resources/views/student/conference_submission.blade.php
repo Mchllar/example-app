@@ -1,107 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publication Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-            .container {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-            }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
 
-            .active {
-                color: #007bff; 
-            }
+        .active {
+            color: #007bff; 
+        }
 
-            /* Main content */
-            .main-content {
-                flex: 3;
-                padding: 20px;
-            }
+        /* Main content */
+        .main-content {
+            flex: 3;
+            padding: 20px;
+        }
 
-            /* Form styles */
-            form {
-                width: 100%;
-                max-width: 800px;
-                margin: 40px auto;
-                padding: 20px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                background-color: #fff;
-            }
+        /* Form styles */
+        form {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
 
-            input[type="date"],
-            input[type="text"],
-            select {
-                width: 100%;
-                padding: 8px;
-                margin: 8px 0;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                box-sizing: border-box;
-            }
+        input[type="date"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 
-            input[type="submit"] {
-                width: 30%;
-                padding: 10px;
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
+        input[type="submit"] {
+            width: 30%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-            input[type="submit"]:hover {
-                background-color: #45a049;
-            }
-            p {
-                text-align: justify;
-                font-size: 16px;
-                line-height: 1.5;
-            }
-            h5 {
-                color: red; 
-            }
-        </style>
-    </head>
-    <body>
-        <x-layout>
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        p {
+            text-align: justify;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        h5 {
+            color: red; 
+        }
+    </style>
+</head>
+<body>
+    <x-layout>
+        <div class="container">
             <div class="main-content">         
-                <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
-                    <form action="{{ route('conference.store') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <table>
-                            <tr>
-                                <th>Conference Title & Website</th>
-                                <th>Title of Paper Presentation</th>
-                                <th>Status of Paper</th>
-                            </tr>
-                            <tr>
-                                <td><input type="text" name="conference_title" id="conference_title"></td>
-                                <td><input type="text" name="title_of_paper" id="title_of_paper"></td>
-                                <td>
-                                    <select name="status" id="status">
-                                        <option value="under review">Under Review</option>
-                                        <option value="accepted">Accepted</option>
-                                        <option value="published">Published</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                        </br>
-                        <h3> Upload the actual paper or the acceptance. </h3></br>
-                        <h5>(Upload PDF documents ONLY.)</h5>
-                        <input type="file" name="file_upload"> </br></br>
-                        <input type="submit" value="Submit">
-                    </form>
-                </div>
-            @else 
+                <form action="{{ route('conference.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <table>
+                        <tr>
+                            <th>Conference Title & Website</th>
+                            <th>Title of Paper Presentation</th>
+                            <th>Status of Paper</th>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="conference_title" id="conference_title"></td>
+                            <td><input type="text" name="title_of_paper" id="title_of_paper"></td>
+                            <td>
+                                <select name="status" id="status">
+                                    <option value="under review">Under Review</option>
+                                    <option value="accepted">Accepted</option>
+                                    <option value="published">Published</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    </br>
+                    <h3> Upload the actual paper or the acceptance. </h3></br>
+                    <h5>(Upload PDF documents ONLY.)</h5>
+                    <input type="file" name="file_upload"> </br></br>
+                    <input type="submit" value="Submit">
+                </form>
             </div>
-        </x-layout>
-    </body>
+        </div>
+    </x-layout>
+</body>
 

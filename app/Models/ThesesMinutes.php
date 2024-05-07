@@ -13,8 +13,6 @@ class ThesesMinutes extends Model
 
        ];
 
-       protected $primaryKey = 'id'; 
-
         public function thesis()
         {
             return $this->belongsTo(Thesis::class, 'submission_id');

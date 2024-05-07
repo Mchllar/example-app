@@ -365,11 +365,7 @@
                                                 // Check if a record exists in the thesis approvals table for the current submission and supervisor
                                                 $approval = \App\Models\ThesisApproval::where('supervisor_id', auth()->user()->id)
                                                                                     ->where('submission_id', $thesis['id'])
-                                                                                    ->first();
-
-                                                                                    echo "Conference ID: " . $thesis->id;
-
-                                                                                   
+                                                                                    ->first();                                                                                  
                                             @endphp
                                             
                                             @if($approval)
@@ -550,4 +546,3 @@
         </script>
 
     </body>
-</html>
