@@ -61,31 +61,14 @@
             color: red; 
         }
 
-        button.back-button {
-            padding: 10px 20px;
-            background-color: #0000FF; 
-            border: none;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-            transition: background-color 0.3s ease;
-        }
-
-        button.back-button:hover {
-            background-color: #4CAF50; 
-        }
     </style>
 </head>
-
 <body>
     <x-layout>
         <div class="container">
             <div class="main-content">
                 <form action="{{ route('journal.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-
                     <table>
                         <tr>
                             <th>Journal Title</th>
@@ -111,9 +94,7 @@
                     <h5>(Upload PDF documents ONLY.)</h5>
                     <input type="file" name="file_upload"> <br><br>
                     <input type="submit" value="Submit">
-                </form>
-                
-                <button class="back-button" onclick="window.history.back()">Back</button>
+                </form>   
             </div> 
         </div>
     </x-layout>

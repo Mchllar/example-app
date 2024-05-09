@@ -49,6 +49,24 @@
                 background-color: #4CAF50;
                 color: white;
             }
+        
+            .btn {
+                padding: 4px 8px;
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 5px;
+                width: 14%; 
+                cursor: pointer;
+                margin-top: 20px; 
+                font-family: Arial, sans-serif;
+                display: block; 
+                text-align: center;
+
+            }
+
+            .btn:hover {
+                background-color: #45a049;
+            }
         </style>
 
     </head>
@@ -56,16 +74,57 @@
     <body>
         <x-layout>
             <div class="main-content">
-                
-                @if ($notices->isEmpty())
-                    <p>No notices found.</p>
-                @else
-                <p>Notices of Intention to Submit Theses</p>
-                    <table class="table">
+                @if (auth()->user()->role_id == 3)
+                    @if ($notices->isEmpty())
+                        <p>No Notices have  been posted yet.</p>
+                    @else
+                    <p>Notices of Intention to Submit Theses</p>
+                    <table class="custom-table">
                         <thead>
                             <tr>
                                 <th>Student Number</th>
                                 <th>Student Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $groupedNotices = $notices->groupBy('student_id');
+                            @endphp
+                            @foreach ($groupedNotices as $studentId => $studentNotices)
+                                @php
+                                    $student = $studentNotices->first()->student;
+                                @endphp
+
+                                <tr class="student-row">
+                                    <td>{{ $student->student_number }}</td>
+                                    <td>{{ $student->user->name }}</td>
+                                </tr>
+                        </tbody>
+                        <table class="hidden" id="submissions-{{ $student->id }}">
+                            <thead>
+                                <tr>
+                                    <th>Thesis Title</th>
+                                    <th>Proposed Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($notices as $notice)
+                                    <tr>
+                                       <td>{{ $notice->thesis_title }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($notice->proposed_date)->format('F j, Y') }}</td>
+                                    </tr>
+                                @endforeach   
+                            </tbody>
+                        @endforeach    
+                        </table>
+                    </table>
+                    <button onclick="toggleSubmissions({{ $student->id }})" class="text-blue-500">View Submissions</button>
+                    @endif
+                @else
+                    <p>Notices of Intention to Submit Theses</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
                                 <th>Thesis Title</th>
                                 <th>Proposed Date</th>
                             </tr>
@@ -73,17 +132,23 @@
                         <tbody>
                             @foreach ($notices as $notice)
                                 <tr>
-                                    <td>{{ $notice->student->student_number }}</td>
-                                    <td>{{ $notice->student->user->name }}</td>
                                     <td>{{ $notice->thesis_title }}</td>
                                     <td>{{ \Carbon\Carbon::parse($notice->proposed_date)->format('F j, Y') }}</td>
                                 </tr>
-                            @endforeach
+                            @endforeach   
                         </tbody>
                     </table>
-                @endif
+                    <a href="{{ route('notice.submission') }}" class="btn btn-primary">Submit New Notice</a>
+
+                @endif       
             </div>
         </x-layout>
+        <script>
+            function toggleSubmissions(studentId) {
+                var journalTable = document.getElementById("submissions-" + studentId);
+                journalTable.classList.toggle("hidden");
+            }
+        </script>
     </body>
 </html>    
 

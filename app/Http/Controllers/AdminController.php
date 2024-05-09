@@ -6,55 +6,72 @@ use App\Models\Thesis;
 use App\Models\ThesesReports;
 use App\Models\ThesesMinutes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class AdminController extends Controller
 {
     public function admin() {
 
-        $thesis = Thesis::with('student') // Assuming 'student' is the relationship to the User model for the student
+        $thesis = Thesis::with('student') 
                         ->orderBy('created_at', 'desc')
                         ->get();
 
         return view('staff.thesis_admin', compact('thesis'));
     }
 
-    public function submitReportsAndMinutes(Request $request, Thesis $thesis) {
+    public function submitReports(Request $request, Thesis $thesis)
+    {
         $request->validate([
-            'reports' => 'nullable|file|mimes:pdf',
-            'minutes' => 'nullable|file|mimes:pdf',
+            'report' => 'required|file|mimes:pdf',
         ]);
-    
-        // Handle report file upload
-        if ($request->hasFile('reports')) {
-            $reportFile = $request->file('reports');
+
+        if ($request->hasFile('report')) {
+            $reportFile = $request->file('report');
             $reportPath = $reportFile->getClientOriginalName();
-            $reportFile->move(public_path('examination_reports'), $reportPath);
             
-            // Create or update report record
+            $reportFile->move(public_path('examination_reports'), $reportPath);
+
             ThesesReports::updateOrCreate(
                 ['submission_id' => $thesis->id],
                 ['report' => $reportPath]
             );
 
+            return redirect()->route('thesis.admin')->with('message', 'Report submitted successfully.');
+        } 
+        else {
+            return redirect()->route('thesis.admin')->with('failMessage', 'Submission Failed.');
+
         }
-    
-        // Handle minutes file upload
+
+    }
+
+    public function submitMinutes(Request $request, Thesis $thesis)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'minutes' => 'required|file|mimes:pdf',
+        ]);
+
         if ($request->hasFile('minutes')) {
             $minutesFile = $request->file('minutes');
             $minutesPath = $minutesFile->getClientOriginalName();
+            
             $minutesFile->move(public_path('minutes'), $minutesPath);
 
-            // Create or update minutes record
             ThesesMinutes::updateOrCreate(
                 ['submission_id' => $thesis->id],
                 ['minutes' => $minutesPath]
             );
-        }
-    
-        $thesis->save(); 
-    
-        return redirect('adminThesis')->with('message', 'Reports and minutes submitted successfully.');
-    }
 
-}
+            return redirect()->route('thesis.admin')->with('message', 'Minutes submitted successfully.');
+        } else {
+            return redirect()->route('thesis.admin')->with('error', 'No file uploaded.');
+        }
+
+        }
+
+}  
+
+

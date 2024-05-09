@@ -29,7 +29,7 @@
                     <a href="{{ route('review.record')}}" class="font-bold hover:underline">Request for Conference Approval</a>
                 </li>
                 <li class="mx-4 my-2">
-                    <a href="{{ route('notice.submission')}}" class="font-bold hover:underline">Submit Notice Of Intent</a>
+                    <a href="{{ route('notice.record')}}" class="font-bold hover:underline">Submit Notice Of Intent</a>
                 </li>
             </ul>
         </div>

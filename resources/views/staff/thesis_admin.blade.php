@@ -10,7 +10,6 @@
                 margin: 0;
                 padding: 0;
         
-                position: relative;
             }
 
             p {
@@ -25,40 +24,31 @@
             }
 
             table {
-                width: 100%;
+                width: 80%;
                 border-collapse: collapse;
-            }
-
-            .table-container {
-                margin: 20px auto;
-                width: 90%;
-                overflow-x: auto; 
+                margin-top: 20px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             th {
                 background-color: #f2f2f2;
                 border: 1px solid #ddd;
-                padding: 10px;
+                padding: 8px;
                 text-align: left;
             }
 
             td {
                 border: 1px solid #ddd;
-                padding: 10px;
+                padding: 8px;
             }
 
             tr:nth-child(even) {
-                background-color: #f9f9f9;
+                background-color: #f2f2f2;
             }
 
             tr:hover {
-                background-color: #f5f5f5;
-            }
-
-            td, th {
-                white-space: nowrap; 
-                overflow: hidden; 
-                text-overflow: ellipsis;
+                background-color: #ddd;
             }
 
             .btn {
@@ -207,7 +197,7 @@
                 display: block;
                 margin: 20px auto; 
                 padding: 6px 15px;
-                background-color: green;
+                background-color: blue;
                 color: white;
                 border: none;
                 border-radius: 5px;
@@ -216,7 +206,21 @@
             }
 
             button[type="button"]:hover {
-                background-color:#45a049; 
+                background-color:green; 
+            }
+
+            input[type="submit"] {
+            width: 100%;
+            padding: 5px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #45a049;
             }
             .custom-file-upload {
                 display: inline-block;
@@ -228,24 +232,24 @@
                 border-radius: 5px;
             }
 
-            /* Visually hide the default file input */
             input[type="file"] {
                 display: none;
             }
-            button[type="submit"] {
-                display: block;
-                margin: 20px auto;
-                padding: 6px 15px;
-                background-color: blue;
-                color: white;
+            .upload-button {
+                background-color: #0000FF; 
                 border: none;
-                border-radius: 5px;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
                 cursor: pointer;
-                transition: background-color 0.3s ease; 
+                border-radius: 5px;
             }
 
-            button[type="submit"]:hover {
-                background-color:green; 
+            .upload-button:hover {
+                background-color: #4CAF50; 
             }
             .document-link {
                 cursor: pointer; 
@@ -253,6 +257,11 @@
 
             .document-link.available {
                 color: blue; 
+                text-decoration: underline; 
+            }
+            .custom-button-text {
+                color: blue; 
+                margin-left: 10%; 
                 text-decoration: underline; 
             }
             
@@ -265,127 +274,185 @@
         </div>
 
         <x-layout>
-            @if (isset($thesis) && !$thesis->isEmpty())
-                <p>List of Thesis/Dissertation Documents</p>
-                <div class="table-container">
-                    <table class="custom-table">
-                        <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th>ID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $groupedThesis = $thesis->groupBy('user_id');
-                            @endphp
-                            @foreach ($groupedThesis as $userId => $theses)
+            <div class="main content">
+                @if (isset($thesis) && !$thesis->isEmpty())
+                    <p>List of Thesis/Dissertation Documents</p>
+                        <table class="custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Student Number</th>
+                                    <th>Student Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 @php
-                                    $user = $theses->first()->user;
+                                    $groupedThesis = $thesis->groupBy('user_id');
                                 @endphp
-                                <tr class="student-row">
-                                    <td>
-                                        <button class="toggle-details-btn" data-student-id="{{ $user->id }}">{{ $user->name }} ▶ </button>
-                                    </td>
-                                    <td>{{ $user->student->student_number }}</td>
-                                </tr>
-                                <tr class="details-row" id="details-{{ $user->id }}" style="display: none;">
-                                    <td colspan="2">
-                                        <strong>Thesis/Dissertation Details for {{ $user->name }}</strong><br>
-                                        <table class="inner-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Thesis/Dissertation File</th>
-                                                    <th>Submission Type</th>
-                                                    <th>Submission Date</th>
-                                                    <th>Supervisors</th>
-                                                    <th>Reports</th>
-                                                    <th>Minutes</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($theses as $thesis)
-                                                    <tr>
-                                                        <td>
-                                                            <div class="file-info">
-                                                                <span class="document-link available" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $thesis->submission_type == 1 ? 'Pre Defense' : ($thesis->submission_type == 2 ? 'Post Defense' : 'Unknown') }}</td>
-                                                        <td>{{ $thesis->updated_at }}</td>
-                                                        <td>
-                                                            @if ($user->student && $user->student->supervisors->isEmpty())
-                                                                <span style="color: red;">No supervisor assigned</span>
-                                                            @else
-                                                                @foreach ($user->student->supervisors as $supervisor)
-                                                                    {{ $supervisor->name }} ({{ $supervisor->pivot->approved ? 'Approved' : 'Not Approved' }})<br>
-                                                                @endforeach
-                                                                @if (auth()->user()->role_id == 1 && !$user->student->supervisors->isEmpty())
-                                                                    <button class="send-reminder-btn">Send Reminder</button>
-                                                                @endif
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($thesis->report)
-                                                                <div class="file-info">
-                                                                    <span class="document-link available" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">View Report</span>
-                                                                </div>
-                                                            @else
-                                                                <button type="button" onclick="document.getElementById('reports{{ $thesis->id }}').click();">
-                                                                    Upload Report
-                                                                </button>                                     
-                                                                <form id="uploadForm{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <input type="file" id="reports{{ $thesis->id }}" name="report" required accept=".pdf"><br>
-                                                                </form>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($thesis->minutes)
-                                                                <div class="file-info">
-                                                                    <span class="document-link available" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">View Minutes</span>
-                                                                </div>
-                                                            @else
-                                                                <button type="button" onclick="document.getElementById('uploadMinutes{{ $thesis->id }}').click();">
-                                                                    Upload Minutes
-                                                                </button> 
-                                                                <form id="uploadFormMinutes{{ $thesis->id }}" style="display: none;" method="POST" action="{{ route('admin.submit-reports-and-minutes', ['thesis' => $thesis->id]) }}" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <input type="file" id="uploadMinutes{{ $thesis->id }}" name="minutes" required accept=".pdf"><br>                                     
-                                                                </form>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <p style="margin-top: 50px;">Currently, No Thesis has been submitted.</p>   
-            @endif
+                                @foreach ($groupedThesis as $userId => $theses)
+                                    @php
+                                        $user = $theses->first()->user;
+                                    @endphp
+                                    <tr class="student-row">
+                                        <td>{{ $user->student->student_number }}</td>
+                                        <td>{{ $user->name }}</td>
+                                    </tr>
+                            </tbody>
+                                <table class="hidden" id="submissions-{{ $user->id }}">
+                                    <thead>
+                                        <tr>
+                                            <th>Thesis/Dissertation File</th>
+                                            <th>Submission Type</th>
+                                            <th>Submission Date</th>
+                                            <th>Supervisors</th>
+                                            <th>Reports</th>
+                                            <th>Minutes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($theses as $thesis)
+                                            <tr>
+                                                <td>
+                                                    <div class="file-info">
+                                                        <span class="document-link available" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $thesis->submission_type == 1 ? 'Pre Defense' : ($thesis->submission_type == 2 ? 'Post Defense' : 'Unknown') }}</td>
+                                                <td>{{ $thesis->updated_at }}</td>
+                                                <td>
+                                                    @if ($user->student && $user->student->supervisors->isEmpty())
+                                                        <span style="color: red;">No supervisor assigned</span>
+                                                    @else
+                                                        @foreach ($user->student->supervisors as $supervisor)
+                                                            {{ $supervisor->name }} ({{ $supervisor->pivot->approved ? 'Approved' : 'Not Approved' }})<br>
+                                                        @endforeach
+                                                        @if (auth()->user()->role_id == 1 && !$user->student->supervisors->isEmpty())
+                                                            <button class="send-reminder-btn">Send Reminder</button>
+                                                        @endif
+                                                    @endif
+                                                </td>
+                                                
+                                                <td>
+                                                    @if ($thesis->report)
+                                                        <div class="file-info">
+                                                            <span class="document-link available" onclick="openDocument('{{ asset('examination_reports/' . $thesis->report->report) }}')">View Report</span>
+                                                        </div>
+                                                    @else
+                                                    <form id="uploadForm{{ $thesis->id }}" action="{{ route('admin.submit-reports', ['thesis' => $thesis->id]) }}" method="post" enctype="multipart/form-data">
+    @csrf
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const toggleButtons = document.querySelectorAll('.toggle-details-btn');
-                    toggleButtons.forEach(button => {
-                        button.addEventListener('click', function() {
-                            const studentId = button.getAttribute('data-student-id');
-                            const detailsRow = document.getElementById(`details-${studentId}`);
-                            if (detailsRow) {
-                                detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-                            }
-                        });
-                    });
-                });
-            </script>
+    <!-- File input field (hidden by default) -->
+    <input type="file" id="reportInput{{ $thesis->id }}" name="report" style="display: none;" onchange="handleReportSelect(this)">
+
+    <!-- Button to trigger file input -->
+    <button type="button" onclick="document.getElementById('reportInput{{ $thesis->id }}').click();">
+        Choose Report
+    </button>
+
+    <!-- Placeholder for displaying selected file name -->
+    <span id="selectedReportName{{ $thesis->id }}"></span>
+
+    <!-- Submit button (initially hidden) -->
+    <input type="submit" id="submitReportButton{{ $thesis->id }}" style="display: none;">
+</form>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($thesis->minutes)
+                                                        <div class="file-info">
+                                                            <span class="document-link available" onclick="openDocument('{{ asset('minutes/' . $thesis->minutes->minutes) }}')">View Minutes</span>
+                                                        </div>
+                                                    @else
+                                                    <form id="uploadForm{{ $thesis->id }}" action="{{ route('admin.submit-minutes', ['thesis' => $thesis->id]) }}" method="post" enctype="multipart/form-data">
+                                                        @csrf
+
+                                                        <!-- File input field (hidden by default) -->
+                                                        <input type="file" id="minutesInput{{ $thesis->id }}" name="minutes" style="display: none;" onchange="handleFileSelect(this)">
+
+                                                        <!-- Button to trigger file input -->
+                                                        <button type="button" onclick="document.getElementById('minutesInput{{ $thesis->id }}').click();">
+                                                            Choose File
+                                                        </button>
+
+                                                        <!-- Placeholder for displaying selected file name -->
+                                                        <span id="selectedFileName{{ $thesis->id }}"></span>
+
+                                                        <!-- Submit button (initially hidden) -->
+                                                        <input type="submit" id="submitButton{{ $thesis->id }}" style="display: none;">
+                                                    </form>
+
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                        </table>
+                    @endforeach
+                    <button  id="toggleButton-{{ $userId }}" onclick="toggleSubmissions({{ $userId }})" class="custom-button-text">View Submissions</button>
+                @else
+                    <p style="margin-top: 50px;">Currently, No Thesis has been submitted.</p>   
+                @endif
+            </div>
         </x-layout>
+        <script>
+    // Function to handle report selection
+    function handleReportSelect(input) {
+        // Get the submit button and selected report name elements
+        var submitButton = document.getElementById('submitReportButton{{ $thesis->id }}');
+        var reportNameSpan = document.getElementById('selectedReportName{{ $thesis->id }}');
+
+        // Display the submit button if a report has been selected
+        if (input.files && input.files[0]) {
+            submitButton.style.display = 'inline-block'; // Show the submit button
+
+            // Display the selected report name
+            reportNameSpan.textContent = input.files[0].name;
+        } else {
+            submitButton.style.display = 'none'; // Hide the submit button if no report selected
+            reportNameSpan.textContent = ''; // Clear the displayed report name
+        }
+    }
+</script>
+
+        <script>
+    // Function to handle file selection
+    function handleFileSelect(input) {
+        // Get the submit button and selected file name elements
+        var submitButton = document.getElementById('submitButton{{ $thesis->id }}');
+        var fileNameSpan = document.getElementById('selectedFileName{{ $thesis->id }}');
+
+        // Display the submit button if a file has been selected
+        if (input.files && input.files[0]) {
+            submitButton.style.display = 'inline-block'; // Show the submit button
+
+            // Display the selected file name
+            fileNameSpan.textContent = input.files[0].name;
+        } else {
+            submitButton.style.display = 'none'; // Hide the submit button if no file selected
+            fileNameSpan.textContent = ''; // Clear the displayed file name
+        }
+    }
+</script>
 
 
+        <script>
+    function toggleSubmissions(userId) {
+        var submission = document.getElementById("submissions-" + userId);
+        var button = document.getElementById("toggleButton-" + userId);
+
+        // Toggle the visibility of the submission section
+        submission.classList.toggle("hidden");
+
+        // Toggle the button text between "View Submissions" and "Minimize"
+        if (button.textContent === 'View Submissions') {
+            button.textContent = 'Minimize';
+        } else {
+            button.textContent = 'View Submissions';
+        }
+    }
+</script>
+
+        </script>
 
         <script>
             function confirmSubmit(event, route) {
@@ -396,7 +463,7 @@
                 } else {}
             }
         </script>
-
+       
         <script>
             function openDocument(pdfUrl) {
                 // Display the PDF container

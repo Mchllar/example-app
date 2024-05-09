@@ -112,7 +112,9 @@ Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.u
 Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
 Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
 Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
-Route::post('/submit-reports-and-minutes/{thesis}', [AdminController::class, 'submitReportsAndMinutes'])->name('admin.submit-reports-and-minutes');
+
+Route::post('/submit-reports/{thesis}', [AdminController::class, 'submitReports'])->name('admin.submit-reports');
+Route::post('/submit-minutes/{thesis}', [AdminController::class, 'submitMinutes'])->name('admin.submit-minutes');
 Route::get('/adminThesis', [AdminController::class, 'admin'])->name('thesis.admin');
 
 //Supervisee
