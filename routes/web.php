@@ -115,7 +115,7 @@ Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('t
 Route::post('/submit-reports-and-minutes/{thesis}', [AdminController::class, 'submitReportsAndMinutes'])->name('admin.submit-reports-and-minutes');
 Route::get('/adminThesis', [AdminController::class, 'admin'])->name('thesis.admin');
 
-//Supervisees
+//Supervisee
 Route::get('/view.supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee')->middleware('auth');
 
 // Progress Report Routes
@@ -132,9 +132,6 @@ Route::get('/progress_reports/sectionD/{studentId}/{reportingPeriod}', [Progress
 Route::post('/progress_reports/storeSectionD', [ProgressReportController::class, 'storeSectionD'])->name('progress_reports.storeSectionD')->middleware('auth');
 Route::get('/progress_reports/updateReport', [ProgressReportController::class, 'updateReport'])->name('progress_reports.updateReport')->middleware('auth');
 Route::get('/progress_reports/completeReport', [ProgressReportController::class, 'completeReport'])->name('progress_reports.completeReport')->middleware('auth');
-
-//Route::get('/progress_reports/final_submission', [ProgressReportController::class, 'showFinalSubmissionPage'])->name('progress_reports.final_submission');
-//Route::post('/progress_reports/finalSubmission', [ProgressReportController::class, 'finalSubmission'])->name('progress_reports.finalSubmission');
 
 //Academic Request
 Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'create'])->name('academic_leave.create')->middleware('auth');
