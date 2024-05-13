@@ -112,6 +112,14 @@ class UserController extends Controller
                     $user_id = User::pluck('id');
                     $submission_type = Thesis::pluck('submission_type');
                     return view('staff.landing', compact('user_id', 'submission_type'));
+                case 4:
+                    return view('dean.landing');
+                case 5:
+                    return view('registrar.landing');
+                case 6:
+                    return view('boardOGS.landing');
+                case 7:
+                    return view('schoolAdmin.landing');
                 default:
                     abort(403, 'Unauthorized action.');
             }
@@ -138,14 +146,19 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'role' => 'required|in:1,2,3',
+            'role' => 'required|in:1,2,3,4,5,6,7',
             'date_of_birth' => 'nullable|date',
             'phone_number' => 'nullable|string|max:20',
             'gender' => 'nullable|exists:gender,id',
             'nationality' => 'nullable|exists:country,id',
             'religion' => 'nullable|exists:religion,id',
-            'password' => 'required|string|min:8|confirmed',
         ]);
+
+        // Generate a random password
+        $password = Str::random(12); // Adjust the length of the password as needed
+
+        // Hash the password for storage
+        $hashedPassword = Hash::make($password);
     
         // Handle profile picture upload
         $profilePath = null;
@@ -164,7 +177,7 @@ class UserController extends Controller
             'gender_id' => $validatedData['gender'],
             'country_id' => $validatedData['nationality'],
             'religion_id' => $validatedData['religion'],
-            'password' => Hash::make($validatedData['password']), // Ensure password is hashed
+            'password' => $hashedPassword, // Ensure password is hashed
         ];
     
         // Create user
@@ -201,7 +214,6 @@ class UserController extends Controller
         }
     
         // Send email to user with password and reset link
-        $password = $validatedData['password']; // Get the password
         $resetLink = URL::to('/login'); // Generate the reset link, you may need to adjust this
     
         Mail::to($validatedData['email'])->send(new UserRegistered($password, $resetLink));
