@@ -35,6 +35,10 @@ class Thesis extends Model
 
             return $this->hasOne(ThesesReports::class, 'submission_id');
         }
+        public function reminder()
+        {
+            return $this->hasOne(Reminder::class, 'submission_id', 'id');
+        }
         
  
         

@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     
         <style>
             body {
@@ -150,6 +151,12 @@
 
             #sendReminderBtn:active {
                 background-color: green;
+            }
+
+            .reminder{
+                color: blue;
+                font-style: italic;
+
             }
 
             .confirmation {
@@ -325,6 +332,7 @@
                                                         // Retrieve the supervisor's email
                                                         $supervisorEmail = \App\Models\User::find($supervisorId)->email;
 
+
                                                         // Check if the supervisor has approved the document
                                                         $approval = \App\Models\ThesisApproval::where('supervisor_id', $supervisorId)
                                                             ->where('submission_id', $thesis->id)
@@ -352,7 +360,25 @@
 
                                                     // Display the 'Send Reminder' button if user role is student (role_id == 1) and supervisor emails are not empty
                                                     if (auth()->user()->role_id == 1 && !empty($supervisorEmails)) {
-                                                        echo '<button id="sendReminderBtn">Send Reminder</button>';
+                                                        ?>
+                                                        @if ($thesis->reminder)
+                                                            @php
+                                                                $lastReminderDate = \Carbon\Carbon::parse($thesis->reminder->created_at);
+                                                                $now = \Carbon\Carbon::now();
+                                                                $daysSinceLastReminder = $now->diffInDays($lastReminderDate);
+                                                            @endphp
+
+                                                                @if ($daysSinceLastReminder >= 2)
+                                                                    <button id="sendReminderBtn" data-submission-id="{{ $thesis->id }}">Send Reminder</button>
+                                                                @else
+                                                                    <span style="color: red;">Please wait at least 2 days between reminders.</span>
+                                                                @endif
+                                                        @else
+                                                            <!-- No reminder associated -->
+                                                            <span style="color: green;">No reminder sent yet.</span>
+                                                        @endif
+                                                        <?php    
+
                                                     }
                                                 }
                                             }
@@ -431,6 +457,54 @@
 
         </script>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const sendReminderBtn = document.getElementById('sendReminderBtn');
+
+                if (sendReminderBtn) {
+                    sendReminderBtn.addEventListener('click', function() {
+                        const submissionId = sendReminderBtn.getAttribute('data-submission-id');
+                        const supervisorEmails = <?php echo json_encode($supervisorEmails ?? []); ?>;
+                        const token = '{{ csrf_token() }}';
+
+                        if (Array.isArray(supervisorEmails) && supervisorEmails.length > 0) {
+                            const confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
+
+                            if (confirmation) {
+                                // Send AJAX POST request to send.reminder route
+                                fetch('{{ route('send.reminder') }}', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': token
+                                    },
+                                    body: JSON.stringify({
+                                        submission_id: submissionId,
+                                        emails: supervisorEmails
+                                    })
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Failed to send reminders');
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    alert(data.message); 
+                                    window.location.reload(); 
+                                })
+                                .catch(error => {
+                                    console.error('Error sending reminders:', error);
+                                    alert('Failed to send reminders. Please try again.');
+                                });
+                            }
+                        } else {
+                            console.error("supervisorEmails is not an array or is empty");
+                        }
+                    });
+                }
+            });
+        </script>
 
         <script>
             function uploadNewFile(id) {
@@ -468,71 +542,6 @@
 
         </script>  
 
-        <script>
-            document.getElementById('sendReminderBtn').addEventListener('click', function() {
-                var lastSentDate = localStorage.getItem('lastSentDate');
-
-                if (lastSentDate) {
-                    var twoDaysAgo = new Date();
-                    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
-
-                    if (new Date(lastSentDate) > twoDaysAgo) {
-                        alert('Cannot send reminder yet. Please wait at least 2 days before sending another reminder.');
-                        return;
-                    }
-                }
-
-                // Continue with sending the reminder if allowed
-                var supervisorEmails = <?php echo json_encode($supervisorEmails ?? []); ?>;
-                var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                if (Array.isArray(supervisorEmails)) {
-                    var confirmation = confirm("Reminders will be sent to the following recipients:\n\n" + supervisorEmails.join('\n') + "\n\nContinue?");
-
-                    if (confirmation) {
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('POST', '/sendReminder', true);
-                        xhr.setRequestHeader('Content-Type', 'application/json');
-                        xhr.setRequestHeader('X-CSRF-TOKEN', token);
-
-                        xhr.onreadystatechange = function() {
-                            if (xhr.readyState === 4) {
-                                if (xhr.status === 200) {
-                                    var response = JSON.parse(xhr.responseText);
-                                    alert(response.message);
-
-                                    // Update last sent date in local storage
-                                    localStorage.setItem('lastSentDate', new Date().toISOString());
-                                } else {
-                                    alert('Error: ' + xhr.status);
-                                }
-                            }
-                        };
-                        xhr.send(JSON.stringify({ emails: supervisorEmails }));
-                    }
-                } else {
-                    console.error("supervisorEmails is not an array");
-                }
-            });
-
-            // Function to display sent date from local storage
-            function displaySentDate(sentDate) {
-                var button = document.getElementById('sendReminderBtn');
-                var dateElement = document.createElement('div');
-                dateElement.textContent = 'Reminder sent on: ' + sentDate;
-                dateElement.style.color = 'blue'; // Set text color to blue
-                button.parentNode.insertBefore(dateElement, button.nextSibling);
-            }
-
-            // Load and display sent date when the page loads
-            document.addEventListener('DOMContentLoaded', function() {
-                var storedDate = localStorage.getItem('sentDate');
-                if (storedDate) {
-                    displaySentDate(storedDate);
-                }
-            });
-
-        </script>
 
 
         <script>

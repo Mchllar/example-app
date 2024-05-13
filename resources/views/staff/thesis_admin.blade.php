@@ -338,22 +338,22 @@
                                                         </div>
                                                     @else
                                                     <form id="uploadForm{{ $thesis->id }}" action="{{ route('admin.submit-reports', ['thesis' => $thesis->id]) }}" method="post" enctype="multipart/form-data">
-    @csrf
+                                                        @csrf
 
-    <!-- File input field (hidden by default) -->
-    <input type="file" id="reportInput{{ $thesis->id }}" name="report" style="display: none;" onchange="handleReportSelect(this)">
+                                                        <!-- File input field (hidden by default) -->
+                                                        <input type="file" id="reportInput{{ $thesis->id }}" name="report" style="display: none;" onchange="handleReportSelect(this)">
 
-    <!-- Button to trigger file input -->
-    <button type="button" onclick="document.getElementById('reportInput{{ $thesis->id }}').click();">
-        Choose Report
-    </button>
+                                                        <!-- Button to trigger file input -->
+                                                        <button type="button" onclick="document.getElementById('reportInput{{ $thesis->id }}').click();">
+                                                            Choose Report
+                                                        </button>
 
-    <!-- Placeholder for displaying selected file name -->
-    <span id="selectedReportName{{ $thesis->id }}"></span>
+                                                        <!-- Placeholder for displaying selected file name -->
+                                                        <span id="selectedReportName{{ $thesis->id }}"></span>
 
-    <!-- Submit button (initially hidden) -->
-    <input type="submit" id="submitReportButton{{ $thesis->id }}" style="display: none;">
-</form>
+                                                        <!-- Submit button (initially hidden) -->
+                                                        <input type="submit" id="submitReportButton{{ $thesis->id }}" style="display: none;">
+                                                    </form>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -394,45 +394,46 @@
                 @endif
             </div>
         </x-layout>
-        <script>
-    // Function to handle report selection
-    function handleReportSelect(input) {
-        // Get the submit button and selected report name elements
-        var submitButton = document.getElementById('submitReportButton{{ $thesis->id }}');
-        var reportNameSpan = document.getElementById('selectedReportName{{ $thesis->id }}');
-
-        // Display the submit button if a report has been selected
-        if (input.files && input.files[0]) {
-            submitButton.style.display = 'inline-block'; // Show the submit button
-
-            // Display the selected report name
-            reportNameSpan.textContent = input.files[0].name;
-        } else {
-            submitButton.style.display = 'none'; // Hide the submit button if no report selected
-            reportNameSpan.textContent = ''; // Clear the displayed report name
-        }
-    }
-</script>
 
         <script>
-    // Function to handle file selection
-    function handleFileSelect(input) {
-        // Get the submit button and selected file name elements
-        var submitButton = document.getElementById('submitButton{{ $thesis->id }}');
-        var fileNameSpan = document.getElementById('selectedFileName{{ $thesis->id }}');
+            // Function to handle report selection
+            function handleReportSelect(input) {
+                // Get the submit button and selected report name elements
+                var submitButton = document.getElementById('submitReportButton{{ $thesis->id }}');
+                var reportNameSpan = document.getElementById('selectedReportName{{ $thesis->id }}');
 
-        // Display the submit button if a file has been selected
-        if (input.files && input.files[0]) {
-            submitButton.style.display = 'inline-block'; // Show the submit button
+                // Display the submit button if a report has been selected
+                if (input.files && input.files[0]) {
+                    submitButton.style.display = 'inline-block'; // Show the submit button
 
-            // Display the selected file name
-            fileNameSpan.textContent = input.files[0].name;
-        } else {
-            submitButton.style.display = 'none'; // Hide the submit button if no file selected
-            fileNameSpan.textContent = ''; // Clear the displayed file name
+                    // Display the selected report name
+                    reportNameSpan.textContent = input.files[0].name;
+                } else {
+                    submitButton.style.display = 'none'; // Hide the submit button if no report selected
+                    reportNameSpan.textContent = ''; // Clear the displayed report name
+                }
+            }
+        </script>
+
+        <script>
+        // Function to handle file selection
+        function handleFileSelect(input) {
+            // Get the submit button and selected file name elements
+            var submitButton = document.getElementById('submitButton{{ $thesis->id }}');
+            var fileNameSpan = document.getElementById('selectedFileName{{ $thesis->id }}');
+
+            // Display the submit button if a file has been selected
+            if (input.files && input.files[0]) {
+                submitButton.style.display = 'inline-block'; // Show the submit button
+
+                // Display the selected file name
+                fileNameSpan.textContent = input.files[0].name;
+            } else {
+                submitButton.style.display = 'none'; // Hide the submit button if no file selected
+                fileNameSpan.textContent = ''; // Clear the displayed file name
+            }
         }
-    }
-</script>
+    </script>
 
 
         <script>
