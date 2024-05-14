@@ -104,11 +104,11 @@ class UserController extends Controller
     
         if ($user) {
             switch ($user->role_id) {
-                case 1: // Student
+                case 1:
                     return view('student.landing');
-                case 2: // Supervisor
+                case 2:
                     return view('supervisor.landing');
-                case 3: // Staff
+                case 3:
                     $user_id = User::pluck('id');
                     $submission_type = Thesis::pluck('submission_type');
                     return view('staff.landing', compact('user_id', 'submission_type'));
@@ -214,7 +214,7 @@ class UserController extends Controller
         }
     
         // Send email to user with password and reset link
-        $resetLink = URL::to('/login'); // Generate the reset link, you may need to adjust this
+        $resetLink = URL::to('/login'); // Generate the normal link, one can reset once they access there account
     
         Mail::to($validatedData['email'])->send(new UserRegistered($password, $resetLink));
     
