@@ -36,13 +36,13 @@
                             @if($student->supervisorAllocations()->exists())
                                 @foreach($student->supervisorAllocations as $allocation)
                                     <tr>
-                                        <td class="border px-4 py-2">{{ $allocation->supervisor->name }}({{ $allocation->status }})</td>
+                                        <td class="border px-4 py-2">{{ $allocation->supervisor->name }} ({{ $allocation->status }})</td>
                                         <td class="border px-4 py-2">{{ $allocation->start_date }}</td>
                                         <td class="border px-4 py-2">{{ $allocation->end_date }}</td>
                                         <td class="border px-4 py-2">{{ $allocation->notes }}</td>
                                         <td class="border px-4 py-2">
                                             @if($allocation->contract)
-                                                <a href="{{ asset($allocation->contract) }}" target="_blank">View Contract</a>
+                                                <a href="{{ asset('storage/' . $allocation->contract) }}" target="_blank">View Contract</a>
                                             @else
                                                 None
                                             @endif
@@ -70,8 +70,8 @@
     .grey-cell {
         background-color: #f3f4f6;
     }
-    th{
-        background-color:#4CAF50;
+    th {
+        background-color: #4CAF50;
         color: white;
     }
 </style>

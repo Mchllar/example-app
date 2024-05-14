@@ -78,7 +78,7 @@ public function allocationStudent()
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'notes' => 'required|string',
-            'contract' => 'required|file',
+            'contract' => 'required|file|mimes:pdf,doc,docx',
             'student_id' => 'required|exists:students,id',
             'supervisor_id' => 'required|exists:users,id',
             'status' => 'required|string',
@@ -94,12 +94,7 @@ public function allocationStudent()
         // Handle file upload
         if ($request->hasFile('contract')) {
             $file = $request->file('contract');
-            $path = $file->store('contracts'); // Store the file in the storage/contracts directory
-        } else {
-            return redirect()
-                ->back()
-                ->withErrors(['contract' => 'The contract file is required.'])
-                ->withInput();
+            $path = $file->store('contracts', 'public'); // Store the file in the public storage
         }
 
         // Create SupervisorAllocation instance
@@ -107,26 +102,13 @@ public function allocationStudent()
         $allocation->start_date = $request->start_date;
         $allocation->end_date = $request->end_date;
         $allocation->notes = $request->notes;
-        $allocation->contract = $path; // File path
+        $allocation->contract = $path ?? null; // File path
         $allocation->student_id = $request->student_id;
         $allocation->supervisor_id = $request->supervisor_id;
+        $allocation->status = $request->status;
         $allocation->save();
-        // Handle document upload
-        if ($request->hasFile('contract')) {
-            $contract = $request->file('contract');
-            $contract_path = $contract->getClientOriginalName();
-            $contract->move(public_path('contract'), $contract_path);
-            $allocation->contract = $contract_path;
-        }
 
-        if ($request->routeIs('allocation')) {
-            return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
-        } elseif ($request->routeIs('allocationStudent')) {
-            return redirect()->route('supervisorStudentAllocation')->with('message', 'Allocation created successfully!');
-        } else {
-            // Default redirect
-            return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
-        }
+        return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
     }
 
     public function edit($id)
@@ -144,24 +126,23 @@ public function allocationStudent()
 
     public function update(Request $request, $id)
     {
-        // Validate the form data
         $validator = Validator::make($request->all(), [
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
             'notes' => 'required|string',
-            'contract' => 'nullable|file',
+            'contract' => 'nullable|file|mimes:pdf,doc,docx',
             'student_id' => 'required|exists:students,id',
             'supervisor_id' => 'required|exists:users,id',
             'status' => 'required|string',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-    
+
         // Retrieve the allocation to update
         $allocation = SupervisorAllocation::findOrFail($id);
-    
+
         // Update the allocation details
         $allocation->start_date = $request->start_date;
         $allocation->end_date = $request->end_date;
@@ -169,18 +150,17 @@ public function allocationStudent()
         $allocation->student_id = $request->student_id;
         $allocation->supervisor_id = $request->supervisor_id;
         $allocation->status = $request->status;
-    
+
         // Handle file upload if a new file is provided
         if ($request->hasFile('contract')) {
             $file = $request->file('contract');
-            $path = $file->store('contracts');
+            $path = $file->store('contracts', 'public');
             $allocation->contract = $path;
         }
-    
+
         // Save the updated allocation
         $allocation->save();
-    
-        // Redirect back to the allocation list with a success message
+
         return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation updated successfully!');
     }
     

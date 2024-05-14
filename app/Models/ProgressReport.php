@@ -49,4 +49,10 @@ class ProgressReport extends Model
     {
         return $this->belongsTo(ReportingPeriod::class, 'reporting_periods_id');
     }
+
+    public function isComplete()
+    {
+        // Customize this logic according to your requirements
+        return !empty($this->goals_set) && !empty($this->progress_report) && !empty($this->problems_issues);
+    }
 }

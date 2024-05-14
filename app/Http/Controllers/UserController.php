@@ -104,11 +104,11 @@ class UserController extends Controller
     
         if ($user) {
             switch ($user->role_id) {
-                case 1: // Student
+                case 1:
                     return view('student.landing');
-                case 2: // Supervisor
+                case 2:
                     return view('supervisor.landing');
-                case 3: // Staff
+                case 3:
                     $user_id = User::pluck('id');
                     $submission_type = Thesis::pluck('submission_type');
                     return view('staff.landing', compact('user_id', 'submission_type'));
@@ -138,89 +138,88 @@ class UserController extends Controller
         return redirect('/')->with('message', 'You have been logged out successfully!');
     }
 
-    // Register users
-    public function store(Request $request)
-    {
-        // Validate incoming request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'role' => 'required|in:1,2,3,4,5,6,7',
-            'date_of_birth' => 'nullable|date',
-            'phone_number' => 'nullable|string|max:20',
-            'gender' => 'nullable|exists:gender,id',
-            'nationality' => 'nullable|exists:country,id',
-            'religion' => 'nullable|exists:religion,id',
-        ]);
+      // Register users
+public function store(Request $request)
+{
+    // Validate incoming request data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'role' => 'required|in:1,2,3,4,5,6,7',
+        'date_of_birth' => 'nullable|date',
+        'phone_number' => 'nullable|string|max:20',
+        'gender' => 'nullable|exists:gender,id',
+        'nationality' => 'nullable|exists:country,id',
+        'religion' => 'nullable|exists:religion,id',
+        'curriculum_vitae' => 'nullable|file|mimes:pdf,doc,docx|max:2048', // Validation for CV
+    ]);
 
-        // Generate a random password
-        $password = Str::random(12); // Adjust the length of the password as needed
+    // Generate a random password
+    $password = Str::random(12); // Adjust the length of the password as needed
 
-        // Hash the password for storage
-        $hashedPassword = Hash::make($password);
-    
-        // Handle profile picture upload
-        $profilePath = null;
-        if ($request->hasFile('profile')) {
-            $profilePath = $request->file('profile')->store('images', 'public');
-        }        
-        
-        // Store user details and role-specific data
-        $userData = [
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'profile' => $profilePath,
-            'role_id' => $validatedData['role'],
-            'date_of_birth' => $validatedData['date_of_birth'] ? date('Y-m-d', strtotime($validatedData['date_of_birth'])) : null,
-            'phone_number' => $validatedData['phone_number'],
-            'gender_id' => $validatedData['gender'],
-            'country_id' => $validatedData['nationality'],
-            'religion_id' => $validatedData['religion'],
-            'password' => $hashedPassword, // Ensure password is hashed
-        ];
-    
-        // Create user
-        $user = User::create($userData);
-    
-        // Create role-specific record
-        if ($validatedData['role'] == 1) {
-            // Student-specific fields
-            $studentData = [
-                'student_number' => $request->input('student_number'),
-                'program_id' => $request->input('programme'),
-                'user_id' => $user->id, // Associate with the created user
-            ];
-    
-            // Create student
-            Student::create($studentData);
-        } elseif ($validatedData['role'] == 2) {
-            // Supervisor-specific fields
-            if ($request->hasFile('curriculum_vitae')) {
-                $curriculumVitaeFile = $request->file('curriculum_vitae');
-                $curriculumVitaePath = $curriculumVitaeFile->store('cv', 'public'); // Store the file in the public/cv directory
-            } else {
-                // Handle case where file is not provided
-            }
-                    
-               $supervisorData = [
-                'curriculum_vitae' => $request->file('curriculum_vitae')->store('cv', 'public'),
-                'school_id' => $request->input('school'),
-                'user_id' => $user->id, // Associate with the created user
-            ];
-    
-            // Create staff
-            Staff::create($supervisorData);
-        }
-    
-        // Send email to user with password and reset link
-        $resetLink = URL::to('/login'); // Generate the reset link, you may need to adjust this
-    
-        Mail::to($validatedData['email'])->send(new UserRegistered($password, $resetLink));
-    
-        // Redirect to landing page
-        return redirect('/')->with('message', 'Registration successful! An email has been sent to this User with login details.');
+    // Hash the password for storage
+    $hashedPassword = Hash::make($password);
+
+    // Handle profile picture upload
+    $profilePath = null;
+    if ($request->hasFile('profile')) {
+        $profilePath = $request->file('profile')->store('images', 'public');
     }
+
+    // Store user details and role-specific data
+    $userData = [
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'profile' => $profilePath,
+        'role_id' => $validatedData['role'],
+        'date_of_birth' => $validatedData['date_of_birth'] ? date('Y-m-d', strtotime($validatedData['date_of_birth'])) : null,
+        'phone_number' => $validatedData['phone_number'],
+        'gender_id' => $validatedData['gender'],
+        'country_id' => $validatedData['nationality'],
+        'religion_id' => $validatedData['religion'],
+        'password' => $hashedPassword, // Ensure password is hashed
+    ];
+
+    // Create user
+    $user = User::create($userData);
+
+    // Create role-specific record
+    if ($validatedData['role'] == 1) {
+        // Student-specific fields
+        $studentData = [
+            'student_number' => $request->input('student_number'),
+            'program_id' => $request->input('programme'),
+            'user_id' => $user->id, // Associate with the created user
+        ];
+
+        // Create student
+        Student::create($studentData);
+    } elseif ($validatedData['role'] == 2) {
+        // Supervisor-specific fields
+        $curriculumVitaePath = null;
+        if ($request->hasFile('curriculum_vitae')) {
+            $curriculumVitaePath = $request->file('curriculum_vitae')->store('cv', 'public');
+        }
+
+        $supervisorData = [
+            'curriculum_vitae' => $curriculumVitaePath,
+            'school_id' => $request->input('school'),
+            'user_id' => $user->id, // Associate with the created user
+        ];
+
+        // Create staff
+        Staff::create($supervisorData);
+    }
+
+    // Send email to user with password and reset link
+    $resetLink = URL::to('/login'); // Generate the normal link, one can reset once they access their account
+
+    Mail::to($validatedData['email'])->send(new UserRegistered($password, $resetLink));
+
+    // Redirect to landing page
+    return redirect('/')->with('message', 'Registration successful! An email has been sent to this User with login details.');
+}
 
     
 
