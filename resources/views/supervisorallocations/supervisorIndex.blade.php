@@ -41,7 +41,7 @@
                                         <td class="border px-4 py-2">{{ $allocation->notes }}</td>
                                         <td class="border px-4 py-2">
                                             @if($allocation->contract)
-                                                <a href="{{ asset('contract/' . $allocation->contract) }}" target="_blank">View Contract</a>
+                                                <a href="{{ asset('storage/' . $allocation->contract) }}" target="_blank">View Contract</a>
                                             @else
                                                 None
                                             @endif
