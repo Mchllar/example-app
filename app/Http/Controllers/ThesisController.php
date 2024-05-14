@@ -3,20 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Thesis;
 use App\Models\ThesisApproval;
 use App\Models\ThesesMinutes;
 use App\Models\ThesesReports;
 use App\Models\SupervisorAllocation;
+use App\Models\Reminder;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Staff;
+
 use App\Mail\ThesisSubmitted;
 use App\Mail\ThesisApprovalReminder;
 use App\Mail\DefenseReport;
+
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
 
 
@@ -84,29 +89,28 @@ class ThesisController extends Controller
     }
     
 
-    // View of the Thesis submission
     public function index()
-    {
+    {   
         // Retrieve the currently authenticated user
         $user = Auth::user();
-    
+
         if ($user->role_id == 2) {
             // Retrieve supervisees' theses if the user is a supervisor
             $superviseeUserIds = SupervisorAllocation::where('supervisor_id', $user->id)
                 ->join('students', 'supervisor_allocations.student_id', '=', 'students.id')
                 ->pluck('students.user_id')
                 ->toArray();
-    
-            $thesis = Thesis::with('report', 'minutes')
+
+            $thesis = Thesis::with('report', 'minutes', 'reminder') // Load reminder relationship
                 ->whereIn('user_id', $superviseeUserIds)
                 ->get();
         } else {
             // Retrieve theses submitted by the authenticated user (student)
-            $thesis = Thesis::with('report', 'minutes')
+            $thesis = Thesis::with('report', 'minutes', 'reminder') // Load reminder relationship
                 ->where('user_id', $user->id)
                 ->get();
         }
-    
+
         return view('student.thesis_records', compact('thesis'));
     }
         
@@ -131,40 +135,6 @@ class ThesisController extends Controller
 
         // Return a success response
         return redirect('thesis.index')->with('message', 'Thesis approved successfully.');
-    } 
-
-    public function sendReminder(Request $request) {
-       try {
-            // Retrieve supervisor's emails from the request
-            $emails = $request->input('emails');
-            
-            //Get student name from authenticated user
-            $user = Auth::user();
-            $studentName = $user->name;
-           
-    
-            // Send reminder emails to each recipient
-            foreach ($emails as $email) {
-                Mail::to($email)->send(new ThesisApprovalReminder($studentName));    
-            }
-
-            $sentDate = Carbon::now()->toDateString(); // Get current date (YYYY-MM-DD format)
-
-            // If no exceptions are thrown, return success response
-            return response()->json(['message' => 'Reminder emails sent successfully', 'sent_date' => $sentDate]);
-        } catch (\Exception $e) {
-            // Output the error message to the console or log it
-            dump('Failed to send reminder emails: ' . $e->getMessage());
-    
-            // Return error response
-            return response()->json(['error' => 'Failed to send reminder emails. Please try again later.'], 500);
-        }
     }
 }   
     
-
-
-
-
-
-

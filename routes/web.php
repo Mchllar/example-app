@@ -16,6 +16,8 @@ use App\Http\Controllers\SupervisorAllocationController;
 use App\Http\Controllers\SuperviseeController;
 use App\Http\Controllers\ReportingPeriodController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReminderController;
+
 
 
 
@@ -110,8 +112,11 @@ Route::get('/thesis/create', [ThesisController::class, 'create'])->name('thesis.
 Route::post('/thesisSubmit', [ThesisController::class, 'store'])->name('thesis.store');
 Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update');
 Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
-Route::get('/Reminder', [ThesisController::class, 'Reminder'])->name('thesis.reminder');
-Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
+//Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
+
+//Reminder
+Route::post('/sendReminder', [ReminderController::class, 'sendReminder'])->name('thesis.emails');
+Route::post('/reminder', [ReminderController::class, 'reminder'])->name('send.reminder');
 
 Route::post('/submit-reports/{thesis}', [AdminController::class, 'submitReports'])->name('admin.submit-reports');
 Route::post('/submit-minutes/{thesis}', [AdminController::class, 'submitMinutes'])->name('admin.submit-minutes');
