@@ -176,7 +176,7 @@
             {{$slot}}
             <!-- Conditionally show back button -->
             @if(request()->path() !== '/' && request()->path() !== 'login' && request()->path() !== 'register' && request()->path() !== 'verify-login-otp')
-            <div style="margin-top: 10px; display: flex; justify-content: flex-end;"> <!-- Wrapper for spacing and positioning -->
+            <div style="margin-top: 10px; display: flex; justify-content: flex-end;"> 
                 <button class="back-button" onclick="window.history.back()">Back</button>
             </div>
             @endif

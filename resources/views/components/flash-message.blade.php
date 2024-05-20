@@ -13,14 +13,14 @@
 @endif
 
 @if(session()->has('failmessage'))
-    <div id="failMessage" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white border border-red-700 rounded p-4 shadow-md">
+    <div id="failmessage" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white border border-red-700 rounded p-4 shadow-md">
         <p style="font-family: Arial, sans-serif;">{{ session('failmessage') }}</p>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             setTimeout(function(){
-                document.getElementById('failMessage').style.display = 'none';
+                document.getElementById('failmessage').style.display = 'none';
             }, 2000);
         });
     </script>

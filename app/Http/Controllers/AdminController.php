@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thesis;
+use App\Models\User;
 use App\Models\ThesesReports;
 use App\Models\ThesesMinutes;
+use App\Models\SupervisorAllocation;
+use App\Models\CorrectionReminder;
+use App\Mail\CorrectionReminder as CorrectionReminderMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class AdminController extends Controller
@@ -70,7 +77,56 @@ class AdminController extends Controller
             return redirect()->route('thesis.admin')->with('error', 'No file uploaded.');
         }
 
+    }
+
+    public function correctionReminder(Request $request){
+
+        $thesis = Thesis::where('submission_type', '2')
+                        ->get();
+
+        return view('staff.correction_reminders', compact('thesis'));
+    }
+
+    public function studentReminder(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'user_ids' => 'required|array',
+            'user_ids.*' => 'exists:users,id',
+            'scheduled_date_time' => 'nullable|date'
+        ]);
+
+        $userIds = $request->input('user_ids');
+        $scheduledDateTime = $request->input('scheduled_date_time') ? Carbon::parse($request->input('scheduled_date_time')) : null;
+
+        // Retrieve email addresses of the selected users (students)
+        $emails = Thesis::whereIn('user_id', $userIds)
+                        ->join('users', 'theses.user_id', '=', 'users.id')
+                        ->pluck('users.email')
+                        ->toArray();
+
+        // Send or schedule reminder emails
+        foreach ($emails as $email) {
+            if ($scheduledDateTime) {
+                Mail::to($email)->later($scheduledDateTime, new CorrectionReminderMail());
+            } else {
+                Mail::to($email)->send(new CorrectionReminderMail());
+            }
         }
+
+        // Update or create records to track reminders sent
+        foreach ($userIds as $userId) {
+            CorrectionReminder::updateOrCreate(
+                ['user_id' => $userId],
+                ['sent_at' => $scheduledDateTime ?? now(), 'scheduled_at' => $scheduledDateTime]
+            );
+        }
+
+        // Return success response
+       return response()->json(['message' => $scheduledDateTime ? 'Reminders scheduled successfully' : 'Reminders sent successfully']);
+
+    }
+        
 
 }  
 

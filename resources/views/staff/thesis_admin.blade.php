@@ -319,17 +319,33 @@
                                                 <td>{{ $thesis->submission_type == 1 ? 'Pre Defense' : ($thesis->submission_type == 2 ? 'Post Defense' : 'Unknown') }}</td>
                                                 <td>{{ $thesis->updated_at }}</td>
                                                 <td>
-                                                    @if ($user->student && $user->student->supervisors->isEmpty())
-                                                        <span style="color: red;">No supervisor assigned</span>
-                                                    @else
-                                                        @foreach ($user->student->supervisors as $supervisor)
-                                                            {{ $supervisor->name }} ({{ $supervisor->pivot->approved ? 'Approved' : 'Not Approved' }})<br>
-                                                        @endforeach
-                                                        @if (auth()->user()->role_id == 1 && !$user->student->supervisors->isEmpty())
-                                                            <button class="send-reminder-btn">Send Reminder</button>
-                                                        @endif
-                                                    @endif
+                                                    <?php
+                                                    // Retrieve the student record based on the user_id from the theses table
+                                                    $student = \App\Models\Student::where('user_id', $thesis->user_id)->first();
+
+                                                    if ($student) {
+                                                        // Retrieve supervisor IDs associated with the student from SupervisorAllocation table
+                                                        $supervisorIds = \App\Models\SupervisorAllocation::where('student_id', $student->id)->pluck('supervisor_id');
+
+                                                        if ($supervisorIds->isEmpty()) {
+                                                            echo '<span style="color: red;">No supervisor assigned</span>';
+                                                        } else {
+                                                            // Retrieve supervisor names based on supervisor IDs
+                                                            $supervisors = \App\Models\User::whereIn('id', $supervisorIds)->pluck('name')->toArray();
+
+                                                            // Display supervisor names
+                                                            if (!empty($supervisors)) {
+                                                                echo implode(', ', $supervisors);
+                                                            } else {
+                                                                echo '<span style="color: red;">No supervisor assigned</span>';
+                                                            }
+                                                        }
+                                                    } else {
+                                                        echo '<span style="color: red;">Student not found</span>';
+                                                    }
+                                                    ?>
                                                 </td>
+
                                                 
                                                 <td>
                                                     @if ($thesis->report)
@@ -416,42 +432,42 @@
         </script>
 
         <script>
-        // Function to handle file selection
-        function handleFileSelect(input) {
-            // Get the submit button and selected file name elements
-            var submitButton = document.getElementById('submitButton{{ $thesis->id }}');
-            var fileNameSpan = document.getElementById('selectedFileName{{ $thesis->id }}');
+            // Function to handle file selection
+            function handleFileSelect(input) {
+                // Get the submit button and selected file name elements
+                var submitButton = document.getElementById('submitButton{{ $thesis->id }}');
+                var fileNameSpan = document.getElementById('selectedFileName{{ $thesis->id }}');
 
-            // Display the submit button if a file has been selected
-            if (input.files && input.files[0]) {
-                submitButton.style.display = 'inline-block'; // Show the submit button
+                // Display the submit button if a file has been selected
+                if (input.files && input.files[0]) {
+                    submitButton.style.display = 'inline-block'; // Show the submit button
 
-                // Display the selected file name
-                fileNameSpan.textContent = input.files[0].name;
-            } else {
-                submitButton.style.display = 'none'; // Hide the submit button if no file selected
-                fileNameSpan.textContent = ''; // Clear the displayed file name
+                    // Display the selected file name
+                    fileNameSpan.textContent = input.files[0].name;
+                } else {
+                    submitButton.style.display = 'none'; // Hide the submit button if no file selected
+                    fileNameSpan.textContent = ''; // Clear the displayed file name
+                }
             }
-        }
-    </script>
+        </script>
 
 
         <script>
-    function toggleSubmissions(userId) {
-        var submission = document.getElementById("submissions-" + userId);
-        var button = document.getElementById("toggleButton-" + userId);
+            function toggleSubmissions(userId) {
+                var submission = document.getElementById("submissions-" + userId);
+                var button = document.getElementById("toggleButton-" + userId);
 
-        // Toggle the visibility of the submission section
-        submission.classList.toggle("hidden");
+                // Toggle the visibility of the submission section
+                submission.classList.toggle("hidden");
 
-        // Toggle the button text between "View Submissions" and "Minimize"
-        if (button.textContent === 'View Submissions') {
-            button.textContent = 'Minimize';
-        } else {
-            button.textContent = 'View Submissions';
-        }
-    }
-</script>
+                // Toggle the button text between "View Submissions" and "Minimize"
+                if (button.textContent === 'View Submissions') {
+                    button.textContent = 'Minimize';
+                } else {
+                    button.textContent = 'View Submissions';
+                }
+            }
+        </script>
 
         </script>
 
