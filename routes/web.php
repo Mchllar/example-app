@@ -17,6 +17,8 @@ use App\Http\Controllers\SuperviseeController;
 use App\Http\Controllers\ReportingPeriodController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 
 
 
@@ -62,14 +64,13 @@ Route::get('/resend-otp', [UserController::class, 'resendOtp'])->name('resend-ot
 Route::get('/resend-registration-otp', [UserController::class, 'resendRegOtp'])->name('resendRegOtp');
 
 
-// Route to show forgot password form
-Route::get('/forgot-password', [UserController::class, 'showForgotPasswordForm'])->name('password.forgot');
-// Route to show reset password form
-Route::get('/reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('password.reset');
-// Route to handle password reset
-Route::post('/reset-password', [UserController::class, 'reset'])->name('password.update');
-// Route to handle email for password reset
-Route::post('/forgot-password', [UserController::class, 'email'])->name('password.email');
+// Forgot Password
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Reset Password
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
 // Log User Out
