@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Events\PasswordReset;
+
 
 class UserController extends Controller
 {
@@ -382,44 +384,4 @@ public function store(Request $request)
             return redirect('/verify-registration-otp')->with('error', 'Error resending OTP. Please try again.');
 }
 }
-
-    // Handle reset password form submission
-    public function reset(Request $request)
-    {
-        //dd($request->all());
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed|min:8',
-        ]);
-
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->save();
-            }
-        );
-
-            return redirect('/login')->with('message', 'Password has been reset successfully!');
-    }
-
-    public function email(Request $request)
-    {
-        $request->validate(['email' => 'required|email']);
-
-        // Send password reset link
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
-
-        // Check if the password reset link was sent successfully
-        if ($status === Password::RESET_LINK_SENT) {
-            return back()->with('status', trans($status));
-        } else {
-            throw ValidationException::withMessages(['email' => trans($status)]);
-        }
-    }
-
 }
