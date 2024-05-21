@@ -105,7 +105,7 @@
                         <a href="{{ route('conference.index')}}" class="font-bold hover:underline"> Conference Publications</a>
                     </li>
                     <li class="mx-4 my-2">
-                        <a href="#" class="font-bold hover:underline">Send Thesis Correction or Reminders</a>
+                        <a href="{{ route('thesis.correction')}}" class="font-bold hover:underline">Thesis Correction Reminders</a>
                     </li>
 
                     <li class="mx-4 my-2">

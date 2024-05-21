@@ -31,7 +31,7 @@ class Student extends Model
 
     public function supervisorAllocations()
     {
-        return $this->hasMany(SupervisorAllocation::class);
+        return $this->hasMany(SupervisorAllocation::class, 'student_id');
     }
     public function journal()
     {

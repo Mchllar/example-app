@@ -374,8 +374,8 @@
                                                                     <span style="color: red;">Please wait at least 2 days between reminders.</span>
                                                                 @endif
                                                         @else
-                                                            <!-- No reminder associated -->
-                                                            <span style="color: green;">No reminder sent yet.</span>
+                                                            <button id="sendReminderBtn" data-submission-id="{{ $thesis->id }}">Send Reminder</button>
+
                                                         @endif
                                                         <?php    
 

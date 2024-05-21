@@ -113,7 +113,10 @@ Route::get('/thesis/create', [ThesisController::class, 'create'])->name('thesis.
 Route::post('/thesisSubmit', [ThesisController::class, 'store'])->name('thesis.store');
 Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update');
 Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
-//Route::post('/sendReminder', [ThesisController::class, 'sendReminder'])->name('thesis.emails');
+
+Route::get('/thesis.correction', [AdminController::class, 'correctionReminder'])->name('thesis.correction');
+Route::post('/student-reminder', [AdminController::class, 'studentReminder'])->name('studentReminder');
+
 
 //Reminder
 Route::post('/sendReminder', [ReminderController::class, 'sendReminder'])->name('thesis.emails');

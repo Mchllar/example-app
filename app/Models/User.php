@@ -144,6 +144,10 @@ class User extends Authenticatable
         return $this->belongsTo(ConferenceReviewApproval::class);
 
     }
+    public function correctionReminder()
+    {
+        return $this->belongsTo(correctionReminder::class);
+    }
     
 
 

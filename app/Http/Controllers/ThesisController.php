@@ -21,6 +21,7 @@ use App\Mail\DefenseReport;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use Carbon\Carbon;
 
@@ -32,17 +33,18 @@ class ThesisController extends Controller
         return view('student.thesis_submission');
     }
 
+
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'submission_type' => 'required',
-            'thesis_document' => 'required|file|mimes:pdf',
-            'correction_form' => 'nullable|file|mimes:pdf',
-            'correction_summary' => 'nullable|file|mimes:pdf',
+            'thesis_document' => $request->submission_type == '1' ? 'required|file|mimes:pdf' : '',
+            'correction_form' => $request->submission_type == '2' ? 'required|file|mimes:pdf' : 'nullable|file|mimes:pdf',
+            'correction_summary' => $request->submission_type == '2' ? 'required|file|mimes:pdf' : 'nullable|file|mimes:pdf',
         ]);
     
         $user_id = Auth::user()->id;
-        $submission_type = $request->submission_type;
+        $submission_type = $validatedData['submission_type'];
     
         // Check if there's an existing thesis entry for the current user and submission type
         $existingThesis = Thesis::where('user_id', $user_id)
@@ -64,7 +66,9 @@ class ThesisController extends Controller
             $thesis_document_path = $thesis_document->getClientOriginalName();
             $thesis_document->move(public_path('thesis_documents'), $thesis_document_path);
             $thesis->thesis_document = $thesis_document_path;
-        }
+        } else 
+            return redirect('thesis.index')->with('failmessage', 'Failed to submit thesis. Please try again.');
+
     
         // Handle correction form upload
         if ($request->hasFile('correction_form')) {
@@ -72,7 +76,9 @@ class ThesisController extends Controller
             $correction_form_path = $correction_form->getClientOriginalName();
             $correction_form->move(public_path('correction_forms'), $correction_form_path);
             $thesis->correction_form = $correction_form_path;
-        }
+        } else
+            return redirect('thesis.index')->with('failmessage', 'Failed to submit thesis. Please try again.');
+
     
         // Handle correction summary upload
         if ($request->hasFile('correction_summary')) {
@@ -80,14 +86,18 @@ class ThesisController extends Controller
             $correction_summary_path = $correction_summary->getClientOriginalName();
             $correction_summary->move(public_path('correction_summaries'), $correction_summary_path);
             $thesis->correction_summary = $correction_summary_path;
-        }
+        } else 
+            return redirect('thesis.index')->with('failmessage', 'Failed to submit thesis. Please try again.');
+
     
         // Save the Thesis instance to the database
-        $thesis->save();
+        !$thesis->save();
+     
     
         return redirect('thesis.index')->with('message', 'Thesis submitted successfully!');
     }
     
+
 
     public function index()
     {   
