@@ -76,45 +76,43 @@ Route::post('/forgot-password', [UserController::class, 'email'])->name('passwor
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //Conference Review Criteria
-Route::get('/conferenceReview', [ConferenceReviewController::class, 'conferenceReview'])->name('conference.review');
+Route::get('/conference/review', [ConferenceReviewController::class, 'conferenceReview'])->name('conference.review');
 Route::get('/review/create', [ConferenceReviewController::class, 'create'])->name('review.create');
-Route::post('/reviewSubmit', [ConferenceReviewController::class, 'store'])->name('review.store');
-Route::post('/review.approval', [ConferenceReviewController::class, 'approve'])->name('criteria.approval');
-Route::get('/review.record', [ConferenceReviewController::class, 'index'])->name('review.record');
+Route::post('/review/submit', [ConferenceReviewController::class, 'store'])->name('review.store');
+Route::post('/review/approval', [ConferenceReviewController::class, 'approve'])->name('criteria.approval');
+Route::get('/review/record', [ConferenceReviewController::class, 'index'])->name('review.record');
 
 //Notice of Intention to Submit Thesis
-Route::get('/noticeSubmission', [IntentionController::class, 'noticeSubmission'])->name('notice.submission');
+Route::get('/notice/submission', [IntentionController::class, 'noticeSubmission'])->name('notice.submission');
 Route::get('/notice/create', [IntentionController::class, 'create'])->name('notice.create');
-Route::post('/noticeSubmit', [IntentionController::class, 'store'])->name('notice.store');
+Route::post('/notice/submit', [IntentionController::class, 'store'])->name('notice.store');
 Route::get('/notice.record', [IntentionController::class, 'adminIndex'])->name('notice.record');
 
 // Conference Submission
-Route::get('/conferenceSubmission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
+Route::get('/conference/submission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
 Route::get('/conference/create', [ConferenceController::class, 'create'])->name('conference.create');
-Route::post('/conferenceSubmit', [ConferenceController::class, 'store'])->name('conference.store');
-//Route::get('/conferenceRecords', [ConferenceController::class, 'records'])->name('conference.records')->middleware('auth');
-Route::get('/conference.index', [ConferenceController::class, 'index'])->name('conference.index');
-Route::post('/conference.approval', [ConferenceController::class, 'approveConference'])->name('conference.approval');
+Route::post('/conference/submit', [ConferenceController::class, 'store'])->name('conference.store');
+Route::get('/conference/index', [ConferenceController::class, 'index'])->name('conference.index');
+Route::post('/conference/approval', [ConferenceController::class, 'approveConference'])->name('conference.approval');
 
 
 //Journal Submission
 Route::get('/journalSubmission', [JournalController::class, 'journalSubmission'])->name('journalSubmission');
 Route::get('/journal/create', [JournalController::class, 'create'])->name('journal.create');
-Route::post('/journalSubmit', [JournalController::class, 'store'])->name('journal.store');
-Route::get('/journal.index', [JournalController::class, 'index'])->name('journal.index')->middleware('auth');
-Route::post('/journal.approval', [JournalController::class, 'approveJournal'])->name('journal.approval');
+Route::post('/journal/submit', [JournalController::class, 'store'])->name('journal.store');
+Route::get('/journal/index', [JournalController::class, 'index'])->name('journal.index')->middleware('auth');
+Route::post('/journal/approval', [JournalController::class, 'approveJournal'])->name('journal.approval');
 
 
 //Thesis
 Route::get('/thesis.index', [ThesisController::class, 'index'])->name('thesis.index');
 Route::get('/thesisSubmission', [ThesisController:: class, 'thesisSubmission'])->name('thesis.submission');
 Route::get('/thesis/create', [ThesisController::class, 'create'])->name('thesis.create');
-Route::post('/thesisSubmit', [ThesisController::class, 'store'])->name('thesis.store');
+Route::post('/thesis/submit', [ThesisController::class, 'store'])->name('thesis.store');
 Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update');
-Route::post('/thesis.approval', [ThesisController::class, 'approveThesis'])->name('thesis.approval');
-
+Route::post('/thesis/approval', [ThesisController::class, 'approveThesis'])->name('thesis.approve');
 Route::get('/thesis.correction', [AdminController::class, 'correctionReminder'])->name('thesis.correction');
-Route::post('/student-reminder', [AdminController::class, 'studentReminder'])->name('studentReminder');
+Route::post('/student/reminder', [AdminController::class, 'studentReminder'])->name('studentReminder');
 
 
 //Reminder
@@ -126,7 +124,7 @@ Route::post('/submit-minutes/{thesis}', [AdminController::class, 'submitMinutes'
 Route::get('/adminThesis', [AdminController::class, 'admin'])->name('thesis.admin');
 
 //Supervisee
-Route::get('/view.supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee')->middleware('auth');
+Route::get('/view/supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee')->middleware('auth');
 
 // Progress Report Routes
 Route::get('/progress_reports', [ProgressReportController::class, 'index'])->name('progress_reports.index')->middleware('auth');

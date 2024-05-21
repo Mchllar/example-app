@@ -28,7 +28,6 @@ class Student extends Model
         return $this->belongsTo(Program::class);
     }
 
-
     public function supervisorAllocations()
     {
         return $this->hasMany(SupervisorAllocation::class, 'student_id');

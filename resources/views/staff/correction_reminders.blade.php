@@ -1,4 +1,5 @@
 <x-layout>
+@include('partials._searchProgram')
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,7 +65,7 @@
             border-radius: 4px;
             transition: background-color 0.3s ease;
             width: 190px;
-            margin: 20px auto;
+            margin-left: 10px;
             display: block;
         }
 
@@ -85,73 +86,113 @@
         #selectAllText:hover {
             color: green;
         }
+        #selectAllText{
+            color: blue; 
+            cursor: pointer; 
+            transition: color 0.3s ease;
+        }
+        #scheduleText {
+            width: 80%;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        #scheduleText label {
+            margin-right: 10px;
+        }
+
+        #scheduleText button {
+            margin: 0 auto;
+        }
+
+        #scheduleText span {
+            text-align: right;
+        }
+
+
     </style>
 
-    <body>
-        <div class="main-content">
-            @if (isset($thesis) && !$thesis->isEmpty())
-                <p>List of Pending Thesis/Dissertation Correction Submission</p>
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Student Number</th>
-                            <th>Student Name</th>
-                            <th>Select</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($thesis as $item)
-                        <tr>
-                            <td>{{ $item->user->student->student_number }}</td>
-                            <td>{{ $item->user->name }}</td>
-                            <td class="select-td">
-                                <input type="checkbox" class="user-checkbox" value="{{ $item->user->id }}">
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div style="text-align: center; margin-top: 20px;">
-                    <span id="selectAllText" style="color: blue; cursor: pointer; transition: color 0.3s ease;" onclick="toggleSelectAll()">(Select All Students)</span>
-                </div>
-                <div style="text-align: center; margin-top: 20px;">
-                    <label for="scheduledDateTime">Schedule Date and Time (optional):</label>
-                    <input type="datetime-local" id="scheduledDateTime" name="scheduledDateTime">
-                </div>
-                <button id="sendReminderBtn">Schedule Reminder</button>
-            @else
-                <p style="margin-top: 50px;">All students have submitted their corrections.</p>
-            @endif
-        </div>
+<body>
+    <div class="main-content">
+        @if (isset($thesis) && !$thesis->isEmpty())
+            <p>List of Pending Thesis/Dissertation Correction Submission</p></br></br>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            var allSelected = false;
+            <div id="scheduleText">
+                <label for="scheduledDateTime">Schedule Date and Time (optional):</label>
+                <input type="datetime-local" id="scheduledDateTime" name="scheduledDateTime">
+        
+                <button id="sendReminderBtn">Send Reminder</button>
+                <span id="selectAllText" style="color: blue; cursor: pointer; transition: color 0.3s ease;" onclick="toggleSelectAll()">(Select All Students)</span>
+            </div>
 
-            function toggleSelectAll() {
-                var selectAllText = document.getElementById('selectAllText');
-                var checkboxes = document.getElementsByClassName('user-checkbox');
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Student Number</th>
+                        <th>Student Name</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($thesis as $item)
+                    <tr>
+                        <td>{{ $item->user->student->student_number }}</td>
+                        <td>{{ $item->user->name }}</td>
+                        <td class="select-td">
+                            <input type="checkbox" class="user-checkbox" value="{{ $item->user->id }}">
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p style="margin-top: 50px;">All students have submitted their corrections.</p>
+        @endif
+    </div>
 
-                if (allSelected) {
-                    // Unselect all checkboxes
-                    for (var i = 0; i < checkboxes.length; i++) {
-                        checkboxes[i].checked = false;
-                    }
-                    // Update text to "Select All Students" and color to blue
-                    selectAllText.textContent = "(Select All Students)";
-                    selectAllText.style.color = "blue";
-                    allSelected = false;
-                } else {
-                    // Select all checkboxes
-                    for (var i = 0; i < checkboxes.length; i++) {
-                        checkboxes[i].checked = true;
-                    }
-                    // Update text to "Unselect All Students" and color to red
-                    selectAllText.textContent = "(Unselect All Students)";
-                    selectAllText.style.color = "red";
-                    allSelected = true;
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var allSelected = false;
+
+        function toggleSelectAll() {
+            var selectAllText = document.getElementById('selectAllText');
+            var checkboxes = document.getElementsByClassName('user-checkbox');
+
+            if (allSelected) {
+                // Unselect all checkboxes
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
                 }
+                // Update text to "Select All Students" and color to blue
+                selectAllText.textContent = "(Select All Students)";
+                selectAllText.style.color = "blue";
+                allSelected = false;
+            } else {
+                // Select all checkboxes
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = true;
+                }
+                // Update text to "Unselect All Students" and color to red
+                selectAllText.textContent = "(Unselect All Students)";
+                selectAllText.style.color = "red";
+                allSelected = true;
             }
+        }
+
+        $(document).ready(function() {
+            $('#scheduledDateTime').on('input', function() {
+                var scheduledDateTime = $(this).val();
+                if (scheduledDateTime) {
+                    $('#sendReminderBtn').text('Schedule Reminder');
+                } else {
+                    $('#sendReminderBtn').text('Send Reminder');
+                }
+            });
 
             $('#sendReminderBtn').click(function() {
                 var userIds = [];
@@ -182,6 +223,8 @@
                     }
                 });
             });
-        </script>
-    </body>
+        });
+    </script>
+</body>
+
 </x-layout>

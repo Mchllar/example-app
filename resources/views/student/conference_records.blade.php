@@ -128,6 +128,11 @@
             .approve-button:hover {
                 background-color: #4CAF50; 
             }
+            .custom-button-text {
+                color: blue; 
+                margin-left: 10%; 
+                text-decoration: underline; 
+            }
             </style>
         </head>
         <body>
@@ -206,7 +211,7 @@
                                     @endforeach
                                     </table>
                             </table>
-                        <button onclick="toggleSubmissions({{ $student->id }})" class="text-blue-500">View Submissions</button>
+                            <button id="toggleButton-{{ $student->id }}" onclick="toggleSubmissions({{ $student->id }})" class="custom-button-text">View Submissions</button>
                     @else
                         <p>No Conference Articles have been submitted.</p>
                     @endif
@@ -261,12 +266,20 @@
 
         <script>
             function toggleSubmissions(studentId) {
-                var journalTable = document.getElementById("submissions-" + studentId);
-                journalTable.classList.toggle("hidden");
-            }
-        </script>
+                var conferenceTable = document.getElementById("submissions-" + studentId);
+                var button = document.getElementById("toggleButton-" + studentId);
 
-        <script>
+                // Toggle the visibility of the submission section
+                conferenceTable.classList.toggle("hidden");
+
+                // Toggle the button text between "View Submissions" and "Minimize"
+                if (button.textContent === 'View Submissions') {
+                    button.textContent = 'Minimize';
+                } else {
+                    button.textContent = 'View Submissions';
+                }
+            }
+    
             function openDocument(pdfUrl) {
                 // Display the PDF container
                 document.getElementById('pdfContainer').style.display = 'flex'; 

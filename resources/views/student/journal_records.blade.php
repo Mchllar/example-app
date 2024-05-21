@@ -130,7 +130,11 @@
             .approve-button:hover {
                 background-color: #4CAF50; 
             }
-
+            .custom-button-text {
+                color: blue; 
+                margin-left: 10%; 
+                text-decoration: underline; 
+            }
         </style>
     </head>
     <body>
@@ -209,7 +213,7 @@
                                     @endforeach
                                     </table>
                             </table>
-                    <button onclick="toggleSubmissions({{ $student->id }})" class="text-blue-500">View Submissions</button>
+                            <button id="toggleButton-{{ $student->id }}" onclick="toggleSubmissions({{ $student->id }})" class="custom-button-text">View Submissions</button>
                     @else
                         <p>No Journal Publications have been submitted.</p>
                     @endif
@@ -264,29 +268,39 @@
                     </div>
                 </x-layout>
         
-        <script>
-            function toggleSubmissions(studentId) {
-                var journalTable = document.getElementById("submissions-" + studentId);
-                journalTable.classList.toggle("hidden");
-            }
-        </script>
 
-        <script>
-            function openDocument(pdfUrl) {
-                // Display the PDF container
-                document.getElementById('pdfContainer').style.display = 'flex'; 
-                
-                // Set the source of the iframe to the PDF URL
-                document.getElementById('pdfViewer').src = pdfUrl;
-            }
 
-            function closeDocument() {
-                // Hide the PDF container
-                document.getElementById('pdfContainer').style.display = 'none';
-                
-                // Clear the source of the iframe
-                document.getElementById('pdfViewer').src = '';
-            }
+            <script>
+                function toggleSubmissions(studentId) {
+                    var journalTable = document.getElementById("submissions-" + studentId);
+                    var button = document.getElementById("toggleButton-" + studentId);
+
+                    // Toggle the visibility of the submission section
+                    journalTable.classList.toggle("hidden");
+
+                    // Toggle the button text between "View Submissions" and "Minimize"
+                    if (button.textContent === 'View Submissions') {
+                        button.textContent = 'Minimize';
+                    } else {
+                        button.textContent = 'View Submissions';
+                    }
+                }
+               
+                function openDocument(pdfUrl) {
+                    // Display the PDF container
+                    document.getElementById('pdfContainer').style.display = 'flex'; 
+                    
+                    // Set the source of the iframe to the PDF URL
+                    document.getElementById('pdfViewer').src = pdfUrl;
+                }
+
+                function closeDocument() {
+                    // Hide the PDF container
+                    document.getElementById('pdfContainer').style.display = 'none';
+                    
+                    // Clear the source of the iframe
+                    document.getElementById('pdfViewer').src = '';
+                }
         </script>
 
 

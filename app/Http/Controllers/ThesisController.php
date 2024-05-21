@@ -18,6 +18,7 @@ use App\Mail\ThesisSubmitted;
 use App\Mail\ThesisApprovalReminder;
 use App\Mail\DefenseReport;
 
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -39,36 +40,27 @@ class ThesisController extends Controller
         $validatedData = $request->validate([
             'submission_type' => 'required',
             'thesis_document' => $request->submission_type == '1' ? 'required|file|mimes:pdf' : '',
-            'correction_form' => $request->submission_type == '2' ? 'required|file|mimes:pdf' : 'nullable|file|mimes:pdf',
-            'correction_summary' => $request->submission_type == '2' ? 'required|file|mimes:pdf' : 'nullable|file|mimes:pdf',
+            'correction_form' => $request->submission_type == '2' ? 'required|file|mimes:pdf' : 'nullable',
+            'correction_summary' => $request->submission_type == '2' ? 'required|file|mimes:pdf' : 'nullable',
         ]);
     
         $user_id = Auth::user()->id;
         $submission_type = $validatedData['submission_type'];
-    
-        // Check if there's an existing thesis entry for the current user and submission type
-        $existingThesis = Thesis::where('user_id', $user_id)
-                                 ->where('submission_type', $submission_type)
-                                 ->first();
-    
-        // If an existing entry is found, update it; otherwise, create a new instance
-        if ($existingThesis) {
-            $thesis = $existingThesis;
-        } else {
-            $thesis = new Thesis();
-            $thesis->user_id = $user_id;
-            $thesis->submission_type = $submission_type;
-        }
     
         // Handle thesis document upload
         if ($request->hasFile('thesis_document')) {
             $thesis_document = $request->file('thesis_document');
             $thesis_document_path = $thesis_document->getClientOriginalName();
             $thesis_document->move(public_path('thesis_documents'), $thesis_document_path);
-            $thesis->thesis_document = $thesis_document_path;
-        } else 
-            return redirect('thesis.index')->with('failmessage', 'Failed to submit thesis. Please try again.');
-
+        } else {
+            return redirect('thesis.index')->with('failmessage', 'Thesis document is required. Please try again.');
+        }
+    
+        // Create or update thesis record
+        $thesis = Thesis::updateOrCreate(
+            ['user_id' => $user_id, 'submission_type' => $submission_type],
+            ['thesis_document' => $thesis_document_path]
+        );
     
         // Handle correction form upload
         if ($request->hasFile('correction_form')) {
@@ -76,9 +68,7 @@ class ThesisController extends Controller
             $correction_form_path = $correction_form->getClientOriginalName();
             $correction_form->move(public_path('correction_forms'), $correction_form_path);
             $thesis->correction_form = $correction_form_path;
-        } else
-            return redirect('thesis.index')->with('failmessage', 'Failed to submit thesis. Please try again.');
-
+        }
     
         // Handle correction summary upload
         if ($request->hasFile('correction_summary')) {
@@ -86,18 +76,14 @@ class ThesisController extends Controller
             $correction_summary_path = $correction_summary->getClientOriginalName();
             $correction_summary->move(public_path('correction_summaries'), $correction_summary_path);
             $thesis->correction_summary = $correction_summary_path;
-        } else 
-            return redirect('thesis.index')->with('failmessage', 'Failed to submit thesis. Please try again.');
-
+        }
     
         // Save the Thesis instance to the database
-        !$thesis->save();
-     
+        $thesis->save();
     
-        return redirect('thesis.index')->with('message', 'Thesis submitted successfully!');
+        return redirect('thesis.index')->with('message', 'Thesis successfully submitted!');
     }
     
-
 
     public function index()
     {   
@@ -123,28 +109,25 @@ class ThesisController extends Controller
 
         return view('student.thesis_records', compact('thesis'));
     }
-        
+     
     public function approveThesis(Request $request)
     {
         // Validate the request
         $request->validate([
             'submission_id' => 'required|exists:theses,id',
         ]);
-
         // Get the supervisor ID from the authenticated user
         $supervisorId = auth()->user()->id;
-
         // Retrieve the thesis ID from the submission ID
         $thesisId = $request->input('submission_id');
-
         // Create a new ThesisApproval instance
         $approval = new ThesisApproval();
         $approval->submission_id = $thesisId;
         $approval->supervisor_id = $supervisorId;
         $approval->save();
-
         // Return a success response
         return redirect('thesis.index')->with('message', 'Thesis approved successfully.');
     }
-}   
+}
+ 
     

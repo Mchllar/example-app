@@ -95,16 +95,16 @@ class AdminController extends Controller
             'user_ids.*' => 'exists:users,id',
             'scheduled_date_time' => 'nullable|date'
         ]);
-
+    
         $userIds = $request->input('user_ids');
         $scheduledDateTime = $request->input('scheduled_date_time') ? Carbon::parse($request->input('scheduled_date_time')) : null;
-
+    
         // Retrieve email addresses of the selected users (students)
         $emails = Thesis::whereIn('user_id', $userIds)
                         ->join('users', 'theses.user_id', '=', 'users.id')
                         ->pluck('users.email')
                         ->toArray();
-
+    
         // Send or schedule reminder emails
         foreach ($emails as $email) {
             if ($scheduledDateTime) {
@@ -113,19 +113,19 @@ class AdminController extends Controller
                 Mail::to($email)->send(new CorrectionReminderMail());
             }
         }
-
+    
         // Update or create records to track reminders sent
         foreach ($userIds as $userId) {
             CorrectionReminder::updateOrCreate(
                 ['user_id' => $userId],
-                ['sent_at' => $scheduledDateTime ?? now(), 'scheduled_at' => $scheduledDateTime]
+                ['sent_at' => $scheduledDateTime ? null : now(), 'scheduled_at' => $scheduledDateTime]
             );
         }
-
+    
         // Return success response
-       return response()->json(['message' => $scheduledDateTime ? 'Reminders scheduled successfully' : 'Reminders sent successfully']);
-
+        return response()->json(['message' => $scheduledDateTime ? 'Reminders scheduled successfully' : 'Reminders sent successfully']);
     }
+    
         
 
 }  
