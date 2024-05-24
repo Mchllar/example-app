@@ -77,48 +77,61 @@
                             <td>{{ $allocation->student->program->name }}</td>
                             <td>{{ $allocation->student->academic_status }}</td>
                             <td>
-                                @php
-                                    $submissionStatuses = [];
+    @php
+        $submissionStatuses = [];
 
-                                    // Find all thesis submissions for the student
-                                    $submissions = $theses->where('user_id', $allocation->student->user_id);
+        // Find all thesis submissions for the student
+        $submissions = $theses->where('user_id', $allocation->student->user_id);
 
-                                    if ($submissions->isNotEmpty()) {
-                                        foreach ($submissions as $submission) {
-                                            $submissionStatus = 'Submitted';
+        if ($submissions->isNotEmpty()) {
+            foreach ($submissions as $submission) {
+                $submissionStatus = 'Submitted';
 
-                                            // Determine the submission type name based on submission type value
-                                            switch ($submission->submission_type) {
-                                                case 1:
-                                                    $submissionTypeName = 'Pre Defense';
-                                                    break;
-                                                case 2:
-                                                    $submissionTypeName = 'Post Defense';
-                                                    break;
-                                                default:
-                                                    $submissionTypeName = 'Unknown';
-                                                    break;
-                                            }
+                // Determine the submission type name based on submission type value
+                switch ($submission->submission_type) {
+                    case 1:
+                        $submissionTypeName = 'Pre Defense';
+                        break;
+                    case 2:
+                        $submissionTypeName = 'Post Defense';
+                        break;
+                    default:
+                        $submissionTypeName = 'Unknown';
+                        break;
+                }
 
-                                            // Check if the submission is approved by the supervisor
-                                            $isApproved = App\Models\ThesisApproval::where('submission_id', $submission->id)
-                                                                                        ->where('supervisor_id', $allocation->supervisor_id)
-                                                                                        ->exists();
+                // Check if the submission is approved by the supervisor
+                $isApproved = App\Models\ThesisApproval::where('submission_id', $submission->id)
+                                                            ->where('supervisor_id', $allocation->supervisor_id)
+                                                            ->exists();
 
-                                            $approvalStatus = $isApproved ? 'Approved' : 'Not Approved';
+                $approvalStatus = $isApproved ? 'Approved' : 'Not Approved';
 
-                                            // Build submission status string
-                                            $submissionStatuses[] = "{$submissionTypeName} - {$submissionStatus} ({$approvalStatus})";
-                                        }
-                                    } else {
-                                        $submissionStatuses[] = 'Not Submitted';
-                                    }
-                                @endphp
+                // Build submission status string
+                $status = "{$submissionTypeName} - {$submissionStatus} (";
+                if ($approvalStatus === 'Not Approved') {
+                    $status .= "<a href=\"" . route('thesis.index') . "\" style=\"color: red; text-decoration: underline;\">{$approvalStatus}</a>";
+                } else {
+                    $status .= $approvalStatus;
+                }
+                $status .= ")";
 
-                                @foreach ($submissionStatuses as $status)
-                                    {{ $status }}<br>
-                                @endforeach
-                            </td>
+                $submissionStatuses[] = $status;
+            }
+        } else {
+            $submissionStatuses[] = 'Not Submitted';
+        }
+    @endphp
+
+    @foreach ($submissionStatuses as $status)
+        {!! $status !!}<br>
+    @endforeach
+</td>
+
+             
+
+      
+
                         </tr>
                     @endforeach
                 </tbody>

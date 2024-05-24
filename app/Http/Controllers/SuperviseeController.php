@@ -9,6 +9,7 @@ use App\Models\Thesis;
 
 class SuperviseeController extends Controller
 {
+
     public function viewSupervisee()
     {
         // Retrieve supervisor allocations with related student, program, and user data

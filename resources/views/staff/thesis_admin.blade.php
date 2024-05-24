@@ -361,7 +361,7 @@
 
                                                         <!-- Button to trigger file input -->
                                                         <button type="button" onclick="document.getElementById('reportInput{{ $thesis->id }}').click();">
-                                                            Choose Report
+                                                            Upload Report
                                                         </button>
 
                                                         <!-- Placeholder for displaying selected file name -->
@@ -386,7 +386,7 @@
 
                                                         <!-- Button to trigger file input -->
                                                         <button type="button" onclick="document.getElementById('minutesInput{{ $thesis->id }}').click();">
-                                                            Choose File
+                                                            Upload Minutes
                                                         </button>
 
                                                         <!-- Placeholder for displaying selected file name -->

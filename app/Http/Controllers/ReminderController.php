@@ -40,14 +40,13 @@ class ReminderController extends Controller
 
         // Send reminder emails to each recipient
         foreach ($emails as $email) {
-            Mail::to($email)->send(new ThesisApprovalReminder($studentName)); // You can pass data to the mail view if needed
+            Mail::to($email)->send(new ThesisApprovalReminder($studentName)); 
         }
-
+        
         // Update or create a reminder record
         $user_id = auth()->user()->id;
         $reminder = Reminder::updateOrCreate(
             ['user_id' => $user_id, 'submission_id' => $submissionId],
-            ['user_id' => $user_id, 'submission_id' => $submissionId]
         );
 
         // Return success response
