@@ -30,7 +30,7 @@ class SendResetLinkEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reset_password')
+        return $this->view('emails.reset_password')
                     ->subject('Reset Your Password');
     }
 }

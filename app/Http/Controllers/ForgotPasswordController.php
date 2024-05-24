@@ -26,3 +26,17 @@ class ForgotPasswordController extends Controller
         return redirect('/login')->with('message', 'Check your email to reset your password');
     }
 }
+
+/*public function sendResetLinkEmail(Request $request)
+{
+    $request->validate(['email' => 'required|email|exists:users,email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email'),
+        new SendResetLinkEmail($request->resetLink) // Pass your custom Mailable here
+    );
+
+    return $status === Password::RESET_LINK_SENT
+        ? redirect('/login')->with('message', 'Check your email to reset your password')
+        : back()->withErrors(['email' => __($status)]);
+}*/
