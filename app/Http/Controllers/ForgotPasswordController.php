@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendResetLinkEmail;
+use App\Models\User;
 
 class ForgotPasswordController extends Controller
 {
@@ -11,32 +14,41 @@ class ForgotPasswordController extends Controller
     {
         return view('auth.forgot_password');
     }
-
     public function sendResetLinkEmail(Request $request)
     {
-        $request->validate(['email' => 'required|email|exists:users,email']);
+        $request->validate(['email' => 'required|email']);
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        // Find the user by email
+        $user = User::where('email', $request->email)->first();
 
-        /*return $status === Password::RESET_LINK_SENT
-            ? back()->with('message', 'Check your email to reset password')
-            : back()->withErrors(['email' => __($status)]);*/
+        // If user doesn't exist, redirect back with error
+        if (!$user) {
+            return back()->withErrors(['email' => 'User with this email does not exist.']);
+        }
+
+        // Generate the reset token and save it
+        $token = $this->generateToken($user);
+
+        // Generate the reset link
+        $resetLink = route('password.reset', ['token' => $token, 'email' => $user->email]);
+
+        // Send the reset link email using the custom mailable
+        Mail::to($user->email)->send(new SendResetLinkEmail($resetLink));
+
+        // Redirect back with success message
         return redirect('/login')->with('message', 'Check your email to reset your password');
     }
+
+    // Generate token and save it for the user
+    private function generateToken($user)
+    {
+        $token = \Illuminate\Support\Str::random(64);
+
+        DB::table('password_resets')->updateOrInsert(
+            ['email' => $user->email],
+            ['email' => $user->email, 'token' => bcrypt($token), 'created_at' => now()]
+        );
+
+        return $token;
+    }
 }
-
-/*public function sendResetLinkEmail(Request $request)
-{
-    $request->validate(['email' => 'required|email|exists:users,email']);
-
-    $status = Password::sendResetLink(
-        $request->only('email'),
-        new SendResetLinkEmail($request->resetLink) // Pass your custom Mailable here
-    );
-
-    return $status === Password::RESET_LINK_SENT
-        ? redirect('/login')->with('message', 'Check your email to reset your password')
-        : back()->withErrors(['email' => __($status)]);
-}*/

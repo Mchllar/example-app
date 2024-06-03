@@ -1,4 +1,6 @@
-<h1 style="color: black;" font-weight="bold">Reset Your Password</h1>
+<!-- resources/views/emails/reset_password.blade.php -->
+
+<h1 style="color: black; font-weight: bold;">Reset Your Password</h1>
 
 <p style="color: black;">You are receiving this email because we received a password reset request for your account.</p>
 
