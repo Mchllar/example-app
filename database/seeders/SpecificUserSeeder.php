@@ -20,6 +20,7 @@ class SpecificUserSeeder extends Seeder
         User::create([
             'name' => 'Dr. Bernard Shibwabo',
             'email' => 'bshibwabo@strathmore.edu',
+            'profile' => 'images/default.jpg',
             'password' => Hash::make('pass1234'),
             'role_id' => 3,
             'phone_number' => '0703034135',
@@ -32,6 +33,7 @@ class SpecificUserSeeder extends Seeder
         User::create([
             'name' => 'Fredrick Barasa',
             'email' => 'fbarasa@strathmore.edu',
+            'profile' => 'images/default.jpg',
             'password' => Hash::make('pass1234'),
             'role_id' => 3,
             'phone_number' => '0703034258',
@@ -44,6 +46,7 @@ class SpecificUserSeeder extends Seeder
         User::create([
             'name' => 'William Kadima',
             'email' => 'wkadima@strathmore.edu',
+            'profile' => 'images/default.jpg',
             'password' => Hash::make('pass1234'),
             'role_id' => 3,
             'phone_number' => '0703034297',
@@ -55,6 +58,7 @@ class SpecificUserSeeder extends Seeder
         User::create([
             'name' => 'John Doe',
             'email' => 'peter.aringo@strathmore.edu',
+            'profile' => 'images/default.jpg',
             'password' => Hash::make('pass1234'),
             'role_id' => 3,
             'phone_number' => '0703034297',
@@ -66,7 +70,8 @@ class SpecificUserSeeder extends Seeder
         User::create([
             'name' => 'Michelle',
             'email' => 'michelle.guya@strathmore.edu',
-            'password' => Hash::make('password'),
+            'profile' => 'images/default.jpg',
+            'password' => Hash::make('pass1234'),
             'role_id' => 3,
             'phone_number' => '0703034297',
             'date_of_birth' => '2001-03-12',

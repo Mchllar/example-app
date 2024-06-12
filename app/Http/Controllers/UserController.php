@@ -106,21 +106,28 @@ class UserController extends Controller
         if ($user) {
             switch ($user->role_id) {
                 case 1:
-                    return view('student.landing');
+                    $student = Student::with('user', 'user.religion')->where('user_id', $user->id)->firstOrFail();
+                    return view('student.landing', compact('student'));
                 case 2:
-                    return view('supervisor.landing');
+                    $supervisor = Staff::with('user', 'user.religion')->where('user_id', $user->id)->firstOrFail();
+                    return view('supervisor.landing', compact('supervisor'));
                 case 3:
                     $user_id = User::pluck('id');
                     $submission_type = Thesis::pluck('submission_type');
-                    return view('staff.landing', compact('user_id', 'submission_type'));
+                    $staff = User::with('religion')->where('id', $user->id)->firstOrFail();
+                    return view('staff.landing', compact('staff','user_id', 'submission_type'));
                 case 4:
-                    return view('dean.landing');
+                    $dean = User::with('religion')->where('id', $user->id)->firstOrFail();
+                    return view('dean.landing', compact('dean'));
                 case 5:
-                    return view('registrar.landing');
+                    $registrar = User::with('religion')->where('id', $user->id)->firstOrFail();
+                    return view('registrar.landing', compact('registrar'));
                 case 6:
-                    return view('boardOGS.landing');
+                    $board = User::with('religion')->where('id', $user->id)->firstOrFail();
+                    return view('boardOGS.landing', compact('board'));
                 case 7:
-                    return view('schoolAdmin.landing');
+                    $schoolAdmin = User::with('religion')->where('id', $user->id)->firstOrFail();
+                    return view('schoolAdmin.landing', compact('schoolAdmin'));
                 default:
                     abort(403, 'Unauthorized action.');
             }

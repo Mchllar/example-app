@@ -104,45 +104,45 @@
                         @if(auth()->check())
                         @switch(auth()->user()->role_id)
                         @case(1) {{-- Student --}}
-                        <li class="font-bold"><a href="/"><i class="fas fa-home"></i>Home</a></li>
-                        <li class="font-bold"><a href="{{ route('changeSupervisor') }}"><i class="fas fa-user-graduate"></i>Request Change of Supervisor</a></li>
-                        <li class="font-bold"><a href="{{ route('progress_reports.index')}}"><i class="fas fa-chart-line"></i>Submit Progress Report</a></li>
-                        <li class="font-bold"><a href="{{ route('journal.index')}}"><i class="fas fa-book"></i>Journal Publication</a></li>
-                        <li class="font-bold"><a href="{{ route('conference.index')}}"><i class="fas fa-users"></i>Conference Publication</a></li>
-                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-file-alt"></i>Thesis/Dissertation</a></li>
-                        <li class="font-bold"><a href="{{ route('academic_leave.create') }}"><i class="fas fa-graduation-cap"></i>Request for Academic
+                        <li class="font-bold"><a href="/"><i class="fas fa-home"> </i>Home</a></li>
+                        <li class="font-bold"><a href="{{ route('changeSupervisor') }}"><i class="fas fa-user-graduate"> </i>Request Change of Supervisor</a></li>
+                        <li class="font-bold"><a href="{{ route('progress_reports.index')}}"><i class="fas fa-chart-line"> </i>Submit Progress Report</a></li>
+                        <li class="font-bold"><a href="{{ route('journal.index')}}"><i class="fas fa-book"> </i>Journal Publication</a></li>
+                        <li class="font-bold"><a href="{{ route('conference.index')}}"><i class="fas fa-users"> </i>Conference Publication</a></li>
+                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-file-alt"> </i>Thesis/Dissertation</a></li>
+                        <li class="font-bold"><a href="{{ route('academic_leave.create') }}"><i class="fas fa-graduation-cap"> </i>Request for Academic
                                 Leave</a></li>
-                        <li class="font-bold"><a href="{{ route('conference.review')}}"><i class="fas fa-check-circle"></i>Request for Conference Approval</a></li>
-                        <li class="font-bold"><a href="{{ route('notice.submission')}}"><i class="fas fa-sticky-note"></i>Submit Notice Of Intent</a></li><br>
+                        <li class="font-bold"><a href="{{ route('conference.review')}}"><i class="fas fa-check-circle"> </i>Request for Conference Approval</a></li>
+                        <li class="font-bold"><a href="{{ route('notice.submission')}}"><i class="fas fa-sticky-note"> </i>Submit Notice Of Intent</a></li><br>
                         @break
                         @case(2) {{-- Supervisor --}}
-                        <li class="font-bold"><a href="/"><i class="fas fa-home"></i>Home</a></li>
-                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-check-circle"></i>Approve Thesis</a></li>
-                        <li class="font-bold"><a href="{{route('progress_reports.updateReport')}}"><i class="fas fa-chart-line"></i>Update Progress
+                        <li class="font-bold"><a href="/"><i class="fas fa-home"> </i>Home</a></li>
+                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-check-circle"> </i>Approve Thesis</a></li>
+                        <li class="font-bold"><a href="{{route('progress_reports.updateReport')}}"><i class="fas fa-chart-line"> </i>Update Progress
                                 Report</a></li>
-                        <li class="font-bold"><a href="{{ route('view.supervisee')}}"><i class="fas fa-user-graduate"></i>View Students</a></li>
-                        <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"></i>Student Leave Requests</a></li>
+                        <li class="font-bold"><a href="{{ route('view.supervisee')}}"><i class="fas fa-user-graduate"> </i>View Students</a></li>
+                        <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"> </i>Student Leave Requests</a></li>
                         @break
                         @case(3) {{-- Staff --}}
-                        <li class="font-bold"><a href="/"><i class="fas fa-home"></i>Home</a></li>
-                        <li class="font-bold"><a href="/register" class="hover:text-laravel"><i class="fas fa-user-plus"></i>
+                        <li class="font-bold"><a href="/"><i class="fas fa-home"> </i>Home</a></li>
+                        <li class="font-bold"><a href="/register" class="hover:text-laravel"><i class="fas fa-user-plus"> </i>
                                 Register New Users</a>
                         </li>
-                        <li class="font-bold"><a href="{{ route('supervisorAllocation') }}"><i class="fas fa-graduation-cap"></i>List of Students</a></li>
-                        <li class="font-bold"><a href="{{ route('supervisorStudentAllocation') }}"><i class="fas fa-user-graduate"></i>List of
+                        <li class="font-bold"><a href="{{ route('supervisorAllocation') }}"><i class="fas fa-graduation-cap"> </i>List of Students</a></li>
+                        <li class="font-bold"><a href="{{ route('supervisorStudentAllocation') }}"><i class="fas fa-user-graduate"> </i>List of
                                 Supervisors</a></li>
-                        <li class="font-bold"><a href="{{ route('reviewChangeSupervisorRequests') }}"><i class="fas fa-exchange-alt"></i>View Change of
+                        <li class="font-bold"><a href="{{ route('reviewChangeSupervisorRequests') }}"><i class="fas fa-exchange-alt"> </i>View Change of
                                 Supervisor Requests</a></li>
-                        <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"></i>Student Leave Requests</a></li>
-                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-file-alt"></i>Thesis Submissions</a></li>
-                        <li class="font-bold"><a href="{{ route('journal.index')}}"><i class="fas fa-book"></i> Journal Publications</a></li>
-                        <li class="font-bold"><a href="{{ route('conference.index')}}"><i class="fas fa-users"></i> Conference Publications</a></li>
-                        <li class="font-bold"><a href="#"><i class="fas fa-envelope"></i>Send Thesis Correction or Reminders</a></li>
-                        <li class="font-bold"><a href="{{ route('review.record')}}"><i class="fas fa-check-circle"></i>Conference Review Requests</a></li>
-                        <li class="font-bold"><a href="{{ route('notice.record')}}"><i class="fas fa-sticky-note"></i>Notices Of Intent</a></li>
-                        <li class="font-bold"><a href="{{ route('reporting-periods.index')}}"><i class="fas fa-calendar-alt"></i>Update Reporting
+                        <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"> </i>Student Leave Requests</a></li>
+                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-file-alt"> </i>Thesis Submissions</a></li>
+                        <li class="font-bold"><a href="{{ route('journal.index')}}"><i class="fas fa-book"> </i> Journal Publications</a></li>
+                        <li class="font-bold"><a href="{{ route('conference.index')}}"><i class="fas fa-users"> </i> Conference Publications</a></li>
+                        <li class="font-bold"><a href="#"><i class="fas fa-envelope"> </i>Send Thesis Correction or Reminders</a></li>
+                        <li class="font-bold"><a href="{{ route('review.record')}}"><i class="fas fa-check-circle"> </i>Conference Review Requests</a></li>
+                        <li class="font-bold"><a href="{{ route('notice.record')}}"><i class="fas fa-sticky-note"> </i>Notices Of Intent</a></li>
+                        <li class="font-bold"><a href="{{ route('reporting-periods.index')}}"><i class="fas fa-calendar-alt"> </i>Update Reporting
                                 Periods</a></li>
-                        <li class="font-bold"><a href="{{route('progress_reports.completeReport')}}"><i class="fas fa-chart-line"></i>Complete Progress
+                        <li class="font-bold"><a href="{{route('progress_reports.completeReport')}}"><i class="fas fa-chart-line"> </i>Complete Progress
                                 Report</a></li><br>
                         @break
                         @endswitch

@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="contract" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Contract') }}</label>
+                        <label for="contract" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Contract (.pdf files)') }}</label>
                         <input id="contract" type="file" class="form-input border border-gray-300 @error('contract') border-red-500 @enderror" name="contract" required>
 
                         @error('contract')
