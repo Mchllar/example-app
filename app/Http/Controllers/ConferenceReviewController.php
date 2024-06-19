@@ -43,7 +43,7 @@ class ConferenceReviewController extends Controller
             $review->save();
 
             // Redirect with success message
-            return redirect('review.record')->with('message', 'Conference Review Submitted Successfully.');
+            return redirect('review/record')->with('message', 'Conference Review Submitted Successfully.');
         } else {
             // Handle file upload failure
             return redirect('/')->with('message', 'Conference Review Submission Failed.');
@@ -79,7 +79,7 @@ class ConferenceReviewController extends Controller
 
         
         // Return a success response
-        return redirect('review.record')->with('message', 'Review approved successfully.');
+        return redirect('review/record')->with('message', 'Review approved successfully.');
 
     }
 

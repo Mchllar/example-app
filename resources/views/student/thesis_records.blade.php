@@ -386,7 +386,7 @@
                                                 <span class="approval-text" style="color: green;">Approved</span>
                                             @else
                                                 <div id="approvalContainer{{ $thesis['id'] }}" class="approval-container">
-                                                    <form id="approvalForm{{ $thesis['id'] }}" action="{{ route('thesis.approval') }}" method="POST">
+                                                    <form id="approvalForm{{ $thesis['id'] }}" action="{{ route('thesis.approve') }}" method="POST">
                                                         @csrf
                                                         <input type="hidden" name="submission_id" value="{{ $thesis['id'] }}">
                                                         <button id="approveButton{{ $thesis['id'] }}" class="approve-button" onclick="approveSubmission({{ $thesis['id'] }})">Approve</button>
@@ -529,9 +529,6 @@
             }
 
         </script>  
-
-
-
         <script>
             function approveSubmission(id) {
                 

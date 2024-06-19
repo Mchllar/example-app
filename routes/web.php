@@ -77,52 +77,52 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //Conference Review Criteria
-Route::get('/conference/review', [ConferenceReviewController::class, 'conferenceReview'])->name('conference.review');
-Route::get('/review/create', [ConferenceReviewController::class, 'create'])->name('review.create');
-Route::post('/review/submit', [ConferenceReviewController::class, 'store'])->name('review.store');
-Route::post('/review/approval', [ConferenceReviewController::class, 'approve'])->name('criteria.approval');
-Route::get('/review/record', [ConferenceReviewController::class, 'index'])->name('review.record');
+Route::get('/conference/review', [ConferenceReviewController::class, 'conferenceReview'])->name('conference.review')->middleware('auth');
+Route::get('/review/create', [ConferenceReviewController::class, 'create'])->name('review.create')->middleware('auth');
+Route::post('/review/submit', [ConferenceReviewController::class, 'store'])->name('review.store')->middleware('auth');
+Route::post('/review/approval', [ConferenceReviewController::class, 'approve'])->name('criteria.approval')->middleware('auth');
+Route::get('/review/record', [ConferenceReviewController::class, 'index'])->name('review.record')->middleware('auth');
 
 //Notice of Intention to Submit Thesis
-Route::get('/notice/submission', [IntentionController::class, 'noticeSubmission'])->name('notice.submission');
-Route::get('/notice/create', [IntentionController::class, 'create'])->name('notice.create');
-Route::post('/notice/submit', [IntentionController::class, 'store'])->name('notice.store');
-Route::get('/notice.record', [IntentionController::class, 'adminIndex'])->name('notice.record');
+Route::get('/notice/submission', [IntentionController::class, 'noticeSubmission'])->name('notice.submission')->middleware('auth');
+Route::get('/notice/create', [IntentionController::class, 'create'])->name('notice.create')->middleware('auth');
+Route::post('/notice/submit', [IntentionController::class, 'store'])->name('notice.store')->middleware('auth');
+Route::get('/notice.record', [IntentionController::class, 'adminIndex'])->name('notice.record')->middleware('auth');
 
 // Conference Submission
-Route::get('/conference/submission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission');
-Route::get('/conference/create', [ConferenceController::class, 'create'])->name('conference.create');
-Route::post('/conference/submit', [ConferenceController::class, 'store'])->name('conference.store');
-Route::get('/conference/index', [ConferenceController::class, 'index'])->name('conference.index');
-Route::post('/conference/approval', [ConferenceController::class, 'approveConference'])->name('conference.approval');
+Route::get('/conference/submission', [ConferenceController::class, 'conferenceSubmission'])->name('conferenceSubmission')->middleware('auth');
+Route::get('/conference/create', [ConferenceController::class, 'create'])->name('conference.create')->middleware('auth');
+Route::post('/conference/submit', [ConferenceController::class, 'store'])->name('conference.store')->middleware('auth');
+Route::get('/conference/index', [ConferenceController::class, 'index'])->name('conference.index')->middleware('auth');
+Route::post('/conference/approval', [ConferenceController::class, 'approveConference'])->name('conference.approval')->middleware('auth');
 
 
 //Journal Submission
-Route::get('/journalSubmission', [JournalController::class, 'journalSubmission'])->name('journalSubmission');
-Route::get('/journal/create', [JournalController::class, 'create'])->name('journal.create');
-Route::post('/journal/submit', [JournalController::class, 'store'])->name('journal.store');
+Route::get('/journalSubmission', [JournalController::class, 'journalSubmission'])->name('journalSubmission')->middleware('auth');
+Route::get('/journal/create', [JournalController::class, 'create'])->name('journal.create')->middleware('auth');
+Route::post('/journal/submit', [JournalController::class, 'store'])->name('journal.store')->middleware('auth');
 Route::get('/journal/index', [JournalController::class, 'index'])->name('journal.index')->middleware('auth');
-Route::post('/journal/approval', [JournalController::class, 'approveJournal'])->name('journal.approval');
+Route::post('/journal/approval', [JournalController::class, 'approveJournal'])->name('journal.approval')->middleware('auth');
 
 
 //Thesis
-Route::get('/thesis.index', [ThesisController::class, 'index'])->name('thesis.index');
-Route::get('/thesisSubmission', [ThesisController:: class, 'thesisSubmission'])->name('thesis.submission');
-Route::get('/thesis/create', [ThesisController::class, 'create'])->name('thesis.create');
-Route::post('/thesis/submit', [ThesisController::class, 'store'])->name('thesis.store');
-Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update');
-Route::post('/thesis/approval', [ThesisController::class, 'approveThesis'])->name('thesis.approve');
-Route::get('/thesis.correction', [AdminController::class, 'correctionReminder'])->name('thesis.correction');
-Route::post('/student/reminder', [AdminController::class, 'studentReminder'])->name('studentReminder');
+Route::get('/thesis.index', [ThesisController::class, 'index'])->name('thesis.index')->middleware('auth');
+Route::get('/thesisSubmission', [ThesisController:: class, 'thesisSubmission'])->name('thesis.submission')->middleware('auth');
+Route::get('/thesis/create', [ThesisController::class, 'create'])->name('thesis.create')->middleware('auth');
+Route::post('/thesis/submit', [ThesisController::class, 'store'])->name('thesis.store')->middleware('auth');
+//Route::post('/thesis/{id}', [ThesisController::class, 'update'])->name('thesis.update')->middleware('auth');
+Route::post('/thesis/approval', [ThesisController::class, 'approveThesis'])->name('thesis.approve')->middleware('auth');
+Route::get('/thesis.correction', [AdminController::class, 'correctionReminder'])->name('thesis.correction')->middleware('auth');
+Route::post('/student/reminder', [AdminController::class, 'studentReminder'])->name('studentReminder')->middleware('auth');
 
 
 //Reminder
-Route::post('/sendReminder', [ReminderController::class, 'sendReminder'])->name('thesis.emails');
-Route::post('/reminder', [ReminderController::class, 'reminder'])->name('send.reminder');
+Route::post('/sendReminder', [ReminderController::class, 'sendReminder'])->name('thesis.emails')->middleware('auth');
+Route::post('/reminder', [ReminderController::class, 'reminder'])->name('send.reminder')->middleware('auth');
 
-Route::post('/submit-reports/{thesis}', [AdminController::class, 'submitReports'])->name('admin.submit-reports');
-Route::post('/submit-minutes/{thesis}', [AdminController::class, 'submitMinutes'])->name('admin.submit-minutes');
-Route::get('/adminThesis', [AdminController::class, 'admin'])->name('thesis.admin');
+Route::post('/submit-reports/{thesis}', [AdminController::class, 'submitReports'])->name('admin.submit-reports')->middleware('auth');
+Route::post('/submit-minutes/{thesis}', [AdminController::class, 'submitMinutes'])->name('admin.submit-minutes')->middleware('auth');
+Route::get('/adminThesis', [AdminController::class, 'admin'])->name('thesis.admin')->middleware('auth');
 
 //Supervisee
 Route::get('/view/supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee')->middleware('auth');
