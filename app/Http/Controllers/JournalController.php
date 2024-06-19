@@ -49,12 +49,12 @@ class JournalController extends Controller
             $journal->save();
     
             // Redirect back with a success message
-            return redirect('journal.index')->with('message', 'Journal Publication submitted successfully');
+            return redirect('journal/index')->with('message', 'Journal Publication submitted successfully');
 
 
         } else {
             
-            return redirect('journal.index')->with('message', 'Journal Publication upload Failed.');
+            return redirect('journal/index')->with('message', 'Journal Publication upload Failed.');
 
         }
     }
@@ -100,7 +100,7 @@ class JournalController extends Controller
         $approval->save();
 
         // Return a success response
-        return redirect('journal.index')->with('message', 'Thesis approved successfully.');
+        return redirect('journal/index')->with('message', 'Thesis approved successfully.');
     } 
     
 }

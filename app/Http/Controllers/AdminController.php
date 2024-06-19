@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 use Carbon\Carbon;
 
 
@@ -102,9 +104,11 @@ class AdminController extends Controller
         // Retrieve email addresses of the selected users (students)
         $emails = Thesis::whereIn('user_id', $userIds)
                         ->join('users', 'theses.user_id', '=', 'users.id')
+                        ->distinct()
                         ->pluck('users.email')
                         ->toArray();
-    
+                        Log::info('Emails retrieved', ['emails' => $emails]);
+
         // Send or schedule reminder emails
         foreach ($emails as $email) {
             if ($scheduledDateTime) {

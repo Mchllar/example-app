@@ -46,7 +46,7 @@ class IntentionController extends Controller
         Mail::to($adminEmail)->send(new IntentionMail($studentName, $user->student->student_number));
     
         // Redirect back with a success message
-        return redirect('/')->with('message', 'Intention to Submit Notice submitted successfully.');
+        return redirect('notice.record')->with('message', 'Intention to Submit Notice submitted successfully.');
     }
 
     // Retrieving Records

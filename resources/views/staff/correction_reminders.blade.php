@@ -1,5 +1,5 @@
 <x-layout>
-@include('partials._searchProgram')
+<!--@include('partials._searchProgram')-->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -123,13 +123,8 @@
             <p>List of Pending Thesis/Dissertation Correction Submission</p></br></br>
 
             <div id="scheduleText">
-                <label for="scheduledDateTime">Schedule Date and Time (optional):</label>
-                <input type="datetime-local" id="scheduledDateTime" name="scheduledDateTime">
-        
-                <button id="sendReminderBtn">Send Reminder</button>
-                <span id="selectAllText" style="color: blue; cursor: pointer; transition: color 0.3s ease;" onclick="toggleSelectAll()">(Select All Students)</span>
-            </div>
-
+            <span id="selectAllText" style="color: blue; cursor: pointer; transition: color 0.3s ease;" onclick="toggleSelectAll()">(Select All Students)</span>
+    </div>
             <table class="custom-table">
                 <thead>
                     <tr>
@@ -153,6 +148,12 @@
         @else
             <p style="margin-top: 50px;">All students have submitted their corrections.</p>
         @endif
+        <div id="scheduleText">
+                <!--<label for="scheduledDateTime">Schedule Date and Time (optional):</label>
+                <input type="datetime-local" id="scheduledDateTime" name="scheduledDateTime">
+         -->
+                <button id="sendReminderBtn">Send Reminder</button>
+            </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
