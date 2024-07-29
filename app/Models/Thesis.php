@@ -13,7 +13,7 @@ class Thesis extends Model
 
         public function student()
         {
-            return $this->belongsTo(Student::class);
+            return $this->belongsTo(Student::class, 'user_id', 'user_id');
         }
 
         public function user()
@@ -35,12 +35,16 @@ class Thesis extends Model
 
             return $this->hasOne(ThesesReports::class, 'submission_id');
         }
+
         public function reminder()
         {
             return $this->hasOne(Reminder::class, 'submission_id', 'id');
         }
-        
- 
+
+        public function notices()
+        {
+            return $this->hasOne(Notice::class, 'user_id', 'user_id');
+        }
         
 }
 
