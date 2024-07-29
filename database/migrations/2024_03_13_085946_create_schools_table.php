@@ -26,7 +26,7 @@ return new class extends Migration
             ['name' =>'School of Humanities and Social Sciences' ],
             ['name' =>'School of Law' ],
             ['name' =>'School of Management and Commerce' ],
-            ['name' =>'School of Mathematics, Actuarial Science, and Finance' ],
+            ['name' =>'School of Mathematical Sciences' ],
             ['name' =>'School of Computing and Informatics' ],
             ['name' =>'School of Graduate Studies' ]
         ];

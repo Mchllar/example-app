@@ -38,6 +38,17 @@ return new class extends Migration
             ['name' =>'Master of Science in Strathmore Institute of Mathematical Sciences', 'school_id' => 6],
             ['name' =>'Master of Science in Mathematical Finance', 'school_id' => 6],
             ['name' =>'Master of Science in Data Science', 'school_id' => 7],
+            ['name' =>'PhD in Hospitality Management', 'school_id' => 3],
+            ['name' =>'PhD in Business Management', 'school_id' => 1],
+            ['name' =>'PhD in Healthcare Management', 'school_id' => 1],
+            ['name' =>'PhD in Information Technology', 'school_id' => 7],
+            ['name' =>'PhD in Computer Science', 'school_id' => 7],
+            ['name' =>'PhD in Philosophy', 'school_id' => 3],
+            ['name' =>'PhD in Education Management', 'school_id' => 3],
+            ['name' =>'PhD in Philosophy and Ethics', 'school_id' => 3],
+            ['name' =>'PhD in Mathematics', 'school_id' => 6],
+            ['name' =>'PhD in Economics', 'school_id' => 6],
+
         ];
 
         DB::table('programs')->insert($programsData);

@@ -64,7 +64,7 @@
                     <div>
                         <label for="principal_supervisor"><strong>Principal Supervisor</strong></label>
                         <select id="principal_supervisor" name="principal_supervisor" class="border border-gray-200 rounded p-2 w-full">
-                            <option value="">Select Principal Supervisor</option>
+                            <option value="">Select Principal Supervisor Assigned to You</option>
                             @foreach($supervisors as $supervisor)
                                 <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
                             @endforeach
@@ -75,7 +75,7 @@
                     <div>
                         <label for="lead_supervisor"><strong>Lead Supervisor</strong></label>
                         <select id="lead_supervisor" name="lead_supervisor" class="border border-gray-200 rounded p-2 w-full">
-                            <option value="">Select Lead Supervisor</option>
+                            <option value="">Select Lead Supervisor Assigned to You</option>
                             @foreach($supervisors as $supervisor)
                                 <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
                             @endforeach
