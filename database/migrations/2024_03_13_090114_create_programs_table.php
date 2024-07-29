@@ -48,6 +48,9 @@ return new class extends Migration
             ['name' =>'PhD in Philosophy and Ethics', 'school_id' => 3],
             ['name' =>'PhD in Mathematics', 'school_id' => 6],
             ['name' =>'PhD in Economics', 'school_id' => 6],
+            ['name' =>'PhD in Law', 'school_id' => 4],
+
+
 
         ];
 
