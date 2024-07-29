@@ -302,6 +302,7 @@
                                     <table class="hidden submissions-table" id="submissions-{{ $user->id }}">
                                         <thead>
                                             <tr>
+                                            <!--<th>Thesis Title</th>-->
                                                 <th>Thesis/Dissertation File</th>
                                                 <th>Submission Type</th>
                                                 <th>Submission Date</th>
@@ -312,7 +313,15 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($theses as $thesis)
-                                                <tr>
+                                            <!-- <tr>
+                                                    @if ($thesis->student && $thesis->student->notices->isNotEmpty())
+                                                            @foreach ($thesis->student->notices as $notice)
+                                                                <td>{{ $notice->thesis_title }}</td>
+                                                            @endforeach
+                                                        @else
+                                                            <td>Notice of intention not submitted</td>
+                                                        @endif-->
+                                                    
                                                     <td>
                                                         <div class="file-info">
                                                             <span class="document-link available" onclick="openDocument('{{ asset('thesis_documents/' . $thesis->thesis_document) }}')">View Thesis</span>

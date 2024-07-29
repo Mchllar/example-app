@@ -26,6 +26,7 @@ class AdminController extends Controller
         $thesis = Thesis::with('student') 
                         ->orderBy('created_at', 'desc')
                         ->get();
+        
 
         return view('staff.thesis_admin', compact('thesis'));
     }

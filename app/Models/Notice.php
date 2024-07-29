@@ -30,4 +30,10 @@ class Notice extends Model
     {
         return $this->belongsTo(Student::class, 'user_id', 'user_id');
     }
+
+    public function thesis()
+    {
+        return $this->belongsTo(Thesis::class, 'user_id', 'user_id');
+    }
+
 }

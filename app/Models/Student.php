@@ -67,4 +67,9 @@ class Student extends Model
     {
         return $this->hasMany(JournalApproval::class);
     }
+
+    public function notices()
+    {
+        return $this->hasMany(Notice::class, 'user_id', 'user_id');
+    }
 }

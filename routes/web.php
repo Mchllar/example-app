@@ -124,6 +124,10 @@ Route::post('/submit-reports/{thesis}', [AdminController::class, 'submitReports'
 Route::post('/submit-minutes/{thesis}', [AdminController::class, 'submitMinutes'])->name('admin.submit-minutes')->middleware('auth');
 Route::get('/adminThesis', [AdminController::class, 'admin'])->name('thesis.admin')->middleware('auth');
 
+//Defense
+Route::get('/adminDefense', [AdminController::class, 'defenseRecords'])->name('admin.defense')->middleware('auth');
+
+
 //Supervisee
 Route::get('/view/supervisee', [SuperviseeController::class, 'viewSupervisee'])->name('view.supervisee')->middleware('auth');
 

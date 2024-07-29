@@ -15,17 +15,13 @@ class UserFactory extends Factory
      */
     protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
+  
     public function definition()
     {
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'profile' => 'profiles/default.png', // Set a default profile image path
+            'profile' => 'public/images/user.png', // Set a default profile image path
             'role_id' => $this->faker->randomElement([1, 2, 3]),
             'date_of_birth' => $this->faker->date,
             'phone_number' => $this->faker->phoneNumber,

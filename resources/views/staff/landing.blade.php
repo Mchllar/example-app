@@ -104,6 +104,9 @@
                     <li class="mx-4 my-2">
                         <a href="{{route('progress_reports.completeReport')}}" class="font-bold hover:underline">Complete Progress Report</a>
                     </li>
+                    <li class="mx-4 my-2">
+                        <a href="{{route('admin.defense')}}" class="font-bold hover:underline">Defense Records</a>
+                    </li>
                 </ul>
             </div>
         </section>
