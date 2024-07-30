@@ -35,7 +35,7 @@ return new class extends Migration
             ['name' =>'Master of Science in Health Informatics', 'school_id' => 3],
             ['name' =>'Master of Science in Mobile Telecommunication and Innovation', 'school_id' => 7],
             ['name' =>'Master of Science in Applied Philosophy and Ethics', 'school_id' => 3],
-            ['name' =>'Master of Science in Strathmore Institute of Mathematical Sciences', 'school_id' => 6],
+            ['name' =>'Master of Science in Mathematical Sciences', 'school_id' => 6],
             ['name' =>'Master of Science in Mathematical Finance', 'school_id' => 6],
             ['name' =>'Master of Science in Data Science', 'school_id' => 7],
             ['name' =>'PhD in Hospitality Management', 'school_id' => 3],

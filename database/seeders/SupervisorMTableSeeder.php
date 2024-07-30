@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SupervisorMTableSeeder extends Seeder
 {
@@ -13,9 +14,10 @@ class SupervisorMTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
+                'id' => '3000',
                 'name' => 'Prof. Livingstone Luboobi',
                 'email' => 'l.luboobi@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111111',
                 'date_of_birth' => '1970-01-01',
@@ -23,25 +25,25 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Rachel Mbogo',
                 'email' => 'r.mbogo@strathmore.edu',
                 'role_id' => '2',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'phone_number' => '0722222222',
                 'date_of_birth' => '1970-01-01',
                 'country_id' => '89',
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Lyle Mckinnon',
                 'email' => 'l.mckinnon@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0733333333',
                 'date_of_birth' => '1970-01-01',
@@ -49,12 +51,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Daniel Skarlicki',
                 'email' => 'd.skarlicki@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0744444444',
                 'date_of_birth' => '1970-01-01',
@@ -67,7 +69,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. John Olukuru',
                 'email' => 'j.olukuru@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0755555555',
                 'date_of_birth' => '1970-01-01',
@@ -80,7 +82,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Jonathan Annan',
                 'email' => 'j.annan@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0766666666',
                 'date_of_birth' => '1970-01-01',
@@ -93,7 +95,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Reuben Marwanga',
                 'email' => 'r.marwanga@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0777777777',
                 'date_of_birth' => '1970-01-01',
@@ -106,7 +108,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Vertinsky, Ilan',
                 'email' => 'v.ilan@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0788888888',
                 'date_of_birth' => '1970-01-01',
@@ -119,7 +121,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Joseph Onyango',
                 'email' => 'j.onyango@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0799999999',
                 'date_of_birth' => '1970-01-01',
@@ -132,7 +134,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Pat Obi',
                 'email' => 'p.obi@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111112',
                 'date_of_birth' => '1970-01-01',
@@ -145,7 +147,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. David Mathuva',
                 'email' => 'd.mathuva@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111113',
                 'date_of_birth' => '1970-01-01',
@@ -158,7 +160,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Ankit Katrodia',
                 'email' => 'a.katrodia@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111114',
                 'date_of_birth' => '1970-01-01',
@@ -171,7 +173,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Fredrick Ogola',
                 'email' => 'f.ogola@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111115',
                 'date_of_birth' => '1970-01-01',
@@ -184,7 +186,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Edwine Barasa',
                 'email' => 'e.barasa@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111116',
                 'date_of_birth' => '1970-01-01',
@@ -197,7 +199,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Sassy Molyneux',
                 'email' => 's.molyneux@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111117',
                 'date_of_birth' => '1970-01-01',
@@ -210,7 +212,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Benjamin Tsofa',
                 'email' => 'b.tsofa@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111118',
                 'date_of_birth' => '1970-01-01',
@@ -223,7 +225,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Vitalis Onyango Otieno',
                 'email' => 'v.onyango@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111119',
                 'date_of_birth' => '1970-01-01',
@@ -231,12 +233,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Maurice Owino Oduor',
                 'email' => 'm.oduor@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111122',
                 'date_of_birth' => '1970-01-01',
@@ -244,12 +246,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Fred Walumbwa',
                 'email' => 'f.walumbwa@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111133',
                 'date_of_birth' => '1970-01-01',
@@ -262,7 +264,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Ben Ngoye',
                 'email' => 'b.ngoye@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111144',
                 'date_of_birth' => '1970-01-01',
@@ -275,7 +277,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Edward Ochieng',
                 'email' => 'e.ochieng@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111155',
                 'date_of_birth' => '1970-01-01',
@@ -288,7 +290,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Geoffrey M. Ngene',
                 'email' => 'g.ngene@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111166',
                 'date_of_birth' => '1970-01-01',
@@ -301,7 +303,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Marco Formentini',
                 'email' => 'm.formentini@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111177',
                 'date_of_birth' => '1970-01-01',
@@ -314,7 +316,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Simon Ndiritu',
                 'email' => 's.ndiritu@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111188',
                 'date_of_birth' => '1970-01-01',
@@ -327,7 +329,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Francis Wafula',
                 'email' => 'f.wafula@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111199',
                 'date_of_birth' => '1970-01-01',
@@ -340,7 +342,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Vincent Omwenga',
                 'email' => 'v.omwenga@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111223',
                 'date_of_birth' => '1970-01-01',
@@ -353,7 +355,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Patrick Ogao',
                 'email' => 'p.ogao@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111224',
                 'date_of_birth' => '1970-01-01',
@@ -366,7 +368,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Gilbert Kokwaro',
                 'email' => 'g.kokwaro@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111225',
                 'date_of_birth' => '1970-01-01',
@@ -379,7 +381,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Getnet Mitike Kassie',
                 'email' => 'g.kassie@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711111226',
                 'date_of_birth' => '1970-01-01',
@@ -392,7 +394,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Prof. Samuel Mwalili',
                 'email' => 's.mwalili@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711112227',
                 'date_of_birth' => '1970-01-01',
@@ -400,12 +402,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. John Odhiambo',
                 'email' => 'j.odhiambo@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711112228',
                 'date_of_birth' => '1970-01-01',
@@ -413,12 +415,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Ambrose Agweyu',
                 'email' => 'a.agweyu@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711112229',
                 'date_of_birth' => '1970-01-01',
@@ -426,12 +428,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Ruth Kiraka',
                 'email' => 'r.kiraka@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711122221',
                 'date_of_birth' => '1970-01-01',
@@ -439,12 +441,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Bernard Omolo',
                 'email' => 'b.omolo@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711122222',
                 'date_of_birth' => '1970-01-01',
@@ -452,12 +454,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Dr. Hellen Otieno',
                 'email' => 'h.otieno@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711122223',
                 'date_of_birth' => '1970-01-01',
@@ -465,12 +467,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. David Wang\'ombe',
                 'email' => 'd.wang\'ombe@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711122224',
                 'date_of_birth' => '1970-01-01',
@@ -478,12 +480,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Dr. Farida Abdul',
                 'email' => 'f.abdul@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711122225',
                 'date_of_birth' => '1970-01-01',
@@ -491,12 +493,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Prof. Kofi Dadzie',
                 'email' => 'k.dadzie@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711122226',
                 'date_of_birth' => '1970-01-01',
@@ -504,12 +506,12 @@ class SupervisorMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                //'school_id'=>'6',
+                
             ],
             [
                 'name' => 'Dr. Elizabeth Mokeira',
                 'email' => 'e.mokeira@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711122228',
                 'date_of_birth' => '1970-01-01',
@@ -522,7 +524,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Francis Kariuki',
                 'email' => 'f.kariuki@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711122229',
                 'date_of_birth' => '1970-01-01',
@@ -535,7 +537,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Jane Wathuta',
                 'email' => 'j.wathuta@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711222221',
                 'date_of_birth' => '1970-01-01',
@@ -548,7 +550,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Elizabeth Gachenga',
                 'email' => 'e.gachenga@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711222222',
                 'date_of_birth' => '1970-01-01',
@@ -561,7 +563,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'name' => 'Dr. Jackson Bett',
                 'email' => 'j.bett@strathmore.edu',
-                'password' => '',
+                'password' => Hash::make('password'),
                 'role_id' => '2',
                 'phone_number' => '0711222223',
                 'date_of_birth' => '1970-01-01',
