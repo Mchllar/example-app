@@ -867,28 +867,7 @@ class SupervisorMTableSeeder extends Seeder
                 'user_id' => '3170',
                 'curriculum_vitae' => 'public/cv/Default CV.pdf',
                 'school_id' => '8'
-            ],
-            [
-                'user_id' => '3171',
-                'curriculum_vitae' => 'public/cv/Default CV.pdf',
-                'school_id' => '8'
-            ],
-            [
-                'user_id' => '3172',
-                'curriculum_vitae' => 'public/cv/Default CV.pdf',
-                'school_id' => '8'
-            ],
-            [
-                'user_id' => '3173',
-                'curriculum_vitae' => 'public/cv/Default CV.pdf',
-                'school_id' => '8'
-            ],
-            [
-                'user_id' => '3174',
-                'curriculum_vitae' => 'public/cv/Default CV.pdf',
-                'school_id' => '8'
             ]
-            
         ]);
     }
 }
