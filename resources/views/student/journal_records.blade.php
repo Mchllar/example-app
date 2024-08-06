@@ -157,67 +157,72 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        $groupedJournals = $journals->groupBy('student_id');
+                                        $groupedJournals = $journals->groupBy('user_id');
                                     @endphp
-                                    @foreach ($groupedJournals as $studentId => $studentJournals)
+                                    @foreach ($groupedJournals as $userId => $journals)
                                         @php
-                                            $student = $studentJournals->first()->student;
+                                            $student = $journals->first()->student;
                                         @endphp
 
                                         <tr class="student-row">
                                             <td>{{ $student->student_number }}</td>
                                             <td>{{ $student->user->name }}</td>
                                         </tr>
-                                </tbody>
-                                    <table class="hidden" id="submissions-{{ $student->id }}">
-                                        <thead>
-                                            <th>Journal Title</th>
-                                            <th>Title of Paper</th>
-                                            <th>Status</th>
-                                            <th>File</th>
-                                            <th>Submission Date</th>
-                                            <th>Clearance</th>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($journals as $journal)
-                                            <tr>                                          
-                                                <td>{{ $journal->journal_title }}</td>
-                                                <td>{{ $journal->title_of_paper }}</td>
-                                                <td>{{ $journal->status }}</td>
-                                                <td>
-                                                    <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $journal->file_upload) }}')">View Publication</span>
-                                                </td>
-                                                <td>{{ $journal->created_at }}</td>
-                                                <td>
-                                                    @php
-                                                        // Check if a record exists in the journal approvals table for the current submission and admin
-                                                        $approval = \App\Models\JournalApproval::where('submission_id', $journal['id'])
-                                                                                            ->first();
-                                                    @endphp
-                                                    
-                                                    @if($approval)
-                                                        <span class="approval-text" style="color: green;">Approved</span>
-                                                    @else
-                                                        <div id="approvalContainer{{ $journal['id'] }}" class="approval-container">
-                                                            <form id="approvalForm{{ $journal['id'] }}" action="{{ route('journal.approval') }}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="submission_id" value="{{ $journal['id'] }}">
-                                                                <button id="approveButton{{ $journal['id'] }}" class="approve-button" onclick="approveSubmission({{ $journal['id'] }})">Approve</button>
-                                                            </form>
-                                                        </div>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach    
-                                </tbody>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table class="hidden" id="submissions-{{ $student->id }}">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Journal Title</th>
+                                                            <th>Title of Paper</th>
+                                                            <th>Status</th>
+                                                            <th>File</th>
+                                                            <th>Submission Date</th>
+                                                            <th>Clearance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($journals as $journal)
+                                                            <tr>
+                                                                <td>{{ $journal->journal_title }}</td>
+                                                                <td>{{ $journal->title_of_paper }}</td>
+                                                                <td>{{ $journal->status }}</td>
+                                                                <td>
+                                                                    <span class="document-link" onclick="openDocument('{{ asset('journal_publications/' . $journal->file_upload) }}')">View Publication</span>
+                                                                </td>
+                                                                <td>{{ $journal->created_at }}</td>
+                                                                <td>
+                                                                    @php
+                                                                        // Check if a record exists in the journal approvals table for the current submission
+                                                                        $approval = \App\Models\JournalApproval::where('submission_id', $journal->id)->exists();
+                                                                    @endphp
+
+                                                                    @if($approval)
+                                                                        <span class="approval-text" style="color: green;">Approved</span>
+                                                                    @else
+                                                                        <div id="approvalContainer{{ $journal->id }}" class="approval-container">
+                                                                            <form id="approvalForm{{ $journal->id }}" action="{{ route('journal.approval') }}" method="POST">
+                                                                                @csrf
+                                                                                <input type="hidden" name="submission_id" value="{{ $journal->id }}">
+                                                                                <button type="submit" id="approveButton{{ $journal->id }}" class="approve-button">Approve</button>
+                                                                            </form>
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                                <button id="toggleButton-{{ $student->id }}" onclick="toggleSubmissions({{ $student->id }})" class="custom-button-text">View Submissions</button>
+                                            </td>
+                                        </tr>
                                     @endforeach
-                                    </table>
+                                </tbody>
                             </table>
-                            <button id="toggleButton-{{ $student->id }}" onclick="toggleSubmissions({{ $student->id }})" class="custom-button-text">View Submissions</button>
+                            @else
+                            <p>No Journal Publications have been submitted.</p>
+                        @endif
                     @else
-                        <p>No Journal Publications have been submitted.</p>
-                    @endif
-                @else
                         <p><i>PUBLICATIONS/CONFERENCE PAPERS: (Please note the status of the following. Please note that without having a total of 3 papers as clarified in the PhD regulations, you are not eligible to graduate)</i></p>
 
                         @if (isset($journals) && !$journals->isEmpty())

@@ -293,7 +293,13 @@
                                 $user = $theses->first()->user;
                             @endphp
                             <tr class="student-row">
-                                <td>{{ $user->student->student_number }}</td>
+                            <td>
+                                @if ($user->student)
+                                    {{ $user->student->student_number }}
+                                @else
+                                    No Student Number
+                                @endif
+                            </td>
                                 <td>{{ $user->name }}</td>
                             </tr>
                             <tr>

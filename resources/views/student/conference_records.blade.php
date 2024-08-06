@@ -147,71 +147,77 @@
                 @if (auth()->user()->role_id == 3)
                     @if (isset($conferences) && !$conferences->isEmpty())
                         <p>List of All Conference Articles:</p>
-                            <table class="custom-table">
-                                <thead>
-                                    <tr>
-                                        <th>Student Number</th>
-                                        <th>Student Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $groupedConferences = $conferences->groupBy('student_id');
-                                    @endphp
-                                    @foreach ($groupedConferences as $studentId => $studentConferences)
-                                        @php
-                                            $student = $studentConferences->first()->student;
-                                        @endphp
+                        <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Student Number</th>
+                                <th>Student Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $groupedConferences = $conferences->groupBy('user_id');
+                            @endphp
+                            @foreach ($groupedConferences as $userId => $conferences)
+                                @php
+                                    $student = $conferences->first()->student;
+                                @endphp
 
-                                        <tr class="student-row">
-                                            <td>{{ $student->student_number }}</td>
-                                            <td>{{ $student->user->name }}</td>
-                                        </tr>
-                                </tbody>
-                                    <table class="hidden" id="submissions-{{ $student->id }}">
-                                        <thead>
-                                            <th>Conference Title & Website</th>
-                                            <th>Title of Paper Presentation</th>
-                                            <th>Status of Paper</th>
-                                            <th>File</th>
-                                            <th>Submission Date</th>
-                                            <th>Clearance</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($conferences as $conference)
+                                <tr class="student-row">
+                                    <td>{{ $student->student_number }}</td>
+                                    <td>{{ $student->user->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <table class="hidden" id="submissions-{{ $student->id }}">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ $conference->conference_title }}</td>
-                                                    <td>{{ $conference->title_of_paper }}</td>
-                                                    <td>{{ $conference->status }}</td>
-                                                    <td>
-                                                        <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $conference->file_upload) }}')">View Publication</span>
-                                                    </td>
-                                                    <td>{{ $conference->created_at }}</td>
-                                                    <td>
-                                                        @php
-                                                            // Check if a record exists in the conference approvals table for the current submission
-                                                            $approval = \App\Models\ConferenceApproval::where('submission_id', $conference->id)->exists();
-                                                        @endphp
-
-                                                        @if($approval)
-                                                            <span class="approval-text" style="color: green;">Approved</span>
-                                                        @else
-                                                            <div id="approvalContainer{{ $conference['id'] }}" class="approval-container">
-                                                                <form id="approvalForm{{ $conference['id'] }}" action="{{ route('conference.approval') }}" method="POST">
-                                                                    @csrf
-                                                                    <input type="hidden" name="submission_id" value="{{ $conference['id'] }}">
-                                                                    <button type="submit" id="approveButton{{ $conference['id'] }}" class="approve-button">Approve</button>
-                                                                </form>
-                                                            </div>
-                                                        @endif
-                                                    </td>
+                                                    <th>Conference Title & Website</th>
+                                                    <th>Title of Paper Presentation</th>
+                                                    <th>Status of Paper</th>
+                                                    <th>File</th>
+                                                    <th>Submission Date</th>
+                                                    <th>Clearance</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    @endforeach
-                                    </table>
-                            </table>
-                            <button id="toggleButton-{{ $student->id }}" onclick="toggleSubmissions({{ $student->id }})" class="custom-button-text">View Submissions</button>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($conferences as $conference)
+                                                    <tr>
+                                                        <td>{{ $conference->conference_title }}</td>
+                                                        <td>{{ $conference->title_of_paper }}</td>
+                                                        <td>{{ $conference->status }}</td>
+                                                        <td>
+                                                            <span class="document-link" onclick="openDocument('{{ asset('conference_publications/' . $conference->file_upload) }}')">View Publication</span>
+                                                        </td>
+                                                        <td>{{ $conference->created_at }}</td>
+                                                        <td>
+                                                            @php
+                                                                // Check if a record exists in the conference approvals table for the current submission
+                                                                $approval = \App\Models\ConferenceApproval::where('submission_id', $conference->id)->exists();
+                                                            @endphp
+
+                                                            @if($approval)
+                                                                <span class="approval-text" style="color: green;">Approved</span>
+                                                            @else
+                                                                <div id="approvalContainer{{ $conference['id'] }}" class="approval-container">
+                                                                    <form id="approvalForm{{ $conference['id'] }}" action="{{ route('conference.approval') }}" method="POST">
+                                                                        @csrf
+                                                                        <input type="hidden" name="submission_id" value="{{ $conference['id'] }}">
+                                                                        <button type="submit" id="approveButton{{ $conference['id'] }}" class="approve-button">Approve</button>
+                                                                    </form>
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <button id="toggleButton-{{ $student->id }}" onclick="toggleSubmissions({{ $student->id }})" class="custom-button-text">View Submissions</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @else
                         <p>No Conference Articles have been submitted.</p>
                     @endif
