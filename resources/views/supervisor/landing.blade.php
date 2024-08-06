@@ -61,6 +61,9 @@
                     <li class="mx-4 my-2">
                         <a href="{{ route('academic_leave.view')}}" class="font-bold hover:underline">Student Leave Requests</a>
                     </li>
+                    <li class="mx-4 my-2">
+                        <a href="{{route('admin.defense')}}" class="font-bold hover:underline">Defense Records</a>
+                    </li>
             </ul>
         </div>
     </section>

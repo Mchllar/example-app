@@ -235,6 +235,7 @@
                         <thead>
                             <tr>
                                 @if(auth()->user()->role_id == 2 ) 
+                                    <th>Student Number</th>
                                     <th>Student Name</th>
                                 @else
                                     <th>ID</th>
@@ -259,7 +260,8 @@
                                     @if(auth()->user()->role_id == 1)
                                         <td>{{ $thesis['id'] }}</td>
                                     @elseif(auth()->user()->role_id == 2 )
-                                        <td>{{ $thesis->user->name }}</td>                            
+                                        <td>{{ $thesis->student->student_number }}</td>                            
+                                        <td>{{ $thesis->user->name }}</td>  
                                     @endif
                                     <td>
                                         <div class="file-info">

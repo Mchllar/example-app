@@ -68,7 +68,9 @@ class JournalController extends Controller
         // Determine which journals to retrieve based on user's role
         if ($user->role_id == 3) {
             // User is an admin (role ID 3): Retrieve all journals
-            $journals = Journal::all();
+            $journals = Journal::with('student') 
+                                ->orderBy('created_at', 'desc')
+                                ->get();
         } elseif ($user->role_id == 1) {
             // User is a student (role ID 1): Retrieve journals submitted by the student
             $journals = Journal::where('user_id', $user->id)->get();

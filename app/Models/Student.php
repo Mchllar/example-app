@@ -35,7 +35,6 @@ class Student extends Model
     public function journal()
     {
         return $this->hasMany(Journal::class);
-
     }
 
     public function conference()
@@ -71,5 +70,9 @@ class Student extends Model
     public function notices()
     {
         return $this->hasMany(Notice::class, 'user_id', 'user_id');
+    }
+    public function defense()
+    {
+        return $this->hasMany(Defense::class);
     }
 }

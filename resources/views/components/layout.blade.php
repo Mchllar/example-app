@@ -134,7 +134,7 @@
                         <li class="font-bold"><a href="{{ route('reviewChangeSupervisorRequests') }}"><i class="fas fa-exchange-alt"> </i>View Change of
                                 Supervisor Requests</a></li>
                         <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"> </i>Student Leave Requests</a></li>
-                        <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-file-alt"> </i>Thesis Submissions</a></li>
+                        <li class="font-bold"><a href="{{ route('thesis.admin')}}"><i class="fas fa-file-alt"> </i>Thesis Submissions</a></li>
                         <li class="font-bold"><a href="{{ route('journal.index')}}"><i class="fas fa-book"> </i> Journal Publications</a></li>
                         <li class="font-bold"><a href="{{ route('conference.index')}}"><i class="fas fa-users"> </i> Conference Publications</a></li>
                         <li class="font-bold"><a href="#"><i class="fas fa-envelope"> </i>Send Thesis Correction or Reminders</a></li>

@@ -12,671 +12,883 @@ class SupervisorMTableSeeder extends Seeder
 
     public function run()
     {
-        DB::table('users')->insert([
+        DB::table('staff')->insert([
             [
-                'id' => '3000',
-                'name' => 'Prof. Livingstone Luboobi',
-                'email' => 'l.luboobi@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111111',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3000',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Rachel Mbogo',
-                'email' => 'r.mbogo@strathmore.edu',
-                'role_id' => '2',
-                'password' => Hash::make('password'),
-                'phone_number' => '0722222222',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '2',
-                'status' => 'active',
-                
+                'user_id' => '3001',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Lyle Mckinnon',
-                'email' => 'l.mckinnon@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0733333333',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3002',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Daniel Skarlicki',
-                'email' => 'd.skarlicki@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0744444444',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3003',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. John Olukuru',
-                'email' => 'j.olukuru@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0755555555',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3004',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Jonathan Annan',
-                'email' => 'j.annan@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0766666666',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3005',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Reuben Marwanga',
-                'email' => 'r.marwanga@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0777777777',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3006',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Vertinsky, Ilan',
-                'email' => 'v.ilan@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0788888888',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3007',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Joseph Onyango',
-                'email' => 'j.onyango@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0799999999',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3008',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Pat Obi',
-                'email' => 'p.obi@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111112',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3009',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. David Mathuva',
-                'email' => 'd.mathuva@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111113',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3010',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Ankit Katrodia',
-                'email' => 'a.katrodia@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111114',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-               // 'school_id'=>'1',
+                'user_id' => '3011',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Fredrick Ogola',
-                'email' => 'f.ogola@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111115',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3012',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Edwine Barasa',
-                'email' => 'e.barasa@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111116',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3013',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Sassy Molyneux',
-                'email' => 's.molyneux@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111117',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '2',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3014',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Benjamin Tsofa',
-                'email' => 'b.tsofa@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111118',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3015',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Vitalis Onyango Otieno',
-                'email' => 'v.onyango@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111119',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3016',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Maurice Owino Oduor',
-                'email' => 'm.oduor@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111122',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3017',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Fred Walumbwa',
-                'email' => 'f.walumbwa@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111133',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3018',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Ben Ngoye',
-                'email' => 'b.ngoye@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111144',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3019',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Edward Ochieng',
-                'email' => 'e.ochieng@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111155',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3020',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Geoffrey M. Ngene',
-                'email' => 'g.ngene@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111166',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3021',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Marco Formentini',
-                'email' => 'm.formentini@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111177',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3022',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Simon Ndiritu',
-                'email' => 's.ndiritu@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111188',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3023',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Francis Wafula',
-                'email' => 'f.wafula@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111199',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3024',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Vincent Omwenga',
-                'email' => 'v.omwenga@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111223',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'7',
+                'user_id' => '3025',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Patrick Ogao',
-                'email' => 'p.ogao@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'7',
+                'user_id' => '3026',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Gilbert Kokwaro',
-                'email' => 'g.kokwaro@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111225',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3027',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Getnet Mitike Kassie',
-                'email' => 'g.kassie@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711111226',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'1',
+                'user_id' => '3028',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Samuel Mwalili',
-                'email' => 's.mwalili@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711112227',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3029',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. John Odhiambo',
-                'email' => 'j.odhiambo@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711112228',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3030',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Ambrose Agweyu',
-                'email' => 'a.agweyu@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711112229',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3031',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Ruth Kiraka',
-                'email' => 'r.kiraka@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711122221',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3032',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Bernard Omolo',
-                'email' => 'b.omolo@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711122222',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3033',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Hellen Otieno',
-                'email' => 'h.otieno@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711122223',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3034',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. David Wang\'ombe',
-                'email' => 'd.wang\'ombe@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3035',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Farida Abdul',
-                'email' => 'f.abdul@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711122225',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3036',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Kofi Dadzie',
-                'email' => 'k.dadzie@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711122226',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                
+                'user_id' => '3037',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Elizabeth Mokeira',
-                'email' => 'e.mokeira@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711122228',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '2',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3038',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Francis Kariuki',
-                'email' => 'f.kariuki@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711122229',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3039',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Jane Wathuta',
-                'email' => 'j.wathuta@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711222221',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '2',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3040',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Elizabeth Gachenga',
-                'email' => 'e.gachenga@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711222222',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '2',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3041',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Jackson Bett',
-                'email' => 'j.bett@strathmore.edu',
-                'password' => Hash::make('password'),
-                'role_id' => '2',
-                'phone_number' => '0711222223',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '2',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3042',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Tobias Schonwetter',
-                'email' => 't.schonwetter@strathmore.edu',
-                'password' => '',
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3043',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Folashade Adeyemo',
-                'email' => 'f.adeyemo@strathmore.edu',
-                'password' => '',
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3044',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Lucas Lixinski',
-                'email' => 'l.lixinski@strathmore.edu',
-                'password' => '',
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3045',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Tobias Schonwetter',
-                'email' => 't.schonwetter@strathmore.edu',
-                'password' => '',
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3046',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Celestine Musembi',
-                'email' => 'c.musembi@strathmore.edu',
-                'password' => '',
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '2',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3047',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Collins Odote',
-                'email' => 'c.odote@strathmore.edu',
-                'password' => '',
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3048',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Prof. Carika Fritz',
-                'email' => 'c.fritz@strathmore.edu',
-                'password' => '',
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3049',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
             [
-                'name' => 'Dr. Joseph Orero',
-                'email' => 'j.orero@strathmore.edu',
-                'password' => '',
-                'role_id' => '2',
-                'phone_number' => '0711122224',
-                'date_of_birth' => '1970-01-01',
-                'country_id' => '89',
-                'religion_id' => '1',
-                'gender_id' => '1',
-                'status' => 'active',
-                //'school_id'=>'4',
+                'user_id' => '3050',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
             ],
+            [
+                'user_id' => '3051',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3052',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3053',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3054',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3055',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3056',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3057',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3058',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3059',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3060',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3061',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3062',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3063',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3064',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3065',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3066',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3067',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3068',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3069',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3070',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3071',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3072',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3073',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3074',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3075',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3076',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3077',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3078',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3079',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3080',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3081',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3082',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3083',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3084',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3085',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3086',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3087',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3088',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3089',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3090',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3091',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3092',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3093',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3094',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3095',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3096',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3097',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3098',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3099',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3100',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3101',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3102',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3103',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3104',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3105',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3106',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3107',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3108',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3109',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3110',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3111',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3112',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3113',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3114',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3115',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3116',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3117',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3118',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3119',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3120',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3121',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3122',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3123',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3124',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3125',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3126',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3127',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3128',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3129',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3130',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3131',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3132',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3133',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3134',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3135',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3136',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3137',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3138',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3139',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3140',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3141',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3142',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3143',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3144',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3145',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3146',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3147',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3148',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3149',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3150',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3151',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3152',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3153',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3154',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3155',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3156',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3157',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3158',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3159',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3160',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3161',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3162',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3163',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3164',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3165',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3166',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3167',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3168',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3169',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3170',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3171',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3172',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3173',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ],
+            [
+                'user_id' => '3174',
+                'curriculum_vitae' => 'public/cv/Default CV.pdf',
+                'school_id' => '8'
+            ]
+            
         ]);
     }
 }

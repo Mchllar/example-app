@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Thesis;
 use App\Models\User;
+use App\Models\Defense;
 use App\Models\ThesesReports;
 use App\Models\ThesesMinutes;
 use App\Models\SupervisorAllocation;
@@ -131,6 +132,46 @@ class AdminController extends Controller
         return response()->json(['message' => $scheduledDateTime ? 'Reminders scheduled successfully' : 'Reminders sent successfully']);
     }
     
+    //Defense Records
+    public function defenseRecords(Request $request)
+    {
+        /* Retrieve the currently authenticated user
+        $user = auth()->user();
+
+        if ($user->role_id == 3) {
+        $defense = Defense::with('student') 
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+        } elseif ($user->role_id == 1) {
+            // User is a student (role ID 1): Retrieve records specific to the student
+            $defense= Defense::where('user_id', $user->id)->get();
+
+        } elseif ($user->role_id == 2) {
+            // User is a student (role ID 1): Retrieve records of the supervisees
+            $defense= Defense::where('user_id', $user->id)->get();
+
+            // Retrieve supervisees' theses if the user is a supervisor
+            $superviseeUserIds = SupervisorAllocation::where('supervisor_id', $user->id)
+            ->join('students', 'supervisor_allocations.student_id', '=', 'students.id')
+            ->pluck('students.user_id')
+            ->toArray();
+
+            /*$thesis = Thesis::with('report', 'minutes', 'reminder') // Load reminder relationship
+                ->whereIn('user_id', $superviseeUserIds)
+                ->get();
+            $defense = Defense::with('student') 
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        }
+        else {
+            // Handle other roles as needed (optional)
+            $journals = collect(); // Default to an empty collection if role is unknown
+        }*/
+
+        return view('staff.defense', compact('defense'));
+
+    }
         
 
 }  

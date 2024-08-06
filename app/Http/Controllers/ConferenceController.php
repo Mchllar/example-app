@@ -63,10 +63,12 @@ class ConferenceController extends Controller
             // Retrieve the currently authenticated user
             $user = auth()->user();
         
-            // Determine which journals to retrieve based on user's role
+            // Determine which conference to retrieve based on user's role
             if ($user->role_id == 3) {
-                // User is an admin (role ID 3): Retrieve all journals
-                $conferences = Conference::all();
+                // User is an admin (role ID 3): Retrieve all conference
+                $conferences = Conference::with('student') 
+                                ->orderBy('created_at', 'desc')
+                                ->get();
             } elseif ($user->role_id == 1) {
                 // User is a student (role ID 1): Retrieve journals submitted by the student
                 $conferences = Conference::where('user_id', $user->id)->get();

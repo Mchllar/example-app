@@ -77,6 +77,9 @@
                 <li class="mx-4 my-2">
                     <a href="{{ route('notice.record')}}" class="font-bold hover:underline">Submit Notice Of Intent</a>
                 </li>
+                <li class="mx-4 my-2">
+                        <a href="{{route('admin.defense')}}" class="font-bold hover:underline">Defense Records</a>
+                </li>
             </ul>
         </div>
     </section>
