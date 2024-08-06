@@ -24,7 +24,7 @@
 
                 <!-- Staff Information -->
                 <div class="ml-4 profile-info">
-                    <h3 class="text-xl font-bold mb-2">Staff Profile</h3>
+                    <h3 class="text-xl font-bold mb-2">Staff's Profile</h3>
                     <div class="mb-2">
                         <div class="flex justify-between">
                             <span class="font-bold bg-gray-200 px-2 py-1 rounded">Name:</span>
