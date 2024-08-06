@@ -18,7 +18,7 @@
             <!-- Student Information -->
             <div class="ml-4">
                 <div class="info-container">
-                    <h3 class="text-xl font-bold mb-2">Supervisor Profile</h3>
+                    <h3 class="text-xl font-bold mb-2">Supervisor's Profile</h3>
                     <div class="flex justify-between mb-2">
                         <span class="font-bold bg-gray-200 px-2 py-1 rounded">Name:</span>
                         <span>{{ $supervisor->user->name }}</span>
