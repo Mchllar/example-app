@@ -16,7 +16,7 @@ class SupervisorMTableSeeder extends Seeder
             [
                 'user_id' => '3000',
                 'curriculum_vitae' => 'public/cv/Default CV.pdf',
-                'school_id' => '93646'
+                'school_id' => '8'
             ],
             [
                 'user_id' => '3001',

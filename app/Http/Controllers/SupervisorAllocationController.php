@@ -34,8 +34,8 @@ class SupervisorAllocationController extends Controller
             });
         }
     
-        // Execute the query and get the filtered list of students
-        $students = $studentsQuery->get();
+        // Execute the query and get the filtered list of students with pagination
+        $students = $studentsQuery->paginate(10); // 10 students per page
     
         return view('supervisorallocations.index', ['students' => $students]);
     }
@@ -43,21 +43,22 @@ class SupervisorAllocationController extends Controller
     public function supervisorStudentAllocation(Request $request)
     {
         // Retrieve search query parameters from the request
-    $searchQuery = $request->input('search');
-
-    // Build a query to filter supervisors based on the search query
-    $supervisorsQuery = User::where('role_id', 2); // Start with a base query
-
-    if ($searchQuery) {
-        // Filter supervisors by name
-        $supervisorsQuery->where('name', 'like', '%' . $searchQuery . '%');
+        $searchQuery = $request->input('search');
+    
+        // Build a query to filter supervisors based on the search query
+        $supervisorsQuery = User::where('role_id', 2); // Start with a base query
+    
+        if ($searchQuery) {
+            // Filter supervisors by name
+            $supervisorsQuery->where('name', 'like', '%' . $searchQuery . '%');
+        }
+    
+        // Paginate the results
+        $supervisors = $supervisorsQuery->paginate(10); // 10 supervisors per page
+    
+        return view('supervisorallocations.supervisorIndex', ['supervisors' => $supervisors]);
     }
-
-    // Execute the query and get the filtered list of supervisors
-    $supervisors = $supervisorsQuery->get();
-
-    return view('supervisorallocations.supervisorIndex', ['supervisors' => $supervisors]);
-    }
+    
     
 public function allocationStudent()
     {

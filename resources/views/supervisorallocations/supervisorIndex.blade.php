@@ -60,6 +60,12 @@
                     </table>
                     <button onclick="toggleAllocation({{ $supervisor->id }})" class="text-blue-500">View Students</button>
                 @endforeach
+
+                <!-- Pagination Links -->
+                <div class="mt-4">
+                    {{ $supervisors->links() }}
+                </div>
+
             @endif
         </div>
     </div>
