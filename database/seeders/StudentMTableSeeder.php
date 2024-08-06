@@ -4607,7 +4607,8 @@ class StudentMTableSeeder extends Seeder
                 'gender_id' => '2',
                 'status' => 'active',
                 'profile' => 'public/images/user.png'
-            ]
+            ],
+              
         ]);
     }
 }
