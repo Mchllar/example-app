@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('supervisor_id');
             $table->foreign('supervisor_id')->references('id')->on('users');
             $table->string('status')->default('active');
+            $table->enum('supervisor_type', ['principal', 'lead', 'supervisor'])->default('supervisor');
             $table->timestamps();
         });
         

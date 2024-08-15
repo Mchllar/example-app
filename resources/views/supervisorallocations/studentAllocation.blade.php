@@ -59,6 +59,18 @@
                         @enderror
                     </div>
 
+                    <!-- Supervisor Type Dropdown -->
+                    <div class="mb-4">
+                        <label for="supervisor_type" class="block text-gray-700 text-sm font-bold mb-2">
+                            {{ __('Supervisor Type') }}
+                        </label>
+                        <select name="supervisor_type" id="supervisor_type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="principal">{{ __('Principal') }}</option>
+                            <option value="lead">{{ __('Lead') }}</option>
+                            <option value="supervisor">{{ __('Supervisor') }}</option>
+                        </select>
+                    </div>
+
                     <div class="mb-4">
                         <label for="contract" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Contract') }}</label>
                         <input id="contract" type="file" class="form-input border border-gray-300 @error('contract') border-red-500 @enderror" name="contract" required>
@@ -81,6 +93,7 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
+
 
                     <div class="flex items-center justify-between">
                         <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

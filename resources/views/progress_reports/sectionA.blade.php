@@ -63,26 +63,26 @@
                     </div>
                     <div>
                         <label for="principal_supervisor"><strong>Principal Supervisor</strong></label>
-                        <select id="principal_supervisor" name="principal_supervisor" class="border border-gray-200 rounded p-2 w-full">
-                            <option value="">Select Principal Supervisor Assigned to You</option>
-                            @foreach($supervisors as $supervisor)
-                                <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" id="principal_supervisor" name="principal_supervisor" 
+                               class="border border-gray-200 rounded p-2 w-full" 
+                               value="{{ $principalSupervisors->first()->name ?? 'N/A' }}" readonly>
                         <!-- Hidden input field to capture principal supervisor ID -->
-                        <input type="hidden" name="principal_supervisor_id" id="principal_supervisor_id" value="">
+                        <input type="hidden" name="principal_supervisor_id" 
+                               id="principal_supervisor_id" 
+                               value="{{ $principalSupervisors->first()->id ?? '' }}">
                     </div>
+                    
                     <div>
                         <label for="lead_supervisor"><strong>Lead Supervisor</strong></label>
-                        <select id="lead_supervisor" name="lead_supervisor" class="border border-gray-200 rounded p-2 w-full">
-                            <option value="">Select Lead Supervisor Assigned to You</option>
-                            @foreach($supervisors as $supervisor)
-                                <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" id="lead_supervisor" name="lead_supervisor" 
+                               class="border border-gray-200 rounded p-2 w-full" 
+                               value="{{ $leadSupervisors->first()->name ?? 'N/A' }}" readonly>
                         <!-- Hidden input field to capture lead supervisor ID -->
-                        <input type="hidden" name="lead_supervisor_id" id="lead_supervisor_id" value="">
-                    </div>    
+                        <input type="hidden" name="lead_supervisor_id" 
+                               id="lead_supervisor_id" 
+                               value="{{ $leadSupervisors->first()->id ?? '' }}">
+                    </div>
+                    
                     <div>
                         <label class="block mb-2"><strong>Confirm your reporting period</strong></label>
                         <select id="reporting_period" name="reporting_period" class="border border-gray-200 rounded p-2 w-full">
@@ -105,14 +105,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            
-         $('#reporting_period').change(function() {
+            $('#reporting_period').change(function() {
                 $('#reporting_periods').val($(this).val());
             });
             $('#principal_supervisor').change(function() {
                 $('#principal_supervisor_id').val($(this).val());
             });
-    
+
             $('#lead_supervisor').change(function() {
                 $('#lead_supervisor_id').val($(this).val());
             });

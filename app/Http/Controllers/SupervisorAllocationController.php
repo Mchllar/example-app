@@ -83,8 +83,8 @@ public function allocationStudent()
             'student_id' => 'required|exists:students,id',
             'supervisor_id' => 'required|exists:users,id',
             'status' => 'required|string',
+            'supervisor_type' => 'required|string|in:principal,lead,supervisor',
         ]);
-
         if ($validator->fails()) {
             return redirect()
                 ->back()
@@ -97,6 +97,7 @@ public function allocationStudent()
             $file = $request->file('contract');
             $path = $file->store('contracts', 'public'); // Store the file in the public storage
         }
+    
 
         // Create SupervisorAllocation instance
         $allocation = new SupervisorAllocation;
@@ -107,6 +108,7 @@ public function allocationStudent()
         $allocation->student_id = $request->student_id;
         $allocation->supervisor_id = $request->supervisor_id;
         $allocation->status = $request->status;
+        $allocation->supervisor_type = $request->supervisor_type;
         $allocation->save();
 
         return redirect()->route('supervisorAllocation')->with('message', 'Supervisor allocation created successfully!');
@@ -135,6 +137,7 @@ public function allocationStudent()
             'student_id' => 'required|exists:students,id',
             'supervisor_id' => 'required|exists:users,id',
             'status' => 'required|string',
+            'supervisor_type' => 'required|string|in:principal,lead,supervisor',
         ]);
 
         if ($validator->fails()) {
@@ -151,6 +154,7 @@ public function allocationStudent()
         $allocation->student_id = $request->student_id;
         $allocation->supervisor_id = $request->supervisor_id;
         $allocation->status = $request->status;
+        $allocation->supervisor_type = $request->supervisor_type;
 
         // Handle file upload if a new file is provided
         if ($request->hasFile('contract')) {

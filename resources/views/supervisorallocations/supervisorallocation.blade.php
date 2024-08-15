@@ -62,6 +62,18 @@
                         @enderror
                     </div>
 
+                    <!-- Supervisor Type Dropdown -->
+                    <div class="mb-4">
+                        <label for="supervisor_type" class="block text-gray-700 text-sm font-bold mb-2">Supervisor Type</label>
+                        <div class="relative">
+                            <select name="supervisor_type" id="supervisor_type" class="block appearance-none w-48 bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                                <option value="principal">{{ __('Principal') }}</option>
+                                <option value="lead">{{ __('Lead') }}</option>
+                                <option value="supervisor">{{ __('Supervisor') }}</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="mb-4">
                         <label for="contract" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Contract (.pdf files)') }}</label>
                         <input id="contract" type="file" class="form-input border border-gray-300 @error('contract') border-red-500 @enderror" name="contract" required>

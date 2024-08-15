@@ -30,6 +30,7 @@
                                 <th>End Date</th>
                                 <th>Notes</th>
                                 <th>Contract</th>
+                                <th>Supervisor Type</th>
                                 <th>Edit</th>
                             </tr>
                             @if($supervisor->supervisorAllocations()->exists())
@@ -46,6 +47,7 @@
                                                 None
                                             @endif
                                         </td>
+                                        <td class="border px-4 py-2">{{ $allocation->supervisor_type }}</td>
                                         <td class="border px-4 py-2">
                                             <a href="{{ route('allocation.edit', ['id' => $allocation->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
                                         </td>

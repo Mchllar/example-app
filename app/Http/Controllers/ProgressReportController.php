@@ -9,6 +9,7 @@ use App\Models\ReportingPeriod;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Mail\ProgressReportNotification;
+use \App\Models\SupervisorAllocation;
 
 
 class ProgressReportController extends Controller
@@ -27,9 +28,24 @@ class ProgressReportController extends Controller
 
     public function sectionA()
     {
-        $supervisors = User::where('role_id', 2)->get();
+        $studentId = auth()->user()->student->id;
+        
+        // Fetch supervisors grouped by type for the logged-in student
+        $principalSupervisors =     SupervisorAllocation::where('student_id', $studentId)
+                                    ->where('supervisor_type', 'principal')
+                                    ->with('supervisor')
+                                    ->get()
+                                    ->pluck('supervisor');
+    
+        $leadSupervisors =          SupervisorAllocation::where('student_id', $studentId)
+                                    ->where('supervisor_type', 'lead')
+                                    ->with('supervisor')
+                                    ->get()
+                                    ->pluck('supervisor');
+    
         $periods = ReportingPeriod::all();
-        return view('progress_reports.sectionA', compact('supervisors', 'periods'));
+    
+        return view('progress_reports.sectionA', compact('principalSupervisors', 'leadSupervisors', 'periods'));
     }
 
     public function storeSectionA(Request $request)
