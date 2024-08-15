@@ -35,7 +35,7 @@ class SupervisorAllocationController extends Controller
         }
     
         // Execute the query and get the filtered list of students with pagination
-        $students = $studentsQuery->paginate(10); // 10 students per page
+        $students = $studentsQuery->paginate(10)->appends(['search' => $searchQuery]); // 10 students per page
     
         return view('supervisorallocations.index', ['students' => $students]);
     }
@@ -54,7 +54,7 @@ class SupervisorAllocationController extends Controller
         }
     
         // Paginate the results
-        $supervisors = $supervisorsQuery->paginate(10); // 10 supervisors per page
+        $supervisors = $supervisorsQuery->paginate(10)->appends(['search' => $searchQuery]); // 10 supervisors per page
     
         return view('supervisorallocations.supervisorIndex', ['supervisors' => $supervisors]);
     }

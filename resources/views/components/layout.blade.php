@@ -128,9 +128,8 @@
                         <li class="font-bold"><a href="/register" class="hover:text-laravel"><i class="fas fa-user-plus"> </i>
                                 Register New Users</a>
                         </li>
-                        <li class="font-bold"><a href="{{ route('supervisorAllocation') }}"><i class="fas fa-graduation-cap"> </i>List of Students</a></li>
-                        <li class="font-bold"><a href="{{ route('supervisorStudentAllocation') }}"><i class="fas fa-user-graduate"> </i>List of
-                                Supervisors</a></li>
+                        <li class="font-bold"><a href="{{ route('supervisorAllocation') }}"><i class="fas fa-graduation-cap"> </i>Assign Supervisors</a></li>
+                        <li class="font-bold"><a href="{{ route('supervisorStudentAllocation') }}"><i class="fas fa-user-graduate"> </i>Assign Students</a></li>
                         <li class="font-bold"><a href="{{ route('reviewChangeSupervisorRequests') }}"><i class="fas fa-exchange-alt"> </i>View Change of
                                 Supervisor Requests</a></li>
                         <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"> </i>Student Leave Requests</a></li>

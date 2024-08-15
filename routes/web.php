@@ -37,6 +37,8 @@ use App\Http\Controllers\ResetPasswordController;
 // Landing Page Route
 Route::get('/', [UserController::class, 'showLandingPage'])->name('landing')->middleware('auth');
 
+// List all users
+Route::get('/users', [UserController::class, 'index'])->name('users.index')->middleware('auth');
 
 //ALL USER AUTH ROUTES
 //Showing the register form
@@ -71,6 +73,12 @@ Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkE
 // Reset Password
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+// Display the edit form
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('auth.edit')->middleware('auth');
+
+// Update the user in the database
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update')->middleware('auth');
 
 
 // Log User Out

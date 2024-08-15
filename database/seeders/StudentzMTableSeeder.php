@@ -11,24 +11,8 @@ class StudentzMTableSeeder extends Seeder
     public function run()
     {
         DB::table('students')->insert([
-            [
-                'student_number' => '121666',
-                'academic_status' => 'active',
-                'program_id'=>'1',
-                'year_of_admission' => '2021',
-                'year_of_registration' => '2018',
-                'year_of_graduation' =>'2030',
-                'user_id' => '1013'
-            ],
-            /*[
-                'student_number' => '93646',
-                'academic_status' => 'active',
-                'program_id'=>'13',
-                'year_of_admission' => '2018',
-                'year_of_registration' => '2018',
-                'year_of_graduation' =>'2030',
-                'user_id' => '1000'
-            ],
+            
+            
             [
                 'student_number' => '62373',
                 'academic_status' => 'active',
@@ -142,11 +126,11 @@ class StudentzMTableSeeder extends Seeder
             [
                 'student_number' => '121666',
                 'academic_status' => 'active',
-                'program_id'=>'17',
+                'program_id'=>'1',
                 'year_of_admission' => '2021',
-                'year_of_registration' => '2020',
+                'year_of_registration' => '2018',
                 'year_of_graduation' =>'2030',
-                'user_id' => '1007'
+                'user_id' => '1013'
             ],
             [
                 'student_number' => '137671',
@@ -720,6 +704,16 @@ class StudentzMTableSeeder extends Seeder
             ],
 
             [
+                'student_number' => '93646',
+                'academic_status' => 'active',
+                'program_id'=>'13',
+                'year_of_admission' => '2018',
+                'year_of_registration' => '2018',
+                'year_of_graduation' =>'2030',
+                'user_id' => '2031'
+            ],
+
+            [
                 'student_number' => '48940',
                 'academic_status' => 'active',
                 'program_id'=>'18',
@@ -727,6 +721,15 @@ class StudentzMTableSeeder extends Seeder
                 'year_of_registration' => '2020',
                 'year_of_graduation' =>'2030',
                 'user_id' => '2032'
+            ],
+            [
+                'student_number' => '34370',
+                'academic_status' => 'active',
+                'program_id'=>'18',
+                'year_of_admission' => '2019',
+                'year_of_registration' => '2020',
+                'year_of_graduation' =>'2030',
+                'user_id' => '2033'
             ],
             [
                 'student_number' => '34370',
@@ -784,16 +787,7 @@ class StudentzMTableSeeder extends Seeder
                 'year_of_graduation' =>'2030',
                 'user_id' => '2039'
             ],
-            [
-                'student_number' => '62373',
-                'academic_status' => 'active',
-                'program_id'=>'18',
-                'year_of_admission' => '2019',
-                'year_of_registration' => '2020',
-                'year_of_graduation' =>'2030',
-                'user_id' => '1001'
-
-            ],
+    
             [
                 'student_number' => '123085',
                 'academic_status' => 'active',
@@ -1396,7 +1390,7 @@ class StudentzMTableSeeder extends Seeder
                 'year_of_registration' => '2020',//not indicated
                 'year_of_graduation' =>'2030',
                 'user_id' => '1084'
-            ],*/
+            ],
         ]);
     }
 }

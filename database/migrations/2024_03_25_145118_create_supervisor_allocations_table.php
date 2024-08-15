@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students');
             $table->unsignedBigInteger('supervisor_id');
-            $table->foreign('supervisor_id')->references('id')->on('users')->where('role_id', '=', 2);
+            $table->foreign('supervisor_id')->references('id')->on('users');
             $table->string('status')->default('active');
             $table->timestamps();
         });

@@ -14,7 +14,7 @@ class StudentMTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'id'=> '1000',
+                'id'=> '2031',
                 'name' => 'Andrew Cole',
                 'email' => 'omandi@strathmore.edu',
                 'password' => Hash::make ('password'),
@@ -25,7 +25,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
 
             ],
             [
@@ -40,7 +40,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
 
             ],
             [
@@ -55,7 +55,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id'=> '1003',
@@ -69,7 +69,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
 
             ],
             [
@@ -84,7 +84,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id'=> '1005',
@@ -98,7 +98,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id'=> '1006',
@@ -112,7 +112,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1007',
@@ -126,7 +126,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1008',
@@ -140,7 +140,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1009',
@@ -154,7 +154,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1010',
@@ -168,7 +168,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1011',
@@ -182,7 +182,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1012',
@@ -196,7 +196,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1013',
@@ -210,7 +210,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [   'id' => '1014',
                 'name' => 'Joyce Kiarie',
@@ -223,7 +223,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [   'id' => '1015',
                 'name' => 'Ajwang Akoth Morine',
@@ -236,7 +236,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [   'id' => '1016',
                 'name' => 'Bojo Samuel Scopas',
@@ -249,7 +249,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1017',
@@ -263,7 +263,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1018',
@@ -277,7 +277,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
         
             [
@@ -292,7 +292,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1020',
@@ -306,7 +306,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1021',
@@ -320,7 +320,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1022',
@@ -334,7 +334,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1023',
@@ -348,7 +348,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1024',
@@ -362,7 +362,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1025',
@@ -376,7 +376,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1026',
@@ -390,7 +390,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1027',
@@ -404,7 +404,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1028',
@@ -418,7 +418,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
 
             [
@@ -433,7 +433,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
 
             [
@@ -448,7 +448,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1031',
@@ -462,7 +462,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1032',
@@ -476,7 +476,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1033',
@@ -490,7 +490,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1034',
@@ -504,7 +504,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1035',
@@ -518,7 +518,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1036',
@@ -532,7 +532,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1037',
@@ -546,7 +546,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1038',
@@ -560,7 +560,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1039',
@@ -574,7 +574,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1040',
@@ -588,7 +588,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1041',
@@ -602,7 +602,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1042',
@@ -616,7 +616,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1043',
@@ -630,7 +630,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1044',
@@ -644,7 +644,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1045',
@@ -658,7 +658,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1046',
@@ -672,7 +672,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1047',
@@ -686,7 +686,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1048',
@@ -700,7 +700,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1049',
@@ -714,7 +714,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1050',
@@ -728,7 +728,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1051',
@@ -742,7 +742,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1052',
@@ -756,7 +756,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1053',
@@ -770,7 +770,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
 
             [
@@ -785,7 +785,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1055',
@@ -799,9 +799,22 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
-
+            [
+                'id' => '1056',
+                'name' => 'John Doe',
+                'email' => 'jd@strathmore.edu',
+                'password' => hash::make ('password'),
+                'role_id' => '1',
+                'phone_number' => '0711122227',
+                'date_of_birth' => '1970-01-01',
+                'country_id' => '89',
+                'religion_id' => '1',
+                'gender_id' => '2',
+                'status' => 'active',
+                'profile' => 'images/default.jpg', 
+            ],
 
             [
                 'id' => '1057',
@@ -815,7 +828,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1058',
@@ -829,7 +842,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1059',
@@ -843,7 +856,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1060',
@@ -857,7 +870,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1061',
@@ -871,7 +884,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1062',
@@ -885,7 +898,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1063',
@@ -899,7 +912,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1064',
@@ -913,7 +926,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1065',
@@ -927,7 +940,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1066',
@@ -941,7 +954,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1067',
@@ -955,7 +968,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1068',
@@ -969,7 +982,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1069',
@@ -983,7 +996,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1070',
@@ -997,7 +1010,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1071',
@@ -1011,7 +1024,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1073',
@@ -1025,7 +1038,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1072',
@@ -1039,7 +1052,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1074',
@@ -1053,7 +1066,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1075',
@@ -1067,7 +1080,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1076',
@@ -1081,7 +1094,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1077',
@@ -1095,7 +1108,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1078',
@@ -1109,7 +1122,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1079',
@@ -1123,7 +1136,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1080',
@@ -1137,7 +1150,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1081',
@@ -1151,7 +1164,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1082',
@@ -1165,7 +1178,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1083',
@@ -1179,7 +1192,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '1084',
@@ -1193,7 +1206,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png', 
+                'profile' => 'images/default.jpg', 
             ],
             [
                 'id' => '2000',
@@ -1207,7 +1220,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2001',
@@ -1221,7 +1234,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2002',
@@ -1235,7 +1248,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2004',
@@ -1249,7 +1262,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2005',
@@ -1263,7 +1276,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2007',
@@ -1277,7 +1290,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2008',
@@ -1291,7 +1304,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2010',
@@ -1305,7 +1318,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2012',
@@ -1319,7 +1332,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2013',
@@ -1333,7 +1346,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2014',
@@ -1347,7 +1360,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2015',
@@ -1361,7 +1374,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2016',
@@ -1375,7 +1388,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             
             [
@@ -1390,7 +1403,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2020',
@@ -1404,7 +1417,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2021',
@@ -1418,7 +1431,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2022',
@@ -1432,7 +1445,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2023',
@@ -1446,7 +1459,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2024',
@@ -1460,7 +1473,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2025',
@@ -1474,7 +1487,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2026',
@@ -1488,7 +1501,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2027',
@@ -1502,7 +1515,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2028',
@@ -1516,7 +1529,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2029',
@@ -1530,7 +1543,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2030',
@@ -1544,7 +1557,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
 
             [
@@ -1559,9 +1572,23 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
  
+            [
+                'id' => '2033',
+                'name' => 'Peter David',
+                'email' => 'davidpeter487@gmail.com',
+                'password' => Hash::make('password'),
+                'role_id' => '1',
+                'phone_number' => '0700000032',
+                'date_of_birth' => '1990-01-01',
+                'country_id' => '89',
+                'religion_id' => '1',
+                'gender_id' => '2',
+                'status' => 'active',
+                'profile' => 'images/default.jpg'
+            ],
             [
                 'id' => '2034',
                 'name' => 'Oscar Correia',
@@ -1574,7 +1601,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2035',
@@ -1588,7 +1615,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2036',
@@ -1602,7 +1629,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2037',
@@ -1616,7 +1643,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2038',
@@ -1630,7 +1657,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2039',
@@ -1644,7 +1671,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
   
             [
@@ -1659,7 +1686,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2042',
@@ -1673,7 +1700,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             
             [
@@ -1688,7 +1715,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2044',
@@ -1702,7 +1729,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' =>'1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2045',
@@ -1716,7 +1743,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2046',
@@ -1730,7 +1757,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2047',
@@ -1744,7 +1771,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2048',
@@ -1758,7 +1785,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2049',
@@ -1772,7 +1799,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2050',
@@ -1786,7 +1813,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2051',
@@ -1800,7 +1827,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2052',
@@ -1814,7 +1841,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2053',
@@ -1828,7 +1855,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2054',
@@ -1842,7 +1869,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2055',
@@ -1856,7 +1883,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2056',
@@ -1870,7 +1897,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2057',
@@ -1884,7 +1911,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2058',
@@ -1898,7 +1925,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2059',
@@ -1912,7 +1939,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2060',
@@ -1926,7 +1953,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2061',
@@ -1940,7 +1967,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2062',
@@ -1954,7 +1981,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2063',
@@ -1968,7 +1995,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2064',
@@ -1982,7 +2009,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2065',
@@ -1996,7 +2023,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2066',
@@ -2010,7 +2037,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2067',
@@ -2024,7 +2051,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2068',
@@ -2038,7 +2065,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2069',
@@ -2052,7 +2079,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2070',
@@ -2066,7 +2093,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2071',
@@ -2080,7 +2107,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '2072',
@@ -2094,7 +2121,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3000',
@@ -2108,7 +2135,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2123,7 +2150,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2138,7 +2165,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2153,7 +2180,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2168,7 +2195,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'              
+                'profile' => 'images/default.jpg'              
             ],
             [
                 'id' => '3004',
@@ -2182,7 +2209,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2197,7 +2224,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3006',
@@ -2211,7 +2238,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2226,7 +2253,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2241,7 +2268,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2256,7 +2283,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2271,7 +2298,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3011',
@@ -2285,7 +2312,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2300,7 +2327,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2315,7 +2342,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2330,7 +2357,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2345,7 +2372,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2360,7 +2387,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2375,7 +2402,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2390,7 +2417,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2405,7 +2432,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2420,7 +2447,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2435,7 +2462,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2450,7 +2477,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2465,7 +2492,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2480,7 +2507,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2495,7 +2522,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2510,7 +2537,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2525,7 +2552,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2540,7 +2567,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2555,7 +2582,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2570,7 +2597,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2585,7 +2612,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2600,7 +2627,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2615,7 +2642,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2630,7 +2657,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2645,7 +2672,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2660,7 +2687,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2675,7 +2702,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2690,7 +2717,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
                
             ],
@@ -2706,7 +2733,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
                
             ],
@@ -2722,7 +2749,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
                
             ],
@@ -2738,7 +2765,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
                
             ],
@@ -2754,7 +2781,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2769,7 +2796,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2784,7 +2811,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
                
             ],
             [
@@ -2799,7 +2826,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3046',
@@ -2813,7 +2840,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3047',
@@ -2827,7 +2854,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3048',
@@ -2841,7 +2868,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3049',
@@ -2855,7 +2882,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3050',
@@ -2869,7 +2896,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3051',
@@ -2883,7 +2910,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3052',
@@ -2897,7 +2924,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3053',
@@ -2911,7 +2938,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3054',
@@ -2925,7 +2952,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3055',
@@ -2939,7 +2966,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3056',
@@ -2953,7 +2980,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3057',
@@ -2967,7 +2994,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3058',
@@ -2981,7 +3008,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3059',
@@ -2995,7 +3022,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3060',
@@ -3009,7 +3036,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3061',
@@ -3023,7 +3050,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3062',
@@ -3037,7 +3064,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3063',
@@ -3051,7 +3078,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3064',
@@ -3065,7 +3092,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3065',
@@ -3079,7 +3106,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3066',
@@ -3093,7 +3120,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3067',
@@ -3107,7 +3134,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',#
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3068',
@@ -3121,7 +3148,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3069',
@@ -3135,7 +3162,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3070',
@@ -3149,7 +3176,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3071',
@@ -3163,7 +3190,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3072',
@@ -3177,7 +3204,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3073',
@@ -3191,7 +3218,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3074',
@@ -3205,7 +3232,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3075',
@@ -3219,7 +3246,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3076',
@@ -3233,7 +3260,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3077',
@@ -3247,7 +3274,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3078',
@@ -3261,7 +3288,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3079',
@@ -3275,7 +3302,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3080',
@@ -3289,7 +3316,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3081',
@@ -3303,7 +3330,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3082',
@@ -3317,7 +3344,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3083',
@@ -3331,7 +3358,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3084',
@@ -3345,7 +3372,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3085',
@@ -3359,7 +3386,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3086',
@@ -3373,7 +3400,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3087',
@@ -3387,7 +3414,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3088',
@@ -3401,7 +3428,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3089',
@@ -3415,7 +3442,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3090',
@@ -3429,7 +3456,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3091',
@@ -3443,7 +3470,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3092',
@@ -3457,7 +3484,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3093',
@@ -3471,7 +3498,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3094',
@@ -3485,7 +3512,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3095',
@@ -3499,7 +3526,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3096',
@@ -3513,7 +3540,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3097',
@@ -3527,7 +3554,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3098',
@@ -3541,7 +3568,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3099',
@@ -3555,7 +3582,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3100',
@@ -3569,7 +3596,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3101',
@@ -3583,7 +3610,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
 
             ],
             [
@@ -3598,7 +3625,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3103',
@@ -3612,7 +3639,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3104',
@@ -3626,7 +3653,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3105',
@@ -3640,7 +3667,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3106',
@@ -3654,7 +3681,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3107',
@@ -3668,7 +3695,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3108',
@@ -3682,7 +3709,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3109',
@@ -3696,7 +3723,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3110',
@@ -3710,7 +3737,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3111',
@@ -3724,7 +3751,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3112',
@@ -3738,7 +3765,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3113',
@@ -3752,7 +3779,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3114',
@@ -3766,7 +3793,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3115',
@@ -3780,7 +3807,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3116',
@@ -3794,7 +3821,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3117',
@@ -3808,7 +3835,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3118',
@@ -3822,7 +3849,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3119',
@@ -3836,7 +3863,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3120',
@@ -3850,7 +3877,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3121',
@@ -3864,7 +3891,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3122',
@@ -3878,7 +3905,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3123',
@@ -3892,7 +3919,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3124',
@@ -3906,7 +3933,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3125',
@@ -3920,7 +3947,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3126',
@@ -3934,7 +3961,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3127',
@@ -3948,7 +3975,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3128',
@@ -3962,7 +3989,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3129',
@@ -3976,7 +4003,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3130',
@@ -3990,7 +4017,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3131',
@@ -4004,7 +4031,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3132',
@@ -4018,7 +4045,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3133',
@@ -4032,7 +4059,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3134',
@@ -4046,7 +4073,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3135',
@@ -4060,7 +4087,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3136',
@@ -4074,7 +4101,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3137',
@@ -4088,7 +4115,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3138',
@@ -4102,7 +4129,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3139',
@@ -4116,7 +4143,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3140',
@@ -4130,7 +4157,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3141',
@@ -4144,7 +4171,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3142',
@@ -4158,7 +4185,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3143',
@@ -4172,7 +4199,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3144',
@@ -4186,7 +4213,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3145',
@@ -4200,7 +4227,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3146',
@@ -4214,7 +4241,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3147',
@@ -4228,7 +4255,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3148',
@@ -4242,7 +4269,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3149',
@@ -4256,7 +4283,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3150',
@@ -4270,7 +4297,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3151',
@@ -4284,7 +4311,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3152',
@@ -4298,7 +4325,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3153',
@@ -4312,7 +4339,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3154',
@@ -4326,7 +4353,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3155',
@@ -4340,7 +4367,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3156',
@@ -4354,7 +4381,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3157',
@@ -4368,7 +4395,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3158',
@@ -4382,7 +4409,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3159',
@@ -4396,7 +4423,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3160',
@@ -4410,7 +4437,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3161',
@@ -4424,7 +4451,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3162',
@@ -4438,7 +4465,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3163',
@@ -4452,7 +4479,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3164',
@@ -4466,7 +4493,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3165',
@@ -4480,7 +4507,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3166',
@@ -4494,7 +4521,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3167',
@@ -4508,7 +4535,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3168',
@@ -4522,7 +4549,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3169',
@@ -4536,7 +4563,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3170',
@@ -4550,7 +4577,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3171',
@@ -4564,7 +4591,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3172',
@@ -4578,7 +4605,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3173',
@@ -4592,7 +4619,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '1',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
             [
                 'id' => '3174',
@@ -4606,7 +4633,7 @@ class StudentMTableSeeder extends Seeder
                 'religion_id' => '1',
                 'gender_id' => '2',
                 'status' => 'active',
-                'profile' => 'public/images/user.png'
+                'profile' => 'images/default.jpg'
             ],
               
         ]);

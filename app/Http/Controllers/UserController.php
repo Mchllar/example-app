@@ -388,6 +388,87 @@ public function store(Request $request)
             return redirect('/verify-registration-otp')->with('message', 'A new OTP has been sent to your email.');
         } else {
             return redirect('/verify-registration-otp')->with('error', 'Error resending OTP. Please try again.');
-}
-}
+        }
+        }
+                     
+        public function index()
+        {
+            // Retrieve all users from the database
+            $users = User::with('role')->get(); // Assuming you have a role relationship
+        
+            // Return the view with users data
+            return view('auth.users', compact('users'));
+        }
+        
+
+        public function edit($id)
+        {
+            $user = User::findOrFail($id);
+            $roles = Role::all();
+            $genders = Gender::all();
+            $countries = Country::all();
+            $religions = Religion::all();
+            $programs = Program::all();
+            $schools = School::all();
+            
+            return view('auth.edit', compact('user','roles', 'genders', 'countries', 'religions', 'programs', 'schools'));
+        }
+        
+        public function update(Request $request, $id)
+        {
+            $user = User::findOrFail($id);
+            
+            // Validate the request
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'role_id' => 'required|integer',
+                'date_of_birth' => 'nullable|date',
+                'gender_id' => 'nullable|integer',
+                'country_id' => 'nullable|integer',
+                'religion_id' => 'nullable|integer',
+                'phone_number' => 'nullable|string|max:15',
+                // Additional validation rules as needed
+                'student_number' => 'nullable|required_if:role_id,1|string|max:255',
+                'programme' => 'nullable|required_if:role_id,1|exists:programs,id',
+                'school' => 'nullable|required_if:role_id,2|exists:schools,id',
+                'curriculum_vitae' => 'nullable|file|mimes:pdf|max:2048',
+            ]);
+        
+            // Handle profile picture upload if necessary
+            if ($request->hasFile('profile')) {
+                $profilePath = $request->file('profile')->store('profiles', 'public');
+                $validatedData['profile'] = $profilePath;
+            }
+        
+            // Update user data
+            $user->update($validatedData);
+        
+            // Handle additional fields based on role
+            if ($user->role_id == 1) {
+                // Update student-specific fields
+                $student = $user->student;
+                if ($student) {
+                    $student->update([
+                        'student_number' => $request->input('student_number'),
+                        'program_id' => $request->input('programme'),
+                    ]);
+                }
+            } elseif ($user->role_id == 2) {
+                // Update supervisor-specific fields
+                // Assuming 'curriculum_vitae' is related to supervisor's specific data
+                $supervisor = $user->supervisor;
+                if ($supervisor) {
+                    $supervisor->update([
+                        // Add relevant fields here
+                    ]);
+                }
+            }
+        
+            return redirect()->route('users.index')->with('success', 'User updated successfully!');
+        }
+        
+        
+        
 }

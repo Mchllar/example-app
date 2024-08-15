@@ -68,10 +68,12 @@
                         <a href="/register" class="font-bold hover:underline">Register new users</a>
                     </li>
                     <li class="mx-4 my-2">
-                        <a href="{{ route('supervisorAllocation') }}" class="font-bold hover:underline">List of Students</a>
+                        <a href="{{ route('users.index') }}" class="font-bold hover:underline">View All Users</a>                    </li>
+                    <li class="mx-4 my-2">
+                        <a href="{{ route('supervisorAllocation') }}" class="font-bold hover:underline">Assign Supervisors</a>
                     </li>
                     <li class="mx-4 my-2">
-                        <a href="{{ route('supervisorStudentAllocation') }}" class="font-bold hover:underline">List of Supervisors</a>
+                        <a href="{{ route('supervisorStudentAllocation') }}" class="font-bold hover:underline">Assign Students</a>
                     </li>
                     <li class="mx-4 my-2">
                         <a href="{{ route('reviewChangeSupervisorRequests') }}" class="font-bold hover:underline">View Change of Supervisor Requests</a>
