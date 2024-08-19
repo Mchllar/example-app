@@ -391,14 +391,36 @@ public function store(Request $request)
         }
         }
                      
-        public function index()
+        public function index(Request $request)
         {
-            // Retrieve all users from the database
-            $users = User::with('role')->get(); // Assuming you have a role relationship
+            // Retrieve search query parameters from the request
+            $searchQuery = $request->input('search');
+            $roleId = $request->input('role_id');
+            
+            // Build a query to filter users based on the search query and role
+            $userQuery = User::query();
+            
+            if ($searchQuery) {
+                // Filter users by name
+                $userQuery->where('name', 'like', '%' . $searchQuery . '%');
+            }
         
-            // Return the view with users data
-            return view('auth.users', compact('users'));
+            if ($roleId) {
+                // Filter users by role
+                $userQuery->where('role_id', $roleId);
+            }
+            
+            // Retrieve users with pagination (20 users per page)
+            $users = $userQuery->with('role')->paginate(20);
+            
+            // Retrieve all roles for the dropdown
+            $roles = Role::all();
+            
+            // Return the view with users and roles data
+            return view('auth.users', compact('users', 'roles'));
         }
+        
+        
         
 
         public function edit($id)

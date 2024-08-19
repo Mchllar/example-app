@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Program;
+use App\Models\School;
 use Illuminate\Http\Request;
 use App\Models\BoardRequestApproval;
 use App\Models\SupervisorAllocation;
@@ -13,54 +15,78 @@ use App\Models\ChangeSupervisorRequest;
 use App\Models\DirectorRequestApproval;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\ChangeSupervisorNotification;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class SupervisorAllocationController extends Controller
 {
     public function supervisorAllocation(Request $request)
     {
-        // Retrieve search query parameters from the request
         $searchQuery = $request->input('search');
-    
-        // Build a query to filter students based on the search query
+        $programId = $request->input('program');
+        
         $studentsQuery = Student::with('supervisors'); // Start with a base query
-    
+        
         if ($searchQuery) {
-            // Filter students by name and program based on the search query
             $studentsQuery->whereHas('user', function ($query) use ($searchQuery) {
-                $query->where('name', 'like', '%' . $searchQuery . '%');
-            })
-            ->orWhereHas('program', function ($query) use ($searchQuery) {
                 $query->where('name', 'like', '%' . $searchQuery . '%');
             });
         }
     
-        // Execute the query and get the filtered list of students with pagination
-        $students = $studentsQuery->paginate(10)->appends(['search' => $searchQuery]); // 10 students per page
+        if ($programId) {
+            $studentsQuery->where('program_id', $programId);
+        }
+        
+        $students = $studentsQuery->paginate(10)->appends([
+            'search' => $searchQuery,
+            'program' => $programId,
+        ]);
     
-        return view('supervisorallocations.index', ['students' => $students]);
+        // Retrieve all programs to populate the dropdown
+        $programs = Program::all();
+    
+        return view('supervisorallocations.index', ['students' => $students, 'programs' => $programs,]);
     }
-    
+      
     public function supervisorStudentAllocation(Request $request)
     {
-        // Retrieve search query parameters from the request
         $searchQuery = $request->input('search');
+        $schoolId = $request->input('school');
     
-        // Build a query to filter supervisors based on the search query
-        $supervisorsQuery = User::where('role_id', 2); // Start with a base query
+        // Base query for supervisors with a role_id of 2
+        $supervisorsQuery = User::where('role_id', 2);
     
+        // Filter by search query (name)
         if ($searchQuery) {
-            // Filter supervisors by name
             $supervisorsQuery->where('name', 'like', '%' . $searchQuery . '%');
         }
     
-        // Paginate the results
-        $supervisors = $supervisorsQuery->paginate(10)->appends(['search' => $searchQuery]); // 10 supervisors per page
+        // Filter by school ID through the staff table
+        if ($schoolId) {
+            $supervisorsQuery->whereHas('staff', function ($query) use ($schoolId) {
+                $query->where('school_id', $schoolId);
+            });
+        }
     
-        return view('supervisorallocations.supervisorIndex', ['supervisors' => $supervisors]);
+        // Paginate the results and maintain the query parameters in the pagination links
+        $supervisors = $supervisorsQuery->paginate(10)->appends([
+            'search' => $searchQuery,
+            'school' => $schoolId,
+        ]);
+    
+        // Retrieve all schools to populate the dropdown in the view
+        $schools = School::all();
+    
+        // Return the view with supervisors and schools data
+        return view('supervisorallocations.supervisorIndex', [
+            'supervisors' => $supervisors,
+            'schools' => $schools,
+        ]);
     }
     
     
-public function allocationStudent()
+    
+    public function allocationStudent()
     {
         $supervisors = User::where('role_id', 2)->get();
         $students = Student::all();
@@ -213,14 +239,43 @@ public function allocationStudent()
         return redirect('/')->with('message', 'Change Supervisor request submitted successfully, email sent to Administrator.');
   }
 
-  public function reviewChangeSupervisorRequests()
+  public function reviewChangeSupervisorRequests(Request $request)
   {
-      $changeRequests = ChangeSupervisorRequest::with('student')->get();
-      $groupedRequests = $changeRequests->groupBy('student_id');
+      $searchQuery = $request->input('search');
+      $programId = $request->input('program');
   
-      return view('supervisorallocations.reviewChangeSupervisorRequests', ['groupedRequests' => $groupedRequests]);
-  }
+      // Base query with eager loading
+      $changeRequests = ChangeSupervisorRequest::with(['student.user', 'student.program']);
   
+      // Apply search filter by student name
+      if ($searchQuery) {
+          $changeRequests->whereHas('student.user', function ($query) use ($searchQuery) {
+              $query->where('name', 'like', '%' . $searchQuery . '%');
+          });
+      }
+  
+      // Apply filter by program
+      if ($programId) {
+          $changeRequests->whereHas('student.program', function ($query) use ($programId) {
+              $query->where('id', $programId);
+          });
+      }
+  
+      // Paginate the results
+      $paginatedRequests = $changeRequests->paginate(10)->appends([
+          'search' => $searchQuery,
+          'program' => $programId,
+      ]);
+  
+      // Get all programs to populate the dropdown
+      $programs = Program::all();
+  
+      return view('supervisorallocations.reviewChangeSupervisorRequests', [
+          'paginatedRequests' => $paginatedRequests, // Pass paginated requests to the view
+          'programs' => $programs,
+      ]);
+  }  
+
   public function viewStudentForm($studentId)
   {
       $student = Student::findOrFail($studentId);

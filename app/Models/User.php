@@ -148,7 +148,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(correctionReminder::class);
     }
-    
+    public function school()
+{
+    return $this->belongsTo(School::class);
+}
+
 
 
 }

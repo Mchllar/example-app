@@ -8,6 +8,7 @@ use App\Models\FacultyLeaveApproval;
 use App\Models\OgsLeaveApproval;
 use App\Models\RegistrarLeaveApproval;
 use App\Models\Staff;
+use App\Models\Program;
 use App\Models\LeaveApproval;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -59,7 +60,46 @@ class AcademicLeaveRequestController extends Controller
     return redirect('/')->with("message", "Request Sent Successfully");
 }
 
-public function viewRequests()
+public function viewRequests(Request $request)
+{
+    $searchQuery = $request->input('search');
+    $programId = $request->input('program');
+
+    // Query to get students along with the count of their academic leave requests
+    $studentsQuery = DB::table('academic_leave_requests')
+        ->leftJoin('students', 'academic_leave_requests.student_id', '=', 'students.id')
+        ->leftJoin('users', 'students.user_id', '=', 'users.id')
+        ->leftJoin('programs', 'students.program_id', '=', 'programs.id')
+        ->select('students.id', 'users.name as student_name', 'programs.name as program_name', DB::raw('count(academic_leave_requests.id) as requests_count'))
+        ->groupBy('students.id', 'users.name', 'programs.name');
+
+    // Apply search filter by student name or program name
+    if ($searchQuery) {
+        $studentsQuery->where(function ($query) use ($searchQuery) {
+            $query->where('users.name', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('programs.name', 'like', '%' . $searchQuery . '%');
+        });
+    }
+
+    // Apply filter by program ID
+    if ($programId) {
+        $studentsQuery->where('students.program_id', $programId);
+    }
+
+    // Paginate the results
+    $students = $studentsQuery->paginate(10)->appends([
+        'search' => $searchQuery,
+        'program' => $programId,
+    ]);
+
+    // Retrieve all programs to populate the dropdown
+    $programs = Program::all();
+
+    return view('leave.viewRequest', ['students' => $students, 'programs' => $programs]);
+}
+
+
+/*public function viewRequests()
 {
     // Query to get students along with the count of their academic leave requests
     $students = DB::table('academic_leave_requests')
@@ -76,7 +116,7 @@ public function viewRequests()
     });
 
     return view('leave.viewRequest', ['students' => $students]);
-}
+}*/
 
 public function approve(Request $request)
 {

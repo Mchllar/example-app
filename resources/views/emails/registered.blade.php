@@ -13,9 +13,11 @@
         For security reasons we recommend you reset your password
     </p>
 
-    @component('mail::button', ['url' => $resetLink])
-        Access your Account
-    @endcomponent
+    <p style="text-align: left;">
+        <a href="{{ $resetLink }}" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #007bff; text-decoration: none; border-radius: 5px;">
+            Reset Password
+        </a>
+    </p>
 
     <p>
         Regards,<br>

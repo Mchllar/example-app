@@ -57,7 +57,7 @@ class SpecificUserSeeder extends Seeder
         ]);
         User::create([
             'name' => 'John Doe',
-            'email' => 'peter.aringo@strathmore.edu',
+            'email' => 'doloo2820@gmail.com',
             'profile' => 'images/default.jpg',
             'password' => Hash::make('pass1234'),
             'role_id' => 3,

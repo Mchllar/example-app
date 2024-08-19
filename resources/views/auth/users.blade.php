@@ -1,4 +1,5 @@
 <x-layout>
+    @include('partials._searchUsers')
     <div class="mx-4">
         <x-card class="p-10 rounded max-w-4xl mx-auto mt-24">
             <header class="text-center mb-6">
@@ -34,6 +35,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $users->appends(request()->input())->links() }}
         </x-card>
     </div>
 </x-layout>
