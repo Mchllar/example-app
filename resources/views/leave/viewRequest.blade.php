@@ -1,7 +1,23 @@
 <style>
-    .th{
-        background-color:#4CAF50;
+    .th {
+        background-color: #4CAF50;
         color: white;
+        border: 1px solid #ddd; /* Add borders to header */
+    }
+    table {
+        border-collapse: collapse; /* Ensure borders are not doubled */
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid #ddd; /* Add borders to cells */
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2; /* Add background color to even rows */
+    }
+    tr:hover {
+        background-color: #ddd; /* Add hover effect */
     }
 </style>
 
@@ -14,20 +30,38 @@
             <h1 class="text-3xl font-bold mb-4">Academic Leave Requests by Students</h1>
             
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                <table>
+                    <thead>
                         <tr>
-                            <!--<th scope="col" class="th px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">No. of requests</th>-->
-                            <th scope="col" class="th px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">Student Name</th>
-                            <th scope="col" class="th px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">Program</th>
+                            <th scope="col" class="th">Student Name</th>
+                            <th scope="col" class="th">Program</th>
+                            <th scope="col" class="th">Supervisor Approval</th>
+                            <th scope="col" class="th">Faculty Approval</th>
+                            <th scope="col" class="th">OGS Approval</th>
+                            <th scope="col" class="th">Registrar Approval</th>
+                            <th scope="col" class="th">Status</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody>
                         @foreach ($students as $student)
+                        @if (!session()->has('cleared_students') || !in_array($student->id, session('cleared_students')))
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap"><a href="{{ route('academic_leave.approve', ['student_id' => $student->id]) }}" class="text-blue-500 hover:underline">{{ $student->student_name }}</a></td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $student->program_name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="{{ route('academic_leave.approve', ['student_id' => $student->id]) }}" class="text-blue-500 hover:underline">{{ $student->student_name }}</a>
+                            </td>
+                            <td>{{ $student->program_name }}</td>
+                            <td>{{ $student->supervisor_approval_status }}</td>
+                            <td>{{ $student->faculty_approval_status }}</td>
+                            <td>{{ $student->ogs_approval_status }}</td>
+                            <td>{{ $student->registrar_approval_status }}</td>
+                            <td>
+                                    <form action="{{ route('academic_leave.clearStatus', $student->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="text-red-500 hover:underline">Clear</button>
+                                   </form>
+                            </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

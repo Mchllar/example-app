@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Program;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\ProgressReport;
 use App\Models\ReportingPeriod;
 use Illuminate\Support\Facades\Mail;
+use \App\Models\SupervisorAllocation;
 use Illuminate\Support\Facades\Session;
 use App\Mail\ProgressReportNotification;
-use \App\Models\SupervisorAllocation;
 
 
 class ProgressReportController extends Controller
@@ -139,28 +141,46 @@ class ProgressReportController extends Controller
     
         return redirect('/')->with('message', 'Next section to be filled by Supervisor');
     }
-    
-    public function updateReport()
+
+    public function updateReport(Request $request)
     {
-        $progressReports = ProgressReport::all(); // Retrieve all progress reports
-        return view('progress_reports.update', compact('progressReports'));
+        // Get the logged-in supervisor's ID
+        $supervisorId = auth()->user()->id;
+    
+        // Get search inputs
+        $searchTerm = $request->input('search_term');
+        $reportingPeriod = $request->input('reporting_period');
+    
+        // Query progress reports based on search term and filters
+        $progressReports = ProgressReport::with(['student.user', 'reportingPeriod'])
+            ->whereHas('student.supervisorAllocations', function ($query) use ($supervisorId) {
+                $query->where('supervisor_id', $supervisorId);
+            })
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->whereHas('student.user', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
+            })
+            ->when($reportingPeriod, function ($query, $reportingPeriod) {
+                return $query->where('reporting_periods_id', $reportingPeriod);
+            })
+            ->get();
+    
+        // Get all reporting periods and programs for filters
+        $reportingPeriods = ReportingPeriod::all();
+    
+        return view('progress_reports.update', compact('progressReports', 'reportingPeriods'));
     }
+    
+    
     
     public function sectionC($studentId, $reportingPeriod)
     {
         
-        // Verify that the student ID and reporting period are correct
-        //dd($studentId, $reportingPeriod);
-    
-        // Retrieve the progress report data for the student and reporting period
         $progressReport = ProgressReport::where('student_id', $studentId)
                                          ->where('reporting_periods_id', $reportingPeriod)
                                          ->first();
                                          
-        //dd($progressReport);
-
-    
-        // Pass the progress report data to the view
         return view('progress_reports.sectionC', compact('progressReport', 'studentId', 'reportingPeriod'));
     }
     
@@ -213,15 +233,33 @@ class ProgressReportController extends Controller
         // Redirect back to the desired page with a success message
         return redirect('/')->with('message', 'To be completed by Director of OGS');
     }
-    
-    
-    
-    
-    public function completeReport()
+        
+    public function completeReport(Request $request)
     {
-        $progressReports = ProgressReport::all(); // Retrieve all progress reports
-        return view('progress_reports.complete', compact('progressReports'));
+        // Get search inputs
+        $searchTerm = $request->input('search_term');
+        $reportingPeriod = $request->input('reporting_period');
+    
+        // Query progress reports based on search term and filters
+        $progressReports = ProgressReport::with(['student.user', 'reportingPeriod'])
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->whereHas('student.user', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
+            })
+            ->when($reportingPeriod, function ($query, $reportingPeriod) {
+                return $query->where('reporting_periods_id', $reportingPeriod);
+            })
+            ->get();
+    
+        // Get all reporting periods and programs for filters
+        $reportingPeriods = ReportingPeriod::all();
+    
+        return view('progress_reports.complete', compact('progressReports', 'reportingPeriods',));
     }
+    
+
+
     public function sectionD($studentId, $reportingPeriod)
     {
         
@@ -269,4 +307,13 @@ class ProgressReportController extends Controller
     
         return redirect('/')->with('message', 'Completed successfully');
     }
+    public function clearStatus($reportId)
+    {
+        // Store the cleared report ID in the session
+        session()->put('cleared_report_' . $reportId, true);
+        
+        return redirect()->route('progress_reports.completeReport')->with('message', 'Status cleared from view.');
+    }
+    
+
 }

@@ -23,6 +23,11 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function progressReports()
+    {
+        return $this->hasMany(ProgressReport::class);
+    }
+
     public function program()
     {
         return $this->belongsTo(Program::class);

@@ -153,6 +153,7 @@ Route::get('/progress_reports/sectionD/{studentId}/{reportingPeriod}', [Progress
 Route::post('/progress_reports/storeSectionD', [ProgressReportController::class, 'storeSectionD'])->name('progress_reports.storeSectionD')->middleware('auth');
 Route::get('/progress_reports/updateReport', [ProgressReportController::class, 'updateReport'])->name('progress_reports.updateReport')->middleware('auth');
 Route::get('/progress_reports/completeReport', [ProgressReportController::class, 'completeReport'])->name('progress_reports.completeReport')->middleware('auth');
+Route::get('/progress_reports/clearStatus/{reportId}', [ProgressReportController::class, 'clearStatus'])->name('progress_reports.clearStatus');
 
 //Academic Request
 Route::get('/academic_leave/create', [AcademicLeaveRequestController::class, 'create'])->name('academic_leave.create')->middleware('auth');
@@ -163,6 +164,7 @@ Route::post('/academic_leave/facultyApprove', [AcademicLeaveRequestController::c
 Route::post('/academic_leave/ogsApprove', [AcademicLeaveRequestController::class, 'ogsApprove'])->name('academic_leave.ogsApprove')->middleware('auth');
 Route::post('/academic_leave/registrarApprove', [AcademicLeaveRequestController::class, 'registrarApprove'])->name('academic_leave.registrarApprove')->middleware('auth');
 Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'viewRequests'])->name('academic_leave.view')->middleware('auth');
+Route::post('/academic-leave/clear-status/{studentId}', [AcademicLeaveRequestController::class, 'clearStatus'])->name('academic_leave.clearStatus');
 
 // Define routes for SupervisorAllocationController
 Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation')->middleware('auth');

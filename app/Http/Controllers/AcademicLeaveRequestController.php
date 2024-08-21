@@ -65,13 +65,34 @@ public function viewRequests(Request $request)
     $searchQuery = $request->input('search');
     $programId = $request->input('program');
 
-    // Query to get students along with the count of their academic leave requests
+    // Query to get students along with their approval statuses
     $studentsQuery = DB::table('academic_leave_requests')
         ->leftJoin('students', 'academic_leave_requests.student_id', '=', 'students.id')
         ->leftJoin('users', 'students.user_id', '=', 'users.id')
         ->leftJoin('programs', 'students.program_id', '=', 'programs.id')
-        ->select('students.id', 'users.name as student_name', 'programs.name as program_name', DB::raw('count(academic_leave_requests.id) as requests_count'))
-        ->groupBy('students.id', 'users.name', 'programs.name');
+        ->leftJoin('faculty_leave_approvals', 'academic_leave_requests.id', '=', 'faculty_leave_approvals.academic_leave_request_id')
+        ->leftJoin('ogs_leave_approvals', 'academic_leave_requests.id', '=', 'ogs_leave_approvals.academic_leave_request_id')
+        ->leftJoin('registrar_leave_approvals', 'academic_leave_requests.id', '=', 'registrar_leave_approvals.academic_leave_request_id')
+        ->leftJoin('leave_approvals', 'academic_leave_requests.id', '=', 'leave_approvals.academic_leave_request_id') // Add this join
+        ->select(
+            'students.id',
+            'users.name as student_name',
+            'programs.name as program_name',
+            DB::raw('count(academic_leave_requests.id) as requests_count'),
+            'leave_approvals.status as supervisor_approval_status', // Select supervisor approval status
+            'faculty_leave_approvals.status as faculty_approval_status',
+            'ogs_leave_approvals.status as ogs_approval_status',
+            'registrar_leave_approvals.status as registrar_approval_status'
+        )
+        ->groupBy(
+            'students.id',
+            'users.name',
+            'programs.name',
+            'leave_approvals.status', // Group by supervisor approval status
+            'faculty_leave_approvals.status',
+            'ogs_leave_approvals.status',
+            'registrar_leave_approvals.status'
+        );
 
     // Apply search filter by student name or program name
     if ($searchQuery) {
@@ -98,25 +119,6 @@ public function viewRequests(Request $request)
     return view('leave.viewRequest', ['students' => $students, 'programs' => $programs]);
 }
 
-
-/*public function viewRequests()
-{
-    // Query to get students along with the count of their academic leave requests
-    $students = DB::table('academic_leave_requests')
-        ->leftJoin('students', 'academic_leave_requests.student_id', '=', 'students.id')
-        ->leftJoin('users', 'students.user_id', '=', 'users.id')
-        ->leftJoin('programs', 'students.program_id', '=', 'programs.id') // Eager load the program relationship
-        ->select('students.id', 'users.name as student_name', 'programs.name as program_name', DB::raw('count(academic_leave_requests.id) as requests_count'))
-        ->groupBy('students.id', 'users.name', 'programs.name')
-        ->get();
-
-    // Map stdClass objects to Student model instances
-    $students = $students->map(function ($student) {
-        return Student::find($student->id);
-    });
-
-    return view('leave.viewRequest', ['students' => $students]);
-}*/
 
 public function approve(Request $request)
 {
@@ -235,6 +237,16 @@ public function registrarApprove(Request $request)
 
     // Redirect back with success message
     return redirect('/')->with("message", "Approved");
+}
+
+public function clearStatus($studentId)
+{
+    // Store the cleared student ID in the session
+    $clearedStudents = session()->get('cleared_students', []);
+    $clearedStudents[] = $studentId;
+    session()->put('cleared_students', $clearedStudents);
+
+    return redirect()->back()->with('message', 'Student cleared from view.');
 }
 
 }

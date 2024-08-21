@@ -18,6 +18,11 @@ return new class extends Migration
             $table->date('ogs_approval_date')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('academic_leave_request_id')->nullable();
+            $table->foreign('academic_leave_request_id')
+                  ->references('id')
+                  ->on('academic_leave_requests')
+                  ->onDelete('cascade');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

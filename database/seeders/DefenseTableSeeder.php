@@ -12,7 +12,7 @@ class DefenseTableSeeder extends Seeder
     {
         DB::table('defense')->insert([
             [
-                'user_id' => '1000',
+                'user_id' => '2031',
                 'defense_date' => '17-Dec-2021',
                 'defense_decision' => 'Passed with minor corrections',
                 'comments' => 'Too long. Medical doctor.',
