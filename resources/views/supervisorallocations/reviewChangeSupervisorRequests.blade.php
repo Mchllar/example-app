@@ -15,6 +15,7 @@
                 <thead>
                     <tr>
                         <th class="th border px-4 py-2">No. of requests</th>
+                        <th class="th border px-4 py-2">Student Number</th>
                         <th class="th border px-4 py-2">Student Name</th>
                         <th class="th border px-4 py-2">Program</th>
                     </tr>
@@ -23,6 +24,7 @@
                     @foreach($paginatedRequests as $request)
                     <tr>
                         <td class="border px-4 py-2">{{ $loop->iteration }}</td>
+                        <td class="border px-4 py-2">{{ $request->student->student_number }}</td>
                         <td class="border px-4 py-2">
                             <a href="{{ route('viewStudentForm', ['studentId' => $request->student_id]) }}" class="text-blue-500 hover:underline">
                                 {{ $request->student->user->name }}

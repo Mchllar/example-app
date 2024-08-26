@@ -33,7 +33,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <!--<th scope="col" class="th">Student No.</th>-->
+                            <th scope="col" class="th">Student Number</th>
                             <th scope="col" class="th">Student Name</th>
                             <th scope="col" class="th">Program</th>
                             <th scope="col" class="th">Supervisor Approval</th>
@@ -47,6 +47,7 @@
                         @foreach ($students as $student)
                         @if (!session()->has('cleared_requests') || !in_array($student->academic_leave_request_id, session('cleared_requests')))
                         <tr>
+                            <td>{{ $student->student_number }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <a href="{{ route('academic_leave.approve', ['student_id' => $student->id]) }}" class="text-blue-500 hover:underline">{{ $student->student_name }}</a>
                             </td>
