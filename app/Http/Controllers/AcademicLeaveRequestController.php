@@ -79,10 +79,11 @@ public function viewRequests(Request $request)
             'users.name as student_name',
             'programs.name as program_name',
             DB::raw('count(academic_leave_requests.id) as requests_count'),
-            'leave_approvals.status as supervisor_approval_status', // Select supervisor approval status
+            'leave_approvals.status as supervisor_approval_status',
             'faculty_leave_approvals.status as faculty_approval_status',
             'ogs_leave_approvals.status as ogs_approval_status',
-            'registrar_leave_approvals.status as registrar_approval_status'
+            'registrar_leave_approvals.status as registrar_approval_status',
+            'academic_leave_requests.id as academic_leave_request_id' // Add this line
         )
         ->groupBy(
             'students.id',
@@ -91,7 +92,8 @@ public function viewRequests(Request $request)
             'leave_approvals.status', // Group by supervisor approval status
             'faculty_leave_approvals.status',
             'ogs_leave_approvals.status',
-            'registrar_leave_approvals.status'
+            'registrar_leave_approvals.status',
+            'academic_leave_requests.id'
         );
 
     // Apply search filter by student name or program name
@@ -118,6 +120,7 @@ public function viewRequests(Request $request)
 
     return view('leave.viewRequest', ['students' => $students, 'programs' => $programs]);
 }
+
 
 
 public function approve(Request $request)
@@ -239,14 +242,16 @@ public function registrarApprove(Request $request)
     return redirect('/')->with("message", "Approved");
 }
 
-public function clearStatus($studentId)
+public function clearStatus($academicLeaveRequestId)
 {
-    // Store the cleared student ID in the session
-    $clearedStudents = session()->get('cleared_students', []);
-    $clearedStudents[] = $studentId;
-    session()->put('cleared_students', $clearedStudents);
+    // Store the cleared academic leave request ID in the session
+    $clearedRequests = session()->get('cleared_requests', []);
+    $clearedRequests[] = $academicLeaveRequestId;
+    session()->put('cleared_requests', $clearedRequests);
 
-    return redirect()->back()->with('message', 'Student cleared from view.');
+    return redirect()->back()->with('message', 'Academic leave request cleared from view.');
 }
+
+
 
 }

@@ -309,7 +309,7 @@ public function store(Request $request)
             // Redirect to OTP verification page
             return redirect('/verify-login-otp');
         } else {
-            return redirect('/login')->with('error', 'Wrong credentials!!')->with('showResetLink', true);
+            return redirect('/login')->with('error', 'Failed!!Wrong email or password')->with('showResetLink', true);
         }
     }
 

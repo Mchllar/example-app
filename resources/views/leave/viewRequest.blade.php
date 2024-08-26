@@ -33,6 +33,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <!--<th scope="col" class="th">Student No.</th>-->
                             <th scope="col" class="th">Student Name</th>
                             <th scope="col" class="th">Program</th>
                             <th scope="col" class="th">Supervisor Approval</th>
@@ -44,7 +45,7 @@
                     </thead>
                     <tbody>
                         @foreach ($students as $student)
-                        @if (!session()->has('cleared_students') || !in_array($student->id, session('cleared_students')))
+                        @if (!session()->has('cleared_requests') || !in_array($student->academic_leave_request_id, session('cleared_requests')))
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <a href="{{ route('academic_leave.approve', ['student_id' => $student->id]) }}" class="text-blue-500 hover:underline">{{ $student->student_name }}</a>
@@ -55,10 +56,10 @@
                             <td>{{ $student->ogs_approval_status }}</td>
                             <td>{{ $student->registrar_approval_status }}</td>
                             <td>
-                                    <form action="{{ route('academic_leave.clearStatus', $student->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="text-red-500 hover:underline">Clear</button>
-                                   </form>
+                                <form action="{{ route('academic_leave.clearStatus', $student->academic_leave_request_id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="text-red-500 hover:underline">Clear</button>
+                                </form>
                             </td>
                         </tr>
                         @endif

@@ -10,6 +10,7 @@
                     <table class="table-auto w-full mb-4">
                         <thead>
                             <tr>
+                                <th>Student No.</th>
                                 <th>Student Name</th>
                                 <th>Program</th>
                                 <th>Assign Supervisor</th>
@@ -17,6 +18,7 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td class="border px-4 py-2">{{ $student->student_number }}</td>
                                 <td class="border px-4 py-2">{{ $student->user->name }}</td>
                                 <td class="border px-4 py-2">{{ $student->program->name }}</td>
                                 <td class="border px-4 py-2">

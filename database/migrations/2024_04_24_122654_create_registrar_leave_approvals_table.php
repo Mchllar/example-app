@@ -23,7 +23,7 @@ return new class extends Migration
                   ->references('id')
                   ->on('academic_leave_requests')
                   ->onDelete('cascade');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['approve', 'decline','pending'])->default('pending');
             $table->timestamps();
         });
     }

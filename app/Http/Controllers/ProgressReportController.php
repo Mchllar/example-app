@@ -151,7 +151,7 @@ class ProgressReportController extends Controller
         $searchTerm = $request->input('search_term');
         $reportingPeriod = $request->input('reporting_period');
     
-        // Query progress reports based on search term and filters
+        // Query progress reports with pagination
         $progressReports = ProgressReport::with(['student.user', 'reportingPeriod'])
             ->whereHas('student.supervisorAllocations', function ($query) use ($supervisorId) {
                 $query->where('supervisor_id', $supervisorId);
@@ -164,13 +164,14 @@ class ProgressReportController extends Controller
             ->when($reportingPeriod, function ($query, $reportingPeriod) {
                 return $query->where('reporting_periods_id', $reportingPeriod);
             })
-            ->get();
+            ->paginate(10); // Paginate with 10 items per page
     
-        // Get all reporting periods and programs for filters
+        // Get all reporting periods for filters
         $reportingPeriods = ReportingPeriod::all();
     
         return view('progress_reports.update', compact('progressReports', 'reportingPeriods'));
     }
+    
     
     
     
@@ -240,7 +241,7 @@ class ProgressReportController extends Controller
         $searchTerm = $request->input('search_term');
         $reportingPeriod = $request->input('reporting_period');
     
-        // Query progress reports based on search term and filters
+        // Query progress reports with pagination
         $progressReports = ProgressReport::with(['student.user', 'reportingPeriod'])
             ->when($searchTerm, function ($query, $searchTerm) {
                 return $query->whereHas('student.user', function ($q) use ($searchTerm) {
@@ -250,14 +251,13 @@ class ProgressReportController extends Controller
             ->when($reportingPeriod, function ($query, $reportingPeriod) {
                 return $query->where('reporting_periods_id', $reportingPeriod);
             })
-            ->get();
+            ->paginate(10); // Paginate with 10 items per page
     
-        // Get all reporting periods and programs for filters
+        // Get all reporting periods for filters
         $reportingPeriods = ReportingPeriod::all();
     
-        return view('progress_reports.complete', compact('progressReports', 'reportingPeriods',));
+        return view('progress_reports.complete', compact('progressReports', 'reportingPeriods'));
     }
-    
 
 
     public function sectionD($studentId, $reportingPeriod)

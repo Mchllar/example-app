@@ -164,7 +164,8 @@ Route::post('/academic_leave/facultyApprove', [AcademicLeaveRequestController::c
 Route::post('/academic_leave/ogsApprove', [AcademicLeaveRequestController::class, 'ogsApprove'])->name('academic_leave.ogsApprove')->middleware('auth');
 Route::post('/academic_leave/registrarApprove', [AcademicLeaveRequestController::class, 'registrarApprove'])->name('academic_leave.registrarApprove')->middleware('auth');
 Route::get('/academic_leave/view', [AcademicLeaveRequestController::class, 'viewRequests'])->name('academic_leave.view')->middleware('auth');
-Route::post('/academic-leave/clear-status/{studentId}', [AcademicLeaveRequestController::class, 'clearStatus'])->name('academic_leave.clearStatus');
+Route::post('/academic-leave/clear-status/{academicLeaveRequestId}', [AcademicLeaveRequestController::class, 'clearStatus'])->name('academic_leave.clearStatus');
+
 
 // Define routes for SupervisorAllocationController
 Route::get('/supervisorAllocation', [SupervisorAllocationController::class, 'supervisorAllocation'])->name('supervisorAllocation')->middleware('auth');

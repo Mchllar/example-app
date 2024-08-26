@@ -21,6 +21,7 @@
         <table class="min-w-full mx-auto table-smaller">
             <thead>
                 <tr>
+                    <th scope="col" class="th px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">Student No.</th>
                     <th scope="col" class="th px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">Student Name</th>
                     <th scope="col" class="th px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">Reporting Period</th>
                 </tr>
@@ -29,6 +30,7 @@
                 @foreach($progressReports as $report)
                     @if ($report->student->supervisorAllocations->contains('supervisor_id', auth()->user()->id))
                         <tr>
+                            <td class="border px-4 py-2">{{ $report->student->student_number }}</td>
                             <td class="border px-4 py-2">
                                 <a href="{{ route('progress_reports.sectionC', ['studentId' => $report->student->id, 'reportingPeriod' => $report->reportingPeriod->id]) }}">
                                     {{ $report->student->user->name }}
@@ -40,5 +42,10 @@
                 @endforeach
             </tbody>
         </table>
+        
+        <!-- Pagination Links -->
+        <div class="mt-4">
+            {{ $progressReports->links() }}
+        </div>
     </div>
 </x-layout>

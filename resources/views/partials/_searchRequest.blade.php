@@ -4,7 +4,7 @@
             <div class="absolute top-4 left-3">
                 <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
             </div>
-            <input type="text" name="search" class="h-14 w-60 pl-10 pr-4 rounded-l-lg z-0 focus:shadow focus:outline-none" placeholder="Search Name" value="{{ request('search') }}" />
+            <input type="text" name="search" class="h-14 w-60 pl-10 pr-4 rounded-l-lg z-0 focus:shadow focus:outline-none" placeholder="Search for Your Student" value="{{ request('search') }}" />
         </div>
         <div class="relative">
             <select name="program" class="h-14 pl-3 pr-10 bg-white border-l-0 border-gray-100 rounded-r-lg focus:shadow focus:outline-none">
