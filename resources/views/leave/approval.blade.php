@@ -92,8 +92,8 @@
                              <div class="mb-4">
                               <label for="status"><strong>Approval</strong></label><br>
                                       <select id="status" name="status" class="form-select border border-gray-200 rounded p-2">
-                                          <option value="approve">Approve</option>
-                                          <option value="decline">Deny</option>
+                                          <option value="Approved">Approve</option>
+                                          <option value="Declined">Deny</option>
                                       </select>
                              </div>
                           <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Finish</button>
@@ -122,8 +122,8 @@
                              <div class="mb-4">
                               <label for="status"><strong>Approval</strong></label><br>
                                       <select id="status" name="status" class="form-select border border-gray-200 rounded p-2">
-                                          <option value="approve">Approve</option>
-                                          <option value="decline">Deny</option>
+                                        <option value="Approved">Approve</option>
+                                        <option value="Declined">Deny</option>
                                       </select>
                              </div>
                           <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Finish</button>
@@ -151,8 +151,8 @@
                              <div class="mb-4">
                               <label for="status"><strong>Approval</strong></label><br>
                                       <select id="status" name="status" class="form-select border border-gray-200 rounded p-2">
-                                          <option value="approve">Approve</option>
-                                          <option value="decline">Deny</option>
+                                        <option value="Approved">Approve</option>
+                                        <option value="Declined">Deny</option>
                                       </select>
                              </div>
                           <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Finish</button>
@@ -180,8 +180,8 @@
                              <div class="mb-4">
                               <label for="status"><strong>Approval</strong></label><br>
                                       <select id="status" name="status" class="form-select border border-gray-200 rounded p-2">
-                                          <option value="approve">Approve</option>
-                                          <option value="decline">Deny</option>
+                                        <option value="Approved">Approve</option>
+                                        <option value="Declined">Deny</option>
                                       </select>
                              </div>
                           <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Finish</button>
