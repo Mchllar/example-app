@@ -56,7 +56,7 @@ class SpecificUserSeeder extends Seeder
             'gender_id' => 1,
         ]);
         User::create([
-            'name' => 'John Doe',
+            'name' => 'Dr. David',
             'email' => 'doloo2820@gmail.com',
             'profile' => 'images/default.jpg',
             'password' => Hash::make('pass1234'),
