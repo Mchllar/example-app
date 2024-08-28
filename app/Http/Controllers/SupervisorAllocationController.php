@@ -24,9 +24,9 @@ class SupervisorAllocationController extends Controller
     {
         $searchQuery = $request->input('search');
         $programId = $request->input('program');
-        
+    
         $studentsQuery = Student::with('supervisors'); // Start with a base query
-        
+    
         if ($searchQuery) {
             $studentsQuery->whereHas('user', function ($query) use ($searchQuery) {
                 $query->where('name', 'like', '%' . $searchQuery . '%');
@@ -36,7 +36,10 @@ class SupervisorAllocationController extends Controller
         if ($programId) {
             $studentsQuery->where('program_id', $programId);
         }
-        
+    
+        // Order the students by their names in alphabetical order
+        $studentsQuery->orderBy(User::select('name')->whereColumn('users.id', 'students.user_id'));
+    
         $students = $studentsQuery->paginate(10)->appends([
             'search' => $searchQuery,
             'program' => $programId,
@@ -45,8 +48,9 @@ class SupervisorAllocationController extends Controller
         // Retrieve all programs to populate the dropdown
         $programs = Program::all();
     
-        return view('supervisorallocations.index', ['students' => $students, 'programs' => $programs,]);
+        return view('supervisorallocations.index', ['students' => $students, 'programs' => $programs]);
     }
+    
       
     public function supervisorStudentAllocation(Request $request)
     {
@@ -68,6 +72,9 @@ class SupervisorAllocationController extends Controller
             });
         }
     
+        // Order the supervisors by their names in alphabetical order
+        $supervisorsQuery->orderBy('name', 'asc');
+    
         // Paginate the results and maintain the query parameters in the pagination links
         $supervisors = $supervisorsQuery->paginate(10)->appends([
             'search' => $searchQuery,
@@ -83,6 +90,7 @@ class SupervisorAllocationController extends Controller
             'schools' => $schools,
         ]);
     }
+    
     
     
     
@@ -260,6 +268,15 @@ class SupervisorAllocationController extends Controller
               $query->where('id', $programId);
           });
       }
+
+      // Order by student name in ascending order
+    $changeRequests->orderBy(function ($query) {
+        $query->from('users')
+              ->join('students', 'students.user_id', '=', 'users.id')
+              ->select('users.name')
+              ->whereColumn('students.id', 'change_supervisor_requests.student_id')
+              ->limit(1);
+    }, 'asc');
   
       // Paginate the results
       $paginatedRequests = $changeRequests->paginate(10)->appends([

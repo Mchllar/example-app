@@ -97,7 +97,8 @@ public function viewRequests(Request $request)
             'ogs_leave_approvals.status',
             'registrar_leave_approvals.status',
             'academic_leave_requests.id'
-        );
+        )
+        ->orderBy('users.name', 'asc');
 
         if (auth()->check() && auth()->user()->role->name === 'supervisor') {
             // Get the supervisor's ID
@@ -182,7 +183,7 @@ public function storeApprove(Request $request)
     Mail::to($student->user->email)->send(new AcademicLeaveRequestApproval($academicLeaveRequest)); // Corrected mail class
 
     // Redirect back with success message
-    return redirect('/')->with("message", "Approved");
+    return redirect('/')->with("message", "Done");
 }
 
 public function facultyApprove(Request $request)
@@ -207,7 +208,7 @@ public function facultyApprove(Request $request)
     Mail::to($student->user->email)->send(new AcademicLeaveRequestApproval($academicLeaveRequest)); // Corrected mail class
 
     // Redirect back with success message
-    return redirect('/')->with("message", "Approved");
+    return redirect('/')->with("message", "Done");
 }
 
 public function ogsApprove(Request $request)
@@ -232,7 +233,7 @@ public function ogsApprove(Request $request)
     Mail::to($student->user->email)->send(new AcademicLeaveRequestApproval($academicLeaveRequest)); // Corrected mail class
 
     // Redirect back with success message
-    return redirect('/')->with("message", "Approved");
+    return redirect('/')->with("message", "Done");
 }
 
 public function registrarApprove(Request $request)
@@ -257,7 +258,7 @@ public function registrarApprove(Request $request)
     Mail::to($student->user->email)->send(new AcademicLeaveRequestApproval($academicLeaveRequest)); // Corrected mail class
 
     // Redirect back with success message
-    return redirect('/')->with("message", "Approved");
+    return redirect('/')->with("message", "Done");
 }
 
 public function clearStatus($academicLeaveRequestId)

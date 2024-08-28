@@ -14,9 +14,9 @@ return new class extends Migration
             $table->enum('academic_status', ['Active', 'Academic Leave', 'Suspended']);
             $table->unsignedBigInteger('program_id');
             $table->foreign('program_id')->references('id')->on('programs');
-            $table->integer('year_of_admission')->nullable();
-            $table->integer('year_of_registration')->nullable();
-            $table->integer('year_of_graduation')->nullable();
+            $table->integer('year_of_admission');
+            $table->integer('year_of_registration');
+            $table->integer('year_of_graduation');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

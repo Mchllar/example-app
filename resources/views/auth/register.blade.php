@@ -95,6 +95,28 @@
                         <input type="text" class="border border-gray-200 rounded p-2 w-full" name="student_number"/>
                     </div>
                     <div class="mb-6">
+                        <label for="year_of_admission" class="inline-block text-lg mb-2">Year of Admission</label>
+                        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="year_of_admission"/>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="year_of_registration" class="inline-block text-lg mb-2">Year of Registration</label>
+                        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="year_of_registration"/>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="year_of_graduation" class="inline-block text-lg mb-2">Year of Graduation</label>
+                        <input type="text" class="border border-gray-200 rounded p-2 w-full" name="year_of_graduation"/>
+                    </div>
+                    <div class="mb-6">
+                        <label for="academic_status" class="inline-block text-lg mb-2">Academic Status</label>
+                        <select name="academic_status" class="border border-gray-200 rounded p-2 w-full">
+                            <option value="Active">Active</option>
+                            <option value="Academic Leave">Academic Leave</option>
+                            <option value="Suspended">Suspended</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
                         <label for="programme" class="inline-block text-lg mb-2">Programme</label>
                         <select name="programme" class="border border-gray-200 rounded p-2 w-full">
                             @foreach($programs as $program)

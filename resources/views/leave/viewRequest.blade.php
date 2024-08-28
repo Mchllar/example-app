@@ -30,16 +30,28 @@
             <h1 class="text-3xl font-bold mb-4">Academic Leave Requests by Students</h1>
             
             <div class="overflow-x-auto">
+                @php
+                    $userRole = auth()->user()->role->name ?? null;
+                 @endphp
                 <table>
                     <thead>
                         <tr>
                             <th scope="col" class="th">Student Number</th>
                             <th scope="col" class="th">Student Name</th>
                             <th scope="col" class="th">Program</th>
+
+                            @if($userRole === 'supervisor')
                             <th scope="col" class="th">Supervisor Approval</th>
+
+                            @elseif($userRole === 'School Dean')
                             <th scope="col" class="th">Faculty Approval</th>
+
+                            @elseif($userRole === 'staff')
                             <th scope="col" class="th">OGS Approval</th>
+
+                            @elseif($userRole === 'Registrar')
                             <th scope="col" class="th">Registrar Approval</th>
+                            @endif
                             <th scope="col" class="th">Status</th>
                         </tr>
                     </thead>
@@ -52,10 +64,19 @@
                                 <a href="{{ route('academic_leave.approve', ['student_id' => $student->id]) }}" class="text-blue-500 hover:underline">{{ $student->student_name }}</a>
                             </td>
                             <td>{{ $student->program_name }}</td>
+
+                            @if($userRole === 'supervisor')
                             <td>{{ $student->supervisor_approval_status }}</td>
+
+                            @elseif($userRole === 'School Dean')
                             <td>{{ $student->faculty_approval_status }}</td>
+
+                            @elseif($userRole === 'staff')
                             <td>{{ $student->ogs_approval_status }}</td>
+
+                            @elseif($userRole === 'Registrar')
                             <td>{{ $student->registrar_approval_status }}</td>
+                            @endif
                             <td>
                                 <form action="{{ route('academic_leave.clearStatus', $student->academic_leave_request_id) }}" method="POST">
                                     @csrf

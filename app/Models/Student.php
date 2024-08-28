@@ -12,6 +12,9 @@ class Student extends Model
     protected $fillable = [
         'student_number',
         'academic_status', 
+        'year_of_admission',
+        'year_of_registration',
+        'year_of_graduation',
         'program_id', 
         'start_date', 
         'end_date', 

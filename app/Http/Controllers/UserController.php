@@ -160,7 +160,6 @@ public function store(Request $request)
         'gender' => 'nullable|exists:gender,id',
         'nationality' => 'nullable|exists:country,id',
         'religion' => 'nullable|exists:religion,id',
-        'curriculum_vitae' => 'nullable|file|mimes:pdf,doc,docx|max:2048', // Validation for CV
     ]);
 
     // Generate a random password
@@ -186,7 +185,7 @@ public function store(Request $request)
         'gender_id' => $validatedData['gender'],
         'country_id' => $validatedData['nationality'],
         'religion_id' => $validatedData['religion'],
-        'password' => $hashedPassword, // Ensure password is hashed
+        'password' => $hashedPassword,
     ];
 
     // Create user
@@ -197,8 +196,12 @@ public function store(Request $request)
         // Student-specific fields
         $studentData = [
             'student_number' => $request->input('student_number'),
+            'year_of_admission' => $request->input('year_of_admission'),
+            'year_of_registration' => $request->input('year_of_registration'),
+            'year_of_graduation' => $request->input('year_of_graduation'),
+            'academic_status' => $request->input('academic_status'),
             'program_id' => $request->input('programme'),
-            'user_id' => $user->id, // Associate with the created user
+            'user_id' => $user->id,
         ];
 
         // Create student

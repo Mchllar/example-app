@@ -1,0 +1,198 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\ChangeSupervisorRequest;
+use Carbon\Carbon;
+
+class ChangeSupervisorRequestSeeder extends Seeder
+{
+    public function run()
+    {
+        $data = [
+            [
+                'thesis_title' => 'Study on Machine Learning Algorithms',
+                'proposed_supervisor_1' => 'Dr. John Doe',
+                'proposed_supervisor_2' => 'Dr. Jane Smith',
+                'proposed_supervisor_3' => 'Dr. Emily White',
+                'effective_date' => Carbon::parse('2024-09-01'),
+                'reason_for_change' => 'Seeking expertise in machine learning.',
+                'student_id' => 1,
+            ],
+            [
+                'thesis_title' => 'Impact of Climate Change on Marine Life',
+                'proposed_supervisor_1' => 'Dr. Peter Black',
+                'proposed_supervisor_2' => 'Dr. Mary Green',
+                'proposed_supervisor_3' => 'Dr. Susan Blue',
+                'effective_date' => Carbon::parse('2024-09-15'),
+                'reason_for_change' => 'Better alignment with research interests.',
+                'student_id' => 2,
+            ],
+            [
+                'thesis_title' => 'Blockchain in Financial Systems',
+                'proposed_supervisor_1' => 'Dr. Alan Brown',
+                'proposed_supervisor_2' => 'Dr. Lucy Yellow',
+                'proposed_supervisor_3' => 'Dr. Kevin Orange',
+                'effective_date' => Carbon::parse('2024-10-01'),
+                'reason_for_change' => 'Supervisor availability issues.',
+                'student_id' => 3,
+            ],
+            [
+                'thesis_title' => 'Artificial Intelligence in Healthcare',
+                'proposed_supervisor_1' => 'Dr. Sarah Blue',
+                'proposed_supervisor_2' => 'Dr. Daniel Grey',
+                'proposed_supervisor_3' => 'Dr. Olivia Pink',
+                'effective_date' => Carbon::parse('2024-10-10'),
+                'reason_for_change' => 'Interest in AI-related research.',
+                'student_id' => 4,
+            ],
+            [
+                'thesis_title' => 'Renewable Energy Technologies',
+                'proposed_supervisor_1' => 'Dr. Michelle White',
+                'proposed_supervisor_2' => 'Dr. Christopher Red',
+                'proposed_supervisor_3' => 'Dr. Hannah Yellow',
+                'effective_date' => Carbon::parse('2024-10-20'),
+                'reason_for_change' => 'Shifting focus to energy studies.',
+                'student_id' => 5,
+            ],
+            [
+                'thesis_title' => 'Cybersecurity in Cloud Computing',
+                'proposed_supervisor_1' => 'Dr. James Green',
+                'proposed_supervisor_2' => 'Dr. Sophia Black',
+                'proposed_supervisor_3' => 'Dr. Joshua Brown',
+                'effective_date' => Carbon::parse('2024-11-01'),
+                'reason_for_change' => 'Need for cybersecurity specialization.',
+                'student_id' => 6,
+            ],
+            [
+                'thesis_title' => 'Sustainable Urban Planning',
+                'proposed_supervisor_1' => 'Dr. Karen Blue',
+                'proposed_supervisor_2' => 'Dr. Brian White',
+                'proposed_supervisor_3' => 'Dr. Lisa Pink',
+                'effective_date' => Carbon::parse('2024-11-10'),
+                'reason_for_change' => 'Seeking urban planning expertise.',
+                'student_id' => 7,
+            ],
+            [
+                'thesis_title' => 'Data Analytics in Marketing',
+                'proposed_supervisor_1' => 'Dr. Olivia Green',
+                'proposed_supervisor_2' => 'Dr. David Black',
+                'proposed_supervisor_3' => 'Dr. Rachel White',
+                'effective_date' => Carbon::parse('2024-11-20'),
+                'reason_for_change' => 'Interest in data-driven marketing.',
+                'student_id' => 8,
+            ],
+            [
+                'thesis_title' => 'Genetics and Gene Therapy',
+                'proposed_supervisor_1' => 'Dr. Matthew Blue',
+                'proposed_supervisor_2' => 'Dr. Laura White',
+                'proposed_supervisor_3' => 'Dr. Mark Brown',
+                'effective_date' => Carbon::parse('2024-12-01'),
+                'reason_for_change' => 'Desire to focus on genetics research.',
+                'student_id' => 9,
+            ],
+            [
+                'thesis_title' => 'Advancements in Quantum Computing',
+                'proposed_supervisor_1' => 'Dr. Richard Green',
+                'proposed_supervisor_2' => 'Dr. Emily Black',
+                'proposed_supervisor_3' => 'Dr. Daniel White',
+                'effective_date' => Carbon::parse('2024-12-10'),
+                'reason_for_change' => 'Seeking quantum computing expertise.',
+                'student_id' => 10,
+            ],
+            [
+                'thesis_title' => 'Psychological Impacts of Social Media',
+                'proposed_supervisor_1' => 'Dr. Jessica Blue',
+                'proposed_supervisor_2' => 'Dr. Ryan White',
+                'proposed_supervisor_3' => 'Dr. Megan Pink',
+                'effective_date' => Carbon::parse('2024-12-15'),
+                'reason_for_change' => 'Interest in psychology and technology.',
+                'student_id' => 11,
+            ],
+            [
+                'thesis_title' => 'Nanotechnology in Medicine',
+                'proposed_supervisor_1' => 'Dr. Thomas Green',
+                'proposed_supervisor_2' => 'Dr. Ashley Black',
+                'proposed_supervisor_3' => 'Dr. Michael White',
+                'effective_date' => Carbon::parse('2025-01-01'),
+                'reason_for_change' => 'Focus on nanotechnology advancements.',
+                'student_id' => 12,
+            ],
+            [
+                'thesis_title' => 'Economic Impacts of Globalization',
+                'proposed_supervisor_1' => 'Dr. Andrew Blue',
+                'proposed_supervisor_2' => 'Dr. Amber White',
+                'proposed_supervisor_3' => 'Dr. Ethan Black',
+                'effective_date' => Carbon::parse('2025-01-10'),
+                'reason_for_change' => 'Interest in global economic trends.',
+                'student_id' => 13,
+            ],
+            [
+                'thesis_title' => 'Ethical AI and Decision Making',
+                'proposed_supervisor_1' => 'Dr. Samantha Green',
+                'proposed_supervisor_2' => 'Dr. Tyler White',
+                'proposed_supervisor_3' => 'Dr. Chloe Brown',
+                'effective_date' => Carbon::parse('2025-01-20'),
+                'reason_for_change' => 'Focus on ethical AI practices.',
+                'student_id' => 14,
+            ],
+            [
+                'thesis_title' => 'Renewable Energy in Developing Countries',
+                'proposed_supervisor_1' => 'Dr. Sophia Green',
+                'proposed_supervisor_2' => 'Dr. Henry White',
+                'proposed_supervisor_3' => 'Dr. Olivia Black',
+                'effective_date' => Carbon::parse('2025-02-01'),
+                'reason_for_change' => 'Interest in sustainable development.',
+                'student_id' => 15,
+            ],
+            [
+                'thesis_title' => 'Artificial Intelligence in Education',
+                'proposed_supervisor_1' => 'Dr. Benjamin Blue',
+                'proposed_supervisor_2' => 'Dr. Natalie White',
+                'proposed_supervisor_3' => 'Dr. William Black',
+                'effective_date' => Carbon::parse('2025-02-10'),
+                'reason_for_change' => 'Focus on AI-enhanced learning.',
+                'student_id' => 16,
+            ],
+            [
+                'thesis_title' => 'Climate Change and Agriculture',
+                'proposed_supervisor_1' => 'Dr. Jonathan Green',
+                'proposed_supervisor_2' => 'Dr. Michelle Black',
+                'proposed_supervisor_3' => 'Dr. Lucas White',
+                'effective_date' => Carbon::parse('2025-02-20'),
+                'reason_for_change' => 'Desire to focus on climate impacts.',
+                'student_id' => 17,
+            ],
+            [
+                'thesis_title' => 'Social Impact of Blockchain Technology',
+                'proposed_supervisor_1' => 'Dr. Joseph Blue',
+                'proposed_supervisor_2' => 'Dr. Erica White',
+                'proposed_supervisor_3' => 'Dr. Nathan Black',
+                'effective_date' => Carbon::parse('2025-03-01'),
+                'reason_for_change' => 'Interest in blockchain applications.',
+                'student_id' => 18,
+            ],
+            [
+                'thesis_title' => 'Artificial Intelligence in Robotics',
+                'proposed_supervisor_1' => 'Dr. Matthew Green',
+                'proposed_supervisor_2' => 'Dr. Rebecca White',
+                'proposed_supervisor_3' => 'Dr. Daniel Brown',
+                'effective_date' => Carbon::parse('2025-03-10'),
+                'reason_for_change' => 'Focus on robotics and AI.',
+                'student_id' => 19,
+            ],
+            [
+                'thesis_title' => 'The Future of Urban Mobility',
+                'proposed_supervisor_1' => 'Dr. Kevin Blue',
+                'proposed_supervisor_2' => 'Dr. Victoria White',
+                'proposed_supervisor_3' => 'Dr. Brandon Black',
+                'effective_date' => Carbon::parse('2025-03-20'),
+                'reason_for_change' => 'Shifting focus to urban mobility studies.',
+                'student_id' => 20,
+            ],
+        ];
+
+        ChangeSupervisorRequest::insert($data);
+    }
+}
