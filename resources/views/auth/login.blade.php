@@ -11,7 +11,7 @@
       </p>
     @endif
 
-    <form method="POST" action="/users/authenticate">
+    <form method="POST" action="{{ url('/users/authenticate') }}">
       @csrf
 
       <div class="mb-6">

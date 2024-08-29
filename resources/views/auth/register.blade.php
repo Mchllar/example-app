@@ -7,7 +7,7 @@
                 </h2>
             </header>
             
-            <form method="POST" action="/users" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('users.store') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-6">

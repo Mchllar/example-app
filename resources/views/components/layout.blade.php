@@ -86,7 +86,7 @@
             <i class="fa-solid fa-bars"></i> <!-- Sidebar toggle button icon -->
         </button>
         <nav :class="{ 'hidden': !open, 'block': open }">
-            <a href="/"><img class="w-38" src="{{ asset('images/School-of-Graduate-Studies-logo.png') }}"
+            <a href="{{ url('/') }}"><img class="w-38" src="{{ asset('images/School-of-Graduate-Studies-logo.png') }}"
                     alt="Logo"></a>
                     <ul class="mt-6 space-y-4">
                         @auth
@@ -94,7 +94,7 @@
                             <span class="font-bold" style="color: black;"><i class="fas fa-user"></i> {{ auth()->user()->name }}</span>
                         </li>
                         <li class="font-bold">
-                            <form class="inline" method="POST" action="/logout">
+                            <form class="inline" method="POST" action="{{url('/logout')}}">
                                 @csrf
                                 <button type="logout">
                                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -104,7 +104,7 @@
                         @if(auth()->check())
                         @switch(auth()->user()->role_id)
                         @case(1) {{-- Student --}}
-                        <li class="font-bold"><a href="/"><i class="fas fa-home"> </i>Home</a></li>
+                        <li class="font-bold"><a href="{{ url('/') }}">  <i class="fas fa-home"> </i>Home</a></li>
                         <li class="font-bold"><a href="{{ route('changeSupervisor') }}"><i class="fas fa-user-graduate"> </i>Request Change of Supervisor</a></li>
                         <li class="font-bold"><a href="{{ route('progress_reports.index')}}"><i class="fas fa-chart-line"> </i>Submit Progress Report</a></li>
                         <li class="font-bold"><a href="{{ route('journal.index')}}"><i class="fas fa-book"> </i>Journal Publication</a></li>
@@ -116,7 +116,7 @@
                         <li class="font-bold"><a href="{{ route('notice.submission')}}"><i class="fas fa-sticky-note"> </i>Submit Notice Of Intent</a></li><br>
                         @break
                         @case(2) {{-- Supervisor --}}
-                        <li class="font-bold"><a href="/"><i class="fas fa-home"> </i>Home</a></li>
+                        <li class="font-bold"><a href="{{ url('/') }}"><i class="fas fa-home"> </i>Home</a></li>
                         <li class="font-bold"><a href="{{ route('thesis.index')}}"><i class="fas fa-check-circle"> </i>Approve Thesis</a></li>
                         <li class="font-bold"><a href="{{route('progress_reports.updateReport')}}"><i class="fas fa-chart-line"> </i>Update Progress
                                 Report</a></li>
@@ -124,7 +124,7 @@
                         <li class="font-bold"><a href="{{ route('academic_leave.view')}}"><i class="fas fa-file"> </i>Student Leave Requests</a></li>
                         @break
                         @case(3) {{-- Staff --}}
-                        <li class="font-bold"><a href="/"><i class="fas fa-home"> </i>Home</a></li>
+                        <li class="font-bold"><a href="{{ url('/') }}"><i class="fas fa-home"> </i>Home</a></li>
                         <li class="font-bold"><a href="/register" class="hover:text-laravel"><i class="fas fa-user-plus"> </i>
                                 Register New Users</a>
                         </li>
@@ -152,7 +152,7 @@
                                 Register</a>
                         </li>-->
                         <li>
-                            <a href="/login" class="hover:text-laravel"><i class="fas fa-arrow-right"></i>
+                            <a href="{{url('/login')}}" class="hover:text-laravel"><i class="fas fa-arrow-right"></i>
                                 Login</a>
                         </li>
                         @endauth

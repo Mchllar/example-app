@@ -8,7 +8,7 @@
                 <p class="mb-6">Enter OTP sent to your email</p>
             </header>
 
-            <form action="/verify-login-otp" method="POST">
+            <form action="{{ url('verify-login-otp') }}" method="POST">
                 @csrf
                 <label for="email" class="inline-block text-lg mb-2">Enter Your code:</label>
                 <input type="number" class="border border-gray-200 rounded p-2 w-full" id="otp" name="otp" required>

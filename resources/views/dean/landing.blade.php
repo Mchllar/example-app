@@ -62,7 +62,7 @@
             <div class="container mx-auto text-center">
                 <ul class="flex flex-wrap justify-center">
                     <li class="mx-4 my-2">
-                        <a href="/" class="font-bold hover:underline">Home</a>
+                        <a href="{{ url('/') }}" class="font-bold hover:underline">Home</a>
                     </li>
                     <li class="mx-4 my-2">
                         <a href="{{ route('reviewChangeSupervisorRequests') }}" class="font-bold hover:underline">View Change of Supervisor Requests</a>

@@ -62,10 +62,7 @@
             <div class="container mx-auto text-center">
                 <ul class="flex flex-wrap justify-center">
                     <li class="mx-4 my-2">
-                        <a href="/" class="font-bold hover:underline">Home</a>
-                    </li>
-                    <li class="mx-4 my-2">
-                        <a href="/register" class="font-bold hover:underline">Register new users</a>
+                        <a href="{{ url('/') }}" class="font-bold hover:underline">Home</a>
                     </li>
                     <li class="mx-4 my-2">
                         <a href="{{ route('users.index') }}" class="font-bold hover:underline">View All Users</a>                    </li>
